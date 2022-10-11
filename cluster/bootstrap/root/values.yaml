@@ -3,16 +3,19 @@ revision: main
 
 charts_repo: https://git.devmem.ru/api/packages/projects/helm
 
+projects:
+  - name: root
+  - name: plattform
+  - name: apps
+
 appsets:
   - name: bootstrap
     namespace: argocd
+    project: root
 #  - name: system
 #  - name: observability
 #    namespace: observability
 #  - name: platform
   - name: apps
-#    namespace: apps
+    project: apps
 
-projects:
-  - name: core
-  - name: apps
