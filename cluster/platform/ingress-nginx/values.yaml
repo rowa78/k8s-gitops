@@ -13,7 +13,7 @@ ingress-nginx:
       proxy-body-size: "100m"
       use-forwarded-headers: "true"
     metrics:
-      enabled: true
+      enabled: false
       serviceMonitor:
         enabled: true
     extraArgs:
