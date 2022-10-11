@@ -2,7 +2,7 @@ ingress-nginx:
   controller:
     ingressClass: nginx
     replicaCount: 3
-    kind: Deployment
+    kind: DaemonSet
     service:
       type: NodePort
       nodePorts:
