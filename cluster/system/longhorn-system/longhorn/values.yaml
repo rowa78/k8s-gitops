@@ -1,0 +1,4 @@
+longhorn:  
+  persistence:
+    defaultClassReplicaCount: 1
+    defaultClass: false
