@@ -310,7 +310,7 @@ configs:
 
     ## Server properties
     # -- Run server without TLS
-    server.insecure: false
+    server.insecure: true
     # -- Value for base href in index.html. Used if Argo CD is running behind reverse proxy under subpath different from /
     server.basehref: /
     # -- Used if Argo CD is running behind reverse proxy under subpath different from /
@@ -1359,20 +1359,23 @@ server:
 
   ingress:
     # -- Enable an ingress resource for the Argo CD server
-    enabled: false
+    enabled: true
     # -- Additional ingress annotations
-    annotations: {}
+    annotations: 
+      external-dns.alpha.kubernetes.io/hostname: "argocd.rwcloud.org"
+      external-dns.alpha.kubernetes.io/ttl: "120"        
+      external-dns.alpha.kubernetes.io/target: "lb.rwcloud.org" 
     # -- Additional ingress labels
     labels: {}
     # -- Defines which ingress controller will implement the resource
-    ingressClassName: ""
+    ingressClassName: "nginx"
 
     # -- List of ingress hosts
     ## Argo Ingress.
     ## Hostnames must be provided if Ingress is enabled.
     ## Secrets must be manually created in the namespace
     hosts:
-      []
+      - argocd.rwcloud.org
       # - argocd.example.com
 
     # -- List of ingress paths
@@ -1398,7 +1401,8 @@ server:
 
     # -- Ingress TLS configuration
     tls:
-      []
+      - hosts:
+        - argocd.rwcloud.org
       # - secretName: argocd-tls-certificate
       #   hosts:
       #     - argocd.example.com
