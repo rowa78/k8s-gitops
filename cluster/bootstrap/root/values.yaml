@@ -11,7 +11,7 @@ projects:
 appsets:
   - name: bootstrap
     namespace: argocd
-    project: root
+    project: default
 #  - name: system
 #  - name: observability
 #    namespace: observability
