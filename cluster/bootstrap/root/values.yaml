@@ -15,7 +15,7 @@ appsets:
 #  - name: system
 #  - name: observability
 #    namespace: observability
-#  - name: platform
+  - name: platform
 #  - name: apps
 #    project: apps
 
