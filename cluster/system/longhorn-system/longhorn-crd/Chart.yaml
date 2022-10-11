@@ -1,0 +1,7 @@
+name: longhorn
+apiVersion: v2
+version: 1.0.0
+dependencies:
+  - name: longhorn-crd
+    version: "100.2.2+up1.3.1"
+    repository: https://raw.githubusercontent.com/rancher/charts/release-v2.6
