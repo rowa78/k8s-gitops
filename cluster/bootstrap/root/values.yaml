@@ -6,6 +6,8 @@ charts_repo: https://git.devmem.ru/api/packages/projects/helm
 projects:
   - name: root
   - name: platform
+  - name: system
+  - name: monitoring
   - name: apps
 
 appsets:
@@ -13,8 +15,10 @@ appsets:
     namespace: argocd
     project: root
   - name: system
+    project: system
   - name: monitoring
     namespace: cattle-monitoring-system    
+    project: monitoring
   - name: platform
     project: platform
 #  - name: apps
