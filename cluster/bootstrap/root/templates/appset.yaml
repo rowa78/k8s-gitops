@@ -11,7 +11,7 @@ spec:
         repoURL: {{ $.Values.repo }}
         revision: {{ $.Values.revision }}
         directories:
-          - path: "cluster/{{ $appset.name }}/congif.json"
+          - path: "cluster/{{ $appset.name }}/config.json"
   template:
     metadata:
       name: {{ `"{{path.basename}}"` }}
