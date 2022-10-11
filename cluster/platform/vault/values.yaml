@@ -10,10 +10,7 @@ vault:
     ingress:
       enabled: true
       ingressClassName: nginx
-      annotations: 
-        external-dns.alpha.kubernetes.io/hostname: "vault.rwcloud.org"
-        external-dns.alpha.kubernetes.io/ttl: "120"        
-        external-dns.alpha.kubernetes.io/target: "lb.rwcloud.org" 
+      annotations: {}
       hosts:
         - host: vault.rwcloud.org
       tls:
