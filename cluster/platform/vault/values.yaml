@@ -10,12 +10,15 @@ vault:
     ingress:
       enabled: true
       ingressClassName: nginx
+      annotations: 
+        external-dns.alpha.kubernetes.io/hostname: "vault.rwcloud.org"
+        external-dns.alpha.kubernetes.io/ttl: "120"        
+        external-dns.alpha.kubernetes.io/target: "lb.rwcloud.org" 
       hosts:
         - host: vault.rwcloud.org
       tls:
         - hosts:
             - vault.rwcloud.org
-          secretName: null
     extraInitContainers:
       - name: vault-bootstrap
         image: ghcr.io/spirkaa/vault-bootstrap:latest
