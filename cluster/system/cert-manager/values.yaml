@@ -1,0 +1,17 @@
+cert-manager:
+  installCRDs: false
+  webhook:
+    enabled: true
+  extraArgs:
+  - --dns01-recursive-nameservers=1.1.1.1:53
+  - --dns01-recursive-nameservers-only
+  cainjector:
+    replicaCount: 1
+  podDnsPolicy: "None"
+  podDnsConfig:
+    nameservers:
+    - "1.1.1.1"      
+  prometheus:
+    enabled: true
+    servicemonitor:
+      enabled: true    
