@@ -17,9 +17,9 @@ spec:
     repoURL: https://kubernetes.github.io/ingress-nginx
     targetRevision: 4.3.0
     chart: ingress-nginx
-  helm:
-    valueFiles:
-      - values.yaml
+    helm:
+      valueFiles:
+        - values.yaml
   syncPolicy:
     automated:
       prune: true
