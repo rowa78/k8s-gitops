@@ -19,7 +19,7 @@ spec:
         argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
         argocd.argoproj.io/manifest-generate-paths: {{ `"{{path}}"` }}
     spec:
-      project: {{ $appset.name }}
+      project: {{ $appset.project }}
       source:
         repoURL: {{ $.Values.repo }}
         targetRevision: {{ $.Values.revision }}
