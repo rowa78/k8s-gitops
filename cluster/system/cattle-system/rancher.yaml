@@ -1,21 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kps
+  name: rancher
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "1"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  project: system
   source:
-    repoURL: https://git.devmem.ru/projects/infra
+    repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/observability/kube-prometheus-stack/kps
+    path: cluster/system/cattle-system/rancher
   destination:
     name: in-cluster
-    namespace: observability
+    namespace: cattle-system
   syncPolicy:
     automated:
       prune: true

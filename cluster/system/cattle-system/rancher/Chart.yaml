@@ -1,7 +1,7 @@
 name: rancher
 apiVersion: v2
-version: 2.6.8
+version: 1.0.0
 dependencies:
   - name: rancher
-    version: "4.3.0"
+    version: "2.6.8"
     repository: https://releases.rancher.com/server-charts/stable
