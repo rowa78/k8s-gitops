@@ -11,7 +11,7 @@ external-dns:
   provider: cloudflare
   cloudflare:
     secretName: cloudflare-api-key-external-dns    
-    proxied: false
+    proxied: true
   policy: sync
   txtPrefix: "k8s."
   domainFilters:
