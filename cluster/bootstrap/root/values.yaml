@@ -5,7 +5,7 @@ charts_repo: https://git.devmem.ru/api/packages/projects/helm
 
 projects:
   - name: root
-  - name: plattform
+  - name: platform
   - name: apps
 
 appsets:
@@ -16,6 +16,7 @@ appsets:
 #  - name: observability
 #    namespace: observability
   - name: platform
+    project: platform
 #  - name: apps
 #    project: apps
 
