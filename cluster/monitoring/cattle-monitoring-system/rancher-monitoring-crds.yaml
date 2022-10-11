@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rancher-monitoring-crds
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: system
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/monitoring/cattle-monitoring-system/rancher-monitoring-crds
+  destination:
+    name: in-cluster
+    namespace: cattle-monitoring-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

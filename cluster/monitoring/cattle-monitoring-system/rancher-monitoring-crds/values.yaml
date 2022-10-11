@@ -1,0 +1,13 @@
+rancher:
+  replicas: 2
+  hostname: "rancher.rwcloud.org"
+  ingress:
+    extraAnnotations:
+      external-dns.alpha.kubernetes.io/hostname: "rancher.rwcloud.org"
+      external-dns.alpha.kubernetes.io/ttl: "120"        
+      external-dns.alpha.kubernetes.io/target: "rancher.rwcloud.org" 
+      kubernetes.io/ingress.class: "nginx"
+      hajimari.io/enable: "true"
+      hajimari.io/icon: "kubernetes"
+    tls:
+      source: secret
