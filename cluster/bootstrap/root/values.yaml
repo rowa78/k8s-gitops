@@ -16,8 +16,7 @@ appsets:
     project: root
   - name: system
     project: system
-  - name: monitoring
-    namespace: cattle-monitoring-system    
+  - name: monitoring    
     project: monitoring
   - name: platform
     project: platform
