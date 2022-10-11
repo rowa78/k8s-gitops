@@ -1,0 +1,137 @@
+kube-prometheus-stack:
+  fullnameOverride: kps
+  alertmanager:
+    externalUrl: https://alertmanager.k8s.devmem.ru
+    fullnameOverride: alertmanager
+    alertmanagerSpec:
+      storage:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: longhorn
+            resources:
+              requests:
+                storage: 1Gi
+      useExistingSecret: true
+      configSecret: alertmanager-config
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - &host alertmanager.k8s.devmem.ru
+      tls:
+        - hosts:
+            - *host
+          secretName: null
+  grafana:
+    fullnameOverride: grafana
+    defaultDashboardsTimezone: Europe/Moscow
+    persistence:
+      enabled: true
+      type: statefulset
+      storageClassName: longhorn
+      size: 1Gi
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - &host grafana.devmem.ru
+      tls:
+        - hosts:
+            - *host
+          secretName: null
+    sidecar:
+      datasources:
+        enabled: true
+        searchNamespace: ALL
+      dashboards:
+        enabled: true
+        searchNamespace: ALL
+        folderAnnotation: grafana_folder
+        provider:
+          foldersFromFilesStructure: true
+          disableDeletion: true
+          allowUiUpdates: true
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+          - name: "default"
+            orgId: 1
+            folder: ""
+            type: file
+            disableDeletion: true
+            allowUiUpdates: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+    dashboards:
+      default:
+        longhorn:
+          url: https://grafana.com/api/dashboards/13032/revisions/6/download
+          datasource: Prometheus
+        node-exporter-full:
+          url: https://grafana.com/api/dashboards/1860/revisions/22/download
+          datasource: Prometheus
+        ingress-nginx:
+          url: https://grafana.com/api/dashboards/9614/revisions/1/download
+          datasource: Prometheus
+        ingress-nginx-nextgen:
+          url: https://grafana.com/api/dashboards/14314/revisions/2/download
+          datasource: Prometheus
+        ingress-nginx-loki:
+          url: https://grafana.com/api/dashboards/12559/revisions/11/download
+        argocd:
+          url: https://raw.githubusercontent.com/argoproj/argo-cd/master/examples/dashboard.json
+    grafana.ini:
+      analytics:
+        check_for_updates: false
+      server:
+        root_url: https://grafana.devmem.ru
+        enable_gzip: true
+      auth.ldap:
+        enabled: true
+        allow_sign_up: true
+        config_file: /etc/grafana/ldap.toml
+    ldap:
+      enabled: true
+      existingSecret: grafana
+    admin:
+      existingSecret: grafana
+    envFromSecret: grafana-smtp
+  prometheus:
+    fullnameOverride: prometheus
+    prometheusSpec:
+      externalUrl: https://prometheus.k8s.devmem.ru
+      ruleSelectorNilUsesHelmValues: false
+      serviceMonitorSelectorNilUsesHelmValues: false
+      podMonitorSelectorNilUsesHelmValues: false
+      probeSelectorNilUsesHelmValues: false
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: longhorn
+            resources:
+              requests:
+                storage: 25Gi
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - &host prometheus.k8s.devmem.ru
+      tls:
+        - hosts:
+            - *host
+          secretName: null
+  prometheusOperator:
+    fullnameOverride: prometheus-operator
+  prometheus-node-exporter:
+    fullnameOverride: node-exporter
+  kube-state-metrics:
+    fullnameOverride: kube-state-metrics
+  kubeEtcd:
+    service:
+      port: 2381
+      targetPort: 2381
+alertmanagernotifier:
+  name: alertmanager-notifier
+  image: ghcr.io/ix-ai/alertmanager-notifier:v0.4.4
+  port: 8899

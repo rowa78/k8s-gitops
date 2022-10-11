@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kps
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://git.devmem.ru/projects/infra
+    targetRevision: main
+    path: cluster/observability/kube-prometheus-stack/kps
+  destination:
+    name: in-cluster
+    namespace: observability
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

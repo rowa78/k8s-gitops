@@ -1,0 +1,28 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    email: cert-manager@devmem.ru
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-prod-account-key
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
+      - dns01:
+          webhook:
+            groupName: acme.selectel.ru
+            solverName: selectel
+            config:
+              apiKeySecretRef:
+                name: selectel-api-key
+                key: api-key
+        selector:
+          dnsZones:
+            - "devmem.ru"
+            - "home.devmem.ru"
+            - "k8s.devmem.ru"
+            - "tele.devmem.ru"
