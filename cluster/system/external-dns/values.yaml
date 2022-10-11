@@ -1,0 +1,32 @@
+---
+external-dns:
+  repository: bitnami/external-dns
+  tag: 0.10.1-debian-10-r0
+  nameOverride: external-dns
+  interval: "5m"
+  triggerLoopOnEvent: true
+  logLevel: info
+  sources:
+    - ingress
+  provider: cloudflare
+  cloudflare:
+    secretName: cloudflare-api-key-external-dns    
+    proxied: false
+  policy: sync
+  txtPrefix: "k8s."
+  domainFilters:
+    - "rwcloud.org"
+    - "ronnywalter.de"
+  crd:
+    create: false
+    apiversion: externaldns.k8s.io/v1alpha1
+    kind: DNSEndpoint
+  nodeSelector: 
+    kubernetes.io/arch: amd64
+
+  resources:
+    requests:
+      memory: 100Mi
+      cpu: 25m
+    limits:
+      memory: 250Mi
