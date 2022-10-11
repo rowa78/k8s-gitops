@@ -11,7 +11,7 @@ spec:
         repoURL: {{ $.Values.repo }}
         revision: {{ $.Values.revision }}
         directories:
-          - path: "cluster/{{ $appset.name }}/*"
+          - path: "cluster/{{ $appset.name }}/congif.json"
   template:
     metadata:
       name: {{ `"{{path.basename}}"` }}
@@ -26,7 +26,7 @@ spec:
         path: {{ `"{{path}}"` }}
       destination:
         name: in-cluster
-        namespace: {{ default `"{{path.basename}}"` $appset.namespace }}
+        namespace: {{{{ default `{{ namespace }}` $appset.namespace}} }}
       syncPolicy:
         automated:
           prune: true
