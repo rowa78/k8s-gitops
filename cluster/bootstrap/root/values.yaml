@@ -12,3 +12,7 @@ appsets:
 #  - name: platform
   - name: apps
 #    namespace: apps
+
+projects:
+  - name: core
+  - name: apps
