@@ -1,5 +1,0 @@
-reloader:
-  fullnameOverride: reloader
-  reloader:
-    podMonitor:
-      enabled: true

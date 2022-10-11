@@ -12,9 +12,9 @@ appsets:
   - name: bootstrap
     namespace: argocd
     project: root
-#  - name: system
-#  - name: observability
-#    namespace: observability
+  - name: system
+  - name: monitoring
+    namespace: cattle-monitoring-system    
   - name: platform
     project: platform
 #  - name: apps
