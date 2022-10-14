@@ -1,2 +1,5 @@
 plugin:
   name: kustomized-helm
+  env:
+    - name: HELM_ARGS
+      value: "--api-versions apiregistration.k8s.io/v1"
