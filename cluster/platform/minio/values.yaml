@@ -1,5 +1,9 @@
 minio:
   mode: standalone
+
+  nodeSelector:
+    kubernetes.io/arch: amd64
+
   ## MinIO&reg; authentication parameters
   ##
   auth:    
