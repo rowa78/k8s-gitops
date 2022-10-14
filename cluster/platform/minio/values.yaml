@@ -262,8 +262,12 @@ minio:
   ## List of buckets to be created after minio install
   ##
   buckets:
-    - loki
-    - thanos
+    - name: loki
+      policy: none
+      purge: false    
+    - name: thanos
+      policy: none
+      purge: false
     #   # Name of the bucket
     # - name: bucket1
     #   # Policy to be set on the
