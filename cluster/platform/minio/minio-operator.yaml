@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/plattform/minio/minio-operator
+    path: cluster/platform/minio/minio-operator
   destination:
     name: in-cluster
     namespace: minio
