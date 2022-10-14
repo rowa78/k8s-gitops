@@ -1,0 +1,31 @@
+minio-operator:
+  # Default values for minio-operator.
+
+  operator:    
+    replicaCount: 1    
+
+  console:
+    image:
+      repository: minio/console
+      tag: v0.20.5
+      pullPolicy: IfNotPresent
+    imagePullSecrets: [ ]
+    initcontainers: [ ]
+    replicaCount: 1
+    nodeSelector: { }
+    affinity: { }
+    tolerations: [ ]
+    topologySpreadConstraints: [ ]
+    resources: { }
+    securityContext:
+      runAsUser: 1000
+      runAsNonRoot: true
+    ingress:
+      enabled: true
+      ingressClassName: "nginx"
+      tls:
+        - hosts:
+            - minio-operator.rwcloud.org  
+      host: minio-operator.rwcloud.org
+      path: /
+      pathType: Prefix    
