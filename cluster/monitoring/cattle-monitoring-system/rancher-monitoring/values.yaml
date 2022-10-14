@@ -110,14 +110,7 @@ rancher-monitoring:
             storageClassName: longhorn
             resources:
               requests:
-                storage: 25Gi
-      additionalScrapeConfigs: 
-        - job_name: minio-job
-          bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQ4MTkzODMzMTYsImlzcyI6InByb21ldGhldXMiLCJzdWIiOiJtaW5pbyJ9.ihnVh_EJ5DK4Me5kzDujql_ULBid75UqeGVWeH66qzc5Je9gbkJOvy47hk1DdDxCrasHrshlF445gfST_O6N_Q
-          metrics_path: /minio/v2/metrics/cluster
-          scheme: https
-          static_configs:
-          - targets: [minio.rwcloud.org]
+                storage: 25Gi      
     ingress:
       enabled: true
       ingressClassName: nginx
