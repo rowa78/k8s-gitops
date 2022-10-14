@@ -75,7 +75,7 @@ minio:
 
   ingress:
     enabled: true
-    # ingressClassName: ""
+    ingressClassName: "nginx"
     labels: {}
       # node-role.kubernetes.io/ingress: platform
 
@@ -107,7 +107,7 @@ minio:
 
   consoleIngress:
     enabled: true
-    # ingressClassName: ""
+    ingressClassName: "nginx"
     labels: {}
       # node-role.kubernetes.io/ingress: platform
 
