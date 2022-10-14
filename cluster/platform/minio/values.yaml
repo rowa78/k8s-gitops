@@ -384,7 +384,7 @@ minio:
     serviceMonitor:
       enabled: true
       # scrape each node/pod individually for additional metrics
-      includeNode: true
+      includeNode: false
       public: true
       additionalLabels: {}
       # for node metrics
