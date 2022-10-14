@@ -21,7 +21,7 @@ minio-operator:
       runAsUser: 1000
       runAsNonRoot: true
     ingress:
-      enabled: true
+      enabled: false
       ingressClassName: "nginx"
       tls:
         - hosts:
