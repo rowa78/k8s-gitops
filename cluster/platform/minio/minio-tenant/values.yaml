@@ -214,7 +214,7 @@ tenant:
       sidecarimage: "" # defaults to alpine
       initimage: "" # defaults to busybox:1.33.1
       diskCapacityGB: 1
-      storageClassName: standard
+      storageClassName: longhorn
       annotations: { }
       labels: { }
       nodeSelector: { }
@@ -253,7 +253,7 @@ tenant:
         volumeClaimTemplate:
           metadata: { }
           spec:
-            storageClassName: standard
+            storageClassName: longhorn
             accessModes:
               - ReadWriteOnce
             resources:
