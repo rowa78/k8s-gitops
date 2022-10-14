@@ -26,6 +26,7 @@ minio-operator:
       tls:
         - hosts:
             - minio-operator.rwcloud.org  
+          secretName: dummy
       host: minio-operator.rwcloud.org
       path: /
       pathType: Prefix    
