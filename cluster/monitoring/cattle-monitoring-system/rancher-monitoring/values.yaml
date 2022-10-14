@@ -86,13 +86,13 @@ rancher-monitoring:
       server:
         root_url: https://grafana.rwcloud.org
         enable_gzip: true
-      auth.ldap:
-        enabled: true
-        allow_sign_up: true
-        config_file: /etc/grafana/ldap.toml
-    ldap:
-      enabled: true
-      existingSecret: grafana
+#      auth.ldap:
+#        enabled: true
+#        allow_sign_up: true
+#        config_file: /etc/grafana/ldap.toml
+#    ldap:
+#      enabled: true
+#      existingSecret: grafana
     admin:
       existingSecret: grafana
     envFromSecret: grafana-smtp
