@@ -1,4 +1,4 @@
-minio-operator:
+operator:
   # Default values for minio-operator.
 
   operator:    
@@ -33,3 +33,4 @@ minio-operator:
 
   ## MinIO Tenant Definition
   tenants: {}    
+
