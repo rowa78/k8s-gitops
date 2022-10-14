@@ -143,7 +143,7 @@ argo-cd:
 #        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 #        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       ingressClassName: nginx
-      https: true
+#      https: true
       hosts:
         - argocd.rwcloud.org
       tls:
