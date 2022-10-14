@@ -92,8 +92,7 @@ minio:
       - minio.rwcloud.org
     tls: 
       - hosts: 
-          - minio.rwcloud.org
-        secretName: null
+          - minio.rwcloud.org        
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
@@ -123,8 +122,7 @@ minio:
       - minio-console.rwcloud.org
     tls: 
       - hosts: 
-          - minio-console.rwcloud.org
-        secretName: null
+          - minio-console.rwcloud.org        
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
