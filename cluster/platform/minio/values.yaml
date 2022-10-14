@@ -15,7 +15,7 @@ minio:
   ## e.g:
   ## defaultBuckets: "my-bucket, my-second-bucket"
   ##
-  defaultBuckets: "loki, thanos"
+  defaultBuckets: "loki, thanos, foo"
   ## @param disableWebUI Disable MinIO&reg; Web UI
   ## ref: https://github.com/minio/minio/tree/master/docs/config/#browser
   ##
@@ -23,6 +23,9 @@ minio:
   ## MinIO&reg; provisioning
   ##
   provisioning:    
+      ## @param provisioning.enabled Enable MinIO&reg; provisioning Job
+    ##
+    enabled: true
     ## @param provisioning.users MinIO&reg; users provisioning. Can be used in addition to provisioning.usersExistingSecrets.
     ## https://docs.min.io/docs/minio-admin-complete-guide.html#user
     ## e.g.
