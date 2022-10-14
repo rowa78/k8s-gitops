@@ -23,7 +23,7 @@ rancher-monitoring:
           secretName: null
   grafana:
     fullnameOverride: grafana
-    defaultDashboardsTimezone: Europe/Moscow
+    defaultDashboardsTimezone: Europe/Berlin
     persistence:
       enabled: true
       type: statefulset
