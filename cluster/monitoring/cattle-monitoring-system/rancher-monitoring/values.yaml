@@ -96,6 +96,8 @@ rancher-monitoring:
     admin:
       existingSecret: grafana
     envFromSecret: grafana-smtp
+    plugins: 
+      - geomap
   prometheus:
     fullnameOverride: prometheus
     prometheusSpec:
