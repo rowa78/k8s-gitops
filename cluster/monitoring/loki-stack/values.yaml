@@ -1,0 +1,32 @@
+loki-stack:
+  loki:
+    fullnameOverride: loki
+    isDefault: false
+    config:
+      existingSecret: loki
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+#      annotations:
+#        kubernetes.io/tls-acme: "true"
+      hosts:
+        - host: &host loki.rwcloud.org
+          paths:
+            - /
+      tls:
+        - hosts:
+            - *host
+          secretName: null
+    persistence:
+      enabled: true
+      storageClassName: longhorn
+      size: 10Gi
+    serviceMonitor:
+      enabled: true
+  promtail:
+    fullnameOverride: promtail
+    config:
+      clients:
+        - url: http://loki:3100/loki/api/v1/push
+    serviceMonitor:
+      enabled: true
