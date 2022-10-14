@@ -1,54 +1,267 @@
 argo-cd:
-  ## Server
-  server:
-    extraArgs:
-      - --insecure     
-    ingress:
-      # -- Enable an ingress resource for the Argo CD server
+  repoServer:
+    serviceAccount:
+      create: true
+      name: argocd-repo-server
+      automountServiceAccountToken: true
+    volumeMounts:
+      - name: custom-tools
+        mountPath: /usr/local/bin/argocd-lovely-plugin
+        subPath: argocd-lovely-plugin
+      - name: custom-tools
+        mountPath: /usr/local/bin/argocd-vault-plugin
+        subPath: argocd-vault-plugin
+    volumes:
+      - name: custom-tools
+        emptyDir: {}
+    initContainers:
+      - name: argocd-lovely-plugin-download
+        image: ghcr.io/crumbhole/argocd-lovely-plugin:0.6.4
+        imagePullPolicy: Always
+        volumeMounts:
+          - mountPath: /custom-tools
+            name: custom-tools
+      - name: download-tools
+        image: alpine:3.16
+        command: [sh, -c]
+        env:
+          - name: AVP_VERSION
+            # renovate: depName=argoproj-labs/argocd-vault-plugin
+            value: "v1.13.0"
+        args:
+          - >-
+            set -eux &&
+            wget -O argocd-vault-plugin
+            https://github.com/argoproj-labs/argocd-vault-plugin/releases/download/${AVP_VERSION}/argocd-vault-plugin_${AVP_VERSION:1}_linux_amd64 &&
+            chmod +x argocd-vault-plugin &&
+            mv argocd-vault-plugin /custom-tools/
+        volumeMounts:
+          - mountPath: /custom-tools
+            name: custom-tools
+    env:
+      - name: VAULT_ADDR
+        value: http://vault.vault:8200
+      - name: AVP_TYPE
+        value: vault
+      - name: AVP_AUTH_TYPE
+        value: k8s
+      - name: AVP_K8S_ROLE
+        value: argocd-repo-server
+    metrics:
       enabled: true
-      # -- Additional ingress annotations
-      annotations: {}
-      # -- Additional ingress labels
-      labels: {}
-      # -- Defines which ingress controller will implement the resource
-      ingressClassName: "nginx"
-
-      # -- List of ingress hosts
-      ## Argo Ingress.
-      ## Hostnames must be provided if Ingress is enabled.
-      ## Secrets must be manually created in the namespace
+      serviceMonitor:
+        enabled: true
+  server:
+    config:
+      url: https://argocd.rwcloud.org
+#      admin.enabled: "false"
+#      oidc.config: |
+#        name: Dex
+#        issuer: https://dex.auth.devmem.ru
+#        clientID: argocd
+#        clientSecret: $oidc.dex.clientSecret
+      configManagementPlugins: |
+        - name: argocd-lovely-plugin
+          generate:
+            command: ["argocd-lovely-plugin"]
+        - name: argocd-vault-plugin-helm
+          init:
+            command: ["sh", "-c"]
+            args: ["helm dependency build || true"]
+          generate:
+            command: ["sh", "-c"]
+            args: ["echo \"$ARGOCD_ENV_HELM_VALUES\" | helm template . --name-template $ARGOCD_APP_NAME --namespace $ARGOCD_APP_NAMESPACE $ARGOCD_ENV_HELM_ARGS -f - | argocd-vault-plugin generate -"]
+        - name: argocd-vault-plugin-kustomized-helm
+          init:
+            command: ["sh", "-c"]
+            args: ["helm dependency build || true"]
+          generate:
+            command: ["sh", "-c"]
+            args: ["echo \"$ARGOCD_ENV_HELM_VALUES\" | helm template . --name-template $ARGOCD_APP_NAME --namespace $ARGOCD_APP_NAMESPACE $ARGOCD_ENV_HELM_ARGS -f - > all.yaml && kustomize build | argocd-vault-plugin generate -"]
+        - name: kustomized-helm
+          init:
+            command: ["sh", "-c"]
+            args: ["helm dependency build || true"]
+          generate:
+            command: ["sh", "-c"]
+            args: ["echo \"$ARGOCD_ENV_HELM_VALUES\" | helm template . --name-template $ARGOCD_APP_NAME --namespace $ARGOCD_APP_NAMESPACE $ARGOCD_ENV_HELM_ARGS -f - > all.yaml && kustomize build"]
+        - name: helm
+          init:
+            command: ["sh", "-c"]
+            args: ["helm dependency build || true"]
+          generate:
+            command: ["sh", "-c"]
+            args: ["echo \"$ARGOCD_ENV_HELM_VALUES\" | helm template . --name-template $ARGOCD_APP_NAME --namespace $ARGOCD_APP_NAMESPACE $ARGOCD_ENV_HELM_ARGS -f -"]
+        - name: kustomize
+          generate:
+            command: ["sh", "-c"]
+            args: ["kustomize build ."]
+      statusbadge.enabled: "true"
+      server.rbac.log.enforce.enable: "true"
+      exec.enabled: "true"
+      resource.customizations.health.argoproj.io_Application: |
+        hs = {}
+        hs.status = "Progressing"
+        hs.message = ""
+        if obj.status ~= nil then
+          if obj.status.health ~= nil then
+            hs.status = obj.status.health.status
+            if obj.status.health.message ~= nil then
+              hs.message = obj.status.health.message
+            end
+          end
+        end
+        return hs
+      resource.customizations.actions.external-secrets.io_ExternalSecret: |
+        discovery.lua: |
+          actions = {}
+          actions["trigger secret refresh"] = {}
+          return actions
+        definitions:
+          - name: trigger secret refresh
+            action.lua: |
+              local os = require("os")
+              if obj.metadata == nil then
+                obj.metadata = {}
+              end
+              if obj.metadata.annotations == nil then
+                obj.metadata.annotations = {}
+              end
+              obj.metadata.annotations["force-sync"] = tostring(os.time(os.date("!*t")))
+              return obj
+      resource.customizations.ignoreDifferences.apiextensions.k8s.io_CustomResourceDefinition: |
+        jqPathExpressions:
+          - '.spec.conversion.webhook.clientConfig.caBundle'
+          - '.spec.versions[]?.additionalPrinterColumns[]?.priority | select(. == 0)'
+    rbacConfig:
+      policy.csv: |
+        g, argocd_admins, role:admin
+    ingress:
+      enabled: true
+#      annotations:
+#        cert-manager.io/cluster-issuer: letsencrypt-prod
+#        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+#        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      ingressClassName: nginx
+      https: true
       hosts:
-        - argocd.rwcloud.org
-        # - argocd.example.com
-
-      # -- List of ingress paths
-      paths:
-        - /
-      # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
-      pathType: Prefix
-      # -- Additional ingress paths
-      extraPaths:
-        []
-        # - path: /*
-        #   backend:
-        #     serviceName: ssl-redirect
-        #     servicePort: use-annotation
-        ## for Kubernetes >=1.19 (when "networking.k8s.io/v1" is used)
-        # - path: /*
-        #   pathType: Prefix
-        #   backend:
-        #     service:
-        #       name: ssl-redirect
-        #       port:
-        #         name: use-annotation
-
-      # -- Ingress TLS configuration
+        - argocd.k8s.devmem.ru
       tls:
         - hosts:
-          - argocd.rwcloud.org
-        # - secretName: argocd-tls-certificate
-        #   hosts:
-        #     - argocd.example.com
+            - argocd.k8s.devmem.ru
+          secretName: argocd-server-tls
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+  controller:
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+  applicationSet:
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+  notifications:
+    argocdUrl: https://argocd.rwcloud.org
+    secret:
+      create: false
+    notifiers:
+      service.email: |
+        host: $email-host
+        port: 587
+        username: $email-username
+        password: $email-password
+        from: $email-username
+      service.grafana: |
+        apiUrl: http://grafana.observability/api
+        apiKey: $grafana-api-key
+    subscriptions:
+      - recipients:
+          - email:argocd@devmem.ru
+        triggers:
+          - on-deployed
+          - on-health-degraded
+          - on-sync-failed
+    templates:
+      template.app-deployed: |
+        email:
+          subject: New version of an application {{.app.metadata.name}} is up and running.
+        message: |
+          Application {{.app.metadata.name}} is now running new version of deployments manifests.
+      template.app-health-degraded: |
+        email:
+          subject: Application {{.app.metadata.name}} is unhealthy with status '{{.app.status.health.status}}'.
+        message: |
+          Application {{.app.metadata.name}} is unhealthy.
+          Application details: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}.
+      template.app-sync-failed: |
+        email:
+          subject: Failed to sync application {{.app.metadata.name}}.
+        message: |
+          The sync operation of application {{.app.metadata.name}} has failed at {{.app.status.operationState.finishedAt}} with the following error: {{.app.status.operationState.message}}
+          Sync operation details are available at: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true .
+      template.app-sync-running: |
+        email:
+          subject: Start syncing application {{.app.metadata.name}}.
+        message: |
+          The sync operation of application {{.app.metadata.name}} has started at {{.app.status.operationState.startedAt}}.
+          Sync operation details are available at: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true .
+      template.app-sync-status-unknown: |
+        email:
+          subject: Application {{.app.metadata.name}} sync status is 'Unknown'
+        message: |
+          Application {{.app.metadata.name}} sync is 'Unknown'.
+          Application details: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}.
+          {{range $c := .app.status.conditions}}
+              * {{$c.message}}
+          {{end}}
+      template.app-sync-succeeded: |
+        email:
+          subject: Application {{.app.metadata.name}} has been successfully synced.
+        message: |
+          Application {{.app.metadata.name}} has been successfully synced at {{.app.status.operationState.finishedAt}}.
+          Sync operation details are available at: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true .
+    triggers:
+      trigger.on-deployed: |
+        - description: Application is synced and healthy. Triggered once per commit.
+          oncePer: app.status.operationState.syncResult.revision
+          send:
+            - app-deployed
+          when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy' and app.status.sync.status == 'Synced' and time.Now().Sub(time.Parse(app.status.operationState.finishedAt)).Minutes() <= 5
+      trigger.on-health-degraded: |
+        - description: Application is unhealthy
+          send:
+            - app-health-degraded
+          when: app.status.health.status in ['Unknown', 'Suspended', 'Degraded', 'Missing']
+      trigger.on-sync-failed: |
+        - description: Application syncing has failed
+          send:
+            - app-sync-failed
+          when: app.status.operationState.phase in ['Error', 'Failed']
+      trigger.on-sync-running: |
+        - description: Application is being synced
+          send:
+            - app-sync-running
+          when: app.status.operationState.phase in ['Running']
+      trigger.on-sync-status-unknown: |
+        - description: Application sync status is 'Unknown'
+          send:
+            - app-sync-status-unknown
+          when: app.status.sync.status == 'Unknown'
+      trigger.on-sync-succeeded: |
+        - description: Application syncing has succeeded
+          send:
+            - app-sync-succeeded
+          when: app.status.operationState.phase in ['Succeeded']
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+  dex:
+    enabled: false
 
-      # -- Uses `server.service.servicePortHttps` instead `server.service.servicePortHttp`
-      https: false
+externalsecret: true
+
