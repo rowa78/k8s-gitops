@@ -179,7 +179,7 @@ argo-cd:
         apiKey: $grafana-api-key
     subscriptions:
       - recipients:
-          - email:argocd@devmem.ru
+          - email:mail@rwcloud.org
         triggers:
           - on-deployed
           - on-health-degraded
