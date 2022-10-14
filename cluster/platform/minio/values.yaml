@@ -228,9 +228,10 @@ minio:
     ## Add new policies as explained here https://docs.min.io/docs/minio-multi-user-quickstart-guide.html
     ## NOTE: this will fail if LDAP is enabled in your MinIO deployment
     ## make sure to disable this if you are using LDAP.
-    - accessKey: console
-      secretKey: console123
-      policy: consoleAdmin
+    - accessKey: minio
+      secretKey: minio-users
+      policy: readwrite
+      existingSecretKey: password
     # Or you can refer to specific secret
     #- accessKey: externalSecret
     #  existingSecret: my-secret
@@ -261,6 +262,8 @@ minio:
   ## List of buckets to be created after minio install
   ##
   buckets:
+    - loki
+    - thanos
     #   # Name of the bucket
     # - name: bucket1
     #   # Policy to be set on the
