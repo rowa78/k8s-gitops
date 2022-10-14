@@ -1,0 +1,395 @@
+minio:
+  mode: standalone
+  ## MinIO&reg; authentication parameters
+  ##
+  auth:    
+    ## @param auth.existingSecret Use existing secret for credentials details (`auth.rootUser` and `auth.rootPassword` will be ignored and picked up from this secret). The secret has to contain the keys `root-user` and `root-password`)
+    ##
+    existingSecret: "minio-root-user"
+    
+  ## @param defaultBuckets Comma, semi-colon or space separated list of buckets to create at initialization (only in standalone mode)
+  ## e.g:
+  ## defaultBuckets: "my-bucket, my-second-bucket"
+  ##
+  defaultBuckets: "loki, thanos"
+  ## @param disableWebUI Disable MinIO&reg; Web UI
+  ## ref: https://github.com/minio/minio/tree/master/docs/config/#browser
+  ##
+  
+  ## MinIO&reg; provisioning
+  ##
+  provisioning:    
+    ## @param provisioning.users MinIO&reg; users provisioning. Can be used in addition to provisioning.usersExistingSecrets.
+    ## https://docs.min.io/docs/minio-admin-complete-guide.html#user
+    ## e.g.
+    ## users:
+    ##   - username: test-username
+    ##     password: test-password
+    ##     disabled: false
+    ##     policies:
+    ##       - readwrite
+    ##       - consoleAdmin
+    ##       - diagnostics
+    ##     # When set to true, it will replace all policies with the specified.
+    ##     # When false, the policies will be added to the existing.
+    ##     setPolicies: false
+    #users:
+    #  - username: ${MINIO_ACCESS_KEY}
+    #    password: ${MINIO_SECRET_KEY}
+    #    disabled: false
+    #    policies:
+    #      - readwrite
+    #      - consoleAdmin
+    #      - diagnostics
+        # When set to true, it will replace all policies with the specified.
+        # When false, the policies will be added to the existing.
+        setPolicies: false
+    ## @param provisioning.usersExistingSecrets Array if existing secrets containing MinIO&reg; users to be provisioned. Can be used in addition to provisioning.users.
+    ## https://docs.min.io/docs/minio-admin-complete-guide.html#user
+    ##
+    ## Instead of configuring users inside values.yaml, referring to existing Kubernetes secrets containing user
+    ## configurations is possible.
+    ## e.g.
+    ## usersExistingSecrets:
+    ##   - centralized-minio-users
+    ##
+    ## All provided Kubernetes secrets require a specific data structure. The same data from the provisioning.users example above
+    ##  can be defined via secrets with the following data structure. The secret keys have no meaning to the provisioning job except that
+    ## they are used as filenames.
+    ##   ## apiVersion: v1
+    ##   ## kind: Secret
+    ##   ## metadata:
+    ##   ##   name: centralized-minio-users
+    ##   ## type: Opaque
+    ##   ## stringData:
+    ##   ##   username1: |
+    ##   ##     username=test-username
+    ##   ##     password=test-password
+    ##   ##     disabled=false
+    ##   ##     policies=readwrite,consoleAdmin,diagnostics
+    ##   ##     setPolicies=false
+    usersExistingSecrets: 
+      - minio-users
+    
+  ingress:
+    ## @param ingress.enabled Enable ingress controller resource for MinIO Console
+    ##
+    enabled: true
+    ## @param ingress.apiVersion Force Ingress API version (automatically detected if not set)
+    ##
+    apiVersion: ""
+    ## @param ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
+    ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster.
+    ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
+    ##
+    ingressClassName: "nginx"
+    ## @param ingress.hostname Default host for the ingress resource
+    ##
+    hostname: minioconsole.rwcloud.org
+    ## @param ingress.path The Path to MinIO&reg;. You may need to set this to '/*' in order to use this with ALB ingress controllers.
+    ##
+    path: /
+    ## @param ingress.pathType Ingress path type
+    ##
+    pathType: ImplementationSpecific
+    ## @param ingress.servicePort Service port to be used
+    ## Default is http. Alternative is https.
+    ##
+    servicePort: minio-console
+    ## @param ingress.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
+    ## For a full list of possible ingress annotations, please see
+    ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
+    ## Use this parameter to set the required annotations for cert-manager, see
+    ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
+    ##
+    ## e.g:
+    ## annotations:
+    ##   kubernetes.io/ingress.class: nginx
+    ##   cert-manager.io/cluster-issuer: cluster-issuer-name
+    ##
+    annotations: {}      
+      #nginx.ingress.kubernetes.io/auth-url: "https://auth.${SECRET_DOMAIN_2}/oauth2/auth"
+      #nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN_2}/oauth2/start
+    ## @param ingress.tls Enable TLS configuration for the hostname defined at `ingress.hostname` parameter
+    ## TLS certificates will be retrieved from a TLS secret with name: `{{- printf "%s-tls" .Values.ingress.hostname }}`
+    ## You can:
+    ##   - Use the `ingress.secrets` parameter to create this TLS secret
+    ##   - Rely on cert-manager to create it by setting the corresponding annotations
+    ##   - Rely on Helm to create self-signed certificates by setting `ingress.selfSigned=true`
+    ##
+    tls: true
+    ## @param ingress.selfSigned Create a TLS secret for this ingress record using self-signed certificates generated by Helm
+    ##
+    selfSigned: false
+    ## @param ingress.extraHosts The list of additional hostnames to be covered with this ingress record.
+    ## Most likely the hostname above will be enough, but in the event more hosts are needed, this is an array
+    ## e.g:
+    ## extraHosts:
+    ##   - name: minio.local
+    ##     path: /
+    ##
+    extraHosts: []
+    ## @param ingress.extraPaths Any additional paths that may need to be added to the ingress under the main host
+    ## For example: The ALB ingress controller requires a special rule for handling SSL redirection.
+    ## extraPaths:
+    ## - path: /*
+    ##   backend:
+    ##     serviceName: ssl-redirect
+    ##     servicePort: use-annotation
+    ##
+    extraPaths: []
+    ## @param ingress.extraTls The tls configuration for additional hostnames to be covered with this ingress record.
+    ## see: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
+    ## e.g:
+    ## extraTls:
+    ## - hosts:
+    ##     - minio.local
+    ##   secretName: minio.local-tls
+    ##
+    extraTls: []
+    ## @param ingress.secrets If you're providing your own certificates, please use this to add the certificates as secrets
+    ## key and certificate are expected in PEM format
+    ## name should line up with a secretName set further up
+    ##
+    ## If it is not set and you're using cert-manager, this is unneeded, as it will create a secret for you with valid certificates
+    ## If it is not set and you're NOT using cert-manager either, self-signed certificates will be created valid for 365 days
+    ## It is also possible to create and manage the certificates outside of this helm chart
+    ## Please see README.md for more information
+    ##
+    ## Example
+    ## secrets:
+    ##   - name: minio.local-tls
+    ##     key: ""
+    ##     certificate: ""
+    ##
+    secrets: []
+    ## @param ingress.extraRules Additional rules to be covered with this ingress record
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-rules
+    ## e.g:
+    ## extraRules:
+    ## - host: example.local
+    ##     http:
+    ##       path: /
+    ##       backend:
+    ##         service:
+    ##           name: example-svc
+    ##           port:
+    ##             name: http
+    ##
+    extraRules: []
+
+  ## Configure the ingress resource that allows you to access the
+  ## MinIO&reg; API. Set up the URL
+  ## ref: https://kubernetes.io/docs/user-guide/ingress/
+  ##
+  apiIngress:
+    ## @param apiIngress.enabled Enable ingress controller resource for MinIO API
+    ##
+    enabled: true
+    ## @param apiIngress.apiVersion Force Ingress API version (automatically detected if not set)
+    ##
+    apiVersion: ""
+    ## @param apiIngress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
+    ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster.
+    ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
+    ##
+    ingressClassName: "nginx"
+    ## @param apiIngress.hostname Default host for the ingress resource
+    ##
+    hostname: minio.rwcloud.org
+    ## @param apiIngress.path The Path to MinIO&reg;. You may need to set this to '/*' in order to use this with ALB ingress controllers.
+    ##
+    path: /
+    ## @param apiIngress.pathType Ingress path type
+    ##
+    pathType: ImplementationSpecific
+    ## @param apiIngress.servicePort Service port to be used
+    ## Default is http. Alternative is https.
+    ##
+    servicePort: minio-api
+    ## @param apiIngress.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
+    ## For a full list of possible ingress annotations, please see
+    ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
+    ## Use this parameter to set the required annotations for cert-manager, see
+    ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
+    ##
+    ## e.g:
+    ## annotations:
+    ##   kubernetes.io/ingress.class: nginx
+    ##   cert-manager.io/cluster-issuer: cluster-issuer-name
+    ##
+    annotations: {}
+
+    ## @param apiIngress.tls Enable TLS configuration for the hostname defined at `apiIngress.hostname` parameter
+    ## TLS certificates will be retrieved from a TLS secret with name: `{{- printf "%s-tls" .Values.apiIngress.hostname }}`
+    ## You can:
+    ##   - Use the `ingress.secrets` parameter to create this TLS secret
+    ##   - Rely on cert-manager to create it by setting the corresponding annotations
+    ##   - Rely on Helm to create self-signed certificates by setting `ingress.selfSigned=true`
+    ##
+    tls: true
+    ## @param apiIngress.selfSigned Create a TLS secret for this ingress record using self-signed certificates generated by Helm
+    ##
+    selfSigned: false
+    ## @param apiIngress.extraHosts The list of additional hostnames to be covered with this ingress record.
+    ## Most likely the hostname above will be enough, but in the event more hosts are needed, this is an array
+    ## e.g:
+    ## extraHosts:
+    ##   - name: minio.local
+    ##     path: /
+    ##
+    extraHosts: []
+    ## @param apiIngress.extraPaths Any additional paths that may need to be added to the ingress under the main host
+    ## For example: The ALB ingress controller requires a special rule for handling SSL redirection.
+    ## extraPaths:
+    ## - path: /*
+    ##   backend:
+    ##     serviceName: ssl-redirect
+    ##     servicePort: use-annotation
+    ##
+    extraPaths: []
+    ## @param apiIngress.extraTls The tls configuration for additional hostnames to be covered with this ingress record.
+    ## see: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
+    ## e.g:
+    ## extraTls:
+    ## - hosts:
+    ##     - minio.local
+    ##   secretName: minio.local-tls
+    ##
+    extraTls: []
+    ## @param apiIngress.secrets If you're providing your own certificates, please use this to add the certificates as secrets
+    ## key and certificate are expected in PEM format
+    ## name should line up with a secretName set further up
+    ##
+    ## If it is not set and you're using cert-manager, this is unneeded, as it will create a secret for you with valid certificates
+    ## If it is not set and you're NOT using cert-manager either, self-signed certificates will be created valid for 365 days
+    ## It is also possible to create and manage the certificates outside of this helm chart
+    ## Please see README.md for more information
+    ##
+    ## Example
+    ## secrets:
+    ##   - name: minio.local-tls
+    ##     key: ""
+    ##     certificate: ""
+    ##
+    secrets: []
+    ## @param apiIngress.extraRules Additional rules to be covered with this ingress record
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-rules
+    ## e.g:
+    ## extraRules:
+    ## - host: example.local
+    ##     http:
+    ##       path: /
+    ##       backend:
+    ##         service:
+    ##           name: example-svc
+    ##           port:
+    ##             name: http
+    ##
+    extraRules: []
+  
+  ## @section Persistence parameters
+
+  ## Enable persistence using Persistent Volume Claims
+  ## ref: https://kubernetes.io/docs/user-guide/persistent-volumes/
+  ##
+  persistence:
+    ## @param persistence.enabled Enable MinIO&reg; data persistence using PVC. If false, use emptyDir
+    ##
+    enabled: true
+    ## @param persistence.storageClass PVC Storage Class for MinIO&reg; data volume
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    storageClass: "longhorn"
+    ## @param persistence.mountPath Data volume mount path
+    ##
+    mountPath: /data
+    ## @param persistence.accessModes PVC Access Modes for MinIO&reg; data volume
+    ##
+    accessModes:
+      - ReadWriteOnce
+    ## @param persistence.size PVC Storage Request for MinIO&reg; data volume
+    ##
+    size: 15Gi
+    ## @param persistence.annotations Annotations for the PVC
+    ##
+    annotations: {}
+    ## @param persistence.existingClaim Name of an existing PVC to use (only in `standalone` mode)
+    ##
+    existingClaim: ""
+
+  ## @section Metrics parameters
+  metrics:
+    ## @param metrics.prometheusAuthType Authentication mode for Prometheus (`jwt` or `public`)
+    ## To allow public access without authentication for prometheus metrics set environment as follows.
+    ##
+    prometheusAuthType: public
+    ## Prometheus Operator ServiceMonitor configuration
+    ##
+    serviceMonitor:
+      ## @param metrics.serviceMonitor.enabled If the operator is installed in your cluster, set to true to create a Service Monitor Entry
+      ##
+      enabled: true
+      ## @param metrics.serviceMonitor.namespace Namespace which Prometheus is running in
+      ##
+      namespace: ""
+      ## @param metrics.serviceMonitor.labels Extra labels for the ServiceMonitor
+      ##
+      labels: {}
+      ## @param metrics.serviceMonitor.jobLabel The name of the label on the target service to use as the job name in Prometheus
+      ##
+      jobLabel: ""
+      ## @param metrics.serviceMonitor.path HTTP path to scrape for metrics
+      ##
+      path: /minio/v2/metrics/cluster
+      ## @param metrics.serviceMonitor.interval Interval at which metrics should be scraped
+      ##
+      interval: 30s
+      ## @param metrics.serviceMonitor.scrapeTimeout Specify the timeout after which the scrape is ended
+      ## e.g:
+      ## scrapeTimeout: 30s
+      scrapeTimeout: ""
+      ## @param metrics.serviceMonitor.metricRelabelings MetricRelabelConfigs to apply to samples before ingestion
+      ##
+      metricRelabelings: []
+      ## @param metrics.serviceMonitor.relabelings Metrics relabelings to add to the scrape endpoint, applied before scraping
+      ##
+      relabelings: []
+      ## @param metrics.serviceMonitor.honorLabels Specify honorLabels parameter to add the scrape endpoint
+      ##
+      honorLabels: false
+      ## @param metrics.serviceMonitor.selector Prometheus instance selector labels
+      ## ref: https://github.com/bitnami/charts/tree/master/bitnami/prometheus-operator#prometheus-configuration
+      ##
+      selector: {}
+      ## @param metrics.serviceMonitor.apiVersion ApiVersion for the serviceMonitor Resource (defaults to "monitoring.coreos.com/v1")
+      apiVersion: ""
+
+    ## Prometheus Operator PrometheusRule configuration
+    ##
+    prometheusRule:
+      ## @param metrics.prometheusRule.enabled Create a Prometheus Operator PrometheusRule (also requires `metrics.enabled` to be `true` and `metrics.prometheusRule.rules`)
+      ##
+      enabled: true
+      ## @param metrics.prometheusRule.namespace Namespace for the PrometheusRule Resource (defaults to the Release Namespace)
+      ##
+      namespace: ""
+      ## @param metrics.prometheusRule.additionalLabels Additional labels that can be used so PrometheusRule will be discovered by Prometheus
+      ##
+      additionalLabels: {}
+      ## @param metrics.prometheusRule.rules Prometheus Rule definitions
+        # - alert: minio cluster nodes offline
+        #   annotations:
+        #     summary: "minio cluster nodes offline"
+        #     description: "minio cluster nodes offline, pod {{`{{`}} $labels.pod {{`}}`}} service {{`{{`}} $labels.job {{`}}`}} offline"
+        #   for: 10m
+        #   expr: minio_cluster_nodes_offline_total > 0
+        #   labels:
+        #     severity: critical
+        #     group: PaaS
+      ##
+      rules: []
