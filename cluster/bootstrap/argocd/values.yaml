@@ -145,11 +145,10 @@ argo-cd:
       ingressClassName: nginx
       https: true
       hosts:
-        - argocd.k8s.devmem.ru
+        - argocd.rwcloud.org
       tls:
         - hosts:
-            - argocd.k8s.devmem.ru
-          secretName: argocd-server-tls
+            - argocd.rwcloud.org          
     metrics:
       enabled: true
       serviceMonitor:
