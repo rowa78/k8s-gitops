@@ -24,7 +24,7 @@ kube-prometheus-stack:
           secretName: null
   grafana:
     fullnameOverride: grafana
-    defaultDashboardsTimezone: Europe/Moscow
+    defaultDashboardsTimezone: Europe/Berlin
     persistence:
       enabled: true
       type: statefulset
@@ -92,7 +92,7 @@ kube-prometheus-stack:
         allow_sign_up: true
         config_file: /etc/grafana/ldap.toml
     ldap:
-      enabled: true
+      enabled: false
       existingSecret: grafana
     admin:
       existingSecret: grafana
