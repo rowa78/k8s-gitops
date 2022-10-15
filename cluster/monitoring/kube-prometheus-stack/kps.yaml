@@ -1,21 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: rancher-monitoring
+  name: kps
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "1"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: monitoring
+  project: default
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/monitoring/cattle-monitoring-system/rancher-monitoring
+    path: cluster/monitoring/kube-prometheus-stack/kps
   destination:
     name: in-cluster
-    namespace: cattle-monitoring-system
+    namespace: monitoring
   syncPolicy:
     automated:
       prune: true

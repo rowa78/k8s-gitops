@@ -1,4 +1,5 @@
-rancher-monitoring:
+kube-prometheus-stack:
+  fullnameOverride: kps
   alertmanager:
     externalUrl: https://alertmanager.rwcloud.org
     fullnameOverride: alertmanager
@@ -23,7 +24,7 @@ rancher-monitoring:
           secretName: null
   grafana:
     fullnameOverride: grafana
-    defaultDashboardsTimezone: Europe/Berlin
+    defaultDashboardsTimezone: Europe/Moscow
     persistence:
       enabled: true
       type: statefulset
@@ -86,18 +87,16 @@ rancher-monitoring:
       server:
         root_url: https://grafana.rwcloud.org
         enable_gzip: true
-#      auth.ldap:
-#        enabled: true
-#        allow_sign_up: true
-#        config_file: /etc/grafana/ldap.toml
-#    ldap:
-#      enabled: true
-#      existingSecret: grafana
+      auth.ldap:
+        enabled: true
+        allow_sign_up: true
+        config_file: /etc/grafana/ldap.toml
+    ldap:
+      enabled: true
+      existingSecret: grafana
     admin:
       existingSecret: grafana
     envFromSecret: grafana-smtp
-    #plugins: 
-    #  - geomap
   prometheus:
     fullnameOverride: prometheus
     prometheusSpec:
@@ -112,7 +111,7 @@ rancher-monitoring:
             storageClassName: longhorn
             resources:
               requests:
-                storage: 25Gi      
+                storage: 25Gi
     ingress:
       enabled: true
       ingressClassName: nginx
