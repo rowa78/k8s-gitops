@@ -15,7 +15,7 @@ spec:
     path: cluster/monitoring/loki-stack/loki
   destination:
     name: in-cluster
-    namespace: cattle-monitoring-system
+    namespace: monitoring
   syncPolicy:
     automated:
       prune: true
