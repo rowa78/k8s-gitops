@@ -941,7 +941,7 @@ mongodb:
     ## @param persistence.accessModes PV Access Mode
     ##
     accessModes:
-      - ReadWriteOnce
+      - ReadWriteMany
     ## @param persistence.size PVC Storage Request for MongoDB(&reg;) data volume
     ##
     size: 8Gi
