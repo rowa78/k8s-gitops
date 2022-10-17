@@ -20,6 +20,6 @@ appsets:
     project: monitoring
   - name: platform
     project: platform
-#  - name: apps
-#    project: apps
+  - name: apps
+    project: apps
 
