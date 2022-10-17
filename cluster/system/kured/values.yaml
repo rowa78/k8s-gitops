@@ -3,6 +3,7 @@ kured:
     prometheusUrl: "http://kps-prometheus.monitoring.svc.cluster.local:9090"
     alertFilterRegexp: "^(RebootRequired|RebootScheduled|Watchdog|InfoInhibitor|LonghornVolumeActualSpaceUsedWarning)$"
     alertFiringOnly: true
+    period: "0h3m0s"
   extraEnvVars:
     - name: KURED_NOTIFY_URL
       valueFrom:
