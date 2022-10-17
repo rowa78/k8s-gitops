@@ -155,9 +155,11 @@ mongodb:
     ## @param auth.passwords List of passwords for the custom users set at `auth.usernames`
     ## @param auth.databases List of custom databases to be created during the initialization
     ##
-    usernames: []
+    usernames: 
+      - rocketchat
     passwords: []
-    databases: []
+    databases: 
+      - rocketchat
     ## @param auth.username DEPRECATED: use `auth.usernames` instead
     ## @param auth.password DEPRECATED: use `auth.passwords` instead
     ## @param auth.database DEPRECATED: use `auth.databases` instead
