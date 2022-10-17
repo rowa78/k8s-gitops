@@ -266,7 +266,7 @@ argo-cd:
 
   redis:
   # -- Enable redis
-    enabled: false
+    enabled: true
 
 externalsecret: true
 
