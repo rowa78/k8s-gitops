@@ -13,19 +13,14 @@ rocketchat:
     host:
     port: 587
   
-  ##
-  ## MongoDB chart configuration
-  ### ref https://github.com/helm/charts/tree/master/stable/mongodb#configuration
-  ##
   mongodb:
     ## Enable or disable MongoDB dependency completely.
-    enabled: false
+    enabled: true
 
     auth:
-      existingSecret: "rocketchat-secret"
-      # rootPassword:
+      rootPassword: rocketchat
       username: rocketchat
-      # password:
+      password: rocketchat
       database: rocketchat
 
     architecture: replicaset
@@ -51,8 +46,6 @@ rocketchat:
       storageClass: "longhorn"
       accessMode: ReadWriteOnce
       size: 8Gi
-
-    volumePermissions: { enabled: true }
 
   ## Enable persistence using Persistent Volume Claims
   ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
