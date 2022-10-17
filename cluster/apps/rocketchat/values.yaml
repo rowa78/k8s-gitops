@@ -19,7 +19,7 @@ rocketchat:
   ##
   mongodb:
     ## Enable or disable MongoDB dependency completely.
-    enabled: true
+    enabled: false
 
     auth:
       existingSecret: "rocketchat-secret"
