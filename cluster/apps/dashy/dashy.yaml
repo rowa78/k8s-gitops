@@ -164,43 +164,43 @@ data:
         items:
           - title: Proxmox
             icon: hl-proxmox
-            url: https://proxmox.devmem.ru
+            url: https://proxmox.rwcloud.org
             id: 0_496_proxmox
           - title: Portainer
             icon: hl-portainer
-            url: https://portainer.home.devmem.ru
+            url: https://portainer.home.rwcloud.org
             id: 1_496_portainer
           - title: Minio
             icon: hl-minio
-            url: https://minio.home.devmem.ru
+            url: https://minio.home.rwcloud.org
             id: 2_496_minio
           - title: Gitea
             icon: hl-gitea
-            url: https://git.devmem.ru
+            url: https://git.rwcloud.org
             id: 3_496_gitea
           - title: Jenkins
             icon: hl-jenkins
-            url: https://jenkins.devmem.ru
+            url: https://jenkins.rwcloud.org
             id: 4_496_jenkins
           - title: Prometheus
             icon: hl-prometheus
-            url: https://prometheus.home.devmem.ru/targets
+            url: https://prometheus.home.rwcloud.org/targets
             id: 5_496_prometheus
           - title: LibreNMS
             icon: hl-librenms
-            url: https://nms.home.devmem.ru
+            url: https://nms.home.rwcloud.org
             id: 6_496_librenms
           - title: UniFi
             icon: hl-unifi
-            url: https://unifi-ui.home.devmem.ru
+            url: https://unifi-ui.home.rwcloud.org
             id: 7_496_unifi
           - title: FreeIPA
             icon: hl-freeipa
-            url: https://ipa.home.devmem.ru
+            url: https://ipa.home.rwcloud.org
             id: 8_496_freeipa
           - title: phpLDAPadmin
             icon: hl-phpldapadmin
-            url: https://ldap.home.devmem.ru
+            url: https://ldap.home.rwcloud.org
             id: 9_496_phpldapadmin
       - name: SPNAS
         displayData:
@@ -212,51 +212,51 @@ data:
         items:
           - title: Plex
             icon: hl-plex
-            url: https://plex.devmem.ru/web/index.html
+            url: https://plex.rwcloud.org/web/index.html
             id: 0_389_plex
           - title: Tautulli
             icon: hl-tautulli
-            url: https://tautulli.devmem.ru
+            url: https://tautulli.rwcloud.org
             id: 1_389_tautulli
           - title: Ombi
             icon: hl-ombi
-            url: https://ombi.devmem.ru
+            url: https://ombi.rwcloud.org
             id: 2_389_ombi
           - title: Jellyfin
             icon: hl-jellyfin
-            url: https://j.devmem.ru/web/index.html
+            url: https://j.rwcloud.org/web/index.html
             id: 3_389_jellyfin
           - title: Deluge
             icon: hl-deluge
-            url: https://deluge.home.devmem.ru
+            url: https://deluge.home.rwcloud.org
             id: 4_389_deluge
           - title: Sonarr
             icon: hl-sonarr
-            url: https://sonarr.home.devmem.ru
+            url: https://sonarr.home.rwcloud.org
             id: 5_389_sonarr
           - title: Radarr
             icon: hl-radarr
-            url: https://radarr.home.devmem.ru
+            url: https://radarr.home.rwcloud.org
             id: 6_389_radarr
           - title: Prowlarr
             icon: hl-prowlarr
-            url: https://prowlarr.home.devmem.ru
+            url: https://prowlarr.home.rwcloud.org
             id: 7_389_prowlarr
           - title: Jackett
             icon: hl-jackett
-            url: https://jackett.home.devmem.ru
+            url: https://jackett.home.rwcloud.org
             id: 8_389_jackett
           - title: Lidarr
             icon: hl-lidarr
-            url: https://lidarr.home.devmem.ru
+            url: https://lidarr.home.rwcloud.org
             id: 9_389_lidarr
           - title: Bazarr
             icon: hl-bazarr
-            url: https://bazarr.home.devmem.ru
+            url: https://bazarr.home.rwcloud.org
             id: 10_389_bazarr
           - title: Monitorrent
             icon: generative
-            url: https://monitorrent.home.devmem.ru
+            url: https://monitorrent.home.rwcloud.org
             id: 11_389_monitorrent
       - name: k8s
         displayData:
@@ -268,43 +268,43 @@ data:
         items:
           - title: Argo CD
             icon: hl-argocd
-            url: https://argocd.k8s.devmem.ru
+            url: https://argocd.k8s.rwcloud.org
             id: 0_278_argocd
           - title: Grafana
             icon: hl-grafana
-            url: https://grafana.devmem.ru
+            url: https://grafana.rwcloud.org
             id: 1_278_grafana
           - title: Prometheus
             icon: hl-prometheus
-            url: https://prometheus.k8s.devmem.ru/alerts
+            url: https://prometheus.k8s.rwcloud.org/alerts
             id: 2_278_prometheus
           - title: Alertmanager
             icon: hl-alertmanager
-            url: https://alertmanager.k8s.devmem.ru
+            url: https://alertmanager.k8s.rwcloud.org
             id: 3_278_alertmanager
           - title: Karma
             icon: mdi-recycle-variant
-            url: https://karma.k8s.devmem.ru
+            url: https://karma.k8s.rwcloud.org
             id: 4_278_karma
           - title: SigNoz
-            icon: https://signoz.k8s.devmem.ru/signoz-signup.svg
-            url: https://signoz.k8s.devmem.ru
+            icon: https://signoz.k8s.rwcloud.org/signoz-signup.svg
+            url: https://signoz.k8s.rwcloud.org
             id: 5_278_prometheus
           - title: Longhorn
             icon: hl-longhorn
-            url: https://longhorn.k8s.devmem.ru
+            url: https://longhorn.k8s.rwcloud.org
             id: 6_278_longhorn
           - title: Vault
             icon: hl-vault
-            url: https://vault.k8s.devmem.ru
+            url: https://vault.k8s.rwcloud.org
             id: 7_278_vault
           - title: Teleport
-            icon: https://tele.devmem.ru/web/app/favicon.ico
-            url: https://tele.devmem.ru
+            icon: https://tele.rwcloud.org/web/app/favicon.ico
+            url: https://tele.rwcloud.org
             id: 8_278_teleport
           - title: Authentik
             icon: hl-authentik
-            url: https://authentik.auth.devmem.ru
+            url: https://authentik.auth.rwcloud.org
             id: 9_278_authentik
       - name: Home
         displayData:
@@ -316,15 +316,15 @@ data:
         items:
           - title: HomeAssistant
             icon: hl-home-assistant
-            url: https://ha.devmem.ru
+            url: https://ha.rwcloud.org
             id: 0_393_homeassistant
           - title: ESPHome
             icon: hl-esphome
-            url: https://esphome.devmem.ru
+            url: https://esphome.rwcloud.org
             id: 1_393_esphome
           - title: Grocy
             icon: hl-grocy
-            url: https://grocy.devmem.ru
+            url: https://grocy.rwcloud.org
             id: 2_393_grocy
           - title: ZHABridge
             icon: generative
@@ -340,15 +340,15 @@ data:
         items:
           - title: Nextcloud
             icon: hl-nextcloud
-            url: https://cloud.devmem.ru
+            url: https://cloud.rwcloud.org
             id: 0_503_nextcloud
           - title: Vikunja
             icon: hl-vikunja
-            url: https://tasks.devmem.ru
+            url: https://tasks.rwcloud.org
             id: 1_503_vikunja
           - title: Vaultwarden
             icon: hl-bitwarden
-            url: https://vaultwarden.devmem.ru
+            url: https://vaultwarden.rwcloud.org
             id: 2_503_vaultwarden
       - name: HW
         displayData:
@@ -360,23 +360,23 @@ data:
         items:
           - title: spsrv ipmi
             icon: generative
-            url: https://spsrv-ipmi.home.devmem.ru
+            url: https://spsrv-ipmi.home.rwcloud.org
             id: 0_159_spsrvipmi
           - title: spmaxi ipmi
             icon: generative
-            url: https://spmaxi-ipmi.home.devmem.ru
+            url: https://spmaxi-ipmi.home.rwcloud.org
             id: 1_159_spmaxiipmi
           - title: ubnt-erx-krs
             icon: generative
-            url: https://ubnt-erx-krs.home.devmem.ru
+            url: https://ubnt-erx-krs.home.rwcloud.org
             id: 2_159_ubnterxkrs
           - title: ubnt-erx-cml
             icon: generative
-            url: https://ubnt-erx-cml.home.devmem.ru
+            url: https://ubnt-erx-cml.home.rwcloud.org
             id: 3_159_ubnterxcml
           - title: ubnt-esl24
             icon: generative
-            url: https://ubnt-esl24.home.devmem.ru
+            url: https://ubnt-esl24.home.rwcloud.org
             id: 4_159_ubntesl
           - title: DACHA 1
             icon: generative
