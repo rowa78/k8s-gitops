@@ -138,6 +138,8 @@ kube-prometheus-stack:
       enabled: true
       port: 10249
       targetPort: 10249
+  kubeScheduler:
+    enabled: true
 alertmanagernotifier:
   name: alertmanager-notifier
   image: ghcr.io/ix-ai/alertmanager-notifier:v0.4.4
