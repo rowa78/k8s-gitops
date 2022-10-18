@@ -18,6 +18,7 @@ appsets:
     project: system
   - name: monitoring    
     project: monitoring
+    namespace: monitoring
   - name: platform
     project: platform
   - name: apps
