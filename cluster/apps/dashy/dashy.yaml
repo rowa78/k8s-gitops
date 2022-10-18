@@ -81,11 +81,11 @@ metadata:
   labels:
     app.kubernetes.io/name: dashy
   annotations:
-    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   ingressClassName: nginx
   rules:
-    - host: &host k8s.devmem.ru
+    - host: &host k8s.rwcloud.org
       http:
         paths:
           - path: /
