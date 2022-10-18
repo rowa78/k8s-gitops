@@ -1,0 +1,23 @@
+karma:
+  image:
+    repository: ghcr.io/prymitive/karma
+    tag: v0.108
+  env:
+    - name: ALERTMANAGER_URI
+      value: http://kps-alertmanager:9093
+    - name: ALERTMANAGER_EXTERNAL_URI
+      value: https://alertmanager.rwcloud.org
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - &host karma.rwcloud.org
+    path: /
+    tls:
+      - hosts:
+          - *host
+        secretName: null
+  serviceMonitor:
+    enabled: true

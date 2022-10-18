@@ -284,7 +284,7 @@ data:
             id: 3_278_alertmanager
           - title: Karma
             icon: mdi-recycle-variant
-            url: https://karma.k8s.rwcloud.org
+            url: https://karma.rwcloud.org
             id: 4_278_karma
           - title: SigNoz
             icon: https://signoz.k8s.rwcloud.org/signoz-signup.svg
