@@ -1,0 +1,32 @@
+oauth2-proxy:
+  config:
+    existingSecret: oauth2-proxy
+  ingress:
+    enabled: true
+    className: nginx
+    path: /oauth2
+    hosts:
+      - &host auth.rwcloud.org
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    tls:
+      - hosts:
+          - *host
+        secretName: oauth2-proxy-tls
+  extraArgs:
+    provider: github
+    cookie-domain: .rwcloud
+    whitelist-domain: .rwcloud
+    existingConfig: oauth2-proxy
+  sessionStorage:
+    type: redis
+  redis:
+    enabled: true
+    architecture: standalone
+    auth:
+      enabled: false
+    master:
+      kind: Deployment
+      persistence:
+        enabled: false
+        medium: Memory
