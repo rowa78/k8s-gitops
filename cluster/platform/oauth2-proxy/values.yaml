@@ -17,6 +17,8 @@ oauth2-proxy:
     provider: github
     cookie-domain: .rwcloud
     whitelist-domain: .rwcloud   
+    skip-provider-button:
+    pass-authorization-header:
   authenticatedEmailsFile:
     enabled: false
     # Defines how the email addresses file will be projected, via a configmap or secret
