@@ -213,11 +213,11 @@ postgresql:
     ## @param global.storageClass Global StorageClass for Persistent Volume(s)
     ##
     storageClass: "longhorn"
-  postgresql:
-    auth:
-      username: mattermost
-      database: mattermost
-      existingSecret: mattermost
-      secretKeys:
-        adminPasswordKey: postgresql-postgres-password
-        userPasswordKey: postgresql-password
+    postgresql:
+      auth:
+        username: mattermost
+        database: mattermost
+        existingSecret: mattermost
+        secretKeys:
+          adminPasswordKey: postgresql-postgres-password
+          userPasswordKey: postgresql-password
