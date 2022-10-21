@@ -19,6 +19,7 @@ oauth2-proxy:
     whitelist-domain: .rwcloud.org   
     skip-provider-button:
     pass-authorization-header:
+    scope: "user:email"
   authenticatedEmailsFile:
     enabled: true
     # Defines how the email addresses file will be projected, via a configmap or secret
