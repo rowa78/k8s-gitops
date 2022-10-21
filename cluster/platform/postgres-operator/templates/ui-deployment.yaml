@@ -44,7 +44,7 @@ spec:
             - name: "RESOURCES_VISIBLE"
               value: "False"
             - name: "TARGET_NAMESPACE"
-              value: "default"
+              value: "*"
             - name: "TEAMS"
               value: |-
                 [
