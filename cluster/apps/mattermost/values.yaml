@@ -38,12 +38,12 @@ mattermost-team-edition:
     path: /
     annotations: 
       cert-manager.io/cluster-issuer: letsencrypt-production
-      # kubernetes.io/ingress.class: nginx
+      kubernetes.io/ingress.class: nginx
       # certmanager.k8s.io/issuer:  your-issuer
-      # nginx.ingress.kubernetes.io/proxy-body-size: 50m
-      # nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-      # nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
-      # nginx.ingress.kubernetes.io/proxy-buffering: "on"
+      nginx.ingress.kubernetes.io/proxy-body-size: 50m
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+      nginx.ingress.kubernetes.io/proxy-buffering: "on"
       # nginx.ingress.kubernetes.io/configuration-snippet: |
       #   proxy_cache mattermost_cache;
       #   proxy_cache_revalidate on;
