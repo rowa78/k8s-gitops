@@ -16,7 +16,19 @@ oauth2-proxy:
   extraArgs:
     provider: github
     cookie-domain: .rwcloud
-    whitelist-domain: .rwcloud    
+    whitelist-domain: .rwcloud   
+  authenticatedEmailsFile:
+    enabled: false
+    # Defines how the email addresses file will be projected, via a configmap or secret
+    persistence: secret
+    # template is the name of the configmap what contains the email user list but has been configured without this chart.
+    # It's a simpler way to maintain only one configmap (user list) instead changing it for each oauth2-proxy service.
+    # Be aware the value name in the extern config map in data needs to be named to "restricted_user_access" or to the
+    # provided value in restrictedUserAccessKey field.
+    template: "oauth2-proxy"
+    # The configmap/secret key under which the list of email access is stored
+    # Defaults to "restricted_user_access" if not filled-in, but can be overridden to allow flexibility
+    restrictedUserAccessKey: "emails" 
   sessionStorage:
     type: redis
   redis:
