@@ -15,8 +15,8 @@ oauth2-proxy:
         secretName: oauth2-proxy-tls
   extraArgs:
     provider: github
-    cookie-domain: .rwcloud
-    whitelist-domain: .rwcloud   
+    cookie-domain: .rwcloud.org
+    whitelist-domain: .rwcloud.org   
     skip-provider-button:
     pass-authorization-header:
   authenticatedEmailsFile:
