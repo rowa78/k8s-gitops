@@ -27,11 +27,11 @@ authentik:
       timeout: 30
       from: ""
   envValueFrom:
-    AK_ADMIN_PASS:
+    AUTHENTIK_BOOTSTRAP_PASSWORD:
       secretKeyRef:
         key: ak-admin-password
         name: authentik
-    AK_ADMIN_TOKEN:
+    AUTHENTIK_BOOTSTRAP_TOKEN:
       secretKeyRef:
         key: ak-admin-token
         name: authentik
