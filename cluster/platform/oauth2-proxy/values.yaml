@@ -16,8 +16,7 @@ oauth2-proxy:
   extraArgs:
     provider: github
     cookie-domain: .rwcloud
-    whitelist-domain: .rwcloud
-    existingConfig: oauth2-proxy
+    whitelist-domain: .rwcloud    
   sessionStorage:
     type: redis
   redis:
