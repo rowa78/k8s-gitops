@@ -140,10 +140,10 @@ argo-cd:
         g, argocd_admins, role:admin
     ingress:
       enabled: true
-#      annotations:
-#        cert-manager.io/cluster-issuer: letsencrypt-prod
-#        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-#        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start
       ingressClassName: nginx
 #      https: true
       hosts:
@@ -151,6 +151,7 @@ argo-cd:
       tls:
         - hosts:
             - argocd.rwcloud.org          
+          secretName: argocd-tls
     metrics:
       enabled: true
       serviceMonitor:
