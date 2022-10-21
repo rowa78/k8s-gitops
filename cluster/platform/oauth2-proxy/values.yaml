@@ -20,7 +20,7 @@ oauth2-proxy:
     skip-provider-button:
     pass-authorization-header:
   authenticatedEmailsFile:
-    enabled: false
+    enabled: true
     # Defines how the email addresses file will be projected, via a configmap or secret
     persistence: secret
     # template is the name of the configmap what contains the email user list but has been configured without this chart.
