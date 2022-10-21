@@ -3,7 +3,7 @@ authentik:
     enabled: true
     ingressClassName: nginx
     annotations:
-      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-production
     hosts:
       - host: &host authentik.rwcloud.org
         paths:
