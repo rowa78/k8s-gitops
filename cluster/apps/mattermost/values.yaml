@@ -103,15 +103,14 @@ mattermost-team-edition:
   extraPodAnnotations: {}
 
   ## Additional env vars
-  extraEnvVars: []
-    # This is an example of extra env vars when using with the deployment with GitLab Helm Charts
-    # - name: POSTGRES_PASSWORD_GITLAB
-    #   valueFrom:
-    #     secretKeyRef:
-    #       # NOTE: Needs to be manually created
-    #       # kubectl create secret generic gitlab-postgresql-password --namespace <NAMESPACE> --from-literal postgres-password=<PASSWORD>
-    #       name: gitlab-postgresql-password
-    #       key: postgres-password
+  extraEnvVars:     
+    - name: POSTGRES_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          # NOTE: Needs to be manually created
+          # kubectl create secret generic gitlab-postgresql-password --namespace <NAMESPACE> --from-literal postgres-password=<PASSWORD>
+          name: mattermost
+          key: postgresql-password
     # - name: POSTGRES_USER_GITLAB
     #   value: gitlab
     # - name: POSTGRES_HOST_GITLAB
@@ -120,10 +119,10 @@ mattermost-team-edition:
     #   value: "5432"
     # - name: POSTGRES_DB_NAME_MATTERMOST
     #   value: mm5
-    # - name: MM_SQLSETTINGS_DRIVERNAME
-    #   value: "postgres"
-    # - name: MM_SQLSETTINGS_DATASOURCE
-    #   value: postgres://$(POSTGRES_USER_GITLAB):$(POSTGRES_PASSWORD_GITLAB)@$(POSTGRES_HOST_GITLAB):$(POSTGRES_PORT_GITLAB)/$(POSTGRES_DB_NAME_MATTERMOST)?sslmode=disable&connect_timeout=10
+    - name: MM_SQLSETTINGS_DRIVERNAME
+      value: "postgres"
+    - name: MM_SQLSETTINGS_DATASOURCE
+      value: postgres://mattermost:$(POSTGRES_PASSWORD)@mattermost-postgresql:5432/mattermost?sslmode=disable&connect_timeout=10
 
   ## Additional init containers
   extraInitContainers: []
