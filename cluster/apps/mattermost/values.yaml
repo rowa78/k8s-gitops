@@ -199,3 +199,25 @@ mattermost-team-edition:
   config:
     MM_PLUGINSETTINGS_CLIENTDIRECTORY: "./client/plugins"
 
+postgresql:
+  global:
+    ## @param global.imageRegistry Global Docker image registry
+    ##
+    imageRegistry: ""
+    ## @param global.imagePullSecrets Global Docker registry secret names as an array
+    ## e.g.
+    ## imagePullSecrets:
+    ##   - myRegistryKeySecretName
+    ##
+    imagePullSecrets: []
+    ## @param global.storageClass Global StorageClass for Persistent Volume(s)
+    ##
+    storageClass: "longhorn"
+  postgresql:
+    auth:
+      username: mattermost
+      database: mattermost
+      existingSecret: mattermost
+      secretKeys:
+        adminPasswordKey: postgresql-postgres-password
+        userPasswordKey: postgresql-password
