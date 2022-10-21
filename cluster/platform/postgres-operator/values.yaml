@@ -506,7 +506,7 @@ postgres-operator-ui:
     resourcesVisible: "False"
     targetNamespace: "*"
     teams:
-      - "acid"
+      - "rwcloud"
 
   # configure extra UI ENVs
   # Extra ENVs are writen in kubenertes format and added "as is" to the pod's env variables
