@@ -2,7 +2,6 @@ apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
   name: "postgres-operator-ui"
-  namespace: "default"
   labels:
     name: "postgres-operator-ui"
 spec:
