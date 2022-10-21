@@ -65,7 +65,7 @@ mattermost-team-edition:
 
   ## If use this please disable the mysql chart by setting mysql.enable to false
   externalDB:
-    enabled: false
+    enabled: true
 
     ## postgres or mysql
     externalDriverType: ""
@@ -75,7 +75,7 @@ mattermost-team-edition:
     externalConnectionString: ""
 
   mysql:
-    enabled: true
+    enabled: false
     mysqlRootPassword: "mattermost"
     mysqlUser: "mattermost"
     mysqlPassword: "mattermost"

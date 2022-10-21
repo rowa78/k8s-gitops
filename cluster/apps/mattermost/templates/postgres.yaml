@@ -1,0 +1,19 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: postgres-mattermost
+spec:
+  teamId: "rwcloud"
+  volume:
+    size: 1Gi
+    storageClass: longhorn
+  numberOfInstances: 2
+  users:
+    mattermost:  # database owner
+    - superuser
+    - createdb
+    mattermost_user: []  # role for application foo
+  databases:
+    mattermost: mattermost  # dbname: owner
+  postgresql:
+    version: "14"
