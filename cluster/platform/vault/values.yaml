@@ -10,12 +10,16 @@ vault:
     ingress:
       enabled: true
       ingressClassName: nginx
-      annotations: {}
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start
       hosts:
         - host: vault.rwcloud.org
       tls:
         - hosts:
             - vault.rwcloud.org
+          secretName: vault-tls
     extraInitContainers:
       - name: vault-bootstrap
         image: ghcr.io/rowa78/vault-bootstrap:0.1
