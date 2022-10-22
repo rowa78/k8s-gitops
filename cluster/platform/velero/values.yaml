@@ -27,6 +27,9 @@ velero:
       name: default
       config:
         region: main
+        s3ForcePathStyle: true
+        s3Url: http://192.168.0.3:9000
+        publicUrl: http://192.168.0.3:9000
     features: EnableCSI
   credentials:
     useSecret: true
