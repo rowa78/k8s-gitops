@@ -119,7 +119,8 @@ kube-prometheus-stack:
             storageClassName: longhorn
             resources:
               requests:
-                storage: 25Gi
+                storage: 30Gi
+      retentionSize: "25Gi"
     ingress:
       enabled: true
       ingressClassName: nginx
