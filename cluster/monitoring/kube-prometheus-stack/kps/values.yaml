@@ -120,7 +120,7 @@ kube-prometheus-stack:
             resources:
               requests:
                 storage: 30Gi
-      retentionSize: "25Gi"
+      retentionSize: "25G"
     ingress:
       enabled: true
       ingressClassName: nginx
