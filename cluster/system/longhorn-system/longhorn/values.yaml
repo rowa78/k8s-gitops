@@ -2,8 +2,8 @@ longhorn:
   image:    
     csi:      
       snapshotter:
-        repository: rancher/mirrored-longhornio-csi-snapshotter
-        tag: v3.0.3
+        repository: longhornio/csi-snapshotter
+        tag: v5.0.1
 
   persistence:
     defaultClassReplicaCount: 3
