@@ -52,9 +52,6 @@
       "matchPackageNames": ["kubernetes/kubernetes"]
     }
   ],
-  "ansible": {
-    "fileMatch": ["ansible/.+\\.ya?ml$"]
-  },
   "argocd": {
     "fileMatch": ["cluster/.+\\.ya?ml$"],
     "ignorePaths": ["templates/"]
@@ -65,8 +62,7 @@
   },
   "regexManagers": [
     {
-      "fileMatch": [
-        "ansible/.+\\.ya?ml$",
+      "fileMatch": [        
         "cluster/.+\\.ya?ml$"
       ],
       "matchStrings": [
