@@ -3,5 +3,5 @@ apiVersion: v2
 version: 1.0.0
 dependencies:
   - name: rancher-monitoring-crd
-    version: "100.1.2+up19.0.3"
+    version: "100.1.3+up19.0.3"
     repository: https://raw.githubusercontent.com/rancher/charts/release-v2.6
