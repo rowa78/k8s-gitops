@@ -1,0 +1,16 @@
+renovate:
+  cronjob:
+    schedule: "0 * * * *"
+  renovate:
+    config: |
+      {
+        "platform": "github",
+        "autodiscover": true,
+        "printConfig": false,
+        "dependencyDashboard": true,
+        "dependencyDashboardTitle": "Renovate Dashboard",
+        "pre-commit": {
+          "enabled": true
+        }
+      }
+  existingSecret: renovate
