@@ -37,7 +37,7 @@ harbor:
         notarySecretName: "harbor-notary-tls"
     ingress:
       hosts:
-        core: core.harbor.rwcloud.org
+        core: harbor.rwcloud.org
         notary: notary.harbor.rwcloud.org
       # set to the type of ingress controller if it has specific requirements.
       # leave as `default` for most ingress controllers.
@@ -81,7 +81,7 @@ harbor:
   # the IP address of k8s node
   #
   # If Harbor is deployed behind the proxy, set it as the URL of proxy
-  externalURL: https://core.harbor.rwcloud.org
+  externalURL: https://harbor.rwcloud.org
 
   
   # The persistence is enabled by default and a default StorageClass
