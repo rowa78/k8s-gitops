@@ -108,14 +108,14 @@ harbor:
         # Set it to "-" to disable dynamic provisioning
         storageClass: longhorn
         subPath: ""
-        accessMode: ReadWriteOnce
+        accessMode: ReadWriteMany
         size: 20Gi
         annotations: {}
       chartmuseum:
         existingClaim: ""
         storageClass: longhorn
         subPath: ""
-        accessMode: ReadWriteOnce
+        accessMode: ReadWriteMany
         size: 5Gi
         annotations: {}
       jobservice:
@@ -123,14 +123,14 @@ harbor:
           existingClaim: ""
           storageClass: longhorn
           subPath: ""
-          accessMode: ReadWriteOnce
+          accessMode: ReadWriteMany
           size: 1Gi
           annotations: {}
         scanDataExports:
           existingClaim: ""
           storageClass: longhorn
           subPath: ""
-          accessMode: ReadWriteOnce
+          accessMode: ReadWriteMany
           size: 1Gi
           annotations: {}
       # If external database is used, the following settings for database will
@@ -139,7 +139,7 @@ harbor:
         existingClaim: ""
         storageClass: longhorn
         subPath: ""
-        accessMode: ReadWriteOnce
+        accessMode: ReadWriteMany
         size: 1Gi
         annotations: {}
       # If external Redis is used, the following settings for Redis will
@@ -148,14 +148,14 @@ harbor:
         existingClaim: ""
         storageClass: longhorn
         subPath: ""
-        accessMode: ReadWriteOnce
+        accessMode: ReadWriteMany
         size: 1Gi
         annotations: {}
       trivy:
         existingClaim: ""
         storageClass: longhorn
         subPath: ""
-        accessMode: ReadWriteOnce
+        accessMode: ReadWriteMany
         size: 5Gi
         annotations: {}
     # Define which storage backend is used for registry and chartmuseum to store
