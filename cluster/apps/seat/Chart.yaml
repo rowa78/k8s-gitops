@@ -1,0 +1,7 @@
+apiVersion: v2
+name: seat
+version: 0.0.0
+dependencies:
+  - name: redis
+    version: 17.3.7
+    repository: https://charts.bitnami.com/bitnami
