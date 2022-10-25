@@ -17,7 +17,8 @@ spec:
       name: {{ `"{{path.basename}}"` }}
       annotations:
         argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-        argocd.argoproj.io/manifest-generate-paths: {{ `"{{path}}"` }}        
+        argocd.argoproj.io/manifest-generate-paths: {{ `"{{path}}"` }}    
+        argocd.argoproj.io/sync-wave: {{ `"{{$appset.wave}}"` }}
     spec:
       project: {{ $appset.project }}
       source:
