@@ -1,4 +1,4 @@
-home-assistant
+home-assistant:
   service:
     main:
       type: ClusterIP      
