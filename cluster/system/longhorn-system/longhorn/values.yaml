@@ -12,6 +12,7 @@ longhorn:
   defaultSettings:    
     createDefaultDiskLabeledNodes: "true"
     defaultReplicaCount: 2
+    defaultDataLocality: best-effort
     nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
     replicaAutoBalance: best-effort
     concurrentAutomaticEngineUpgradePerNodeLimit: 1
