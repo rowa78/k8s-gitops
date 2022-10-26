@@ -270,7 +270,7 @@ redis:
     imagePullSecrets: []
     storageClass: "longhorn"
     redis:
-      password: ""
+      password: "redis"
 
   
   image:
