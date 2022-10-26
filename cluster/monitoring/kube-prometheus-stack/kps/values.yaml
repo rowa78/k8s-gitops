@@ -121,6 +121,9 @@ kube-prometheus-stack:
               requests:
                 storage: 30Gi
       retentionSize: "25GB"
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        node.longhorn.io/create-default-disk: "true"
     ingress:
       enabled: true
       ingressClassName: nginx
