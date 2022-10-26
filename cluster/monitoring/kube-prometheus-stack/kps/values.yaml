@@ -13,6 +13,9 @@ kube-prometheus-stack:
                 storage: 1Gi
       useExistingSecret: true
       configSecret: alertmanager-config
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        node.longhorn.io/create-default-disk: "true"
     ingress:
       enabled: true
       ingressClassName: nginx
@@ -26,9 +29,7 @@ kube-prometheus-stack:
         - hosts:
             - *host
           secretName: alertmanager-tls
-    nodeSelector:
-      kubernetes.io/arch: amd64
-      node.longhorn.io/create-default-disk: "true"
+
   grafana:
     fullnameOverride: grafana
     defaultDashboardsTimezone: Europe/Berlin
