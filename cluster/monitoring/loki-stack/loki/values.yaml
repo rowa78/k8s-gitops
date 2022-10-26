@@ -23,6 +23,9 @@ loki-stack:
       size: 10Gi
     serviceMonitor:
       enabled: true
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      node.longhorn.io/create-default-disk: "true"
   promtail:
     fullnameOverride: promtail
     config:
