@@ -135,7 +135,9 @@ minio:
   ## Node labels for pod assignment
   ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
   ##
-  nodeSelector: {}
+  nodeSelector:   
+    kubernetes.io/arch: amd64
+    node.longhorn.io/create-default-disk: "true"
   tolerations: []
   affinity: {}
   topologySpreadConstraints: []
