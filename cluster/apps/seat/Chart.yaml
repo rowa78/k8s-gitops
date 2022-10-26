@@ -1,0 +1,7 @@
+apiVersion: v2
+name: seat
+version: 0.0.0
+dependencies:
+  - name: mariadb
+    version: 11.3.3
+    repository: https://charts.bitnami.com/bitnami
