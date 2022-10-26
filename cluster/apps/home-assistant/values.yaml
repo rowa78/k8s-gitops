@@ -17,7 +17,9 @@ home-assistant:
     main:
       enabled: true
       annotations:
-        kubernetes.io/ingress.class: "nginx"             
+        kubernetes.io/ingress.class: "nginx"      
+        nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start       
       hosts:
       - host: home-assistant.rwcloud.org
         paths:
@@ -61,7 +63,9 @@ home-assistant:
       ingress:
         enabled: true
         annotations:
-          kubernetes.io/ingress.class: "nginx"          
+          kubernetes.io/ingress.class: "nginx"    
+          nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start      
         hosts:
         - host: hass-vscode.rwcloud.org
           paths:
