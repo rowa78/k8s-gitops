@@ -1,0 +1,143 @@
+home-assistant
+  service:
+    main:
+      type: ClusterIP      
+
+  nodeSelector: 
+    kubernetes.io/arch: arm64
+  image:
+    repository: homeassistant/home-assistant
+    tag: 2022.9.6    
+  env:
+    TZ: "Europe/Berlin"    
+    
+  hostNetwork: true
+  #dnsPolicy: ClusterFirstWithHostNet
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"             
+      hosts:
+      - host: home-assistant.rwcloud.org
+        paths:
+        - path: /
+          pathType: Prefix
+      tls:
+      - hosts:
+        - home-assistant.rwcloud.org
+  prometheus:
+    serviceMonitor:
+      enabled: true
+  probes:
+    liveness:
+      enabled: true
+    readiness:
+      enabled: true
+    startup:
+      enabled: true
+  persistence:
+    config:
+      enabled: true
+      storageClass: "nfs-client"
+      accessMode: ReadWriteOnce
+      size: "10Gi"
+  podAnnotations:
+    backup.velero.io/backup-volumes: config
+  addons:
+    codeserver:
+      enabled: true
+      nodeSelector: 
+        kubernetes.io/arch: arm64
+      image:
+        repository: codercom/code-server
+        tag: 4.4.0
+      workingDir: "/config"
+      args:
+        - --user-data-dir
+        - "/config/.vscode"
+        - --auth
+        - "none"
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "nginx"          
+        hosts:
+        - host: hass-vscode.rwcloud.org
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - hass-vscode.rwcloud.org
+      volumeMounts:
+      - name: config
+        mountPath: /config
+  tolerations:
+  - key: "arm"
+    operator: "Exists"
+  resources:
+    limits:
+      memory: 2500Mi
+    requests:
+      cpu: 100m
+      memory: 1000Mi    
+
+  postgresql:
+    # -- enable the bundled bitnami postgresql chart
+    enabled: true
+    image:
+      registry: docker.io
+      repository: bitnami/postgresql
+      tag: 14.4.0
+      ## Specify a imagePullPolicy
+      ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+      ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+      ##
+      pullPolicy: IfNotPresent
+      ## Optionally specify an array of imagePullSecrets.
+      ## Secrets must be manually created in the namespace.
+      ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+      ## Example:
+      ## pullSecrets:
+      ##   - myRegistryKeySecretName
+      ##
+      pullSecrets: []
+      ## Set to true if you would like to see extra information on logs
+      ## It turns BASH and/or NAMI debugging in the image
+      ##
+      debug: true
+
+    volumePermissions:
+      ## @param volumePermissions.enabled Enable init container that changes volume permissions in the data directory (for cases where the default k8s `runAsUser` and `fsUser` values do not work)
+      ##
+      enabled: true
+    primary:
+      nodeSelector: 
+        kubernetes.io/arch: amd64
+        node.longhorn.io/create-default-disk: "true"
+      postgresqlUsername: "hass"
+      postgresqlPassword: "hass"
+      postgresqlDatabase: "hass"
+      
+      persistence:      
+        enabled: true
+        storageClass: "longhorn"
+        accessModes:
+          - ReadWriteOnce
+
+  influxdb:                
+    enabled: true
+    architecture: standalone
+    database: home_assistant
+    authEnabled: false     
+    storageClass: "longhorn"
+    persistence:
+      enabled: true
+      storageClass: "longhorn"
+    size: 30Gi
+    influxdb:
+      nodeSelector: 
+        kubernetes.io/arch: amd64
+        node.longhorn.io/create-default-disk: "true"
+    
