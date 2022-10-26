@@ -9,6 +9,7 @@ longhorn:
   persistence:
     defaultClassReplicaCount: 2
     defaultClass: false
+    defaultDataLocality: best-effort
   defaultSettings:    
     createDefaultDiskLabeledNodes: "true"
     defaultReplicaCount: 2
