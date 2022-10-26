@@ -45,7 +45,7 @@ mariadb:
       ## @param primary.persistence.accessModes MariaDB primary persistent volume access Modes
       ##
       accessModes:
-        - ReadWriteMany
+        - ReadWriteOne
       ## @param primary.persistence.size MariaDB primary persistent volume size
       ##
       size: 5Gi
