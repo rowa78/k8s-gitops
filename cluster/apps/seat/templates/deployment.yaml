@@ -129,17 +129,17 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: seat
-                  key: eve-client-id
+                  key: eve_client_id
             - name: EVE_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: seat
-                  key: eve-client-secret
+                  key: eve_client_secret
             - name: EVE_CALLBACK_URL
               valueFrom:
                 secretKeyRef:
                   name: seat
-                  key: eve-callback-url
+                  key: eve_callback_url
         - name: seat-cron
           image: eveseat/seat:4.2.9 
           args: ["cron"]
@@ -174,16 +174,16 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: seat
-                  key: eve-client-id
+                  key: eve_client_id
             - name: EVE_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: seat
-                  key: eve-client-secret
+                  key: eve_client_secret
             - name: EVE_CALLBACK_URL
               valueFrom:
                 secretKeyRef:
                   name: seat
-                  key: eve-callback-url
+                  key: eve_callback_url
       nodeSelector:
         beta.kubernetes.io/arch: amd64
