@@ -3,8 +3,8 @@ home-assistant:
     main:
       type: ClusterIP      
 
-  #nodeSelector: 
-  #  kubernetes.io/arch: arm64
+  nodeSelector: 
+    location: onprem
   image:
     repository: homeassistant/home-assistant
     tag: 2022.9.6    
