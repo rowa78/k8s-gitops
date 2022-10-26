@@ -46,7 +46,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: seat
-                  key: app-key
+                  key: eve_app_id
             - name: EVE_CLIENT_ID
               valueFrom:
                 secretKeyRef:
@@ -124,7 +124,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: seat
-                  key: app-key
+                  key: eve_app_id
             - name: EVE_CLIENT_ID
               valueFrom:
                 secretKeyRef:
@@ -169,7 +169,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: seat
-                  key: app-key
+                  key: eve_app_id
             - name: EVE_CLIENT_ID
               valueFrom:
                 secretKeyRef:
