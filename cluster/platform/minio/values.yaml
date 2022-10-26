@@ -52,7 +52,7 @@ minio:
     ## If the PV uses a different storage class, specify that here.
     storageClass: "longhorn"
     VolumeName: ""
-    accessMode: ReadWriteMany
+    accessMode: ReadWriteOnce
     size: 25Gi
 
     ## If subPath is set mount a sub folder of a volume instead of the root of the volume.
