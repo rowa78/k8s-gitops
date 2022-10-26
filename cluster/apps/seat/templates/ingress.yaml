@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+  name: seat
+  namespace: seat
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: seat.rwcloud.org
+    http:
+      paths:
+      - backend:
+          service:
+            name: seat
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - seat.rwcloud.org
+    secretName: seat-tls
