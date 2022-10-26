@@ -32,7 +32,7 @@ spec:
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: eat-mariadb-secret
+                  name: seat-mariadb-secret
                   key: mariadb-password
             - name: REDIS_HOST
               value: seat-redis-master
@@ -108,7 +108,7 @@ spec:
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: eat-mariadb-secret
+                  name: seat-mariadb-secret
                   key: mariadb-password
             - name: REDIS_HOST
               value: seat-redis-master
@@ -155,7 +155,7 @@ spec:
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: eat-mariadb-secret
+                  name: seat-mariadb-secret
                   key: mariadb-password
             - name: REDIS_HOST
               value: seat-redis-master
