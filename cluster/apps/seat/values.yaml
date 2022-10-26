@@ -35,7 +35,7 @@ mariadb:
     ##
     nodeSelector: 
       kubernetes.io/arch: amd64
-      node.longhorn.io/create-default-disk: true
+      node.longhorn.io/create-default-disk: "true"
     ## Enable persistence using Persistent Volume Claims
     ## ref: https://kubernetes.io/docs/user-guide/persistent-volumes/
     ##
@@ -525,7 +525,7 @@ redis:
     ##
     nodeSelector: 
       kubernetes.io/arch: amd64
-      node.longhorn.io/create-default-disk: true
+      node.longhorn.io/create-default-disk: "true"
     ## @param master.tolerations Tolerations for Redis&reg; master pods assignment
     ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
     ##
