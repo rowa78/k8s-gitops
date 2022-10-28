@@ -17,6 +17,10 @@ freshrss:
     PUID: "1001"
     # -- Set the container group id
     PGID: "1001"
+  
+  nodeSelector: 
+    kubernetes.io/arch: amd64
+    node.longhorn.io/create-default-disk: "true"
 
   # -- Configures service settings for the chart.
   # @default -- See values.yaml
@@ -55,4 +59,4 @@ freshrss:
       enabled: true
       storageClass: longhorn
       size: 5Gi
-      accessMode: ReadWriteMany
+      accessMode: ReadWriteOnce
