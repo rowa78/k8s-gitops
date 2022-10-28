@@ -44,3 +44,5 @@ oauth2-proxy:
       persistence:
         enabled: false
         medium: Memory
+      nodeSelector: 
+        kubernetes.io/arch: amd64
