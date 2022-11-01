@@ -1,9 +1,9 @@
 thanos:
   global:
     storageClass: longhorn
-  image:
-    repository: raspbernetes/thanos
-    tag: v0.23.1
+#  image:
+#    repository: raspbernetes/thanos
+#    tag: v0.23.1
   receive:
     enabled: true
     persistence:
