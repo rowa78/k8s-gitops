@@ -11,6 +11,8 @@ thanos:
       ##
       enabled: false
   query:
+    nodeSelector: 
+      kubernetes.io/arch: arm64
     enabled: true
     replicaCount: 2
     replicaLabels:
