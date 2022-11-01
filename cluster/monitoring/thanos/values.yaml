@@ -16,7 +16,7 @@ thanos:
     replicaLabels:
       - replica
     dnsDiscovery:
-      sidecarsService: rancher-monitoring-thanos-discovery
+      sidecarsService: kps-thanos-discovery
       sidecarsNamespace: monitoring
     ingress:
       enabled: false
