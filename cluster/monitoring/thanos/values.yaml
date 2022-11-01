@@ -10,6 +10,8 @@ thanos:
       ## @param receive.persistence.enabled Enable data persistence using PVC(s) on Thanos Receive pods
       ##
       enabled: false
+    nodeSelector: 
+      kubernetes.io/arch: arm64
   query:
     nodeSelector: 
       kubernetes.io/arch: arm64
@@ -30,14 +32,22 @@ thanos:
       tls: true
   queryFrontend:
     enabled: true
+    nodeSelector: 
+      kubernetes.io/arch: arm64
   bucketweb:
     enabled: true
+    nodeSelector: 
+      kubernetes.io/arch: arm64
   compactor:
     enabled: true
+    nodeSelector: 
+      kubernetes.io/arch: arm64
     persistence:
       enabled: false
   storegateway:
     enabled: true
+    nodeSelector: 
+      kubernetes.io/arch: arm64
     persistence:
       enabled: false
       size: 20Gi
