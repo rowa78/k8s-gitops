@@ -131,6 +131,12 @@ kube-prometheus-stack:
       nodeSelector:
         kubernetes.io/arch: amd64
         node.longhorn.io/create-default-disk: "true"
+      thanos:
+        image: quay.io/thanos/thanos:v0.27.0
+        version: v0.24.0
+        objectStorageConfig:
+          name: thanos-objstore
+          key: objstore.yml
     ingress:
       enabled: true
       ingressClassName: nginx
@@ -144,6 +150,10 @@ kube-prometheus-stack:
         - hosts:
             - *host
           secretName: prometheus-tls
+    thanosService:
+      enabled: true
+    thanosServiceMonitor:
+      enabled: true
   prometheusOperator:
     fullnameOverride: prometheus-operator
   prometheus-node-exporter:
