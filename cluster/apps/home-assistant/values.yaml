@@ -7,7 +7,7 @@ home-assistant:
     location: onprem
   image:
     repository: homeassistant/home-assistant
-    tag: 2022.9.6    
+    tag: 2022.10.5    
   env:
     TZ: "Europe/Berlin"    
     
@@ -53,7 +53,7 @@ home-assistant:
         kubernetes.io/arch: arm64
       image:
         repository: codercom/code-server
-        tag: 4.4.0
+        tag: 4.8.1
       workingDir: "/config"
       args:
         - --user-data-dir
@@ -93,7 +93,7 @@ home-assistant:
     image:
       registry: docker.io
       repository: bitnami/postgresql
-      tag: 14.4.0
+      tag: 14.5.0
       ## Specify a imagePullPolicy
       ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
       ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
