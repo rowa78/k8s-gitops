@@ -11,10 +11,10 @@ thanos:
       ##
       enabled: false
     nodeSelector: 
-      kubernetes.io/arch: arm64
+      kubernetes.io/arch: amd64
   query:
     nodeSelector: 
-      kubernetes.io/arch: arm64
+      kubernetes.io/arch: amd64
     enabled: true
     replicaCount: 2
     replicaLabels:
@@ -33,21 +33,21 @@ thanos:
   queryFrontend:
     enabled: true
     nodeSelector: 
-      kubernetes.io/arch: arm64
+      kubernetes.io/arch: amd64
   bucketweb:
     enabled: true
     nodeSelector: 
-      kubernetes.io/arch: arm64
+      kubernetes.io/arch: amd64
   compactor:
     enabled: true
     nodeSelector: 
-      kubernetes.io/arch: arm64
+      kubernetes.io/arch: amd64
     persistence:
       enabled: false
   storegateway:
     enabled: true
     nodeSelector: 
-      kubernetes.io/arch: arm64
+      kubernetes.io/arch: amd64
     persistence:
       enabled: false
       size: 20Gi
