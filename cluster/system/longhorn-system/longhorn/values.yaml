@@ -19,3 +19,4 @@ longhorn:
     concurrentAutomaticEngineUpgradePerNodeLimit: 1
     backupTarget: s3://longhorn@minio/
     backupTargetCredentialSecret: longhorn-backup
+    systemManagedComponentsNodeSelector: node.longhorn.io/create-default-disk=true
