@@ -57,6 +57,6 @@ freshrss:
   persistence:
     config:
       enabled: true
-      storageClass: longhorn
+      storageClass: nfs-client
       size: 5Gi
       accessMode: ReadWriteOnce
