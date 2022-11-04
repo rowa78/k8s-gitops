@@ -1,0 +1,24 @@
+ apiVersion: openebs.io/v1alpha1
+ kind: JivaVolumePolicy
+ metadata:
+   name: jivavolumepolicy
+   namespace: openebs
+ spec:
+   replicaSC: openebs-hostpath
+   target:
+    replicationFactor: 3
+     # disableMonitor: false
+     # auxResources:
+     # tolerations:
+     # resources:
+     # affinity:
+    nodeSelector:
+      obenebs.storage.node: "true"
+     # priorityClassName:
+   replica:
+     # tolerations:
+     # resources:
+     # affinity:
+      nodeSelector:
+        obenebs.storage.node: "true"
+     # priorityClassName:
