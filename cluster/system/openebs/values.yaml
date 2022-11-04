@@ -42,6 +42,8 @@ openebs:
     
   jiva:
     enabled: true
+    storageClass:
+      enabled: false
     openebsLocalpv:
       enabled: false
     localpv-provisioner:
