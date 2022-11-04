@@ -44,6 +44,8 @@ openebs:
     enabled: true
     storageClass:
       enabled: false
+    defaultPolicy:
+      enabled: false
     openebsLocalpv:
       enabled: false
     localpv-provisioner:
