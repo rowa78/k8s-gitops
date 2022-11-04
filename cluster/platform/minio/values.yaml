@@ -57,12 +57,14 @@ operator:
       runAsUser: 1000
       runAsNonRoot: true
     ingress:
-      enabled: false
-      ingressClassName: ""
+      enabled: true
+      ingressClassName: "nginx"
       labels: { }
       annotations: { }
-      tls: [ ]
-      host: console.local
+      tls: 
+        - hosts:
+          - minio-console.rwcloud.org
+      host: minio-console.rwcloud.org
       path: /
       pathType: Prefix
     volumes: [ ]
