@@ -122,6 +122,9 @@ minio:
       nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
       nginx.ingress.kubernetes.io/auth-snippet: |
         proxy_set_header X-Forwarded-Method $request_method;
+      hajimari.io/enable: "true"
+      hajimari.io/icon: "file-document"
+      hajimari.io/group: system
     path: /
     hosts:
       - minio-console.rwcloud.org
