@@ -125,6 +125,7 @@ minio:
       hajimari.io/enable: "true"
       hajimari.io/icon: "file-document"
       hajimari.io/group: system
+      hajimari.io/name: minio
     path: /
     hosts:
       - minio-console.rwcloud.org
