@@ -31,10 +31,10 @@ hajimari:
     defaultEnable: true
 
     namespaceSelector:
-        any: true
-        # matchNames:
-        # - downloads
-        # - media
+      any: true
+      # matchNames:
+      # - downloads
+      # - media
     alwaysTargetBlank: true
     showAppGroups: true
     showAppUrls: false
