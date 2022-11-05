@@ -69,7 +69,7 @@ authelia:
   ## For example if you have apps app1.example.com and app2.example.com it should be example.com
   ## This affects the ingress (partially sets the domain used) and configMap.
   ## Authelia must be served from the domain or a subdomain under it.
-  domain: example.com
+  domain: rwcloud.org
 
   service:
     annotations: {}
@@ -86,9 +86,10 @@ authelia:
 
 
   ingress:
-    enabled: false
+    enabled: true
 
-    annotations: {}
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
     # annotations:
     #   kubernetes.io/ingress.class: nginx
     #   kubernetes.io/tls-acme: "true"
