@@ -102,7 +102,7 @@ authelia:
     rewriteTarget: true
 
     ## The Ingress Class Name.
-    # className: ingress-nginx
+    className: nginx
 
     ## Subdomain is the only thing required since we specify the domain as part of the root values of the chart.
     ## Example: To get Authelia to listen on https://auth.example.com specify 'auth' for ingress.subdomain,
