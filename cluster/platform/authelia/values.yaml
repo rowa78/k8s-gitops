@@ -340,8 +340,19 @@ authelia:
         successThreshold: 1
         failureThreshold: 6
 
-    extraVolumeMounts: []
-    extraVolumes: []
+    extraVolumeMounts:
+      - mountPath: /config/users_database.yml                                                                                                                                                                
+        name: userdb                                                                                                                                                                                     
+        readOnly: true
+        subPath: users_database.yml
+    extraVolumes: 
+      - name: userdb
+        secret:
+          secretName: authelia-user
+          optional: false # default setting; "mysecret" must exist
+          items:
+          - key: users_database.yml
+            path: users_database.yml
 
   ##
   ## Kubernetes Pod Disruption Budget
