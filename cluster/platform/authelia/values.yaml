@@ -1074,11 +1074,11 @@ authelia:
       ## The time range during which the user can attempt login before being banned. The user is banned if the
       ## authentication failed 'max_retries' times in a 'find_time' seconds window. Find Time accepts duration notation.
       ## See: https://www.authelia.com/configuration/prologue/common/#duration-notation-format
-      find_time: 2m
+      find_time: 5m
 
       ## The length of time before a banned user can login again. Ban Time accepts duration notation.
       ## See: https://www.authelia.com/configuration/prologue/common/#duration-notation-format
-      ban_time: 5m
+      ban_time: 60m
 
 
     ##
