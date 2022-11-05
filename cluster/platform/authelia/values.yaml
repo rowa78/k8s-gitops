@@ -541,7 +541,7 @@ authelia:
     ## Parameters used for TOTP generation.
     totp:
       ## Disable TOTP.
-      disable: false
+      disable: true
 
       ## The issuer name displayed in the Authenticator application of your choice.
       ## Defaults to <domain>.
@@ -1193,7 +1193,7 @@ authelia:
       ##   - validate the SMTP server x509 certificate during the TLS handshake against the hosts trusted certificates
       ##     (configure in tls section)
       smtp:
-        enabled: true
+        enabled: false
         enabledSecret: true
         host: smtp.mail.svc.cluster.local
         port: 25
