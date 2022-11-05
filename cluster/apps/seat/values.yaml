@@ -1,6 +1,6 @@
 mariadb:
   global:
-    storageClass: "longhorn"
+    storageClass: "openebs-hostpath"
 
   image:
     registry: docker.io
@@ -9,7 +9,7 @@ mariadb:
 
   ## @param architecture MariaDB architecture (`standalone` or `replication`)
   ##
-  architecture: standalone
+  architecture: replication
   ## MariaDB Authentication parameters
   ##
   auth:
@@ -34,8 +34,7 @@ mariadb:
     ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
     ##
     nodeSelector: 
-      kubernetes.io/arch: amd64
-      node.longhorn.io/create-default-disk: "true"
+      obenebs.storage.node: "true"
     ## Enable persistence using Persistent Volume Claims
     ## ref: https://kubernetes.io/docs/user-guide/persistent-volumes/
     ##
@@ -268,7 +267,7 @@ redis:
     ##   - myRegistryKeySecretName
     ##
     imagePullSecrets: []
-    storageClass: "longhorn"
+    storageClass: "openebs-hostpath"
     redis:
       password: ""
 
@@ -301,7 +300,7 @@ redis:
 
   ## @param architecture Redis&reg; architecture. Allowed values: `standalone` or `replication`
   ##
-  architecture: standalone
+  architecture: replication
   ## Redis&reg; Authentication parameters
   ## ref: https://github.com/bitnami/containers/tree/main/bitnami/redis#setting-the-server-password-on-first-run
   ##
@@ -524,8 +523,7 @@ redis:
     ## ref: https://kubernetes.io/docs/user-guide/node-selection/
     ##
     nodeSelector: 
-      kubernetes.io/arch: amd64
-      node.longhorn.io/create-default-disk: "true"
+      obenebs.storage.node: "true"
     ## @param master.tolerations Tolerations for Redis&reg; master pods assignment
     ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
     ##
@@ -616,7 +614,7 @@ redis:
         - ReadWriteOnce
       ## @param master.persistence.size Persistent Volume size
       ##
-      size: 8Gi
+      size: 2Gi
       ## @param master.persistence.annotations Additional custom annotations for the PVC
       ##
       annotations: {}
@@ -716,7 +714,7 @@ redis:
   replica:
     ## @param replica.replicaCount Number of Redis&reg; replicas to deploy
     ##
-    replicaCount: 3
+    replicaCount: 2
     ## @param replica.configuration Configuration for Redis&reg; replicas nodes
     ## ref: https://redis.io/topics/config
     ##
@@ -924,7 +922,8 @@ redis:
     ## @param replica.nodeSelector Node labels for Redis&reg; replicas pods assignment
     ## ref: https://kubernetes.io/docs/user-guide/node-selection/
     ##
-    nodeSelector: {}
+    nodeSelector: 
+      obenebs.storage.node: "true"
     ## @param replica.tolerations Tolerations for Redis&reg; replicas pods assignment
     ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
     ##
@@ -1015,7 +1014,7 @@ redis:
         - ReadWriteOnce
       ## @param replica.persistence.size Persistent Volume size
       ##
-      size: 8Gi
+      size: 2Gi
       ## @param replica.persistence.annotations Additional custom annotations for the PVC
       ##
       annotations: {}
