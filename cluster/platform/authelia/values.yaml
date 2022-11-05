@@ -206,7 +206,7 @@ authelia:
 
   pod:
     # Must be Deployment, DaemonSet, or StatefulSet.
-    kind: StatefulSet
+    kind: Deployment
 
     annotations: {}
     # annotations:
@@ -533,7 +533,7 @@ authelia:
     ## Options are totp, webauthn, mobile_push.
     default_2fa_method: ""
 
-    theme: light
+    theme: dark
 
     ##
     ## TOTP Configuration
@@ -902,7 +902,7 @@ authelia:
 
       ## Default policy can either be 'bypass', 'one_factor', 'two_factor' or 'deny'. It is the policy applied to any
       ## resource if there is no policy to be applied to the user.
-      default_policy: deny
+      default_policy: one_factor
 
       networks: []
       # networks:
