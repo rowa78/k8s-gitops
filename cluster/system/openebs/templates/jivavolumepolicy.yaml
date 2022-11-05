@@ -8,7 +8,7 @@ spec:
   target:
     replicationFactor: 3     
     nodeSelector:
-      obenebs.storage.node: "true"  
+      obenebs.storage.node: "true"
   replica:    
     nodeSelector:
-      obenebs.storage.node: "true"     
+      obenebs.storage.node: "true"

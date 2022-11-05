@@ -140,7 +140,7 @@ minio:
   ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
   ##
   nodeSelector:   
-    node: obenebs
+    obenebs.storage.node: "true"
   tolerations: []
   affinity: {}
   topologySpreadConstraints: []
