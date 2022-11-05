@@ -16,10 +16,19 @@ home-assistant:
   ingress:
     main:
       enabled: true
+      ingressClassName: "nginx"
       annotations:
-        kubernetes.io/ingress.class: "nginx"      
-        nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
-        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start       
+        cert-manager.io/cluster-issuer: letsencrypt-production        
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "home"
+        hajimari.io/group: apps
+        hajimari.io/appName: home-assistant
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          proxy_set_header X-Forwarded-Method $request_method;
       hosts:
       - host: home-assistant.rwcloud.org
         paths:
@@ -62,10 +71,19 @@ home-assistant:
         - "none"
       ingress:
         enabled: true
+        ingressClassName: "nginx"
         annotations:
-          kubernetes.io/ingress.class: "nginx"    
-          nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
-          nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start      
+          cert-manager.io/cluster-issuer: letsencrypt-production        
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "home"
+          hajimari.io/group: apps
+          hajimari.io/appName: hass-vscode
+          nginx.ingress.kubernetes.io/auth-method: GET
+          nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+          nginx.ingress.kubernetes.io/auth-snippet: |
+            proxy_set_header X-Forwarded-Method $request_method; 
         hosts:
         - host: hass-vscode.rwcloud.org
           paths:
@@ -118,15 +136,14 @@ home-assistant:
       enabled: true
     primary:
       nodeSelector: 
-        kubernetes.io/arch: amd64
-        node.longhorn.io/create-default-disk: "true"
+        obenebs.storage.node: "true"
       postgresqlUsername: "hass"
       postgresqlPassword: "hass"
       postgresqlDatabase: "hass"
       
       persistence:      
         enabled: true
-        storageClass: "longhorn"
+        storageClass: "openebs-hostpath"
         accessModes:
           - ReadWriteOnce
 
@@ -135,13 +152,12 @@ home-assistant:
     architecture: standalone
     database: home_assistant
     authEnabled: false     
-    storageClass: "longhorn"
+    storageClass: "openebs-hostpath"
     persistence:
       enabled: true
-      storageClass: "longhorn"
+      storageClass: "openebs-hostpath"
     size: 30Gi
     influxdb:
       nodeSelector: 
-        kubernetes.io/arch: amd64
-        node.longhorn.io/create-default-disk: "true"
+        obenebs.storage.node: "true"
     
