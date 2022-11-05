@@ -1,0 +1,60 @@
+thanos:
+  global:
+    storageClass: openebs-hostpath
+#  image:
+#    repository: raspbernetes/thanos
+#    tag: v0.23.1
+  receive:
+    enabled: true
+    persistence:
+      ## @param receive.persistence.enabled Enable data persistence using PVC(s) on Thanos Receive pods
+      ##
+      enabled: false
+    nodeSelector: 
+      kubernetes.io/arch: amd64
+  query:
+    nodeSelector: 
+      kubernetes.io/arch: amd64
+    enabled: true
+    replicaCount: 2
+    replicaLabels:
+      - replica
+    dnsDiscovery:
+      sidecarsService: kps-thanos-discovery
+      sidecarsNamespace: monitoring
+    ingress:
+      enabled: false
+      hostname: thanos.rwcloud.org
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        #nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
+        #nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start        
+      tls: true
+  queryFrontend:
+    enabled: true
+    nodeSelector: 
+      kubernetes.io/arch: amd64
+  bucketweb:
+    enabled: true
+    nodeSelector: 
+      kubernetes.io/arch: amd64
+  compactor:
+    enabled: true
+    nodeSelector: 
+      kubernetes.io/arch: amd64
+    persistence:
+      enabled: false
+  storegateway:
+    enabled: true
+    nodeSelector: 
+      kubernetes.io/arch: amd64
+    persistence:
+      enabled: false
+      size: 20Gi
+  ruler:
+    enabled: false
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+  existingObjstoreSecret: thanos-objstore    
