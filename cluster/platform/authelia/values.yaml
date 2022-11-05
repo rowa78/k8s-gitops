@@ -1171,7 +1171,7 @@ authelia:
     ## The available providers are: filesystem, smtp. You must use one and only one of these providers.
     notifier:
       ## You can disable the notifier startup check by setting this to true.
-      disable_startup_check: false
+      disable_startup_check: true
 
       ##
       ## File System (Notification Provider)
@@ -1193,8 +1193,8 @@ authelia:
       ##   - validate the SMTP server x509 certificate during the TLS handshake against the hosts trusted certificates
       ##     (configure in tls section)
       smtp:
-        enabled: false
-        enabledSecret: false
+        enabled: true
+        enabledSecret: true
         host: smtp.mail.svc.cluster.local
         port: 25
         timeout: 5s
@@ -1406,7 +1406,7 @@ authelia:
   ## and use the existingSecrets. All secrets can be stored in a single k8s secret if desired using the key option.
   ##
   secret:
-    existingSecret: ""
+    existingSecret: "authelia"
     # existingSecret: authelia
 
     annotations: {}
