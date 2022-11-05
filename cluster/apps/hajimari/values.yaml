@@ -79,6 +79,7 @@ hajimari:
   ingress:
     main:
       enabled: true
+      ingressClassname: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
         nginx.ingress.kubernetes.io/auth-method: GET
