@@ -38,7 +38,7 @@ kube-prometheus-stack:
         hajimari.io/enable: "true"
         hajimari.io/icon: "monitor-eye"                    
         hajimari.io/group: system
-        hajimari.io/name: alertmanager
+        hajimari.io/appName: alertmanager
       hosts:
         - &host alertmanager.rwcloud.org
       tls:
@@ -68,7 +68,7 @@ kube-prometheus-stack:
         hajimari.io/enable: "true"
         hajimari.io/icon: "monitor-eye"                    
         hajimari.io/group: system
-        hajimari.io/name: grafana
+        hajimari.io/appName: grafana
       hosts:
         - &host grafana.rwcloud.org
       tls:
@@ -181,7 +181,7 @@ kube-prometheus-stack:
         hajimari.io/enable: "true"
         hajimari.io/icon: "monitor-eye"                    
         hajimari.io/group: system
-        hajimari.io/name: prometheus
+        hajimari.io/appName: prometheus
       hosts:
         - &host prometheus.rwcloud.org
       tls:
