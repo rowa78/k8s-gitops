@@ -28,7 +28,7 @@ hajimari:
     #instanceName: "home"
 
     # -- Set to true to show all discovered applications by default.
-    defaultEnable: true
+    defaultEnable: false
 
     namespaceSelector:
       any: true
