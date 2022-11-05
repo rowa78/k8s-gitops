@@ -30,6 +30,16 @@ hajimari:
     # -- Set to true to show all discovered applications by default.
     defaultEnable: true
 
+    namespaceSelector:
+        any: true
+        # matchNames:
+        # - downloads
+        # - media
+    alwaysTargetBlank: true
+    showAppGroups: true
+    showAppUrls: false
+    showAppInfo: true
+    showGlobalBookmarks: true
     # -- Namespace selector to use for discovering applications
     #namespaceSelector:
     #  matchNames:
