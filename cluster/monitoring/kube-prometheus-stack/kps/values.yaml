@@ -196,9 +196,9 @@ kube-prometheus-stack:
             - *host
           secretName: prometheus-tls
     thanosService:
-      enabled: true
+      enabled: false
     thanosServiceMonitor:
-      enabled: true
+      enabled: false
   prometheusOperator:
     fullnameOverride: prometheus-operator
   prometheus-node-exporter:
