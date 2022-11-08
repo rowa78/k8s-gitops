@@ -508,7 +508,7 @@ postgres-operator-ui:
     resourcesVisible: "False"
     targetNamespace: "default"
     teams:
-      - "acid"
+      - "rwcloud"
 
   # configure extra UI ENVs
   # Extra ENVs are writen in kubenertes format and added "as is" to the pod's env variables
@@ -573,6 +573,3 @@ postgres-operator-ui:
       - secretName: postgres-operator-tls
         hosts:
           - postgres-operator.rwcloud.org
-
-  nodeSelector: 
-    kubernetes.io/arch: amd64
