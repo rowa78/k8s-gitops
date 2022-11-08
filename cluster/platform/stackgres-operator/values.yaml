@@ -85,7 +85,7 @@ stackgres-operator:
     autoapprove: true
     createForOperator: true
     createForWebApi: true
-    resetCerts: true
+    resetCerts: false
     # secretName:
     # webSecretName:
     # key:
