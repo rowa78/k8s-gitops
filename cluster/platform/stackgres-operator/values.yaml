@@ -79,15 +79,15 @@ stackgres-operator:
 
   deploy:
     operator: true
-    restapi: true
+    restapi: false
 
   cert:
     autoapprove: true
-    createForOperator: true
-    createForWebApi: true
+    createForOperator: false
+    createForWebApi: false
     resetCerts: false
-    # secretName:
-    # webSecretName:
+    #secretName: 
+    webSecretName: stackgres-tls
     # key:
     # crt:
     # jwtRsaKey:
