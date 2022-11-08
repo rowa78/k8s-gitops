@@ -1,0 +1,7 @@
+apiVersion: v2
+name: stackgres-operator
+version: 0.0.0
+dependencies:
+  - name: stackgres-operator
+    version: 1.3.3
+    repository: https://stackgres.io/downloads/stackgres-k8s/stackgres/helm
