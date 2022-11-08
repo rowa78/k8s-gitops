@@ -157,7 +157,7 @@ kube-prometheus-stack:
 
       ## Maximum size of metrics
       ##
-      retentionSize: "40G" 
+      retentionSize: "40Gi" 
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
