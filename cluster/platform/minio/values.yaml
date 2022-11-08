@@ -57,7 +57,7 @@ minio:
     storageClass: "openebs-jiva"
     VolumeName: ""
     accessMode: ReadWriteOnce
-    size: 25Gi
+    size: 75Gi
 
     ## If subPath is set mount a sub folder of a volume instead of the root of the volume.
     ## This is especially handy for volume plugins that don't natively support sub mounting (like glusterfs).
