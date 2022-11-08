@@ -17,6 +17,10 @@ minio:
   ## minio mode, i.e. standalone or distributed or gateway.
   mode: standalone ## other supported values are "standalone", "gateway"
 
+  deployment:
+    updateStrategy:
+      type: Recreate
+
   ## Use existing Secret that store following variables:
   ##
   ## | Chart var             | .data.<key> in Secret    |
@@ -50,10 +54,10 @@ minio:
     ##
     ## Storage class of PV to bind. By default it looks for standard storage class.
     ## If the PV uses a different storage class, specify that here.
-    storageClass: "longhorn"
+    storageClass: "openebs-jiva"
     VolumeName: ""
     accessMode: ReadWriteOnce
-    size: 25Gi
+    size: 75Gi
 
     ## If subPath is set mount a sub folder of a volume instead of the root of the volume.
     ## This is especially handy for volume plugins that don't natively support sub mounting (like glusterfs).
@@ -74,20 +78,19 @@ minio:
   ##
 
   ingress:
-    enabled: true
+    enabled: false
     ingressClassName: "nginx"
     labels: {}
       # node-role.kubernetes.io/ingress: platform
 
     annotations: 
       cert-manager.io/cluster-issuer: letsencrypt-production
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: "true"
-      # kubernetes.io/ingress.allow-http: "false"
-      # kubernetes.io/ingress.global-static-ip-name: ""
-      # nginx.ingress.kubernetes.io/secure-backends: "true"
-      # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-      # nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
+      nginx.ingress.kubernetes.io/auth-method: GET
+      nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+      nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+      nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+      nginx.ingress.kubernetes.io/auth-snippet: |
+        proxy_set_header X-Forwarded-Method $request_method;
     path: /
     hosts:
       - minio.rwcloud.org
@@ -113,15 +116,16 @@ minio:
 
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production      
-      nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
-      nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: "true"
-      # kubernetes.io/ingress.allow-http: "false"
-      # kubernetes.io/ingress.global-static-ip-name: ""
-      # nginx.ingress.kubernetes.io/secure-backends: "true"
-      # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-      # nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
+      nginx.ingress.kubernetes.io/auth-method: GET
+      nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+      nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+      nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+      nginx.ingress.kubernetes.io/auth-snippet: |
+        proxy_set_header X-Forwarded-Method $request_method;
+      hajimari.io/enable: "true"
+      hajimari.io/icon: "file-document"
+      hajimari.io/group: system
+      hajimari.io/appName: minio
     path: /
     hosts:
       - minio-console.rwcloud.org
@@ -136,8 +140,7 @@ minio:
   ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
   ##
   nodeSelector:   
-    kubernetes.io/arch: amd64
-    node.longhorn.io/create-default-disk: "true"
+    obenebs.storage.node: "true"
   tolerations: []
   affinity: {}
   topologySpreadConstraints: []
