@@ -86,7 +86,7 @@ stackgres-operator:
     createForOperator: false
     createForWebApi: false
     resetCerts: false
-    #secretName: 
+    secretName: stackgres-tls
     webSecretName: stackgres-tls
     # key:
     # crt:
