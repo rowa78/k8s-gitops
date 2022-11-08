@@ -574,3 +574,5 @@ postgres-operator-ui:
         hosts:
           - postgres-operator.rwcloud.org
 
+  nodeSelector: 
+    kubernetes.io/arch: amd64
