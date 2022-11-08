@@ -168,12 +168,7 @@ kube-prometheus-stack:
                 values:
                 - prometheus
       podAntiAffinity: hard
-      thanos:
-        image: quay.io/thanos/thanos:v0.27.0
-        version: v0.24.0
-        objectStorageConfig:
-          name: thanos-objstore
-          key: objstore.yml
+      thanos: {}        
     ingress:
       enabled: true
       ingressClassName: nginx
