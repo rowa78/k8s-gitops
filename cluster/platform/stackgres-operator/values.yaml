@@ -83,11 +83,11 @@ stackgres-operator:
 
   cert:
     autoapprove: true
-    createForOperator: false
+    createForOperator: true
     createForWebApi: false
     resetCerts: false
-    secretName: stackgres-tls
-    webSecretName: stackgres-tls
+    #secretName: stackgres-tls
+    #webSecretName: stackgres-tls
     # key:
     # crt:
     # jwtRsaKey:
