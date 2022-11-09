@@ -484,7 +484,7 @@ harbor:
     #    memory: 256Mi
     #    cpu: 100m
     nodeSelector: 
-      obenebs.storage.node: true
+      obenebs.storage.node: "true"
     tolerations: []
     affinity: {}
     ## Additional deployment annotations
@@ -535,7 +535,7 @@ harbor:
     #     memory: 256Mi
     #     cpu: 100m
     nodeSelector: 
-      obenebs.storage.node: true
+      obenebs.storage.node: "true"
     tolerations: []
     affinity: {}
     ## Additional deployment annotations
@@ -572,7 +572,7 @@ harbor:
     replicas: 1
     revisionHistoryLimit: 10
     nodeSelector: 
-      obenebs.storage.node: true
+      obenebs.storage.node: "true"
     tolerations: []
     affinity: {}
     ## Additional deployment annotations
@@ -632,7 +632,7 @@ harbor:
     #    memory: 256Mi
     #    cpu: 100m
     nodeSelector: 
-      obenebs.storage.node: true
+      obenebs.storage.node: "true"
     tolerations: []
     affinity: {}
     ## Additional deployment annotations
@@ -706,7 +706,7 @@ harbor:
         cpu: 1
         memory: 1Gi
     nodeSelector: 
-      obenebs.storage.node: true
+      obenebs.storage.node: "true"
     tolerations: []
     affinity: {}
     ## Additional deployment annotations
@@ -730,7 +730,7 @@ harbor:
       #    memory: 256Mi
       #    cpu: 100m
       nodeSelector: 
-        obenebs.storage.node: true
+        obenebs.storage.node: "true"
       tolerations: []
       affinity: {}
       ## Additional deployment annotations
@@ -751,7 +751,7 @@ harbor:
       #    memory: 256Mi
       #    cpu: 100m
       nodeSelector: 
-        obenebs.storage.node: true
+        obenebs.storage.node: "true"
       tolerations: []
       affinity: {}
       ## Additional deployment annotations
@@ -789,7 +789,7 @@ harbor:
       #    memory: 256Mi
       #    cpu: 100m
       nodeSelector: 
-        obenebs.storage.node: true
+        obenebs.storage.node: "true"
       tolerations: []
       affinity: {}
       ## The priority class to run the pod as
@@ -850,7 +850,7 @@ harbor:
       #    memory: 256Mi
       #    cpu: 100m
       nodeSelector: 
-        obenebs.storage.node: true
+        obenebs.storage.node: "true"
       tolerations: []
       affinity: {}
       ## The priority class to run the pod as
@@ -890,7 +890,7 @@ harbor:
       repository: goharbor/harbor-exporter
       tag: v2.6.1
     nodeSelector: 
-      obenebs.storage.node: true
+      obenebs.storage.node: "true"
     tolerations: []
     affinity: {}
     cacheDuration: 23
