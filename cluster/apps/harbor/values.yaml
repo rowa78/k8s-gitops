@@ -48,17 +48,23 @@ harbor:
       annotations:
         # note different ingress controllers may require a different ssl-redirect annotation
         # for Envoy, use ingress.kubernetes.io/force-ssl-redirect: "true" and remove the nginx lines below
-        ingress.kubernetes.io/ssl-redirect: "true"
+        #ingress.kubernetes.io/ssl-redirect: "true"
         ingress.kubernetes.io/proxy-body-size: "0"
-        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        #nginx.ingress.kubernetes.io/ssl-redirect: "true"
         nginx.ingress.kubernetes.io/proxy-body-size: "0"
         cert-manager.io/cluster-issuer: letsencrypt-production        
         hajimari.io/enable: "true"
         hajimari.io/icon: "rss"
         hajimari.io/group: apps
+        hajimari.io/appName: harbor
       notary:
         # notary ingress-specific annotations
-        annotations: {}
+        annotations: 
+          cert-manager.io/cluster-issuer: letsencrypt-production        
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "rss"
+          hajimari.io/group: apps
+          hajimari.io/appName: harbor-notary
         # notary ingress-specific labels
         labels: {}
       harbor:
