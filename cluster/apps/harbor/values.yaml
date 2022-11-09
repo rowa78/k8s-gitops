@@ -52,11 +52,6 @@ harbor:
         ingress.kubernetes.io/proxy-body-size: "0"
         #nginx.ingress.kubernetes.io/ssl-redirect: "true"
         nginx.ingress.kubernetes.io/proxy-body-size: "0"
-        cert-manager.io/cluster-issuer: letsencrypt-production        
-        hajimari.io/enable: "true"
-        hajimari.io/icon: "rss"
-        hajimari.io/group: apps
-        hajimari.io/appName: harbor
       notary:
         # notary ingress-specific annotations
         annotations: 
@@ -69,7 +64,12 @@ harbor:
         labels: {}
       harbor:
         # harbor ingress-specific annotations
-        annotations: {}
+        annotations: 
+          cert-manager.io/cluster-issuer: letsencrypt-production        
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "rss"
+          hajimari.io/group: apps
+          hajimari.io/appName: harbor
         # harbor ingress-specific labels
         labels: {}
     clusterIP:
