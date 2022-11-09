@@ -119,16 +119,16 @@ rabbitmq:
     ## @param auth.username RabbitMQ application username
     ## ref: https://github.com/bitnami/containers/tree/main/bitnami/rabbitmq#environment-variables
     ##
-    username: user
+    username: rabbitmq
     ## @param auth.password RabbitMQ application password
     ## ref: https://github.com/bitnami/containers/tree/main/bitnami/rabbitmq#environment-variables
     ##
-    password: "user"
+    #password: "user"
     ## @param auth.existingPasswordSecret Existing secret with RabbitMQ credentials (must contain a value for `rabbitmq-password` key)
     ## e.g:
     ## existingPasswordSecret: name-of-existing-secret
     ##
-    existingPasswordSecret: ""
+    existingPasswordSecret: "rabbitmq-credentials"
     ## @param auth.erlangCookie Erlang cookie to determine whether different nodes are allowed to communicate with each other
     ## ref: https://github.com/bitnami/containers/tree/main/bitnami/rabbitmq#environment-variables
     ##
