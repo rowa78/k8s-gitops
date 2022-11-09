@@ -435,7 +435,8 @@ harbor:
     #  requests:
     #    memory: 256Mi
     #    cpu: 100m
-    nodeSelector: {}
+    nodeSelector: 
+      obenebs.storage.node: "true"
     tolerations: []
     affinity: {}
     ## Additional deployment annotations
@@ -457,7 +458,8 @@ harbor:
     #  requests:
     #    memory: 256Mi
     #    cpu: 100m
-    nodeSelector: {}
+    nodeSelector: 
+      obenebs.storage.node: "true"
     tolerations: []
     affinity: {}
     ## Additional deployment annotations
