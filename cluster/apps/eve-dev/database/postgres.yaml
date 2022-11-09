@@ -1,7 +1,7 @@
 apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
-  name: rwcloud-eve-dev
+  name: rwcloud-eve-dev-db
 spec:
   teamId: "rwcloud"
   numberOfInstances: 1
