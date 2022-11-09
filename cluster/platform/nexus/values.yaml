@@ -111,6 +111,9 @@ nexus-repository-manager:
     ingressClassName: nginx
     annotations:
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
     hostPath: /
     hostRepo: nexus.rwcloud.org
     tls:
@@ -133,6 +136,9 @@ nexus-repository-manager:
     portName: docker
     labels:
     annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
     # path: /docker
 
   nexusProxyRoute:
