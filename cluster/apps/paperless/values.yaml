@@ -38,6 +38,21 @@ paperless:
     # -- Password for the root user
     # PAPERLESS_ADMIN_PASSWORD: admin
     # PAPERLESS_URL: <set to main ingress by default>
+    PAPERLESS_ADMIN_USER:
+      valueFrom:
+        secretKeyRef:
+          name: paperless
+          key: USER
+    PAPERLESS_ADMIN_PASSWORD:
+      valueFrom:
+        secretKeyRef:
+          name: paperless
+          key: PASSWORD
+    PAPERLESS_ADMIN_MAIL:
+      valueFrom:
+        secretKeyRef:
+          name: paperless
+          key: EMAIL
 
   # -- Configures service settings for the chart.
   # @default -- See values.yaml
