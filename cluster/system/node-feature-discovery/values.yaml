@@ -1,7 +1,7 @@
 node-feature-discovery:
   image:
     repository: raspbernetes/node-feature-discovery
-    tag: "v0.11.2"
+    tag: "v0.11.3"
   sources:
     # - cpu
   - custom
