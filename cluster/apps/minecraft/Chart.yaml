@@ -1,5 +1,5 @@
 apiVersion: v2
-name: hajimari
+name: minecraft
 version: 4.4.0
 dependencies:
   - name: minecraft
