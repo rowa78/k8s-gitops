@@ -23,7 +23,7 @@ paperless:
     # -- Project name
     COMPOSE_PROJECT_NAME: paperless
     # -- Redis to use
-    PAPERLESS_REDIS: paperless-redis-master
+    PAPERLESS_REDIS: redis://paperless-redis-master:6379
     # -- OCR languages to install
     PAPERLESS_OCR_LANGUAGE: deu
     # USERMAP_UID: 1000
