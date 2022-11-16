@@ -88,14 +88,17 @@ paperless:
         - hosts:
             - "dms.rwcloud.org"
 
+  nodeSelector:
+    obenebs.storage.node: "true"
+
   persistence:
     # -- Configure persistence for data.
     # @default -- See values.yaml
     data:
-      enabled: false
+      enabled: true
       mountPath: /usr/src/paperless/data
       accessMode: ReadWriteOnce
-      storageClass: "openebs-jiva"
+      storageClass: "openebs-hostpath"
       size: 10Gi
       emptyDir:
         enabled: false
