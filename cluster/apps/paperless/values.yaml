@@ -92,7 +92,7 @@ paperless:
     # -- Configure persistence for data.
     # @default -- See values.yaml
     data:
-      enabled: true
+      enabled: false
       mountPath: /usr/src/paperless/data
       accessMode: ReadWriteOnce
       storageClass: "openebs-jiva"
