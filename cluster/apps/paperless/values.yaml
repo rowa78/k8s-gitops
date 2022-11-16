@@ -95,6 +95,8 @@ paperless:
       enabled: false
       mountPath: /usr/src/paperless/data
       accessMode: ReadWriteOnce
+      storageClass: "nfs-client"
+      size: 10Gi
       emptyDir:
         enabled: false
     # -- Configure persistence for media.
@@ -113,6 +115,8 @@ paperless:
       enabled: false
       mountPath: /usr/src/paperless/consume
       accessMode: ReadWriteOnce
+      storageClass: "nfs-client"
+      size: 10Gi
       emptyDir:
         enabled: false
     # -- Configure export volume.
@@ -121,6 +125,8 @@ paperless:
       enabled: false
       mountPath: /usr/src/paperless/export
       accessMode: ReadWriteOnce
+      storageClass: "nfs-client"
+      size: 50Gi
       emptyDir:
         enabled: false
 
