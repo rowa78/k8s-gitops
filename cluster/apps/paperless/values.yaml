@@ -100,9 +100,10 @@ paperless:
     # -- Configure persistence for media.
     # @default -- See values.yaml
     media:
-      enabled: false
+      enabled: true
       mountPath: /usr/src/paperless/media
       accessMode: ReadWriteOnce
+      storageClass: "nfs-client"
       emptyDir:
         enabled: false
     # -- Configure volume to monitor for new documents.
