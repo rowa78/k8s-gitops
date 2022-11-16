@@ -92,7 +92,7 @@ paperless:
     # -- Configure persistence for data.
     # @default -- See values.yaml
     data:
-      enabled: false
+      enabled: true
       mountPath: /usr/src/paperless/data
       accessMode: ReadWriteOnce
       storageClass: "nfs-client"
@@ -112,7 +112,7 @@ paperless:
     # -- Configure volume to monitor for new documents.
     # @default -- See values.yaml
     consume:
-      enabled: false
+      enabled: true
       mountPath: /usr/src/paperless/consume
       accessMode: ReadWriteOnce
       storageClass: "nfs-client"
@@ -122,7 +122,7 @@ paperless:
     # -- Configure export volume.
     # @default -- See values.yaml
     export:
-      enabled: false
+      enabled: true
       mountPath: /usr/src/paperless/export
       accessMode: ReadWriteOnce
       storageClass: "nfs-client"
