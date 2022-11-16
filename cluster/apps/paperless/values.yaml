@@ -104,6 +104,7 @@ paperless:
       mountPath: /usr/src/paperless/media
       accessMode: ReadWriteOnce
       storageClass: "nfs-client"
+      size: 100Gi
       emptyDir:
         enabled: false
     # -- Configure volume to monitor for new documents.
