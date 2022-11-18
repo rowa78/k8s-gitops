@@ -1,0 +1,416 @@
+minio:
+  ## Set default image, imageTag, and imagePullPolicy. mode is used to indicate the
+  ##
+  image:
+    repository: quay.io/minio/minio
+    tag: RELEASE.2022-09-17T00-09-45Z
+    pullPolicy: IfNotPresent
+
+  ## Set default image, imageTag, and imagePullPolicy for the `mc` (the minio
+  ## client used to create a default bucket).
+  ##
+  mcImage:
+    repository: quay.io/minio/mc
+    tag: RELEASE.2022-09-16T09-16-47Z
+    pullPolicy: IfNotPresent
+
+  ## minio mode, i.e. standalone or distributed or gateway.
+  mode: standalone ## other supported values are "standalone", "gateway"
+
+  deployment:
+    updateStrategy:
+      type: Recreate
+
+  ## Use existing Secret that store following variables:
+  ##
+  ## | Chart var             | .data.<key> in Secret    |
+  ## |:----------------------|:-------------------------|
+  ## | rootUser              | rootUser                 |
+  ## | rootPassword          | rootPassword             |
+  ##
+  ## All mentioned variables will be ignored in values file.
+  ## .data.rootUser and .data.rootPassword are mandatory,
+  ## others depend on enabled status of corresponding sections.
+  existingSecret: "minio-root-user"
+
+  ## Enable persistence using Persistent Volume Claims
+  ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+  ##
+  persistence:
+    enabled: true
+    annotations: {}
+
+    ## A manually managed Persistent Volume and Claim
+    ## Requires persistence.enabled: true
+    ## If defined, PVC must be created manually before volume will be bound
+    existingClaim: ""
+
+    ## minio data Persistent Volume Storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    ## Storage class of PV to bind. By default it looks for standard storage class.
+    ## If the PV uses a different storage class, specify that here.
+    storageClass: "openebs-jiva"
+    VolumeName: ""
+    accessMode: ReadWriteOnce
+    size: 75Gi
+
+    ## If subPath is set mount a sub folder of a volume instead of the root of the volume.
+    ## This is especially handy for volume plugins that don't natively support sub mounting (like glusterfs).
+    ##
+    subPath: ""
+
+  ## Expose the MinIO service to be accessed from outside the cluster (LoadBalancer service).
+  ## or access it from within the cluster (ClusterIP service). Set the service type and the port to serve it.
+  ## ref: http://kubernetes.io/docs/user-guide/services/
+  ##
+  service:
+    type: ClusterIP
+    clusterIP: ~
+    port: "9000"
+    nodePort: 32000
+
+  ## Configure Ingress based on the documentation here: https://kubernetes.io/docs/concepts/services-networking/ingress/
+  ##
+
+  ingress:
+    enabled: false
+    ingressClassName: "nginx"
+    labels: {}
+      # node-role.kubernetes.io/ingress: platform
+
+    annotations: 
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      nginx.ingress.kubernetes.io/auth-method: GET
+      nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+      nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+      nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+      nginx.ingress.kubernetes.io/auth-snippet: |
+        proxy_set_header X-Forwarded-Method $request_method;
+    path: /
+    hosts:
+      - minio.rwcloud.org
+    tls: 
+      - hosts: 
+          - minio.rwcloud.org
+        secretName: minio-tls
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+  consoleService:
+    type: ClusterIP
+    clusterIP: ~
+    port: "9001"
+    nodePort: 32001
+
+  consoleIngress:
+    enabled: true
+    ingressClassName: "nginx"
+    labels: {}
+      # node-role.kubernetes.io/ingress: platform
+
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production      
+      nginx.ingress.kubernetes.io/auth-method: GET
+      nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+      nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+      nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+      nginx.ingress.kubernetes.io/auth-snippet: |
+        proxy_set_header X-Forwarded-Method $request_method;
+      hajimari.io/enable: "true"
+      hajimari.io/icon: "file-document"
+      hajimari.io/group: system
+      hajimari.io/appName: minio
+    path: /
+    hosts:
+      - minio-console.rwcloud.org
+    tls: 
+      - hosts: 
+          - minio-console.rwcloud.org        
+        secretName: minio-console-tls
+    #    hosts:
+    #      - chart-example.local
+
+  ## Node labels for pod assignment
+  ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
+  ##
+  nodeSelector:   
+    obenebs.storage.node: "true"
+  tolerations: []
+  affinity: {}
+  topologySpreadConstraints: []
+
+  ## Configure resource requests and limits
+  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+  ##
+  resources:
+    requests:
+      memory: 2Gi
+
+  ## List of policies to be created after minio install
+  ##
+  ## In addition to default policies [readonly|readwrite|writeonly|consoleAdmin|diagnostics]
+  ## you can define additional policies with custom supported actions and resources
+  policies: []
+  ## writeexamplepolicy policy grants creation or deletion of buckets with name
+  ## starting with example. In addition, grants objects write permissions on buckets starting with
+  ## example.
+  # - name: writeexamplepolicy
+  #   statements:
+  #     - resources:
+  #         - 'arn:aws:s3:::example*/*'
+  #       actions:
+  #         - "s3:AbortMultipartUpload"
+  #         - "s3:GetObject"
+  #         - "s3:DeleteObject"
+  #         - "s3:PutObject"
+  #         - "s3:ListMultipartUploadParts"
+  #     - resources:
+  #         - 'arn:aws:s3:::example*'
+  #       actions:
+  #         - "s3:CreateBucket"
+  #         - "s3:DeleteBucket"
+  #         - "s3:GetBucketLocation"
+  #         - "s3:ListBucket"
+  #         - "s3:ListBucketMultipartUploads"
+  ## readonlyexamplepolicy policy grants access to buckets with name starting with example.
+  ## In addition, grants objects read permissions on buckets starting with example.
+  # - name: readonlyexamplepolicy
+  #   statements:
+  #     - resources:
+  #         - 'arn:aws:s3:::example*/*'
+  #       actions:
+  #         - "s3:GetObject"
+  #     - resources:
+  #         - 'arn:aws:s3:::example*'
+  #       actions:
+  #         - "s3:GetBucketLocation"
+  #         - "s3:ListBucket"
+  #         - "s3:ListBucketMultipartUploads"
+  ## conditionsexample policy creates all access to example bucket with aws:username="johndoe" and source ip range 10.0.0.0/8 and 192.168.0.0/24 only
+  # - name: conditionsexample
+  #   statements:
+  #     - resources:
+  #       - 'arn:aws:s3:::example/*'
+  #       actions:
+  #       - 's3:*'
+  #       conditions:
+  #         - StringEquals: '"aws:username": "johndoe"'
+  #         - IpAddress: |
+  #             "aws:SourceIp": [
+  #               "10.0.0.0/8",
+  #               "192.168.0.0/24"
+  #             ]
+  #
+  ## Additional Annotations for the Kubernetes Job makePolicyJob
+  makePolicyJob:
+    podAnnotations: {}
+    annotations: {}
+    securityContext:
+      enabled: false
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    resources:
+      requests:
+        memory: 128Mi
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+    extraVolumes: []
+    extraVolumeMounts: []
+    # Command to run after the main command on exit
+    exitCommand: ""
+
+  ## List of users to be created after minio install
+  ##
+  users:
+    ## Username, password and policy to be assigned to the user
+    ## Default policies are [readonly|readwrite|writeonly|consoleAdmin|diagnostics]
+    ## Add new policies as explained here https://docs.min.io/docs/minio-multi-user-quickstart-guide.html
+    ## NOTE: this will fail if LDAP is enabled in your MinIO deployment
+    ## make sure to disable this if you are using LDAP.
+    - accessKey: minio
+      existingSecret: minio-users
+      existingSecretKey: password
+      policy: readwrite      
+    # Or you can refer to specific secret
+    #- accessKey: externalSecret
+    #  existingSecret: my-secret
+    #  existingSecretKey: password
+    #  policy: readonly
+
+
+  ## Additional Annotations for the Kubernetes Job makeUserJob
+  makeUserJob:
+    podAnnotations: {}
+    annotations: {}
+    securityContext:
+      enabled: false
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    resources:
+      requests:
+        memory: 128Mi
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+    extraVolumes: []
+    extraVolumeMounts: []
+    # Command to run after the main command on exit
+    exitCommand: ""
+
+  ## List of buckets to be created after minio install
+  ##
+  buckets:
+    - name: loki
+      policy: none
+      purge: false    
+    - name: thanos
+      policy: none
+      purge: false
+    #   # Name of the bucket
+    # - name: bucket1
+    #   # Policy to be set on the
+    #   # bucket [none|download|upload|public]
+    #   policy: none
+    #   # Purge if bucket exists already
+    #   purge: false
+    #   # set versioning for
+    #   # bucket [true|false]
+    #   versioning: false
+    #   # set objectlocking for
+    #   # bucket [true|false] NOTE: versioning is enabled by default if you use locking 
+    #   objectlocking: false
+    # - name: bucket2
+    #   policy: none
+    #   purge: false
+    #   versioning: true
+    #   # set objectlocking for
+    #   # bucket [true|false] NOTE: versioning is enabled by default if you use locking 
+    #   objectlocking: false
+
+  ## Additional Annotations for the Kubernetes Job makeBucketJob
+  makeBucketJob:
+    podAnnotations: {}
+    annotations: {}
+    securityContext:
+      enabled: false
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    resources:
+      requests:
+        memory: 128Mi
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+    extraVolumes: []
+    extraVolumeMounts: []
+    # Command to run after the main command on exit
+    exitCommand: ""
+    
+  ## List of command to run after minio install
+  ## NOTE: the mc command TARGET is always "myminio"
+  customCommands:
+    # - command: "admin policy set myminio consoleAdmin group='cn=ops,cn=groups,dc=example,dc=com'"
+
+  ## Additional Annotations for the Kubernetes Job customCommandJob
+  customCommandJob:
+    podAnnotations: {}
+    annotations: {}
+    securityContext:
+      enabled: false
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    resources:
+      requests:
+        memory: 128Mi
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+    # Command to run after the main command on exit
+    exitCommand: ""
+    
+  ## Use this field to add environment variables relevant to MinIO server. These fields will be passed on to MinIO container(s)
+  ## when Chart is deployed
+  environment: []
+    #MINIO_PROMETHEUS_AUTH_TYPE: "public"
+    ## Please refer for comprehensive list https://docs.min.io/minio/baremetal/reference/minio-server/minio-server.html
+    ## MINIO_SUBNET_LICENSE: "License key obtained from https://subnet.min.io"
+    ## MINIO_BROWSER: "off"
+
+  ## The name of a secret in the same kubernetes namespace which contain secret values
+  ## This can be useful for LDAP password, etc
+  ## The key in the secret must be 'config.env'
+  ##
+  # extraSecret: minio-extraenv
+
+  ## OpenID Identity Management
+  ## The following section documents environment variables for enabling external identity management using an OpenID Connect (OIDC)-compatible provider.
+  ## See https://docs.min.io/minio/baremetal/security/openid-external-identity-management/external-authentication-with-openid-identity-provider.html#minio-external-identity-management-openid for a tutorial on using these variables.
+  oidc:
+    enabled: false
+    configUrl: "https://identity-provider-url/.well-known/openid-configuration"
+    clientId: "minio"
+    clientSecret: ""
+    claimName: "policy"
+    scopes: "openid,profile,email"
+    redirectUri: "https://console-endpoint-url/oauth_callback"
+    # Can leave empty
+    claimPrefix: ""
+    comment: ""
+
+  networkPolicy:
+    enabled: false
+    allowExternal: true
+
+  ## PodDisruptionBudget settings
+  ## ref: https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
+  ##
+  podDisruptionBudget:
+    enabled: false
+    maxUnavailable: 1
+
+  ## Specify the service account to use for the MinIO pods. If 'create' is set to 'false'
+  ## and 'name' is left unspecified, the account 'default' will be used.
+  serviceAccount:
+    create: true
+    ## The name of the service account to use. If 'create' is 'true', a service account with that name
+    ## will be created.
+    name: "minio-sa"
+
+  metrics:
+    serviceMonitor:
+      enabled: true
+      # scrape each node/pod individually for additional metrics
+      includeNode: false
+      public: true
+      additionalLabels: {}
+      # for node metrics
+      relabelConfigs: {}
+      # for cluster metrics
+      relabelConfigsCluster: {}
+        # metricRelabelings:
+        #   - regex: (server|pod)
+        #     action: labeldrop
+      # namespace: monitoring
+      # interval: 30s
+      # scrapeTimeout: 10s
+
+  ## ETCD settings: https://github.com/minio/minio/blob/master/docs/sts/etcd.md
+  ## Define endpoints to enable this section.
+  etcd:
+    endpoints: []
+    pathPrefix: ""
+    corednsPathPrefix: ""
+    clientCert: ""
+    clientCertKey: ""
+

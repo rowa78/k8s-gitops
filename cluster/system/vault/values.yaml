@@ -4,16 +4,23 @@ vault:
   ui:
     enabled: true
   server:
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      node.longhorn.io/create-default-disk: "true"
     dataStorage:
-      storageClass: longhorn
+      storageClass: nfs-client
       size: 1Gi
     ingress:
       enabled: true
       ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
-        nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
-        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          proxy_set_header X-Forwarded-Method $request_method;
       hosts:
         - host: vault.rwcloud.org
       tls:

@@ -1,0 +1,21 @@
+---
+- name: system
+  ansible.builtin.include_tasks: system.yml
+
+- name: runc
+  ansible.builtin.include_tasks: runc.yml
+
+- name: cni
+  ansible.builtin.include_tasks: cni.yml
+
+- name: containerd
+  ansible.builtin.include_tasks: containerd.yml
+
+- name: crictl
+  ansible.builtin.include_tasks: crictl.yml
+
+- name: nerdctl
+  ansible.builtin.include_tasks: nerdctl.yml
+
+- name: kubernetes
+  ansible.builtin.include_tasks: kubernetes.yml

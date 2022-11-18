@@ -1,0 +1,189 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seat
+  namespace: seat
+  labels:
+    app: seat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: seat
+  template:
+    metadata:
+      labels:
+        app: seat
+    spec:
+      containers:
+        - name: seat-web
+          image: eveseat/seat:4.2.9 
+          args: ["web"]
+          ports:
+            - containerPort: 80
+          env:
+            - name: DB_HOST
+              value: seat-mariadb
+            - name: DB_DATABASE
+              value: seat
+            - name: DB_USERNAME
+              value: seat
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: seat-mariadb-secret
+                  key: mariadb-password
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: '6379'
+            - name: APP_DEBUG
+              value: "false"
+            - name: APP_URL
+              value: seat.rwcloud.org
+            - name: APP_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: eve_app_id
+            - name: EVE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: eve_client_id
+            - name: EVE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: eve_client_secret
+            - name: EVE_CALLBACK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: eve_callback_url
+            - name: MAIL_DRIVER
+              value: smtp
+            - name: MAIL_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: email-host
+            - name: MAIL_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: email-port
+            - name: MAIL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: email-username
+            - name: MAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: email-password
+            - name: MAIL_ENCRYPTION
+              value: tls
+            - name: MAIL_FROM_ADDRESS
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: mail-from-address
+            - name: MAIL_FROM_NAME
+              value: seat
+        - name: seat-worker
+          image: eveseat/seat:4.2.9 
+          args: ["worker"]
+          ports:
+            - containerPort: 80
+          env:
+            - name: DB_HOST
+              value: seat-mariadb
+            - name: DB_DATABASE
+              value: seat
+            - name: DB_USERNAME
+              value: seat
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: seat-mariadb-secret
+                  key: mariadb-password
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: '6379'
+            - name: APP_DEBUG
+              value: "true"
+            - name: APP_URL
+              value: seat.rwcloud.org
+            - name: APP_ENV
+              value: local
+            - name: APP_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: eve_app_id
+            - name: EVE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: eve_client_id
+            - name: EVE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: eve_client_secret
+            - name: EVE_CALLBACK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: eve_callback_url
+        - name: seat-cron
+          image: eveseat/seat:4.2.9 
+          args: ["cron"]
+          ports:
+            - containerPort: 80
+          env:
+            - name: DB_HOST
+              value: seat-mariadb
+            - name: DB_DATABASE
+              value: seat
+            - name: DB_USERNAME
+              value: seat
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: seat-mariadb-secret
+                  key: mariadb-password
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: '6379'
+            - name: APP_DEBUG
+              value: "true"
+            - name: APP_URL
+              value: seat.rwcloud.org
+            - name: APP_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: eve_app_id
+            - name: EVE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: eve_client_id
+            - name: EVE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: eve_client_secret
+            - name: EVE_CALLBACK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: seat
+                  key: eve_callback_url
+      nodeSelector:
+        beta.kubernetes.io/arch: amd64

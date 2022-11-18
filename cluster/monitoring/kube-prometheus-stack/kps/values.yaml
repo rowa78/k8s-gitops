@@ -3,34 +3,54 @@ kube-prometheus-stack:
   alertmanager:
     externalUrl: https://alertmanager.rwcloud.org
     fullnameOverride: alertmanager
+    replicas: 3
     alertmanagerSpec:
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: longhorn
+            storageClassName: openebs-hostpath
             resources:
               requests:
                 storage: 1Gi
       useExistingSecret: true
       configSecret: alertmanager-config
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node
+                operator: In
+                values:
+                - prometheus
+      podAntiAffinity: hard
     ingress:
       enabled: true
       ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
-        nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
-        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          proxy_set_header X-Forwarded-Method $request_method;
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "monitor-eye"                    
+        hajimari.io/group: system
+        hajimari.io/appName: alertmanager
       hosts:
         - &host alertmanager.rwcloud.org
       tls:
         - hosts:
             - *host
           secretName: alertmanager-tls
+
   grafana:
     fullnameOverride: grafana
     defaultDashboardsTimezone: Europe/Berlin
     persistence:
-      enabled: true
+      enabled: false
       type: statefulset
       storageClassName: longhorn
       size: 1Gi
@@ -39,8 +59,16 @@ kube-prometheus-stack:
       ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
-        nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
-        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          proxy_set_header X-Forwarded-Method $request_method;
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "monitor-eye"                    
+        hajimari.io/group: system
+        hajimari.io/appName: grafana
       hosts:
         - &host grafana.rwcloud.org
       tls:
@@ -89,6 +117,8 @@ kube-prometheus-stack:
           url: https://grafana.com/api/dashboards/12559/revisions/11/download
         argocd:
           url: https://raw.githubusercontent.com/argoproj/argo-cd/master/examples/dashboard.json
+        thanos:
+          url: https://grafana.com/api/dashboards/12937/revisions/4/download
     grafana.ini:
       analytics:
         check_for_updates: false
@@ -104,10 +134,11 @@ kube-prometheus-stack:
       existingSecret: grafana
     admin:
       existingSecret: grafana
-    envFromSecret: grafana-smtp
+    envFromSecret: grafana-smtp    
   prometheus:
     fullnameOverride: prometheus
     prometheusSpec:
+      replicas: 3
       externalUrl: https://prometheus.rwcloud.org
       ruleSelectorNilUsesHelmValues: false
       serviceMonitorSelectorNilUsesHelmValues: false
@@ -116,24 +147,53 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
-            storageClassName: longhorn
+            storageClassName: openebs-hostpath
             resources:
               requests:
-                storage: 30Gi
-      retentionSize: "25GB"
+                storage: 50Gi     
+      ## How long to retain metrics
+      ##
+      retention: 10d
+
+      ## Maximum size of metrics
+      ##
+      retentionSize: "40GiB" 
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node
+                operator: In
+                values:
+                - prometheus
+      podAntiAffinity: hard
+      thanos: {}        
     ingress:
       enabled: true
       ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
-        nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
-        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          proxy_set_header X-Forwarded-Method $request_method;
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "monitor-eye"                    
+        hajimari.io/group: system
+        hajimari.io/appName: prometheus
       hosts:
         - &host prometheus.rwcloud.org
       tls:
         - hosts:
             - *host
           secretName: prometheus-tls
+    thanosService:
+      enabled: false
+    thanosServiceMonitor:
+      enabled: false
   prometheusOperator:
     fullnameOverride: prometheus-operator
   prometheus-node-exporter:

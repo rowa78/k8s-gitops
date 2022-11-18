@@ -1,0 +1,85 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "matchManagers": ["pre-commit"],
+      "groupName": "pre-commit"
+    },
+    {
+      "matchDatasources": ["helm"],
+      "matchSourceUrlPrefixes": ["https://github.com/k8s-at-home/"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "k8s-at-home"
+    },
+    {
+      "matchDatasources": ["helm"],
+      "schedule": "on saturday",
+      "automerge": true,
+      "automergeType": "branch",
+      "ignoreTests": true,
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": ["renovate"]
+    },
+    {
+      "matchDatasources": ["docker"],
+      "schedule": "on saturday",
+      "automerge": true,
+      "automergeType": "branch",
+      "ignoreTests": true,
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": [
+        "ghcr.io/k8s-at-home/bazarr",
+        "ghcr.io/k8s-at-home/jackett",
+        "ghcr.io/k8s-at-home/lidarr-nightly",
+        "ghcr.io/k8s-at-home/prowlarr-nightly",
+        "ghcr.io/k8s-at-home/radarr-nightly",
+        "ghcr.io/k8s-at-home/sonarr-nightly",
+        "ghcr.io/k8s-at-home/tautulli",
+        "ghcr.io/linuxserver/ombi",
+        "flaresolverr/flaresolverr"
+      ]
+    },
+    {
+      "matchDatasources": ["docker"],
+      "versioning": "loose",
+      "matchPackageNames": ["binhex/arch-delugevpn"]
+    },
+    {
+      "matchDatasources": ["github-releases"],
+      "groupName": "kubernetes",
+      "additionalBranchPrefix": "",
+      "separateMinorPatch": true,
+      "matchPackageNames": ["kubernetes/kubernetes"]
+    }
+  ],
+  "argocd": {
+    "fileMatch": ["cluster/.+\\.ya?ml$"],
+    "ignorePaths": ["templates/"]
+  },
+  "kubernetes": {
+    "fileMatch": ["cluster/.+\\.ya?ml$"],
+    "ignorePaths": ["templates/"]
+  },
+  "regexManagers": [
+    {
+      "fileMatch": [        
+        "cluster/.+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "depName=(?<depName>.*?)( datasource=(?<datasource>.*?))?( versioning=(?<versioning>.*?))?\n.*?_version: (?<currentValue>.*)\n",
+        "depName=(?<depName>.*?)( datasource=(?<datasource>.*?))?( versioning=(?<versioning>.*?))?\n.*?value: \"(?<currentValue>.*)\"\n"
+      ],
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    },
+    {
+      "fileMatch": [
+        "cluster/observability/kube-prometheus-stack/.+\\.yaml$"
+      ],
+      "matchStrings": [
+        "registryUrl=(?<registryUrl>.*?)\n *targetRevision: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "helm"
+    }
+  ]
+}

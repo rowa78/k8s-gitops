@@ -1,0 +1,33 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: rwcloud-eve-dev-db
+spec:
+  teamId: "rwcloud"
+  numberOfInstances: 1
+  users:
+    eve:  # database owner
+    - superuser
+    - createdb    
+  databases:
+    eve: eve  # dbname: owner  
+  postgresql:
+    version: "14"
+  resources:                                                                                                                                                                           │
+    limits:                                                                                                                                                                            │
+      cpu: "2"                                                                                                                                                                         │
+      memory: 1500Mi                                                                                                                                                                    │
+    requests:                                                                                                                                                                          │
+      cpu: 100m                                                                                                                                                                        │
+      memory: 500Mi
+  volume:
+    size: 10Gi
+    storageClass: openebs-hostpath
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: obenebs.storage.node
+              operator: In
+              values:
+                - "true"

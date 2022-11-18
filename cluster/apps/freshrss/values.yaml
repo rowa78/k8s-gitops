@@ -17,6 +17,10 @@ freshrss:
     PUID: "1001"
     # -- Set the container group id
     PGID: "1001"
+  
+  nodeSelector: 
+    kubernetes.io/arch: amd64
+    node.longhorn.io/create-default-disk: "true"
 
   # -- Configures service settings for the chart.
   # @default -- See values.yaml
@@ -33,10 +37,16 @@ freshrss:
       enabled: true
       ingressClassName: "nginx"
       annotations:       
-        nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
-        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start
+        cert-manager.io/cluster-issuer: letsencrypt-production        
         hajimari.io/enable: "true"
         hajimari.io/icon: "rss"
+        hajimari.io/group: apps
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          proxy_set_header X-Forwarded-Method $request_method;
       hosts:
         - host: "freshrss.rwcloud.org"
           paths:
@@ -53,6 +63,6 @@ freshrss:
   persistence:
     config:
       enabled: true
-      storageClass: longhorn
-      size: 5Gi
-      accessMode: ReadWriteMany
+      storageClass: openebs-hostpath
+      size: 1Gi
+      accessMode: ReadWriteOnce

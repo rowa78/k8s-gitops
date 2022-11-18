@@ -1,0 +1,41 @@
+loki-stack:
+  loki:
+    fullnameOverride: loki
+    isDefault: false
+    config:
+      existingSecret: loki
+    ingress:
+      enabled: false
+      ingressClassName: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          proxy_set_header X-Forwarded-Method $request_method;
+      hosts:
+        - host: &host loki.rwcloud.org
+          paths:
+            - /
+      tls:
+        - hosts:
+            - *host
+          secretName: loki-tls
+    persistence:
+      enabled: false
+      storageClassName: longhorn
+      size: 10Gi
+    serviceMonitor:
+      enabled: true
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      node.longhorn.io/create-default-disk: "true"
+  promtail:
+    fullnameOverride: promtail
+    config:
+      clients:
+        - url: http://loki:3100/loki/api/v1/push
+    serviceMonitor:
+      enabled: true

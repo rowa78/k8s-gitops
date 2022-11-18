@@ -1,0 +1,163 @@
+home-assistant:
+  service:
+    main:
+      type: ClusterIP      
+
+  nodeSelector: 
+    location: onprem
+  image:
+    repository: homeassistant/home-assistant
+    tag: 2022.10.5    
+  env:
+    TZ: "Europe/Berlin"    
+    
+  hostNetwork: true
+  #dnsPolicy: ClusterFirstWithHostNet
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: "nginx"
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production        
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "home"
+        hajimari.io/group: apps
+        hajimari.io/appName: home-assistant
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          proxy_set_header X-Forwarded-Method $request_method;
+      hosts:
+      - host: home-assistant.rwcloud.org
+        paths:
+        - path: /
+          pathType: Prefix
+      tls:
+      - hosts:
+        - home-assistant.rwcloud.org
+  prometheus:
+    serviceMonitor:
+      enabled: true
+  probes:
+    liveness:
+      enabled: true
+    readiness:
+      enabled: true
+    startup:
+      enabled: true
+  persistence:
+    config:
+      enabled: true
+      storageClass: "nfs-client"
+      accessMode: ReadWriteOnce
+      size: "10Gi"
+  podAnnotations:
+    backup.velero.io/backup-volumes: config
+  addons:
+    codeserver:
+      enabled: true
+      nodeSelector: 
+        kubernetes.io/arch: arm64
+      image:
+        repository: codercom/code-server
+        tag: 4.8.1
+      workingDir: "/config"
+      args:
+        - --user-data-dir
+        - "/config/.vscode"
+        - --auth
+        - "none"
+      ingress:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production        
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "home"
+          hajimari.io/group: apps
+          hajimari.io/appName: hass-vscode
+          nginx.ingress.kubernetes.io/auth-method: GET
+          nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+          nginx.ingress.kubernetes.io/auth-snippet: |
+            proxy_set_header X-Forwarded-Method $request_method; 
+        hosts:
+        - host: hass-vscode.rwcloud.org
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - hass-vscode.rwcloud.org
+      volumeMounts:
+      - name: config
+        mountPath: /config
+  tolerations:
+  - key: "arm"
+    operator: "Exists"
+  resources:
+    limits:
+      memory: 2500Mi
+    requests:
+      cpu: 100m
+      memory: 1000Mi    
+
+  postgresql:
+    # -- enable the bundled bitnami postgresql chart
+    enabled: true
+    image:
+      registry: docker.io
+      repository: bitnami/postgresql
+      tag: 14.5.0
+      ## Specify a imagePullPolicy
+      ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+      ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+      ##
+      pullPolicy: IfNotPresent
+      ## Optionally specify an array of imagePullSecrets.
+      ## Secrets must be manually created in the namespace.
+      ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+      ## Example:
+      ## pullSecrets:
+      ##   - myRegistryKeySecretName
+      ##
+      pullSecrets: []
+      ## Set to true if you would like to see extra information on logs
+      ## It turns BASH and/or NAMI debugging in the image
+      ##
+      debug: true
+
+    volumePermissions:
+      ## @param volumePermissions.enabled Enable init container that changes volume permissions in the data directory (for cases where the default k8s `runAsUser` and `fsUser` values do not work)
+      ##
+      enabled: true
+    primary:
+      nodeSelector: 
+        obenebs.storage.node: "true"
+      postgresqlUsername: "hass"
+      postgresqlPassword: "hass"
+      postgresqlDatabase: "hass"
+      
+      persistence:      
+        enabled: true
+        storageClass: "openebs-hostpath"
+        accessModes:
+          - ReadWriteOnce
+
+  influxdb:                
+    enabled: true
+    architecture: standalone
+    database: home_assistant
+    authEnabled: false     
+    storageClass: "openebs-hostpath"
+    persistence:
+      enabled: true
+      storageClass: "openebs-hostpath"
+    size: 30Gi
+    influxdb:
+      nodeSelector: 
+        obenebs.storage.node: "true"
+    

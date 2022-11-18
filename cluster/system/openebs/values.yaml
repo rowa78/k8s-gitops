@@ -1,0 +1,90 @@
+openebs:
+  provisioner:
+    enabled: true
+
+  # If you want to enable local pv as a dependency chart then set
+  # `localprovisioner.enabled: false` and enable it as dependency chart.
+  # If you are using custom configuration then update those configuration
+  # under `localpv-provisioner` key.
+  localprovisioner:
+    enabled: true  
+
+    deviceClass:   
+      # If true, enables creation of the openebs-device StorageClass
+      enabled: false    
+
+    hostpathClass:
+      # Name of the default hostpath StorageClass
+      name: openebs-hostpath
+      # If true, enables creation of the openebs-hostpath StorageClass
+      enabled: true    
+
+  snapshotOperator:
+    enabled: true  
+
+  # If you want to enable openebs as a dependency chart then set `ndm.enabled: false`,
+  # `ndmOperator.enabled: false` and enable it as dependency chart. If you are using
+  # custom configuration then update those configuration under `openebs-ndm` key.
+  ndm:
+    enabled: false  
+
+  # If you want to enable openebs as a dependency chart then set `ndm.enabled: false`,
+  # `ndmOperator.enabled: false` and enable it as dependency chart. If you are using
+  # custom configuration then update those configuration under `openebs-ndm` key.
+  ndmOperator:
+    enabled: false
+    
+  ndmExporter:
+    enabled: false
+    
+  webhook:
+    enabled: true
+    
+  jiva:
+    enabled: true
+    storageClass:
+      enabled: false
+    defaultPolicy:
+      enabled: false
+    openebsLocalpv:
+      enabled: false
+    localpv-provisioner:
+      openebsNDM:
+        enabled: false
+    
+  cstor:
+    enabled: false
+    openebsNDM:
+      enabled: false
+
+    
+  # ndm configuration goes here
+  # https://openebs.github.io/node-disk-manager
+  openebs-ndm:
+    enabled: false
+
+    # Enable openebs-ndm as root dependency not as sub dependency.
+    # openebs
+    # | - localpv-provisioner(enable)
+    # | | - openebs-ndm(disable)
+    # | - openebs-ndm(enable)
+  localpv-provisioner:
+    enabled: false
+    openebsNDM:
+      enabled: false
+
+  # zfs local pv configuration goes here
+  # ref - https://openebs.github.io/zfs-localpv
+  zfs-localpv:
+    enabled: false
+
+
+  # lvm local pv configuration goes here
+  # ref - https://openebs.github.io/lvm-localpv
+  lvm-localpv:
+    enabled: false
+
+  # openebs nfs provisioner configuration goes here
+  # ref - https://openebs.github.io/dynamic-nfs-provisioner
+  nfs-provisioner:
+    enabled: false

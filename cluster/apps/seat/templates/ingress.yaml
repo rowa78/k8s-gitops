@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production    
+    nginx.ingress.kubernetes.io/auth-method: GET
+    nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+    nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+    nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+    nginx.ingress.kubernetes.io/auth-snippet: |
+      proxy_set_header X-Forwarded-Method $request_method;
+    hajimari.io/enable: "true"
+    hajimari.io/icon: "rocket-launch"
+    hajimari.io/group: apps
+  name: seat
+  namespace: seat
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: seat.rwcloud.org
+    http:
+      paths:
+      - backend:
+          service:
+            name: seat
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - seat.rwcloud.org
+    secretName: seat-tls

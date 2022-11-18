@@ -1,0 +1,15 @@
+---
+- name: lb - restart services
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: restarted
+  loop:
+    - haproxy
+    - keepalived
+  become: true
+
+- name: storage - restart multipathd
+  ansible.builtin.service:
+    name: multipathd
+    state: restarted
+  become: true
