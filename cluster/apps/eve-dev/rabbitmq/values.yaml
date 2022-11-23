@@ -603,7 +603,8 @@ rabbitmq:
   ## @param nodeSelector Node labels for pod assignment. Evaluated as a template
   ## ref: https://kubernetes.io/docs/user-guide/node-selection/
   ##
-  nodeSelector: {}
+  nodeSelector: 
+    obenebs.storage.node: true
   ## @param tolerations Tolerations for pod assignment. Evaluated as a template
   ## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   ##
