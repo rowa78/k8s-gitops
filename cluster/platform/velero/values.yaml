@@ -38,3 +38,5 @@ velero:
     enabled: true
     serviceMonitor:
       enabled: true
+  nodeSelector:
+    kubernetes.io/arch: amd64
