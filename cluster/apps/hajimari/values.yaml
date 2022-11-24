@@ -52,13 +52,13 @@ hajimari:
     name: "Ronny"
 
     # -- Add custom applications to the discovered application list
-    customApps: []
-    # - group: Media
-    #   apps:
-    #     - name: Test
-    #       url: 'https://example.com'
-    #       icon: 'mdi:test-tube'
-    #       info: This is a test app
+    customApps: 
+    - group: Apps
+      apps:
+        - name: Paperless
+          url: 'http://192.168.0.3:8777/dashboard'
+          icon: 'mdi:note-multiple'
+          info: Paperless@Diskstation
     
     # -- Set default bookmarks
     globalBookmarks: []

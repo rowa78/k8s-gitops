@@ -44,9 +44,30 @@ vault_secrets:
       s3-key-secret={{ lookup('env', 'MINIO_DISKSTATION_SECRET_KEY') }}"
   - path: secret/renovate
     kv: "github-token={{ lookup('env', 'RENOVATE_GITHUB_TOKEN') }}"
-
-
-  
-
-
-          
+  - path: secret/seat
+    kv: "mariadb_root_password={{ lookup('env', 'SEAT_MARIADB_ROOT_PASSWORD') }}
+      mariadb_user={{ lookup('env', 'SEAT_MARIADB_USER') }}
+      mariadb_password={{ lookup('env', 'SEAT_MARIADB_PASSWORD') }}
+      eve_client_id={{ lookup('env', 'EVE_CLIENT_ID') }}
+      eve_client_secret={{ lookup('env', 'EVE_CLIENT_SECRET') }}
+      eve_callback_url={{ lookup('env', 'EVE_CALLBACK_URL') }}
+      eve_app_id={{ lookup('env', 'EVE_APP_KEY') }}"
+  - path: secret/authelia
+    kv: "authelia_pass={{ lookup('env', 'AUTHELIA_PASSWORD') }}
+      authelia_user={{ lookup('env', 'AUTHELIA_USER') }}
+      authelia_jwt_token={{ lookup('env', 'AUTHELIA_JWT') }}
+      authelia_session_key={{ lookup('env', 'AUTHELIA_SESSION_KEY') }}
+      authelia_storage_key={{ lookup('env', 'AUTHELIA_STORAGE_KEY') }}"
+  - path: secret/stackgres
+    kv: "username={{ lookup('env', 'STACKGRES_USERNAME') }}
+      password={{ lookup('env', 'STACKGRES_PASSWORD') }}"
+  - path: secret/eve-dev/rabbitmq
+    kv: "rabbitmq-password={{ lookup('env', 'EVE_DEV_RABBITMQ_PASSWORD') }}"
+  - path: secret/eve-dev/esi
+    kv: "CLIENT_SECRET={{ lookup('env', 'CLIENT_SECRET') }}
+      CLIENT_ID={{ lookup('env', 'CLIENT_ID') }}
+      REDIRECT_URL={{ lookup('env', 'REDIRECT_URL') }}"
+  - path: secret/paperless
+    kv: "USER={{ lookup('env', 'PAPERLESS_USER') }}
+      PASSWORD={{ lookup('env', 'PAPERLESS_PASSWORD') }}
+      EMAIL={{ lookup('env', 'PAPERLESS_EMAIL') }}"

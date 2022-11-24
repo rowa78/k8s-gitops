@@ -1,0 +1,6 @@
+---
+- name: general setup
+  hosts: "loadbalancer"  
+  roles:
+    - ronnywalter.haproxy
+#   - ronnywalter.resolv_nodes
