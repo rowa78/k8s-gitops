@@ -59,6 +59,12 @@ hajimari:
           url: 'http://192.168.0.3:8777/dashboard'
           icon: 'mdi:note-multiple'
           info: Paperless@Diskstation
+        - name: Diskstation
+          url: 'https://ds.ronnywalter.de/'
+          icon: 'mdi:nas'
+        - name: Webmail
+          url: 'https://mail.rwcloud.org/SOGo/'
+          icon: 'mdi:email'
     
     # -- Set default bookmarks
     globalBookmarks: []
