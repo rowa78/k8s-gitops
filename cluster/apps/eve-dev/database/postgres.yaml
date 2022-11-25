@@ -13,12 +13,12 @@ spec:
     eve: eve  # dbname: owner  
   postgresql:
     version: "14"
-  resources:                                                                                                                                                                           │
-    limits:                                                                                                                                                                            │
-      cpu: "2"                                                                                                                                                                         │
-      memory: 1500Mi                                                                                                                                                                    │
-    requests:                                                                                                                                                                          │
-      cpu: 100m                                                                                                                                                                        │
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 1500Mi
+    requests:
+      cpu: 100m
       memory: 500Mi
   volume:
     size: 10Gi
