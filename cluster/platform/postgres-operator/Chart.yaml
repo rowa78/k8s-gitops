@@ -5,6 +5,6 @@ dependencies:
   - name: postgres-operator
     version: 1.8.2
     repository: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
-  - name: postgres-operator-ui
-    version: 1.8.2
-    repository: https://opensource.zalando.com/postgres-operator/charts/postgres-operator-ui
+#  - name: postgres-operator-ui
+#    version: 1.8.2
+#    repository: https://opensource.zalando.com/postgres-operator/charts/postgres-operator-ui
