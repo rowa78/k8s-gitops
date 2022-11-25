@@ -483,6 +483,9 @@ postgres-operator-ui:
     # Specifies whether RBAC resources should be created
     create: true
 
+  nodeSelector: 
+    kubernetes.io/arch: amd64
+
   serviceAccount:
     # Specifies whether a ServiceAccount should be created
     create: true
@@ -548,9 +551,6 @@ postgres-operator-ui:
     # If the nodePort field is not specified, or if it has no value, then a random port is used
     # nodePort: 32521
 
-
-
-postgres-operator-ui:
   # configure UI ingress. If needed: "enabled: true"
   ingress:
     enabled: true
