@@ -20,11 +20,5 @@ spec:
           image: redis:7-alpine
           ports:
             - containerPort: 6379
-  nodeAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: obenebs.storage.node
-              operator: In
-              values:
-                - "true"
+  nodeSelector: 
+    obenebs.storage.node: "true"
