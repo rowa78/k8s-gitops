@@ -12,7 +12,9 @@ spec:
   databases:
     eve: eve  # dbname: owner  
   postgresql:
-    version: "14"
+    version: "14"    
+    parameters:
+      max_connections: "250"
   resources:
     limits:
       cpu: 2000m
