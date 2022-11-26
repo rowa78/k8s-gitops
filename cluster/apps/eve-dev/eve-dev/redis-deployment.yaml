@@ -20,5 +20,5 @@ spec:
           image: redis:7-alpine
           ports:
             - containerPort: 6379
-  nodeSelector: 
-    obenebs.storage.node: "true"
+      nodeSelector: 
+        obenebs.storage.node: "true"
