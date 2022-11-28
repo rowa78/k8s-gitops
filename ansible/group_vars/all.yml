@@ -71,3 +71,11 @@ vault_secrets:
     kv: "USER={{ lookup('env', 'PAPERLESS_USER') }}
       PASSWORD={{ lookup('env', 'PAPERLESS_PASSWORD') }}
       EMAIL={{ lookup('env', 'PAPERLESS_EMAIL') }}"
+  - path: secret/diskstation/cert-upload
+    kv: "SYNO_Username={{ lookup('env', 'SYNO_Username') }}
+      SYNO_Password={{ lookup('env', 'SYNO_Password') }}
+      SYNO_Scheme={{ lookup('env', 'SYNO_Scheme') }}
+      SYNO_Certificate={{ lookup('env', 'SYNO_Certificate') }}
+      SYNO_Create={{ lookup('env', 'SYNO_Create') }}
+      SYNO_Hostname={{ lookup('env', 'SYNO_Hostname') }}"
+  
