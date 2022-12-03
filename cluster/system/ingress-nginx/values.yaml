@@ -36,5 +36,5 @@ ingress-nginx:
       ## the Jobs Spec of the admission webhooks.
       enabled: false
   tcp:
-    30100: "minecraft-caro-ronny/minecraft-ronny-caro-minecraft:25565"
+    30100: "minecraft-ronny-caro/minecraft-ronny-caro-minecraft:25565"
     30101: "minecraft-caro-sofia-robert/minecraft-caro-sofia-robert-minecraft:25565"
