@@ -38,3 +38,4 @@ ingress-nginx:
   tcp:   
 #  8080: "default/example-tcp-svc:9000"
     30100: "minecraft-caro-ronny/minecraft-minecraft:25565"
+    30101: "minecraft-caro-sofia-robert/minecraft-minecraft:25565"
