@@ -24,6 +24,9 @@ harden_linux_ufw_rules:
   - rule: "allow"
     to_port: "30100"
     protocol: "tcp"
+  - rule: "allow"
+    to_port: "30101"
+    protocol: "tcp"
 
 ansible_user: ronny
 ansible_host: lb.rwcloud.org
