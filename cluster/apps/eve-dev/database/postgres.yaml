@@ -14,7 +14,7 @@ spec:
   postgresql:
     version: "14"    
     parameters:
-      max_connections: "250"
+      max_connections: "500"
   resources:
     limits:
       cpu: 2000m
