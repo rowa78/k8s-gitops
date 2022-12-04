@@ -15,6 +15,7 @@ ingress-nginx:
       #forwarded-for-header: proxy_protocol
       ssl-protocols: "TLSv1.3 TLSv1.2"
       proxy-body-size: "100m"      
+      compute-full-forwarded-for: "true"
     metrics:
       enabled: true
       serviceMonitor:
