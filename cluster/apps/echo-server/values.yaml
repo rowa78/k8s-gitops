@@ -1,0 +1,90 @@
+echo-server:
+  # replicaCount -- Pod replicas
+  replicaCount: 1
+
+  image:
+    # image.repository -- https://hub.docker.com/r/ealen/echo-server
+    repository: ealen/echo-server
+    # image.tag -- https://github.com/Ealenn/Echo-Server/releases
+    tag: 0.6.0
+    pullPolicy: IfNotPresent
+
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+
+  serviceAccount:
+    create: true
+    name: ""
+
+  podSecurityContext: {}
+
+  securityContext: {}
+
+  service:
+    type: ClusterIP
+    # service.port -- For k8s >= 1.19 use port number not name
+    port: 80
+
+  ingress:
+    # ingress.enabled -- Enable ingress
+    enabled: true
+    ingressClassName: "nginx"
+    # ingress.annotations -- Example `kubernetes.io/ingress.class: nginx` for Nginx Ingress
+    annotations: 
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - host: echo.rwcloud.org
+        paths:
+          - /
+    tls: 
+      - hosts:
+        - echo.rwcloud.org
+
+  resources:
+    limits:
+      cpu: 50m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 128Mi
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  livenessProbe:
+    httpGet:
+      path: /ping
+      httpHeaders:
+      - name: x-echo-code
+        value: "200"
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 2
+    failureThreshold: 3
+    successThreshold: 1
+
+  application:
+    logs:
+      ignore:
+        # application.logs.ignore.ping -- Don't log ping request on route `/ping`
+        ping: false
+    enable:
+      # application.enable.host -- Enable host in response
+      host: true
+      # application.enable.http -- Enable http in response
+      http: true
+      # application.enable.request -- Enable request in response
+      request: true
+      # application.enable.cookies -- Enable cookies in response
+      cookies: true
+      # application.enable.environment -- Enable environment in response
+      environment: true
+      # application.enable.file -- Enable file in response
+      file: true
+      # application.enable.header -- Enable custom header in response
+      header: true
+
