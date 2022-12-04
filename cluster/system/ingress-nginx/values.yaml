@@ -14,7 +14,8 @@ ingress-nginx:
       enable-real-ip: "true"
       #forwarded-for-header: proxy_protocol
       ssl-protocols: "TLSv1.3 TLSv1.2"
-      proxy-body-size: "100m"      
+      proxy-body-size: "1000m"      
+      client-body-buffer-size: "1000m"
       compute-full-forwarded-for: "true"
     metrics:
       enabled: true
