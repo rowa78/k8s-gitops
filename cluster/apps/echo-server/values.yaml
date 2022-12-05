@@ -6,7 +6,7 @@ echo-server:
     # image.repository -- https://hub.docker.com/r/ealen/echo-server
     repository: ealen/echo-server
     # image.tag -- https://github.com/Ealenn/Echo-Server/releases
-    tag: 0.6.0
+    tag: 0.7.0
     pullPolicy: IfNotPresent
 
   imagePullSecrets: []
