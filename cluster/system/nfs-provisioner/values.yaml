@@ -1,6 +1,6 @@
 nfs-subdir-external-provisioner:
-  nodeSelector:
-    location: onprem
+#  nodeSelector:
+#    location: onprem
   image:
     repository: k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner
     tag: v4.0.2
