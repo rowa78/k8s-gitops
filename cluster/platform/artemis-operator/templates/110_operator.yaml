@@ -37,9 +37,7 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: WATCH_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
+          value: "*"
         - name: RELATED_IMAGE_ActiveMQ_Artemis_Broker_Init_2150
           value: quay.io/artemiscloud/activemq-artemis-broker-init:0.2.2
         - name: RELATED_IMAGE_ActiveMQ_Artemis_Broker_Init_2160
