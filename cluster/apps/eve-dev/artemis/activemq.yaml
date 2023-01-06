@@ -1,0 +1,12 @@
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemis
+metadata:
+  name: eve
+spec:
+  deploymentPlan:
+    size: 1
+    image: placeholder
+    persistenceEnabled: true
+    messageMigration: true
+  adminUser: eve
+  adminPassword: eve
