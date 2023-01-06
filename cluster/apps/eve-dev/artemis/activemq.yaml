@@ -6,7 +6,7 @@ spec:
   deploymentPlan:
     size: 1
     image: placeholder
-    persistenceEnabled: true
+    persistenceEnabled: false
     messageMigration: true
   adminUser: eve
   adminPassword: eve
