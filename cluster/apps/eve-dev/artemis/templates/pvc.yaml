@@ -8,5 +8,4 @@ spec:
   resources:
     requests:
       storage: {{ .Values.pvc.data.storage }}
-  storageClassName: {{ .Values.pvc.data.storageClassName }}
-  volumeMode: {{ .Values.pvc.data.volumeMode }}
+  storageClassName: {{ .Values.pvc.data.storageClassName }}  
