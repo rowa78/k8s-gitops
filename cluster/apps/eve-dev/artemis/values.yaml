@@ -85,7 +85,7 @@ pvc:
   data:
     storage: 1Gi
     storageClassName: openebs-hostpath
-    volumeMode: Filesystem
+    volumeMode: ReadWriteÓnce
 
 security:
   user: amq
