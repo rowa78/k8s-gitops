@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "activemq-artemis.fullname" . }}-openwire
+  labels:
+    {{- include "activemq-artemis.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.openwire.service.type }}
+  ports:
+    - port: {{ .Values.openwire.service.port }}
+      targetPort: 61616
+      protocol: TCP
+      name: openwire
+      nodePort: 30100
+  selector:
+    {{- include "activemq-artemis.selectorLabels" . | nindent 4 }}
