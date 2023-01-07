@@ -1,0 +1,13 @@
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemis
+metadata:
+  name: eve-dev
+spec:
+  deploymentPlan:
+    size: 1
+    # image ist optional. Ohne diesen Eintrag wird der Default aus dem Operator genommen.    
+    requireLogin: false        
+  adminPassword: eve
+  adminUser: eve
+  console:
+    expose: false

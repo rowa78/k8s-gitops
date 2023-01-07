@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/affinity: cookie
+  name: eve-dev
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: eve-dev-artemis.rwcloud.org
+    http:
+      paths:
+      - backend:
+          service:
+            name: eve-dev-hdls-svc
+            port:
+              number: 8161
+        path: /
+        pathType: Prefix

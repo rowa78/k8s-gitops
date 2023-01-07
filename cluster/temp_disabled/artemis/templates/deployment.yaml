@@ -28,19 +28,13 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
-          command:
-          - sh
-          - -c
-          - /docker-run.sh run --broker /var/lib/artemis-instance/etc-override/broker.xml
-          #envFrom:
-          #- secretRef:
-          #    name: {{ include "activemq-artemis.fullname" . }}-secret
-          #    optional: false
+        - name: {{ .Chart.Name }}          
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: 
           ports:
             - name: webconsole
               containerPort: 8161
