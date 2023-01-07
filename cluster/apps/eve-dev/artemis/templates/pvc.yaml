@@ -4,8 +4,10 @@ metadata:
   name: {{ include "activemq-artemis.fullname" . }}-data
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   resources:
     requests:
       storage: {{ .Values.pvc.data.storage }}
-  storageClassName: {{ .Values.pvc.data.storageClassName }}  
+  storageClassName: {{ .Values.pvc.data.storageClassName }}
+  volumeMode: {{ .Values.pvc.data.volumeMode }}
+  volumeMode: {{ .Values.pvc.data.volumeMode }}
