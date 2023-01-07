@@ -74,8 +74,8 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-#nodeSelector:
-#  kubernetes.io/hostname: cpworker-wyhb-05
+nodeSelector:
+  kubernetes.io/hostname: worker1.rwcloud.org
 
 tolerations: []
 
