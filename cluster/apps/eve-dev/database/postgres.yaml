@@ -4,7 +4,7 @@ metadata:
   name: rwcloud-eve-dev-db
 spec:
   teamId: "rwcloud"
-  numberOfInstances: 1
+  numberOfInstances: 2
   users:
     eve:  # database owner
     - superuser
