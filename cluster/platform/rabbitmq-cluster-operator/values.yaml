@@ -817,7 +817,7 @@ rabbitmq-cluster-operator:
     metrics:
       ## @param msgTopologyOperator.metrics.enabled Create a service for accessing the metrics endpoint
       ##
-      enabled: true
+      enabled: false
       ## Metrics service parameters
       ##
       service:
