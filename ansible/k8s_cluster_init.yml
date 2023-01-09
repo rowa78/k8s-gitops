@@ -9,7 +9,7 @@
 - name: k8s apps
   hosts: localhost
   gather_facts: false
-
+  become: false
   roles:
     - { role: k8s_apps/argocd }
     - { role: k8s_apps/vault_secrets }

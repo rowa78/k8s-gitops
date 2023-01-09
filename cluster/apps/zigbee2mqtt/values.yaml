@@ -1,6 +1,6 @@
 zigbee2mqtt:
-  nodeSelector: 
-    kubernetes.io/arch: arm64
+  #nodeSelector: 
+  # kubernetes.io/arch: arm64
   env:
     TZ: "Europe/Berlin"
   ingress:

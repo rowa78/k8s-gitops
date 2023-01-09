@@ -1,0 +1,4 @@
+name: artemis
+apiVersion: v2
+version: 1.0.0
+appVersion: artemis.2.27.0

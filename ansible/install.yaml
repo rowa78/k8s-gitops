@@ -1,0 +1,6 @@
+---
+- name: general setup
+  hosts: "all"  
+  roles:
+    - ronnywalter.prepare-k3s   
+#   - ronnywalter.resolv_nodes

@@ -1,0 +1,53 @@
+postgresql_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          63323961363733383439636461363337613461656135303837356438386633653463393330613831
+          3966616130626661346330363632363631613633613238320a356533656461396530313931636464
+          66353030343938313938333936303539373831663931643932366635366431373861613562366461
+          3733373865333361650a393833306261616537326331396266613332353734313166336233613866
+          39343135646631393231623361653766333765376139613330343332353431323738
+
+k3s_state: installed
+k3s_release_version: v1.23.14+k3s1
+k3s_become: true
+k3s_build_cluster: true
+
+# i really want only one master node. :-)
+k3s_use_unsupported_config: false
+
+# use internal ha datastore
+k3s_etcd_datastore: true
+
+k3s_server:
+  #datastore-endpoint: "postgres://k3s:{{ postgresql_password }}@192.168.1.100:5432/k3s?sslmode=disable"
+  flannel-iface: 'wg0'
+  node-taint: 
+    - 'node-role.kubernetes.io/master=true:NoSchedule'
+    - 'node-role.kubernetes.io/control-plane=true:NoSchedule'
+  disable:
+    - local-storage
+    - traefik    
+    - metrics-server
+  tls-san: 192.168.1.102
+
+  # for monitoring
+  kube-controller-manager-arg:
+  - "address=0.0.0.0"
+  - "bind-address=0.0.0.0"
+  kube-proxy-arg:
+  - "metrics-bind-address=0.0.0.0"
+  kube-scheduler-arg:
+  - "address=0.0.0.0"
+  - "bind-address=0.0.0.0"
+  # Controller Manager exposes etcd sqllite metrics
+  etcd-expose-metrics: true
+
+
+#k3s_server_manifests_urls:
+#  - url: https://kube-vip.io/manifests/rbac.yaml
+#    filename: kube-vip-rbac.yaml
+
+#k3s_server_manifests_templates:
+#  - "manifests/kube-vip/kube-vip-daemonset.yaml"
+
+# the private ip of master1
+k3s_registration_address: 192.168.1.102

@@ -107,7 +107,7 @@ home-assistant:
 
   postgresql:
     # -- enable the bundled bitnami postgresql chart
-    enabled: true
+    enabled: false
     image:
       registry: docker.io
       repository: bitnami/postgresql
@@ -148,7 +148,7 @@ home-assistant:
           - ReadWriteOnce
 
   influxdb:                
-    enabled: true
+    enabled: false
     architecture: standalone
     database: home_assistant
     authEnabled: false     

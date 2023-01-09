@@ -12,13 +12,15 @@ spec:
   databases:
     eve: eve  # dbname: owner  
   postgresql:
-    version: "14"
-  resources:                                                                                                                                                                           │
-    limits:                                                                                                                                                                            │
-      cpu: "2"                                                                                                                                                                         │
-      memory: 1500Mi                                                                                                                                                                    │
-    requests:                                                                                                                                                                          │
-      cpu: 100m                                                                                                                                                                        │
+    version: "14"    
+    parameters:
+      max_connections: "500"
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 1500Mi
+    requests:
+      cpu: 100m
       memory: 500Mi
   volume:
     size: 10Gi
@@ -31,3 +33,7 @@ spec:
               operator: In
               values:
                 - "true"
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - worker1.rwcloud.org

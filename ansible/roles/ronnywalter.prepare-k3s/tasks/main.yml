@@ -1,0 +1,137 @@
+---
+- name: change hostname
+  hostname:
+    name: "{{inventory_hostname}}"
+
+- name: Test for raspberry pi /proc/cpuinfo
+  command: grep -E "Raspberry Pi|BCM2708|BCM2709|BCM2835|BCM2836" /proc/cpuinfo
+  register: grep_cpuinfo_raspberrypi
+  failed_when: false
+  changed_when: false
+
+- name: Test for raspberry pi /proc/device-tree/model
+  command: grep -E "Raspberry Pi" /proc/device-tree/model
+  register: grep_device_tree_model_raspberrypi
+  failed_when: false
+  changed_when: false
+
+- name: Set raspberry_pi fact to true
+  set_fact:
+    raspberry_pi: true
+  when:
+    grep_cpuinfo_raspberrypi.rc == 0 or grep_device_tree_model_raspberrypi.rc == 0
+
+- name: enable cgroups on raspberrypi
+  include_tasks: "cgroups.yaml"  
+  when:
+    - raspberry_pi|default(false)
+    
+- name: Disable SWAP since kubernetes can't work with swap enabled (1/2)
+  shell: |
+    swapoff -a  
+- name: Disable SWAP in fstab since kubernetes can't work with swap enabled (2/2)
+  replace:
+    path: /etc/fstab
+    regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
+    replace: '# \1'
+
+- name: Enable IPv4 forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    state: present
+    reload: yes
+
+- name: Enable IPv6 forwarding
+  sysctl:
+    name: net.ipv6.conf.all.forwarding
+    value: "1"
+    state: present
+    reload: yes
+
+- name: dist-upgrade
+  become: true
+  apt:
+    upgrade: dist    
+    update_cache: yes
+
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    upgrade: "yes"
+    update_cache: yes
+
+- name: install linux-modules-extra-raspi
+  package:
+    name: linux-modules-extra-raspi
+    state: present 
+  when:
+    - raspberry_pi|default(false)
+
+- name: Reboot box if kernel/libs updated and requested by the system
+  shell: sleep 2 && /sbin/shutdown -r now 'Rebooting box to update system libs/kernel as needed' 
+  args:
+      removes: /var/run/reboot-required
+  async: 300
+  poll: 0
+  ignore_errors: true
+
+- name: Wait for system to become reachable again
+  wait_for_connection:
+      delay: 5
+      timeout: 300
+
+- name: install nfs-common
+  package:
+    name: nfs-common
+    state: present
+
+- name: install open-iscsi
+  package:
+    name: open-iscsi
+    state: present
+
+- name: Install aptitude
+  package:
+    name: aptitude
+    state: present        
+
+- name: remove sshguard
+  package:
+    name: sshguard
+    state: absent       
+
+- name: install fail2ban
+  package:
+    name: fail2ban
+    state: present
+
+- name: install rsyslog
+  package:
+    name: rsyslog
+    state: present
+
+- name: Enable service fail2ban
+  ansible.builtin.service:
+    name: fail2ban
+    enabled: yes  
+
+- name: Generate fail2ban ssh configuration file
+  ansible.builtin.template:
+    src: jail.local.j2
+    dest: "/etc/fail2ban/jail.d/jail.local"    
+
+- name: retart service fail2ban
+  ansible.builtin.service:
+    name: fail2ban
+    state: restarted
+
+- name: configure multipath.con
+  ansible.builtin.template:
+    src: multipath.conf.j2
+    dest: "/etc/multipath.conf"    
+
+- name: restart service multipathd
+  ansible.builtin.service:
+    name: multipathd
+    state: restarted

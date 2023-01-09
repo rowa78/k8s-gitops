@@ -54,6 +54,8 @@ harbor:
         nginx.ingress.kubernetes.io/proxy-body-size: "0"
         nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
         nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+        nginx.ingress.kubernetes.io/configuration-snippet: |
+          more_set_headers "X-Forwarded-Proto: https";
       notary:
         # notary ingress-specific annotations
         annotations: 
@@ -214,7 +216,7 @@ harbor:
   # For storing images and charts, you can also use "azure", "gcs", "s3",
   # "swift" or "oss". Set it in the "imageChartStorage" section
   persistence:
-    enabled: true
+    enabled: false
     # Setting it to "keep" to avoid removing PVCs during a helm delete
     # operation. Leaving it empty will delete PVCs after the chart deleted
     # (this does not apply for PVCs that are created for internal database
@@ -445,6 +447,7 @@ harbor:
     #    cpu: 100m
     nodeSelector: 
       obenebs.storage.node: "true"
+      location: public
     tolerations: []
     affinity: {}
     ## Additional deployment annotations
@@ -468,6 +471,7 @@ harbor:
     #    cpu: 100m
     nodeSelector: 
       obenebs.storage.node: "true"
+      location: public
     tolerations: []
     affinity: {}
     ## Additional deployment annotations
@@ -495,6 +499,7 @@ harbor:
     #    cpu: 100m
     nodeSelector: 
       obenebs.storage.node: "true"
+      location: public
     tolerations: []
     affinity: {}
     ## Additional deployment annotations
@@ -546,6 +551,7 @@ harbor:
     #     cpu: 100m
     nodeSelector: 
       obenebs.storage.node: "true"
+      location: public
     tolerations: []
     affinity: {}
     ## Additional deployment annotations
@@ -583,6 +589,7 @@ harbor:
     revisionHistoryLimit: 10
     nodeSelector: 
       obenebs.storage.node: "true"
+      location: public
     tolerations: []
     affinity: {}
     ## Additional deployment annotations
@@ -643,6 +650,7 @@ harbor:
     #    cpu: 100m
     nodeSelector: 
       obenebs.storage.node: "true"
+      location: public
     tolerations: []
     affinity: {}
     ## Additional deployment annotations
@@ -717,6 +725,7 @@ harbor:
         memory: 1Gi
     nodeSelector: 
       obenebs.storage.node: "true"
+      location: public
     tolerations: []
     affinity: {}
     ## Additional deployment annotations
@@ -741,6 +750,7 @@ harbor:
       #    cpu: 100m
       nodeSelector: 
         obenebs.storage.node: "true"
+        location: public
       tolerations: []
       affinity: {}
       ## Additional deployment annotations
@@ -762,6 +772,7 @@ harbor:
       #    cpu: 100m
       nodeSelector: 
         obenebs.storage.node: "true"
+        location: public
       tolerations: []
       affinity: {}
       ## Additional deployment annotations
@@ -800,6 +811,7 @@ harbor:
       #    cpu: 100m
       nodeSelector: 
         obenebs.storage.node: "true"
+        location: public
       tolerations: []
       affinity: {}
       ## The priority class to run the pod as
@@ -861,6 +873,7 @@ harbor:
       #    cpu: 100m
       nodeSelector: 
         obenebs.storage.node: "true"
+        location: public
       tolerations: []
       affinity: {}
       ## The priority class to run the pod as
@@ -901,6 +914,7 @@ harbor:
       tag: v2.6.1
     nodeSelector: 
       obenebs.storage.node: "true"
+      location: public
     tolerations: []
     affinity: {}
     cacheDuration: 23
