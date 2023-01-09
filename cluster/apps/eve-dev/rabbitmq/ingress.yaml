@@ -25,7 +25,7 @@ spec:
           service:
             name: eve-dev-rabbitmq
             port:
-              number: 5672
+              number: 15672
         path: /
         pathType: Prefix
   tls:
