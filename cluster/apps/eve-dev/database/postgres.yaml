@@ -33,7 +33,3 @@ spec:
               operator: In
               values:
                 - "true"
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-                - worker1.rwcloud.org
