@@ -2,3 +2,7 @@ apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
 metadata:
   name: eve-dev
+spec:
+  persistence:
+    storageClassName: openebs-hostpath
+    storage: 2Gi
