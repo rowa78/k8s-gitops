@@ -40,6 +40,3 @@ spec:
     additionalConfig: |
         log.console.level = info
         channel_max = 1700
-        memoryHighWatermark.enabled="true"
-        memoryHighWatermark.type="absolute"
-        memoryHighWatermark.value="1024MB"
