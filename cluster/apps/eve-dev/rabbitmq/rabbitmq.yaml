@@ -29,3 +29,7 @@ spec:
             values:
             - eve-dev-rabbitmq
         topologyKey: kubernetes.io/hostname
+  rabbitmq:
+    additionalConfig: |
+        log.console.level = info
+        channel_max = 1700
