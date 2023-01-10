@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/affinity: cookie
     hajimari.io/enable: "true"
     hajimari.io/group: eve-dev
     hajimari.io/icon: rocket-launch
