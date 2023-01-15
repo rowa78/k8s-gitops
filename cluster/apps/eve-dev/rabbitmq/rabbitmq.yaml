@@ -12,7 +12,7 @@ spec:
      cpu: 100m
      memory: 1Gi
    limits:
-     cpu: 1000m
+     cpu: 1100m
      memory: 2Gi
   affinity:
     nodeAffinity:
