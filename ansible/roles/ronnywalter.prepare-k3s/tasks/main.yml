@@ -49,6 +49,20 @@
     state: present
     reload: yes
 
+- name: Setting fs.inotify.max_user_watches
+  sysctl:
+    name: fs.inotify.max_user_watches
+    value: "524288"
+    state: present
+    reload: yes
+
+- name: fs.inotify.max_user_instances
+  sysctl:
+    name: fs.inotify.max_user_instances
+    value: "8192"
+    state: present
+    reload: yes
+
 - name: dist-upgrade
   become: true
   apt:
