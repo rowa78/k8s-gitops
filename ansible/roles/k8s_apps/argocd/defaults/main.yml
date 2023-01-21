@@ -10,8 +10,8 @@ argocd_crds:
 argocd_root_app_appsets:
   - system
 #  - observability
-#  - platform
-#  - apps
+  - platform
+  - apps
 #  - projects
 
 argocd_repo_base_url: https://github.com/rowa78/k8s-gitops.git
