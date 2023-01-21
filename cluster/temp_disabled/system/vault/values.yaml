@@ -1,0 +1,61 @@
+vault:
+  injector:
+    enabled: false
+  ui:
+    enabled: true
+  server:
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      node.longhorn.io/create-default-disk: "true"
+    dataStorage:
+      storageClass: nfs-client
+      size: 1Gi
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          proxy_set_header X-Forwarded-Method $request_method;
+      hosts:
+        - host: vault.rwcloud.org
+      tls:
+        - hosts:
+            - vault.rwcloud.org
+          secretName: vault-tls
+    extraInitContainers:
+      - name: vault-bootstrap
+        image: ghcr.io/rowa78/vault-bootstrap:0.1
+        command:
+          - /vault-bootstrap
+        args:
+          - --mode
+          - init-container
+        env:
+          - name: VAULT_ADDR
+            value: "http://vault.vault:8200"
+          - name: VAULT_CLUSTER_MEMBERS
+            value: >-
+              http://vault-0.vault-internal.vault:8200
+          - name: VAULT_KEY_SHARES
+            value: "5"
+          - name: VAULT_KEY_THRESHOLD
+            value: "3"
+          - name: VAULT_ENABLE_INIT
+            value: "true"
+          - name: VAULT_ENABLE_K8SSECRET
+            value: "true"
+          - name: VAULT_ENABLE_UNSEAL
+            value: "true"
+          - name: VAULT_ENABLE_K8SAUTH
+            value: "true"
+          - name: VAULT_K8SAUTH_SERVICE_ACCOUNT
+            value: vault-external-secrets
+          - name: VAULT_K8S_POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name

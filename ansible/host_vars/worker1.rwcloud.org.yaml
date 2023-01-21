@@ -18,7 +18,7 @@ ansible_host: worker1.rwcloud.org
 private_ip: "10.0.1.2"
 
 k3s_agent:  
-  flannel-iface: 'wg0' 
+  #flannel-iface: 'wg0' 
   node-label:
     - "location=public"
     - "provider=hetzner"

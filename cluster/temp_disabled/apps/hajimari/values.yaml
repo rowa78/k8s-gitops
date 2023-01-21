@@ -1,0 +1,126 @@
+hajimari:
+  #
+  # IMPORTANT NOTE
+  #
+  # This chart inherits from the bjw-s library chart. You can check the default values/options here:
+  # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+  #
+
+  image:
+    # -- image repository
+    repository: ghcr.io/toboshii/hajimari
+    # -- image pull policy
+    pullPolicy: IfNotPresent
+    # -- image tag
+    tag: v0.3.1
+
+  # -- environment variables.
+  # @default -- See below
+  env:
+    # -- Set the container timezone
+    TZ: Europe/Berlin
+
+  # -- Configures Hajimari settings for this instance.
+  # @default -- See below
+  hajimari:
+    # -- The name of this instance, this allows running multiple 
+    # instances of Hajimari on the same cluster
+    #instanceName: "home"
+
+    # -- Set to true to show all discovered applications by default.
+    defaultEnable: false
+
+    namespaceSelector:
+      any: true
+      # matchNames:
+      # - downloads
+      # - media
+    alwaysTargetBlank: true
+    showAppGroups: true
+    showAppUrls: false
+    showAppInfo: true
+    showGlobalBookmarks: true
+    # -- Namespace selector to use for discovering applications
+    #namespaceSelector:
+    #  matchNames:
+    #  - media
+      
+    # -- Override the title of the Hajimari pages
+    title: "home.rwcloud.org"
+
+    # -- Default name for welcome message
+    name: "Ronny"
+
+    # -- Add custom applications to the discovered application list
+    customApps: 
+    - group: apps
+      apps:
+        - name: Paperless
+          url: 'http://192.168.0.3:8777/dashboard'
+          icon: 'mdi:note-multiple'
+          info: Paperless@Diskstation
+        - name: Diskstation
+          url: 'https://ds.ronnywalter.de/'
+          icon: 'mdi:nas'
+        - name: Webmail
+          url: 'https://mail.rwcloud.org/SOGo/'
+          icon: 'mdi:email'
+    
+    # -- Set default bookmarks
+    globalBookmarks: []
+    # - group: Communicate
+    #   bookmarks:
+    #   - name: Discord
+    #     url: 'https://discord.com'
+    #   - name: Gmail
+    #     url: 'http://gmail.com'
+    #   - name: Slack
+    #     url: 'https://slack.com/signin'
+
+
+  # -- Configures service settings for the chart.
+  # @default -- See values.yaml
+  service:
+    main:
+      ports:
+        http:
+          port: 3000
+
+  # -- Configures service account needed for reading k8s ingress objects
+  # @default -- See below
+  serviceAccount:
+    # -- Create service account
+    create: true
+
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          proxy_set_header X-Forwarded-Method $request_method;
+      hosts:
+        - host: &host home.rwcloud.org
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+      - hosts:
+        - *host
+        secretName: home-tls
+
+  # -- Configure persistence settings for the chart under this key.
+  # @default -- See values.yaml
+  persistence:
+    data:
+      enabled: true
+      storageClass:  "openebs-hostpath"
+      type: pvc
+      accessMode: ReadWriteOnce
+      size: 1Gi
+

@@ -1,41 +1,14 @@
 all:
-  children:
-    loadbalancer:
-      hosts:
-        lb.rwcloud.org:        
-    database:
-      hosts:
-        lb.rwcloud.org:
-    master:
-      hosts:
-        master1.rwcloud.org:        
-        master2.rwcloud.org:        
-        master3.rwcloud.org:        
+  children:    
     public_worker:
       hosts:
         worker1.rwcloud.org:        
-    local_worker:        
-      hosts:
-        pc-0:
-        pc-1:
-      #  pi-0:
-      #  pi-1:
-      #  pi-2:
-      #  pi-3:        
-    worker:
-      children:
-        public_worker:
-        local_worker: 
     k3s_cluster:
       children:
-        master:
-        public_worker:
-        local_worker:
+        public_worker:    
     public_nodes:
-      children:
-        master:
-        public_worker: 
-        loadbalancer:
+      children:    
+        public_worker:         
     wireguard_peers:
       hosts:
         pi-wg:      

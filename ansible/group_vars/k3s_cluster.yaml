@@ -12,7 +12,7 @@ k3s_become: true
 k3s_build_cluster: true
 
 # i really want only one master node. :-)
-k3s_use_unsupported_config: false
+k3s_use_unsupported_config: true
 
 # use internal ha datastore
 k3s_etcd_datastore: true
@@ -20,11 +20,11 @@ k3s_etcd_datastore: true
 k3s_server:
   #datastore-endpoint: "postgres://k3s:{{ postgresql_password }}@192.168.1.100:5432/k3s?sslmode=disable"
   flannel-iface: 'wg0'
-  node-taint: 
-    - 'node-role.kubernetes.io/master=true:NoSchedule'
-    - 'node-role.kubernetes.io/control-plane=true:NoSchedule'
+#  node-taint: 
+#    - 'node-role.kubernetes.io/master=true:NoSchedule'
+#    - 'node-role.kubernetes.io/control-plane=true:NoSchedule'
   disable:
-    - local-storage
+    #- local-storage
     - traefik    
     - metrics-server
   tls-san: 192.168.1.102
@@ -50,4 +50,4 @@ k3s_server:
 #  - "manifests/kube-vip/kube-vip-daemonset.yaml"
 
 # the private ip of master1
-k3s_registration_address: 192.168.1.102
+k3s_registration_address: 192.168.1.101
