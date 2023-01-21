@@ -1,0 +1,14 @@
+---
+apiVersion: snapscheduler.backube/v1
+kind: SnapshotSchedule
+metadata:
+  name: hourly
+spec:
+  retention:
+    maxCount: 24
+  schedule: "0 * * * *"
+  snapshotTemplate:    
+    # The SnapshotClassName to use when creating the
+    # snapshots. If omitted, the cluster default will
+    # be used.
+    snapshotClassName: longhorn
