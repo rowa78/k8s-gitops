@@ -9,10 +9,10 @@ argocd_crds:
   - appprojects.argoproj.io
 argocd_root_app_appsets:
   - system
-  - observability
-  - platform
-  - apps
-  - projects
+#  - observability
+#  - platform
+#  - apps
+#  - projects
 
 argocd_repo_base_url: https://github.com/rowa78/k8s-gitops.git
 argocd_repo_helm_url: "{{ argocd_repo_base_url }}/api/packages/projects/helm"
