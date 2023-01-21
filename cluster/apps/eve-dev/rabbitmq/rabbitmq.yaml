@@ -43,4 +43,4 @@ spec:
     additionalConfig: |
         log.console.level = info
         channel_max = 1700
-        vm_memory_high_watermark.absolute = 1024MiB
+        vm_memory_high_watermark.absolute = 2048MiB
