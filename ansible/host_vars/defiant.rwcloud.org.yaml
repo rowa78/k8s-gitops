@@ -1,5 +1,5 @@
 wireguard_address: "192.168.1.101/32"
-wireguard_endpoint: "worker1.rwcloud.org"
+wireguard_endpoint: "defiant.rwcloud.org"
 
 # eve-online-servers
 wireguard_postup:

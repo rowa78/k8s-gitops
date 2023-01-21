@@ -2,7 +2,7 @@ all:
   children:    
     public_worker:
       hosts:
-        worker1.rwcloud.org:        
+        defiant.rwcloud.org:        
     k3s_cluster:
       children:
         public_worker:    

@@ -206,14 +206,14 @@ kube-prometheus-stack:
       targetPort: 2381
   kubeProxy:
     enabled: true
-    endpoints: ["192.168.1.102", "192.168.1.103", "192.168.1.104"]
+    endpoints: ["192.168.1.101"]
     service:
       enabled: true
       port: 10249
       targetPort: 10249
   kubeScheduler:
     enabled: true
-    endpoints: ["192.168.1.102", "192.168.1.103", "192.168.1.104"]
+    endpoints: ["192.168.1.101"]
     service:
       enabled: true
       port: 10259
@@ -223,7 +223,7 @@ kube-prometheus-stack:
       https: true
   kubeControllerManager:
     enabled: true
-    endpoints: ["192.168.1.102", "192.168.1.103", "192.168.1.104"]
+    endpoints: ["192.168.1.101"]
     service:
       enabled: true
       port: 10257
