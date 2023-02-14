@@ -3,5 +3,5 @@ name: nexus-repository-manager
 version: 0.0.0
 dependencies:
   - name: nexus-repository-manager
-    version: 43.0.0
+    version: 47.1.0
     repository: https://sonatype.github.io/helm3-charts/
