@@ -1,4 +1,5 @@
 rancher:
+  bootstrapPassword: "changemenow!"
   replicas: 2
   hostname: "rancher.rwcloud.org"
   ingress:
