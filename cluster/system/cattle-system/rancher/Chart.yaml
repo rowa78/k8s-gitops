@@ -1,7 +1,7 @@
 name: rancher
 apiVersion: v2
 version: 1.0.0
-#dependencies:
-#  - name: rancher
-#    version: "2.6.10"
-#    repository: https://releases.rancher.com/server-charts/stable
+dependencies:
+  - name: rancher
+    version: "2.6.10"
+    repository: https://releases.rancher.com/server-charts/stable

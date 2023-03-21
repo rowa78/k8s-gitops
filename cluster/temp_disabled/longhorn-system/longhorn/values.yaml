@@ -11,7 +11,8 @@ longhorn:
     defaultClass: false
     defaultDataLocality: best-effort
   defaultSettings:    
-    createDefaultDiskLabeledNodes: "true"
+    defaultDataPath: /longhorn
+    #createDefaultDiskLabeledNodes: "true"
     defaultReplicaCount: 2
     defaultDataLocality: best-effort
     nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
@@ -19,4 +20,4 @@ longhorn:
     concurrentAutomaticEngineUpgradePerNodeLimit: 1
     backupTarget: s3://longhorn@minio/
     backupTargetCredentialSecret: longhorn-backup
-    systemManagedComponentsNodeSelector: node.longhorn.io/create-default-disk=true
+    
