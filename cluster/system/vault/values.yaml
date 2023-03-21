@@ -6,7 +6,6 @@ vault:
   server:
     nodeSelector:
       kubernetes.io/arch: amd64
-      node.longhorn.io/create-default-disk: "true"
     dataStorage:
       storageClass: local-path
       size: 1Gi
