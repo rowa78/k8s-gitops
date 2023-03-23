@@ -188,7 +188,7 @@ kube-prometheus-stack:
       targetPort: 2381
   kubeProxy:
     enabled: true
-    endpoints: [null]
+    endpoints: []
     service:
       enabled: true
       port: null
