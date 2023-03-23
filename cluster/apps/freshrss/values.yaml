@@ -19,8 +19,7 @@ freshrss:
     PGID: "1001"
   
   nodeSelector: 
-    kubernetes.io/arch: amd64
-    node.longhorn.io/create-default-disk: "true"
+    kubernetes.io/arch: amd64    
 
   # -- Configures service settings for the chart.
   # @default -- See values.yaml
