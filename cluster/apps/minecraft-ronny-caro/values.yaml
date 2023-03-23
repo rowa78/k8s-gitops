@@ -22,9 +22,6 @@ minecraft:
   # upgrade strategy type (e.g. Recreate or RollingUpdate)
   strategyType: Recreate
 
-  nodeSelector: 
-    obenebs.storage.node: "true"
-
   tolerations: []
 
   affinity: {}
