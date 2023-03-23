@@ -212,7 +212,7 @@ kube-prometheus-stack:
       targetPort: null
     serviceMonitor:
       enabled: true
-      https: true
+      https: null
 alertmanager-discord:  
   image:
     # -- image repository
