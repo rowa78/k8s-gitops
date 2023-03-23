@@ -213,6 +213,7 @@ kube-prometheus-stack:
     serviceMonitor:
       enabled: true
       https: true
+      insecureSkipVerify: 'true'
 alertmanager-discord:  
   image:
     # -- image repository
