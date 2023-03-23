@@ -1,0 +1,7 @@
+name: rabbitmq-operator
+apiVersion: v2
+version: 1.0.0
+dependencies:
+  - name: rabbitmq-cluster-operator
+    version: "3.1.6"
+    repository: https://charts.bitnami.com/bitnami
