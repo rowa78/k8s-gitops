@@ -28,7 +28,7 @@ vault:
           secretName: vault-tls
     extraInitContainers:
       - name: vault-bootstrap
-        image: ghcr.io/rowa78/vault-bootstrap:0.1
+        image: ghcr.io/spirkaa/vault-bootstrap:latest
         command:
           - /vault-bootstrap
         args:
