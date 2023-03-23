@@ -14,15 +14,6 @@ kube-prometheus-stack:
                 storage: 1Gi
       useExistingSecret: true
       configSecret: alertmanager-config
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: node
-                operator: In
-                values:
-                - prometheus
       podAntiAffinity: hard
     ingress:
       enabled: true
@@ -158,15 +149,6 @@ kube-prometheus-stack:
       ## Maximum size of metrics
       ##
       retentionSize: "40GiB" 
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: node
-                operator: In
-                values:
-                - prometheus
       podAntiAffinity: hard
       thanos: {}        
     ingress:
