@@ -188,18 +188,18 @@ kube-prometheus-stack:
       targetPort: 2381
   kubeProxy:
     enabled: true
-    endpoints: ["192.168.1.101"]
+    endpoints: [null]
     service:
       enabled: true
-      port: 10249
-      targetPort: 10249
+      port: null
+      targetPort: null
   kubeScheduler:
     enabled: true
-    endpoints: ["192.168.1.101"]
+    endpoints: []
     service:
       enabled: true
-      port: 10259
-      targetPort: 10259
+      port: null
+      targetPort: null
     serviceMonitor:
       enabled: true
       https: true
