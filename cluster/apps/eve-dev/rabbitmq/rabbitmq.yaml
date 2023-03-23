@@ -5,7 +5,7 @@ metadata:
 spec:
   replicas: 1
   persistence:
-    storageClassName: local-path
+    storageClassName: longhorn
     storage: 2Gi
   resources:
    requests:

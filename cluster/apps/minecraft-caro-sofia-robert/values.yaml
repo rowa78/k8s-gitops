@@ -123,7 +123,7 @@ minecraft:
     # One of: peaceful, easy, normal, and hard
     difficulty: normal
     # A comma-separated list of player names to whitelist.
-    whitelist: Atlan78,carofox
+    whitelist: Atlan78,carofox,Elton261210,MiauFox1
     # A comma-separated list of player names who should be admins.
     ops: Atlan78,carofox
     # A server icon URL for server listings. Auto-scaled and transcoded.
@@ -277,8 +277,8 @@ minecraft:
   ## Additional minecraft container environment variables
   ## Values can be either variable values or `valueFrom` yaml
   ##
-  extraEnv: {}
-    #ENABLE_AUTOPAUSE: TRUE    
+  extraEnv:
+    {}
     # some_variable: some value
     # another_variable:
     #   valueFrom:
@@ -299,7 +299,7 @@ minecraft:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "local-path"
+    storageClass: "olonghorn"
     dataDir:
       # Set this to false if you don't care to persist state between restarts.
       enabled: false

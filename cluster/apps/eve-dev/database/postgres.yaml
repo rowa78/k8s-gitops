@@ -24,4 +24,4 @@ spec:
       memory: 500Mi
   volume:
     size: 50Gi
-    storageClass: local-path
+    storageClass: longhorn
