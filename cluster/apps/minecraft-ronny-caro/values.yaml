@@ -405,9 +405,9 @@ minecraft:
       ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
       ##   GKE, AWS & OpenStack)
       ##
-      # storageClass: "-"
+      storageClass: "longhorn"
       backupDir:
         # Set this to false if you don't care to persist state between restarts.
-        enabled: false
+        enabled: true
         # existingClaim: nil
         Size: 1Gi

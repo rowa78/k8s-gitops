@@ -296,10 +296,10 @@ minecraft:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "olonghorn"
+    storageClass: "longhorn"
     dataDir:
       # Set this to false if you don't care to persist state between restarts.
-      enabled: false
+      enabled: true
       Size: 10Gi
       # existingClaim: nil
       ## specify a subpath in the volume where the data is. Useful when sharing volumes with other apps.
