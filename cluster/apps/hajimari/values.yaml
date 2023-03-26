@@ -119,7 +119,7 @@ hajimari:
   persistence:
     data:
       enabled: true
-      storageClass:  "openebs-hostpath"
+      storageClass:  "openebs-jiva"
       type: pvc
       accessMode: ReadWriteOnce
       size: 1Gi
