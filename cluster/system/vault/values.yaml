@@ -7,7 +7,7 @@ vault:
     nodeSelector:
       kubernetes.io/arch: amd64
     dataStorage:
-      storageClass: nfs-client
+      storageClass: local-path
       size: 1Gi
     ingress:
       enabled: true
