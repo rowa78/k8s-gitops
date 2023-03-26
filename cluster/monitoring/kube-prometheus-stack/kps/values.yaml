@@ -110,6 +110,8 @@ kube-prometheus-stack:
           url: https://raw.githubusercontent.com/argoproj/argo-cd/master/examples/dashboard.json
         thanos:
           url: https://grafana.com/api/dashboards/12937/revisions/4/download
+        pve:
+          url: https://grafana.com/api/dashboards/10347/revisions/3/download
     grafana.ini:
       analytics:
         check_for_updates: false
@@ -150,7 +152,15 @@ kube-prometheus-stack:
       ##
       retentionSize: "40GiB" 
       podAntiAffinity: hard
-      thanos: {}        
+      thanos: {}       
+      additionalScrapeConfigs:
+        - job_name: 'pve-exporter'
+          static_configs:
+            - targets:
+              - 10.0.0.1:9221
+          metrics_path: /pve
+          params:
+            module: [default]
     ingress:
       enabled: true
       ingressClassName: nginx
