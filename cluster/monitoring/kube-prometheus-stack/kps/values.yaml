@@ -112,6 +112,7 @@ kube-prometheus-stack:
           url: https://grafana.com/api/dashboards/12937/revisions/4/download
         pve:
           url: https://grafana.com/api/dashboards/10347/revisions/3/download
+          datasource: Prometheus
     grafana.ini:
       analytics:
         check_for_updates: false
