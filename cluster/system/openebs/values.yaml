@@ -18,6 +18,7 @@ openebs:
       name: openebs-hostpath
       # If true, enables creation of the openebs-hostpath StorageClass
       enabled: true    
+      basePath: "/storage/openebs"
 
   snapshotOperator:
     enabled: true  
