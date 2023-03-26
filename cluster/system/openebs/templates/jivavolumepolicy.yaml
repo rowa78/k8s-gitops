@@ -7,8 +7,3 @@ spec:
   replicaSC: openebs-hostpath
   target:
     replicationFactor: 3     
-    nodeSelector:
-      obenebs.storage.node: "true"
-  replica:    
-    nodeSelector:
-      obenebs.storage.node: "true"
