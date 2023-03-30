@@ -1,6 +1,6 @@
 mariadb:
   global:
-    storageClass: "openebs-jiva"
+    storageClass: "openebs-hostpath"
 
   image:
     registry: docker.io
@@ -9,7 +9,7 @@ mariadb:
 
   ## @param architecture MariaDB architecture (`standalone` or `replication`)
   ##
-  architecture: standalone
+  architecture: replication
   ## MariaDB Authentication parameters
   ##
   auth:
