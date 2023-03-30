@@ -5,3 +5,6 @@ dependencies:
   - name: openebs
     version: "3.3.1"
     repository: https://openebs.github.io/charts
+  - name: openebs-monitoring
+    version: 0.4.10
+    repository: https://openebs.github.io/monitoring/
