@@ -110,6 +110,8 @@ kube-prometheus-stack:
           url: https://raw.githubusercontent.com/argoproj/argo-cd/master/examples/dashboard.json
         thanos:
           url: https://grafana.com/api/dashboards/12937/revisions/4/download
+        rabbitmq:
+          url: https://grafana.com/api/dashboards/10991/revisions/12/download
     grafana.ini:
       analytics:
         check_for_updates: false
