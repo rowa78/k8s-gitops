@@ -3,7 +3,7 @@ kind: RabbitmqCluster
 metadata:
   name: eve-dev-rabbitmq
 spec:
-  replicas: 3
+  replicas: 1
   persistence:
     storageClassName: openebs-hostpath
     storage: 2Gi
