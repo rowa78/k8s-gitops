@@ -20,7 +20,6 @@ freshrss:
   
   nodeSelector: 
     kubernetes.io/arch: amd64
-    node.longhorn.io/create-default-disk: "true"
 
   # -- Configures service settings for the chart.
   # @default -- See values.yaml
@@ -65,4 +64,4 @@ freshrss:
       enabled: true
       storageClass: openebs-jiva
       size: 1Gi
-      accessMode: ReadWriteMany
+      accessMode: ReadWriteOnce
