@@ -6,7 +6,7 @@ spec:
   replicas: 3
   persistence:
     storageClassName: longhorn-single
-    storage: 2Gi
+    storage: 10Gi
   resources:
    requests:
      cpu: 100m
