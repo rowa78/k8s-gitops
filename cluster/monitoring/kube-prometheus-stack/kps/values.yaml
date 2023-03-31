@@ -8,7 +8,7 @@ kube-prometheus-stack:
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: openebs-hostpath
+            storageClassName: longhorn-single
             resources:
               requests:
                 storage: 1Gi
@@ -143,7 +143,7 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
-            storageClassName: openebs-hostpath
+            storageClassName: longhorn-single
             resources:
               requests:
                 storage: 50Gi     

@@ -1,6 +1,6 @@
 mariadb:
   global:
-    storageClass: "openebs-hostpath"
+    storageClass: "longhorn-single"
 
   image:
     registry: docker.io
