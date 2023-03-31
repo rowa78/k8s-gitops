@@ -10,6 +10,7 @@ longhorn:
     defaultClassReplicaCount: 2
     defaultClass: false
     defaultDataLocality: best-effort
+    removeSnapshotsDuringFilesystemTrim: "enabled"
   defaultSettings:    
     defaultDataPath: /storage/longhorn
     #createDefaultDiskLabeledNodes: "true"
@@ -19,5 +20,4 @@ longhorn:
     replicaAutoBalance: best-effort
     concurrentAutomaticEngineUpgradePerNodeLimit: 1
     backupTarget: s3://longhorn@minio/
-    backupTargetCredentialSecret: longhorn-backup
-    remove-snapshots-during-filesystem-trim: "true"
+    backupTargetCredentialSecret: longhorn-backup    
