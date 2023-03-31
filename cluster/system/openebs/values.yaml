@@ -21,7 +21,7 @@ openebs:
       basePath: "/storage/openebs"
 
   snapshotOperator:
-    enabled: false  
+    enabled: true  
 
   # If you want to enable openebs as a dependency chart then set `ndm.enabled: false`,
   # `ndmOperator.enabled: false` and enable it as dependency chart. If you are using
