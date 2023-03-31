@@ -20,4 +20,4 @@ longhorn:
     concurrentAutomaticEngineUpgradePerNodeLimit: 1
     backupTarget: s3://longhorn@minio/
     backupTargetCredentialSecret: longhorn-backup
-    remove-snapshots-during-filesystem-trim: true
+    remove-snapshots-during-filesystem-trim: "true"
