@@ -11,6 +11,7 @@ parameters:
   fsType: ext4
   numberOfReplicas: '1'
   staleReplicaTimeout: '30'
+  UnmapMarkSnapChainAsRemoved: enabled
 provisioner: driver.longhorn.io
 reclaimPolicy: Delete
 volumeBindingMode: Immediate

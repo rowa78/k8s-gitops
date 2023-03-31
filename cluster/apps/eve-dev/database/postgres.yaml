@@ -24,4 +24,4 @@ spec:
       memory: 500Mi
   volume:
     size: 40Gi
-    storageClass: openebs-hostpath
+    storageClass: longhorn-single
