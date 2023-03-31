@@ -5,7 +5,7 @@ metadata:
 spec:
   replicas: 3
   persistence:
-    storageClassName: openebs-hostpath
+    storageClassName: longhorn-single
     storage: 2Gi
   resources:
    requests:
