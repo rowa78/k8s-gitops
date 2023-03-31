@@ -1,0 +1,42 @@
+velero:
+  initContainers:
+    - name: velero-plugin-for-csi
+      image: velero/velero-plugin-for-csi:v0.4.2
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - mountPath: /target
+          name: plugins
+    - name: velero-plugin-for-aws
+      image: velero/velero-plugin-for-aws:v1.6.1
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - mountPath: /target
+          name: plugins
+  configuration:
+    extraEnvVars:
+      TZ: "Europe/Berlin"
+    provider: aws
+    backupStorageLocation:
+      bucket: velero
+      config:
+        region: main
+        s3ForcePathStyle: true
+        s3Url: http://192.168.0.3:9000
+        publicUrl: http://192.168.0.3:9000
+    volumeSnapshotLocation:
+      name: default
+      config:
+        region: main
+        s3ForcePathStyle: true
+        s3Url: http://192.168.0.3:9000
+        publicUrl: http://192.168.0.3:9000
+    features: EnableCSI
+  credentials:
+    useSecret: true
+    existingSecret: velero
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+  nodeSelector:
+    kubernetes.io/arch: amd64
