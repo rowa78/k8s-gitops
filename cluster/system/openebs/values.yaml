@@ -21,7 +21,40 @@ openebs:
       basePath: "/storage/openebs"
 
   snapshotOperator:
-    enabled: true  
+    enabled: true
+    controller:
+      image: "openebs/snapshot-controller"
+      imageTag: "2.12.2"
+      ## snapshot controller resource requests and limits
+      ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+      resources: {}
+        # limits:
+        #   cpu: 1000m
+        #   memory: 2Gi
+        # requests:
+        #   cpu: 500m
+        #   memory: 1Gi
+    provisioner:
+      image: "openebs/snapshot-provisioner"
+      imageTag: "2.12.2"
+      ## snapshot provisioner resource requests and limits
+      ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+      resources: {}
+        # limits:
+        #   cpu: 1000m
+        #   memory: 2Gi
+        # requests:
+        #   cpu: 500m
+        #   memory: 1Gi
+    replicas: 1
+    enableLeaderElection: true
+    upgradeStrategy: "Recreate"
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+    healthCheck:
+      initialDelaySeconds: 30
+      periodSeconds: 60
 
   # If you want to enable openebs as a dependency chart then set `ndm.enabled: false`,
   # `ndmOperator.enabled: false` and enable it as dependency chart. If you are using
