@@ -4,7 +4,7 @@ metadata:
   name: rwcloud-eve-dev-db
 spec:
   teamId: "rwcloud"
-  numberOfInstances: 1
+  numberOfInstances: 2
   users:
     eve:  # database owner
     - superuser
@@ -24,4 +24,4 @@ spec:
       memory: 500Mi
   volume:
     size: 40Gi
-    storageClass: longhorn-single
+    storageClass: local-path
