@@ -3,12 +3,12 @@ kube-prometheus-stack:
   alertmanager:
     externalUrl: https://alertmanager.rwcloud.org
     fullnameOverride: alertmanager
-    replicas: 1
+    replicas: 2
     alertmanagerSpec:
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: longhorn-single
+            storageClassName: local-path
             resources:
               requests:
                 storage: 1Gi
@@ -43,7 +43,7 @@ kube-prometheus-stack:
     persistence:
       enabled: false
       type: statefulset
-      storageClassName: longhorn
+      storageClassName: local-path
       size: 1Gi
     ingress:
       enabled: true
@@ -134,7 +134,7 @@ kube-prometheus-stack:
   prometheus:
     fullnameOverride: prometheus
     prometheusSpec:
-      replicas: 1
+      replicas: 2
       externalUrl: https://prometheus.rwcloud.org
       ruleSelectorNilUsesHelmValues: false
       serviceMonitorSelectorNilUsesHelmValues: false
@@ -143,7 +143,7 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
-            storageClassName: longhorn-single
+            storageClassName: local-path
             resources:
               requests:
                 storage: 50Gi     
