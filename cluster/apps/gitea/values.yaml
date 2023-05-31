@@ -222,7 +222,7 @@ gitea:
       - ReadWriteOnce
     labels: {}
     annotations: {}
-    storageClass: local-path
+    storageClass: longhorn
     subPath:
 
   ## @param extraVolumes Additional volumes to mount to the Gitea statefulset
@@ -468,7 +468,7 @@ gitea:
     primary:
       persistence:
         size: 10Gi
-        storageClass: local-path
+        storageClass: longhorn
 
   # By default, removed or moved settings that still remain in a user defined values.yaml will cause Helm to fail running the install/update.
   # Set it to false to skip this basic validation check.

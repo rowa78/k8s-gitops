@@ -3,9 +3,9 @@ kind: RabbitmqCluster
 metadata:
   name: eve-dev-rabbitmq
 spec:
-  replicas: 3
+  replicas: 2
   persistence:
-    storageClassName: local-path
+    storageClassName: longhorn
     storage: 10Gi
   resources:
    requests:

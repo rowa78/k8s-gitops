@@ -1,6 +1,6 @@
 mariadb:
   global:
-    storageClass: "local-path"
+    storageClass: "longhorn"
 
   image:
     registry: docker.io
