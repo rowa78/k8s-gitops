@@ -147,13 +147,25 @@ k10:
     pullPolicy: Always
 
   ingress:
-    create: false
+    create: true
     tls:
-      enabled: false
-    class: "" #Ingress controller type
-    host: "" #ingress object host name
+      enabled: true
+    class: "nginx" #Ingress controller type
+    host: "k10.rwcloud.org" #ingress object host name
     urlPath: "" #url path for k10 gateway
     pathType: "ImplementationSpecific"
+    annotations: 
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      nginx.ingress.kubernetes.io/auth-method: GET
+      nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+      nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+      nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+      nginx.ingress.kubernetes.io/auth-snippet: |
+        proxy_set_header X-Forwarded-Method $request_method;
+      hajimari.io/enable: "true"
+      hajimari.io/icon: "alert-box"                    
+      hajimari.io/group: system
+
 
   eula:
     accept: true #true value if EULA accepted
