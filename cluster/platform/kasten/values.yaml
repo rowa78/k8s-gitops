@@ -150,6 +150,7 @@ k10:
     create: true
     tls:
       enabled: true
+      secretName: k10-cert
     class: "nginx" #Ingress controller type
     host: "k10.rwcloud.org" #ingress object host name
     urlPath: "" #url path for k10 gateway
