@@ -4,7 +4,7 @@ metadata:
   name: longhorn
   labels:
     velero.io/csi-volumesnapshot-class: "true"
-  annotation:
+  annotations:
     k10.kasten.io/is-snapshot-class: "true"
 driver: driver.longhorn.io
 deletionPolicy: Delete
