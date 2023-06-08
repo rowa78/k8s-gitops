@@ -3,7 +3,7 @@ name: seat
 version: 0.0.0
 dependencies:
   - name: mariadb
-    version: 11.3.3
+    version: 12.2.5
     repository: https://charts.bitnami.com/bitnami
   #- name: redis
   #  version: 17.3.7
