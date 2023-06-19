@@ -1,4 +1,5 @@
 kured:
+  hostNetwork: false
   configuration:
     prometheusUrl: "http://kps-prometheus.monitoring.svc.cluster.local:9090"
     alertFilterRegexp: "^(RebootRequired|RebootScheduled|Watchdog|InfoInhibitor|LonghornVolumeActualSpaceUsedWarning)$"
