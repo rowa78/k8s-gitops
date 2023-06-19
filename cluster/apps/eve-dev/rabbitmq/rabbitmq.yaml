@@ -3,7 +3,7 @@ kind: RabbitmqCluster
 metadata:
   name: eve-dev-rabbitmq
 spec:
-  replicas: 2
+  replicas: 3
   persistence:
     storageClassName: local-path
     storage: 10Gi
@@ -16,7 +16,7 @@ spec:
      memory: 3Gi
   affinity:
     podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
+      preferredDuringSchedulingIgnoredDuringExecution:
       - labelSelector:
           matchExpressions:
           - key: app.kubernetes.io/component
