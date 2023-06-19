@@ -15,19 +15,20 @@ spec:
      cpu: 1100m
      memory: 3Gi
   affinity:
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchExpressions:
-          - key: app.kubernetes.io/component
-            operator: In
-            values:
-            - rabbitmq
-          - key: app.kubernetes.io/name
-            operator: In
-            values:
-            - eve-dev-rabbitmq
-        topologyKey: kubernetes.io/hostname
+    podAntiAffinity:      
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: app.kubernetes.io/component
+              operator: In
+              values:
+              - rabbitmq
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+              - eve-dev-rabbitmq
+          topologyKey: kubernetes.io/hostname
   rabbitmq:
     additionalPlugins:
       - rabbitmq_top
