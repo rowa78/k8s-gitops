@@ -15,7 +15,8 @@ spec:
      cpu: 1100m
      memory: 3Gi
   affinity:
-    podAntiAffinity:      
+    podAntiAffinity: 
+      preferredDuringSchedulingIgnoredDuringExecution:
       - weight: 100
         podAffinityTerm:
           labelSelector:
