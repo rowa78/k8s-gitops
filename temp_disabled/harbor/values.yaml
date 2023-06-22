@@ -798,7 +798,7 @@ harbor:
       automountServiceAccountToken: false
       image:
         repository: goharbor/harbor-db
-        tag: v2.6.1
+        tag: v2.8.2
       # The initial superuser password for internal database
       password: "changeit"
       # The size limit for Shared memory, pgSQL use it for shared_buffer
