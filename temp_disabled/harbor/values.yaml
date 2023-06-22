@@ -458,7 +458,7 @@ harbor:
   portal:
     image:
       repository: goharbor/harbor-portal
-      tag: v2.6.1
+      tag: v2.8.2
     # set the service account to be used, default if left empty
     serviceAccountName: ""
     # mount the service account token
