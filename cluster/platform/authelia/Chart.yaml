@@ -3,5 +3,5 @@ name: authelia
 version: 0.0.0
 dependencies:
   - name: authelia
-    version: 0.8.45
+    version: 0.8.57
     repository: https://charts.authelia.com
