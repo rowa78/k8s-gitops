@@ -489,7 +489,7 @@ rabbitmq-cluster-operator:
     image:
       registry: docker.io
       repository: bitnami/rmq-messaging-topology-operator
-      tag: 1.10.0-scratch-r0
+      tag: 1.11.0-scratch-r0
       digest: ""
       ## Specify a imagePullPolicy
       ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
