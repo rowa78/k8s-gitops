@@ -191,7 +191,7 @@ argo-cd:
         apiKey: $grafana-api-key
     subscriptions:
       - recipients:
-          - email:mail@rwcloud.org
+          - email:argocd@ronnywalter.de
         triggers:
           - on-deployed
           - on-health-degraded
