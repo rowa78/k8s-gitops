@@ -764,7 +764,7 @@ harbor:
       automountServiceAccountToken: false
       image:
         repository: goharbor/notary-signer-photon
-        tag: v2.6.1
+        tag: v2.8.2
       replicas: 1
       # resources:
       #  requests:
