@@ -1,0 +1,62 @@
+
+
+k3s_state: installed
+k3s_release_version: v1.23.14+k3s1
+k3s_become: true
+k3s_build_cluster: true
+
+
+# i really want only one master node. :-)
+k3s_use_unsupported_config: true
+
+# use internal ha datastore
+k3s_etcd_datastore: true
+
+k3s_agent:  
+  flannel-iface: 'eth1'
+  # take ip of eth1 as node-ip
+  node-ip: "{{ ansible_eth1.ipv4.address }}"
+
+k3s_server:
+  #datastore-endpoint: "postgres://k3s:{{ postgresql_password }}@192.168.1.2:5432/k3s?sslmode=disable"
+  flannel-iface: 'eth1'
+  node-taint: 
+    - 'node-role.kubernetes.io/master=true:NoSchedule'
+    - 'node-role.kubernetes.io/control-plane=true:NoSchedule'
+  disable:    
+    - traefik    
+    - metrics-server
+    - servicelb
+  tls-san: 192.168.1.200
+  # take ip of eth1 as node-ip
+  node-ip: "{{ ansible_eth1.ipv4.address }}"
+  default-local-storage-path: /storage/local
+  # for monitoring
+  kube-controller-manager-arg:
+  - "address=0.0.0.0"
+  - "bind-address=0.0.0.0"
+  #https://stackoverflow.com/questions/65481831/kube-controller-manager-and-kube-scheduler-leaderelection-lost-crashloopback
+  - "leader-elect-lease-duration=180s"
+  - "leader-elect-renew-deadline=120s"
+  - "leader-elect-retry-period=10s"
+  kube-proxy-arg:
+  - "metrics-bind-address=0.0.0.0"
+  kube-scheduler-arg:
+  - "address=0.0.0.0"
+  - "bind-address=0.0.0.0"
+  - "leader-elect-lease-duration=180s"
+  - "leader-elect-renew-deadline=120s"
+  - "leader-elect-retry-period=10s"
+  # Controller Manager exposes etcd sqllite metrics
+  etcd-expose-metrics: true
+
+
+k3s_server_manifests_urls:
+  - url: https://kube-vip.io/manifests/rbac.yaml
+    filename: kube-vip-rbac.yaml
+
+k3s_server_manifests_templates:
+  - "manifests/kube-vip/kube-vip-daemonset.yaml"
+
+# the private ip of master1
+k3s_registration_address: 192.168.1.200

@@ -1,0 +1,27 @@
+wireguard_address: "192.168.1.101/32"
+wireguard_endpoint: "defiant.rwcloud.org"
+
+# eve-online-servers
+wireguard_postup:
+  - iptables -t nat -A POSTROUTING -o enp0s31f6 -d 172.65.201.188 -j MASQUERADE
+wireguard_postdown:
+  - iptables -t nat -D POSTROUTING -o enp0s31f6 -d 172.65.201.188 -j MASQUERADE
+
+
+# own wireguard ip and own private ip
+# + eve online server
+wireguard_allowed_ips: "192.168.1.101/32, 172.65.201.188/32"
+
+ansible_user: ronny
+ansible_host: defiant.rwcloud.org
+
+private_ip: "10.0.1.2"
+
+k3s_agent:  
+  #flannel-iface: 'wg0' 
+  node-label:
+    - "location=public"
+    - "provider=hetzner"
+    - "obenebs.storage.node=true"
+    - "node=prometheus"
+    - "node.longhorn.io/create-default-disk=true"

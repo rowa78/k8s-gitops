@@ -1,0 +1,6 @@
+---
+- name: Deploy RKE2
+  hosts: k8s_cluster
+  become: yes
+  roles:
+     - role: lablabs.rke2

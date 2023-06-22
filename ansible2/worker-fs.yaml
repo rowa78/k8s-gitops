@@ -1,0 +1,6 @@
+---
+- name: partition
+  hosts: "worker" 
+  roles:
+    - ronnywalter.worker-fs    
+    

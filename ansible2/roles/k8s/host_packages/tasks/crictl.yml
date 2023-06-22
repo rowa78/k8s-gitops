@@ -1,0 +1,17 @@
+---
+- name: crictl - download
+  ansible.builtin.unarchive:
+    src: "{{ crictl_url }}"
+    dest: "{{ bin_dir }}"
+    mode: 0755
+    owner: root
+    group: root
+    remote_src: true
+
+- name: crictl - copy config
+  ansible.builtin.template:
+    src: crictl.yaml.j2
+    dest: /etc/crictl.yaml
+    mode: 0644
+    owner: root
+    group: root

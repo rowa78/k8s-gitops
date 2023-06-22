@@ -1,0 +1,47 @@
+rke2_version: v1.24.11+rke2r1
+
+# Deploy the control plane in HA mode
+rke2_ha_mode: true
+
+# Install and configure Keepalived on Server nodes
+# Can be disabled if you are using pre-configured Load Balancer
+rke2_ha_mode_keepalived: false
+
+# Install and configure kube-vip LB and VIP for cluster
+# rke2_ha_mode_keepalived needs to be false
+rke2_ha_mode_kubevip: true
+
+# Kubernetes API and RKE2 registration IP address. The default Address is the IPv4 of the Server/Master node.
+# In HA mode choose a static IP which will be set as VIP in keepalived.
+# Or if the keepalived is disabled, use IP address of your LB.
+rke2_api_ip: "192.168.1.200" # "{{ hostvars[groups[rke2_servers_group_name].0]['ansible_default_ipv4']['address'] }}"
+
+# optional option for kubevip IP subnet
+# rke2_api_cidr: 24
+
+# optional option for kubevip
+rke2_interface: eth1
+
+# optiononal option for kubevip load balancer IP range
+rke2_loadbalancer_ip_range: 192.168.1.50-192.168.1.100
+
+# Install kubevip cloud provider if rke2_ha_mode_kubevip is true
+rke2_kubevip_cloud_provider_enable: true
+
+# Enable kube-vip to watch Services of type LoadBalancer
+rke2_kubevip_svc_enable: true 
+
+rke2_server_node_taints: 
+  - 'CriticalAddonsOnly=true:NoExecute'
+
+rke2_custom_manifests:
+  - manifests/rke2-canal-config.yaml
+
+rke2_server_options:
+  - "node-ip: {{ ansible_eth1.ipv4.address }}"
+
+rke2_agent_options:
+  - "node-ip: {{ ansible_eth1.ipv4.address }}"
+
+rke2_disable:
+  - rke2-ingress-nginx

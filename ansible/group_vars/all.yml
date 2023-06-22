@@ -41,7 +41,8 @@ vault_secrets:
       emails={{ lookup('env', 'OAUTH2_PROXY_ALLOWED_EMAIL') }}"
   - path: secret/diskstation/minio
     kv: "s3-key={{ lookup('env', 'MINIO_DISKSTATION_ACCESS_KEY') }}
-      s3-key-secret={{ lookup('env', 'MINIO_DISKSTATION_SECRET_KEY') }}"
+      s3-key-secret={{ lookup('env', 'MINIO_DISKSTATION_SECRET_KEY') }}
+      s3-url={{ lookup('env', 'MINIO_DISKSTATION_URL') }}"
   - path: secret/renovate
     kv: "github-token={{ lookup('env', 'RENOVATE_GITHUB_TOKEN') }}"
   - path: secret/seat

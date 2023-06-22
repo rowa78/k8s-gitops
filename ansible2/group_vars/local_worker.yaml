@@ -1,0 +1,5 @@
+k3s_agent:  
+  node-label:
+    - "location=onprem"
+
+dns_server_ip: 192.168.0.1

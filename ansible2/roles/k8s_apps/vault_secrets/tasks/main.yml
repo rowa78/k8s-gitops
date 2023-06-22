@@ -1,0 +1,46 @@
+---
+- name: vault - create namespace
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: Namespace
+    name: "{{ vault_namespace }}"
+    state: present
+
+- name: vault - wait for pod Ready condition (initialized and unsealed)
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: Pod
+    name: "{{ vault_pod }}"
+    namespace: "{{ vault_namespace }}"
+    wait: true
+    wait_condition:
+      type: Ready
+      status: "True"
+    wait_timeout: 1200
+
+- name: vault token tasks
+  no_log: true
+  when: not vault_token
+  block:
+    - name: vault - get token from k8s secret
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Secret
+        name: "{{ vault_token_k8s_secret_name }}"
+        namespace: "{{ vault_namespace }}"
+      register: _vault_token_query
+
+    - name: vault - set token as fact
+      ansible.builtin.set_fact:
+        vault_token: >-
+          {{ _vault_token_query.resources[0].data[vault_token_k8s_secret_key] | b64decode }}
+
+- name: vault - put secrets
+  kubernetes.core.k8s_exec:
+    namespace: "{{ vault_namespace }}"
+    pod: "{{ vault_pod }}"
+    command: >
+      sh -c 'VAULT_TOKEN={{ vault_token }} vault kv put -format=json \
+      {{ item.path }} {{ item.kv }}'
+  no_log: false
+  loop: "{{ vault_secrets }}"

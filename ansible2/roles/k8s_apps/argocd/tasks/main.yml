@@ -1,0 +1,60 @@
+---
+- name: argocd - namespace
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: Namespace
+    name: "{{ argocd_namespace }}"
+    state: present
+  register: argocd_namespace_result
+
+- name: argocd - repo secret
+  kubernetes.core.k8s:
+    definition: "{{ lookup('template', 'argocd_repo_secret.yml.j2') | from_yaml_all }}"
+    state: present
+  #no_log: true
+
+- name: argocd - init tasks
+  when: argocd_namespace_result.changed  # noqa no-handler
+  block:
+    - name: argocd - init - helm dependency update
+      ansible.builtin.command: >
+        helm dependency update {{ argocd_chart }}
+      register: result
+      changed_when: true
+
+    - name: argocd - init - helm template
+      ansible.builtin.command: >
+        helm template
+          {{ argocd_chart }}
+          --name-template argocd
+          --namespace {{ argocd_namespace }}
+          --include-crds
+          --set argo-cd.repoServer.metrics.serviceMonitor.enabled=false
+          --set argo-cd.server.metrics.serviceMonitor.enabled=false
+          --set argo-cd.controller.metrics.serviceMonitor.enabled=false
+          --set argo-cd.applicationSet.metrics.serviceMonitor.enabled=false
+          --set argo-cd.notifications.metrics.serviceMonitor.enabled=false
+          --set externalsecret=false
+      register: argocd_init_helm_template_result
+      changed_when: false
+
+    - name: argocd - init - apply helm template
+      kubernetes.core.k8s:
+        namespace: "{{ argocd_namespace }}"
+        definition: "{{ argocd_init_helm_template_result.stdout }}"
+        state: present
+
+    - name: argocd - init - wait for crds
+      kubernetes.core.k8s_info:
+        api_version: apiextensions.k8s.io/v1
+        kind: CustomResourceDefinition
+        name: "{{ item }}"
+        wait: true
+        wait_condition:
+          type: Established
+          status: "True"
+        wait_timeout: 120
+      loop: "{{ argocd_crds }}"
+
+    - name: argocd - root app - install
+      ansible.builtin.include_tasks: argocd_root_app.yml

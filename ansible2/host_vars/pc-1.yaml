@@ -1,0 +1,9 @@
+ansible_user: ubuntu
+ansible_host: 192.168.0.105
+
+k3s_agent:  
+  node-label:
+    - "location=onprem"
+    - "obenebs.storage.node=true"
+    - "node=prometheus"
+    - "node.longhorn.io/create-default-disk=true"

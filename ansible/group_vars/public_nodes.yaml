@@ -12,8 +12,8 @@ harden_linux_ufw_rules:
     interface: "wg0"
     direction: "in"
 
-#harden_linux_ufw_allow_networks:
-#  - "192.168.1.0/24"  
+harden_linux_ufw_allow_networks:
+  - "192.168.100.0/24"  
 #  - "10.42.0.0/24"  
 #  - "10.43.0.0/24"  
 #  - "192.168.0.0/24" 
@@ -36,3 +36,6 @@ harden_linux_sysctl_settings_user:
 #  "net.ipv4.conf.default.secure_redirects": 1      # Ignore ICMP redirects from non-GW hosts
 
 harden_linux_ufw_logging: 'on'
+
+
+k3s_control_node: true
