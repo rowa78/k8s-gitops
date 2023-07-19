@@ -63,7 +63,7 @@ rabbitmq-cluster-operator:
   rabbitmqImage:
     registry: docker.io
     repository: bitnami/rabbitmq
-    tag: 3.10.13-debian-11-r8
+    tag: 3.11.13-debian-11-r8
     digest: ""
     ## Optionally specify an array of imagePullSecrets.
     ## Secrets must be manually created in the namespace.
