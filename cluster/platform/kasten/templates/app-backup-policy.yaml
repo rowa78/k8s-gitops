@@ -20,7 +20,7 @@ spec:
     yearly: 7
   selector:
     matchExpressions:
-      - key: backup/kasten
+      - key: kasten
         operator: In
         values:
           - enabled

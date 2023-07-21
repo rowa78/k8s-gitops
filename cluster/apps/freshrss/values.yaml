@@ -67,4 +67,4 @@ freshrss:
       accessMode: ReadWriteOnce
 
   podLabels:
-    backup/kasten: enabled
+    kasten: enabled
