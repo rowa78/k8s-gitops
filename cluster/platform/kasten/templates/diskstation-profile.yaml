@@ -4,17 +4,19 @@ metadata:
   name: diskstation-profile
   namespace: kasten
 spec:
-  type: Location
   locationSpec:
+    type: ObjectStore
+    objectStore:
+      endpoint: https://minio.ronnywalter.de
+      name: k10
+      objectStoreType: S3
+      path: k10
+      pathType: Directory
     credential:
       secretType: AwsAccessKey
       secret:
         apiVersion: v1
-        kind: Secret
-        name: s3-secret
+        kind: secret
+        name: k10secret-4lvwz
         namespace: kasten
-    type: ObjectStore
-    objectStore:
-      name: diskstation-s3-bucket
-      objectStoreType: S3
-      region: us-east-2
+  type: Location
