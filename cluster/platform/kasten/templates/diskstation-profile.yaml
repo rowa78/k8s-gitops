@@ -1,0 +1,20 @@
+apiVersion: config.kio.kasten.io/v1alpha1
+kind: Profile
+metadata:
+  name: diskstation-profile
+  namespace: kasten
+spec:
+  type: Location
+  locationSpec:
+    credential:
+      secretType: AwsAccessKey
+      secret:
+        apiVersion: v1
+        kind: Secret
+        name: s3-secret
+        namespace: kasten
+    type: ObjectStore
+    objectStore:
+      name: diskstation-s3-bucket
+      objectStoreType: S3
+      region: us-east-2
