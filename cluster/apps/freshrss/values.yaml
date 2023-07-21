@@ -65,3 +65,6 @@ freshrss:
       storageClass: longhorn
       size: 1Gi
       accessMode: ReadWriteOnce
+
+  podLabels:
+    backup/kasten: enabled
