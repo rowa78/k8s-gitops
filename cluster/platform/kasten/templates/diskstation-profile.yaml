@@ -17,6 +17,6 @@ spec:
       secret:
         apiVersion: v1
         kind: secret
-        name: k10secret-4lvwz
+        name: s3-secret
         namespace: kasten
   type: Location
