@@ -129,7 +129,7 @@ gitea:
     ## @param service.ssh.annotations SSH service annotations
     ssh:
       type: ClusterIP
-      port: 22
+      port: 2222
       clusterIP: None
       loadBalancerIP:
       nodePort:
