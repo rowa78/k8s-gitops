@@ -1,0 +1,25 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: rwcloud-gitea-db
+spec:
+  teamId: "rwcloud"
+  numberOfInstances: 2
+  users:
+    eve:  # database owner
+    - superuser
+    - createdb    
+  databases:
+    eve: gitea  # dbname: owner  
+  postgresql:
+    version: "14"
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1500Mi
+    requests:
+      cpu: 100m
+      memory: 100Mi
+  volume:
+    size: 8Gi
+    storageClass: openebs-hostpath
