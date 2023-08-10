@@ -591,7 +591,7 @@ gitea:
   ## @param postgresql.service.ports.postgresql PostgreSQL service port
   ##
   postgresql:
-    enabled: true    
+    enabled: false    
     
     auth:
       username: bn_gitea
@@ -614,13 +614,13 @@ gitea:
   ## @param externalDatabase.existingSecretPasswordKey Name of an existing secret key containing the database credentials
   ##
   externalDatabase:
-    host: ""
+    host: "rwcloud-gitea-db"
     port: 5432
-    user: postgres
+    user: gitea
     database: gitea
     password: ""
-    existingSecret: ""
-    existingSecretPasswordKey: "db-password"
+    existingSecret: "eve.rwcloud-gitea-db.credentials.postgresql.acid.zalan.do"
+    existingSecretPasswordKey: "password"
 
   ## @section Volume Permissions parameters
   ##
