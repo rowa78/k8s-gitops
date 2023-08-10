@@ -151,22 +151,23 @@ gitea:
   ## @param ingress.tls Ingress tls settings
   ## @extra ingress.apiVersion Specify APIVersion of ingress object. Mostly would only be used for argocd.
   ingress:
-    enabled: false
-    # className: nginx
+    enabled: true
+    className: nginx
     className:
     annotations:
-      {}
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-production        
+      hajimari.io/enable: "true"
+      hajimari.io/icon: "git"
+      hajimari.io/group: apps
     hosts:
-      - host: git.example.com
+      - host: git.rwcloud.org
         paths:
           - path: /
             pathType: Prefix
-    tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - git.example.com
+    tls: 
+      - secretName: chart-example-tls
+        hosts:
+          - git.rwcloud.org
     # Mostly for argocd or any other CI that uses `helm template | kubectl apply` or similar
     # If helm doesn't correctly detect your ingress API version you can set it here.
     # apiVersion: networking.k8s.io/v1
