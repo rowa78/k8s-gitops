@@ -233,7 +233,7 @@ gitea:
   ## @param serviceAccount.annotations Custom annotations for the ServiceAccount
   ## @param serviceAccount.labels Custom labels for the ServiceAccount
   serviceAccount:
-    create: false
+    create: true
     name: ""
     automountServiceAccountToken: false
     imagePullSecrets: []
