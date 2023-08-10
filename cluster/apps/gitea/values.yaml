@@ -477,8 +477,10 @@ gitea:
   ## @param redis-cluster.enabled Enable redis
   ## @param redis-cluster.usePassword Whether to use password authentication
   redis-cluster:
-    enabled: false
+    enabled: true
     usePassword: false
+    persistence:
+      storageClass: openebs-hostpath
 
   ## @section postgresql-ha
   #
