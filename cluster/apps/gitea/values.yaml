@@ -392,7 +392,10 @@ gitea:
       server:
         SSH_PORT: 2222 # rootful image
         SSH_LISTEN_PORT: 2222 # rootless image
-      disableRegistration: true
+      service:
+        DISABLE_REGISTRATION: false
+        REQUIRE_SIGNIN_VIEW: true
+        SHOW_REGISTRATION_BUTTON: false
     #
     #  security:
     #    PASSWORD_COMPLEXITY: spec
