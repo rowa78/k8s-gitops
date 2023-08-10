@@ -477,7 +477,7 @@ gitea:
   ## @param redis-cluster.enabled Enable redis
   ## @param redis-cluster.usePassword Whether to use password authentication
   redis-cluster:
-    enabled: true
+    enabled: false
     usePassword: false
 
   ## @section postgresql-ha
@@ -500,6 +500,7 @@ gitea:
         username: gitea
     enabled: true
     postgresql:
+      replicaCount: 2
       repmgrPassword: changeme2
       postgresPassword: changeme1
       password: changeme4
