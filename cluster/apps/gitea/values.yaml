@@ -153,7 +153,6 @@ gitea:
   ingress:
     enabled: true
     className: nginx
-    className:
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production        
       hajimari.io/enable: "true"
