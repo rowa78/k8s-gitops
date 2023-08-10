@@ -6,4 +6,4 @@ metadata:
 spec:
   replicaSC: openebs-hostpath
   target:
-    replicationFactor: 3     
+    replicationFactor: 2     
