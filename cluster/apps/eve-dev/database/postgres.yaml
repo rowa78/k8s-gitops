@@ -10,9 +10,9 @@ spec:
     - superuser
     - createdb    
   databases:
-    eve: eve  # dbname: owner  
+    eve: eve_owner  # dbname: owner  
   preparedDatabases:
-    eve:
+    eve: 
       defaultUsers: true
       extensions:
         pgcrypto: public
