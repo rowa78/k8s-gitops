@@ -13,6 +13,7 @@ spec:
     eve: eve  # dbname: owner  
   preparedDatabases:
     eve:
+      defaultUsers: true
       extensions:
         pgcrypto: public
   postgresql:
