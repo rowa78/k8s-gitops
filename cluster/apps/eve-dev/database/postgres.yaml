@@ -10,12 +10,7 @@ spec:
     - superuser
     - createdb    
   databases:
-    eve: eve_owner  # dbname: owner  
-  preparedDatabases:
-    eve: 
-      defaultUsers: true
-      extensions:
-        pgcrypto: public
+    eve: eve  # dbname: owner  
   postgresql:
     version: "14"    
     parameters:
