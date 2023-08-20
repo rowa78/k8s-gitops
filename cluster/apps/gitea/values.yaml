@@ -269,7 +269,7 @@ gitea:
     accessModes:
       - ReadWriteOnce
     labels: {}
-    storageClass: openebs-jiva
+    storageClass: longhorn
     subPath:
     volumeName: ""
     annotations:

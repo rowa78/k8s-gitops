@@ -119,7 +119,7 @@ hajimari:
   persistence:
     data:
       enabled: false
-      storageClass:  "openebs-jiva"
+      storageClass:  "longhorn"
       type: pvc
       accessMode: ReadWriteOnce
       size: 1Gi
