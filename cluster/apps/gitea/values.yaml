@@ -15,7 +15,7 @@ gitea:
     ##   - myRegistryKeySecretName
     ##
     imagePullSecrets: []
-    storageClass: "openebs-hostpath"
+    storageClass: "local-path"
     hostAliases: []
     # - ip: 192.168.137.2
     #   hostnames:
@@ -523,7 +523,7 @@ gitea:
         postgresql: 5432
     primary:
       persistence:
-        storageClass: openebs-hostpath
+        storageClass: local-path
         size: 10Gi
 
   ## @section PostgreSQL
