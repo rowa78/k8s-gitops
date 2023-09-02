@@ -491,7 +491,7 @@ gitea:
     usePassword: false
     cluster:
       nodes: 3
-      replicas: 2
+      replicas: 0
 
   ## @section postgresql-ha
   #
