@@ -5,7 +5,7 @@ mariadb:
   image:
     registry: docker.io
     repository: bitnami/mariadb
-    tag: 10.11.4-debian-11-r6
+    tag: 10.11.5-debian-11-r6
 
   ## @param architecture MariaDB architecture (`standalone` or `replication`)
   ##
@@ -53,7 +53,7 @@ mariadb:
   metrics:
     ## @param metrics.enabled Start a side-car prometheus exporter
     ##
-    enabled: true
+    enabled: false
     ## @param metrics.image.registry Exporter image registry
     ## @param metrics.image.repository Exporter image repository
     ## @param metrics.image.tag Exporter image tag (immutable tags are recommended)

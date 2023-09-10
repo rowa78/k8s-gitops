@@ -16,7 +16,7 @@ argo-cd:
         emptyDir: {}
     initContainers:
       - name: argocd-lovely-plugin-download
-        image: ghcr.io/crumbhole/argocd-lovely-plugin:0.19.6
+        image: ghcr.io/crumbhole/argocd-lovely-plugin:0.21.0
         imagePullPolicy: Always
         volumeMounts:
           - mountPath: /custom-tools
@@ -27,7 +27,7 @@ argo-cd:
         env:
           - name: AVP_VERSION
             # renovate: depName=argoproj-labs/argocd-vault-plugin
-            value: "v1.15.0"
+            value: "v1.16.1"
         args:
           - >-
             set -eux &&
