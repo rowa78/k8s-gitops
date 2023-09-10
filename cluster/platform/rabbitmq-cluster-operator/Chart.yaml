@@ -3,5 +3,5 @@ apiVersion: v2
 version: 1.0.0
 dependencies:
   - name: rabbitmq-cluster-operator
-    version: "3.6.3"
+    version: "3.8.0"
     repository: https://charts.bitnami.com/bitnami
