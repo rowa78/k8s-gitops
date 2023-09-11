@@ -441,15 +441,15 @@ cockroachdb:
         - name: eve
           password: eve
       #   # https://www.cockroachlabs.com/docs/stable/create-user.html#parameters
-      #   options: [LOGIN]
+          options: [LOGIN]
       databases: 
       - name: eve
         # https://www.cockroachlabs.com/docs/stable/create-database.html#parameters
         options: [encoding='utf-8']
-        owners: []
-      #   # https://www.cockroachlabs.com/docs/stable/grant.html#parameters
-        owners_with_grant_option:
+        owners: 
           - eve
+      #   # https://www.cockroachlabs.com/docs/stable/grant.html#parameters
+      #   owners_with_grant_option: []
       #   # Backup schedules are not idemponent for now and will fail on next run
       #   # https://github.com/cockroachdb/cockroach/issues/57892
       #   backup:
