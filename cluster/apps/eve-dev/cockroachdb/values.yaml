@@ -423,21 +423,22 @@ cockroachdb:
       enabled: true
 
     provisioning:
-      enabled: false
+      enabled: true
       # https://www.cockroachlabs.com/docs/stable/cluster-settings.html
       clusterSettings:
-        # cluster.organization: "'FooCorp - Local Testing'"
+        cluster.organization: "'Eve-Dev Database'"
         # enterprise.license: "'xxxxx'"
-      users: []
-      # - name:
-      #   password:
+      users: 
+        - name: eve
+          password: eve
       #   # https://www.cockroachlabs.com/docs/stable/create-user.html#parameters
       #   options: [LOGIN]
-      databases: []
-      # - name:
-      #   # https://www.cockroachlabs.com/docs/stable/create-database.html#parameters
-      #   options: [encoding='utf-8']
-      #   owners: []
+      databases: 
+      - name:
+        # https://www.cockroachlabs.com/docs/stable/create-database.html#parameters
+        options: [encoding='utf-8']
+        owners: 
+          - eve
       #   # https://www.cockroachlabs.com/docs/stable/grant.html#parameters
       #   owners_with_grant_option: []
       #   # Backup schedules are not idemponent for now and will fail on next run
