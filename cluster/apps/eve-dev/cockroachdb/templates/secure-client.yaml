@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cockroachdb-client-secure
+spec:
+  serviceAccountName: eve-dev-cockroachdb # Change to {release}
+  containers:
+  - name: cockroachdb-client-secure
+    image: cockroachdb/cockroach:v21.1.11 # Change to cockroachdb/cockroach:{version}
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+    - name: client-certs
+      mountPath: /cockroach/cockroach-certs/
+    command:
+    - sleep
+    - "2147483648" # 2^31
+  terminationGracePeriodSeconds: 0
+  volumes:
+  - name: client-certs
+    projected:
+        sources:
+          - secret:
+              name: eve-dev-cockroachdb-client-secret # Change to {release}-client-secret
+              items:
+                - key: ca.crt
+                  path: ca.crt
+                - key: tls.crt
+                  path: client.root.crt
+                - key: tls.key
+                  path: client.root.key
+        defaultMode: 256
