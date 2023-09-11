@@ -323,17 +323,25 @@ cockroachdb:
 
   # CockroachDB's ingress for web ui.
   ingress:
-    enabled: false
+    enabled: true
     labels: {}
-    annotations: {}
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      nginx.ingress.kubernetes.io/auth-method: GET
+      nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
+      nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+      nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+      nginx.ingress.kubernetes.io/auth-snippet: |
+        proxy_set_header X-Forwarded-Method $request_method;
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     #   kubernetes.io/ingress.class: nginx
     #   cert-manager.io/cluster-issuer: letsencrypt
     paths: [/]
-    hosts: []
-    # - cockroachlabs.com
-    tls: []
-    # - hosts: [cockroachlabs.com]
-    #   secretName: cockroachlabs-tls
+    hosts: 
+      - eve-dev-cockroachdb.rwcloud.org
+    tls: 
+      - hosts: [eve-dev-cockroachdb.rwcloud.org]
+        secretName: cockroachlabs-tls
 
   prometheus:
     enabled: true
