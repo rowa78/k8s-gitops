@@ -389,7 +389,8 @@ cockroachdb:
       app.kubernetes.io/component: init
 
     # Additional annotations to apply to this Job.
-    jobAnnotations: {}
+    jobAnnotations: 
+      argocd.argoproj.io/hook: Sync
 
     # Additional annotations to apply to the Pod of this Job.
     annotations: {}
