@@ -11,6 +11,8 @@ spec:
     volumeMounts:
     - name: client-certs
       mountPath: /cockroach/cockroach-certs/
+    - name: temp
+      mountPath: /data
     command:
     - sleep
     - "2147483648" # 2^31
@@ -29,3 +31,6 @@ spec:
                 - key: tls.key
                   path: client.root.key
         defaultMode: 256
+  - name: temp
+    persistentVolumeClaim:
+      claimName: temp-dir
