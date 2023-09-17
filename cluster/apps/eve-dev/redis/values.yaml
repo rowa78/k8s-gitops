@@ -21,8 +21,8 @@ redis:
     ##
     imagePullSecrets: []
     storageClass: "local-path"
-    #redis:
-    #  password: "gehe!m"
+    redis:
+      password: "gehe!m"
 
   ## @section Common parameters
   ##
