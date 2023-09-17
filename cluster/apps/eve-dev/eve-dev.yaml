@@ -82,3 +82,24 @@ spec:
     automated:
       prune: true
       selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: eve-dev-redis
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/apps/eve-dev/redis
+  destination:
+    name: in-cluster
+    namespace: eve-dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
