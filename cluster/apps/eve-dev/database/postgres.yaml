@@ -17,11 +17,11 @@ spec:
       max_connections: "500"
   resources:
     limits:
-      cpu: 3000m
-      memory: 1500Mi
+      cpu: 4000m
+      memory: 4000Mi
     requests:
-      cpu: 100m
-      memory: 500Mi
+      cpu: 4000m
+      memory: 2000Mi
   volume:
     size: 100Gi
     storageClass: local-path
