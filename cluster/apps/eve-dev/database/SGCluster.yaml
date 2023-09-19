@@ -27,11 +27,5 @@ spec:
   nonProductionOptions:
     disableClusterResourceRequirements: true
     disablePatroniResourceRequirements: true
-  initialData:
-    scripts:
-    - name: create-user
-      script: |
-                create user eve password 'eve';
-    - name: create-database
-      script: |
-                create database eve owner eve;
+  managedSql:
+    sgScript: stackgres-script

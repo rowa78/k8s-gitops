@@ -1,0 +1,10 @@
+apiVersion: stackgres.io/v1
+kind: SGScript
+metadata:
+ name: stackgres-script
+spec:
+ scripts:
+ - name: create-my-database
+   script: |
+        create user eve password 'eve';
+        create database eve owner eve;
