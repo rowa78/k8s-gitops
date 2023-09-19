@@ -7,4 +7,6 @@ spec:
  - name: create-my-database
    script: |
         create user eve password 'eve';
+ - name: create-my-database
+   script: |
         create database eve owner eve;
