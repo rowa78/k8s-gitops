@@ -89,7 +89,7 @@ stackgres-operator:
     # Section to configure Web Console service.
     service:
       # -- When set to `true` the HTTP port will be exposed in the Web Console Service
-      exposeHTTP: false
+      exposeHTTP: true
       # -- The type used for the service of the UI:
       # * Set to LoadBalancer to create a load balancer (if supported by the kubernetes cluster)
       #   to allow connect from Internet to the UI. Note that enabling this feature will probably incurr in
