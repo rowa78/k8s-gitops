@@ -1,7 +1,6 @@
 apiVersion: stackgres.io/v1
 kind: SGCluster
-metadata:
-  namespace: eve-dev
+metadata:  
   name: eve
 spec:
   instances: 3
@@ -11,8 +10,8 @@ spec:
       size: '150Gi'
       storageClass: 'local-path'
   configurations:
-    sgPostgresConfig: 'pgconfig-14'
-    sgPoolingConfig: 'poolconfig1'
+    sgPostgresConfig: 'pgconfig-eve'
+    sgPoolingConfig: 'poolconfig-eve'
 #    backups:
 #    - sgObjectStorage: 'backupconfig1'
 #      cronSchedule: '*/5 * * * *'
