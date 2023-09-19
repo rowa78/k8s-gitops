@@ -205,11 +205,11 @@ stackgres-operator:
     resetPassword: false
     # Allow to specify the secret name that will be used store the credentials to access the UI.
     #   It simply prevent creating the secret automatically.
-    secretRef:
+    secretRef: 
       # -- (string) The admin user Secret name to be used.
       # Allow to specify the secret name that will be used store the credentials to access the UI.
       #   It simply prevent creating the secret automatically.
-      name:
+      name: stackgres-password
     # Section to configure Web Console OIDC authentication
     oidc:
       # -- (string) Can be one of `required`, `certificate-validation` or `none`
