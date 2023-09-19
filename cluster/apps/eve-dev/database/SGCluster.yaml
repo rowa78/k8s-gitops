@@ -28,4 +28,5 @@ spec:
     disableClusterResourceRequirements: true
     disablePatroniResourceRequirements: true
   managedSql:
-    sgScript: stackgres-script
+    scripts:
+    - sgScript: stackgres-script
