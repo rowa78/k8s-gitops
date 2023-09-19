@@ -150,7 +150,7 @@ stackgres-operator:
     # -- When set to `true` the Operator certificate will be created.
     createForOperator: true
     # -- When set to `true` the Web Console / REST API certificate will be created.
-    createForWebApi: false
+    createForWebApi: true
     # -- When set to `true` the Web Console / REST API certificates will be reset.
     resetCerts: false
     # -- (string) The Secret name with the Operator Webhooks certificate issued by the Kubernetes cluster CA
