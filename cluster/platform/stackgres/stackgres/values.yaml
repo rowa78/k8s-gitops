@@ -124,8 +124,8 @@ stackgres-operator:
       # -- Operator Installation Jobs image pull policy
       pullPolicy: "IfNotPresent"
     # -- Operator Installation Jobs annotations
-    annotations: 
-      "argocd.argoproj.io/hook": PreSync
+    annotations: {}
+    #  "argocd.argoproj.io/hook": PreSync
     # -- Operator Installation Jobs resources. See https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#resourcerequirements-v1-core
     resources: {}
     # -- Operator Installation Jobs node selector
