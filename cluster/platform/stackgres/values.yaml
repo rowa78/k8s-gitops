@@ -1,4 +1,4 @@
-stackgres-operator
+stackgres-operator:
   # -- The container registry host (and port) where the images will be pulled from.
   containerRegistry: quay.io
   # -- Image pull policy used for images loaded by the Operator
