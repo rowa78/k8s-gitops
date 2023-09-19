@@ -3,6 +3,8 @@ kind: SGCluster
 metadata:  
   name: eve
 spec:
+  postgres:
+    version: "14.1"
   instances: 3
   sgInstanceProfile: 'size-small'
   pods:
