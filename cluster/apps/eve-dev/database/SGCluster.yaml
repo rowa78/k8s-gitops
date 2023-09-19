@@ -12,7 +12,7 @@ spec:
       size: '150Gi'
       storageClass: 'local-path'
   configurations:
-    sgPostgresConfig: 'pgconfig1'
+    sgPostgresConfig: 'pgconfig-14'
     sgPoolingConfig: 'poolconfig1'
 #    backups:
 #    - sgObjectStorage: 'backupconfig1'
