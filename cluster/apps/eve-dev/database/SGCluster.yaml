@@ -4,7 +4,7 @@ metadata:
   name: eve
 spec:
   postgres:
-    version: "14"
+    version: "14.8"
   instances: 3
   sgInstanceProfile: 'size-small'
   pods:
