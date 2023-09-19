@@ -12,6 +12,8 @@ spec:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
     path: cluster/platform/stackgres/stackgres
+    helm:
+      releaseName: stackgres
   destination:
     name: in-cluster
     namespace: stackgres
