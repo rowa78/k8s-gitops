@@ -1,7 +1,6 @@
 apiVersion: stackgres.io/v1
 kind: SGInstanceProfile
-metadata:
-  namespace: eve-dev
+metadata:  
   name: size-small
 spec:
   cpu: "3"

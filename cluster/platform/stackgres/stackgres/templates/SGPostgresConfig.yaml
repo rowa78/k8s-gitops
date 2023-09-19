@@ -1,0 +1,11 @@
+apiVersion: stackgres.io/v1
+kind: SGPostgresConfig
+metadata:  
+  name: pgconfig-14
+spec:
+  postgresVersion: "14.1"
+  postgresql.conf:
+    shared_buffers: '512MB'
+    random_page_cost: '1.5'
+    password_encryption: 'scram-sha-256'
+    log_checkpoints: 'on'

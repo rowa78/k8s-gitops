@@ -1,0 +1,11 @@
+apiVersion: stackgres.io/v1
+kind: SGPoolingConfig
+metadata:  
+  name: poolconfig1
+spec:
+  pgBouncer:
+    pgbouncer.ini:
+      pgbouncer:
+        pool_mode: transaction
+        max_client_conn: '1000'
+        default_pool_size: '80'
