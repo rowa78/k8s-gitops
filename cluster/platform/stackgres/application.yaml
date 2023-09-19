@@ -16,6 +16,8 @@ spec:
     name: in-cluster
     namespace: stackgres
   syncPolicy:
+    syncOptions:
+    - ServerSideApply=true
     automated:
       prune: true
       selfHeal: true
