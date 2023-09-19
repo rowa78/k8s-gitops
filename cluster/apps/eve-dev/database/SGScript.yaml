@@ -4,7 +4,7 @@ metadata:
  name: stackgres-script
 spec:
  scripts:
- - name: create-my-database
+ - name: create-my-user
    script: |
         create user eve password 'eve';
  - name: create-my-database
