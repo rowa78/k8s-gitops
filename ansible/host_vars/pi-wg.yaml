@@ -1,6 +1,8 @@
 wireguard_address: "192.168.1.99/32"
 ansible_user: ubuntu
-ansible_host: 192.168.0.99
+#ansible_host: 192.168.0.99
+ansible_host: uso.synology.me
+ansible_port: 22222
 wireguard_endpoint: "ipv4.ronnywalter.de"
 
 wireguard_postup:

@@ -3,7 +3,8 @@ all:
     public_worker:
       hosts:
         discovery.rwcloud.org:   
-        enterprise.rwcloud.org:     
+        enterprise.rwcloud.org:    
+        voyager.rwcloud.org: 
     k3s_cluster:
       children:
         public_worker:    
