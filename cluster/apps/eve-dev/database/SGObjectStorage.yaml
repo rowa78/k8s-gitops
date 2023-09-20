@@ -6,7 +6,7 @@ spec:
   type: s3Compatible
   s3Compatible:
     bucket: rwcloud-eve-db
-    region: eu-region-2    
+    region: eu-central-2 
     endpoint: https://s3.eu-central-2.wasabisys.com
     awsCredentials:
       secretKeySelectors:
