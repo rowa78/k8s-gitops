@@ -11,10 +11,6 @@ spec:
     - createdb    
   databases:
     eve: eve  # dbname: owner
-  preparedDatabases:
-    eve:
-      extensions:
-        hypopg: public
   postgresql:
     version: "14"    
     parameters:

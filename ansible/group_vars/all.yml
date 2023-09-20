@@ -82,4 +82,7 @@ vault_secrets:
   - path: secret/kasten
     kv: "K10_AUTH={{ lookup('env', 'K10_AUTH') }}
         K10_DR_PASS={{ lookup('env', 'K10_DR_PASS') }}"
+  - path: secret/stackgres
+    kv: "STACKGRES_USERNAME={{ lookup('env', 'STACKGRES_USERNAME') }}
+        STACKGRES_PASSWORD={{ lookup('env', 'STACKGRES_PASSWORD') }}"
 
