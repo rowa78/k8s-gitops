@@ -14,6 +14,8 @@ spec:
     path: cluster/platform/stackgres/stackgres
     helm:
       releaseName: stackgres-operator
+      valueFiles:
+      - values.yaml
   ignoreDifferences:
     - group: apps
       kind: Deployment
