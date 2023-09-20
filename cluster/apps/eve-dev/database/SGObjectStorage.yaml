@@ -1,0 +1,18 @@
+apiVersion: stackgres.io/v1beta1
+kind: SGObjectStorage
+metadata:
+  name: objectstorage
+spec:
+  type: s3Compatible
+  s3Compatible:
+    bucket: rwcloud-eve-db
+    region: eu-region-2    
+    endpoint: https://s3.eu-central-2.wasabisys.com
+    awsCredentials:
+      secretKeySelectors:
+        accessKeyId:
+          key: ACCESS_KEY
+          name: aws-secret
+        secretAccessKey:
+          key: SECRET_KEY
+          name: aws-secret
