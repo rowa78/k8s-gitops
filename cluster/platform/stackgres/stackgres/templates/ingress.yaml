@@ -30,4 +30,4 @@ spec:
   tls:
   - hosts:
     - stackgres.rwcloud.org
-    secretName: stackgres
+    #secretName: stackgres
