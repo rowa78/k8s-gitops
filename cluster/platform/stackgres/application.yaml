@@ -1,24 +1,24 @@
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: stackgres-operator
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: apps
-  source:
-    repoURL: https://github.com/rowa78/k8s-gitops.git
-    targetRevision: main
-    path: cluster/platform/stackgres/stackgres
-    helm:
-      releaseName: stackgres-operator
-  destination:
-    name: in-cluster
-    namespace: stackgres
-  syncPolicy:
-    syncOptions:
-    - ServerSideApply=true
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: stackgres-operator
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+# spec:
+#   project: apps
+#   source:
+#     repoURL: https://github.com/rowa78/k8s-gitops.git
+#     targetRevision: main
+#     path: cluster/platform/stackgres/stackgres
+#     helm:
+#       releaseName: stackgres-operator
+#   destination:
+#     name: in-cluster
+#     namespace: stackgres
+#   syncPolicy:
+#     syncOptions:
+#     - ServerSideApply=true
     
       
