@@ -15,9 +15,8 @@ spec:
     sgPostgresConfig: 'pgconfig1'
     sgPoolingConfig: 'poolconfig1'
     backups:
-    - sgObjectStorage: 'objectstorage'
-      cronSchedule: '*/5 * * * *'
-      retention: 6
+    - sgObjectStorage: 'objectstorage'      
+      retention: 14
 #  managedSql:
 #    scripts:
 #    - sgScript: cluster-scripts
