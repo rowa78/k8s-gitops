@@ -14,11 +14,7 @@ spec:
     path: cluster/apps/eve-dev/database
   destination:
     name: in-cluster
-    namespace: eve-dev
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    namespace: eve-dev    
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application

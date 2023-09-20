@@ -1,0 +1,8 @@
+apiVersion: stackgres.io/v1
+kind: SGInstanceProfile
+metadata:
+  namespace: eve-dev
+  name: size-small
+spec:
+  cpu: "3"
+  memory: "6Gi"  
