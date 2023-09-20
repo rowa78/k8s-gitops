@@ -175,7 +175,7 @@ cert:
   certManager:
     # -- When set to `true` then Issuer and Certificate for Operator and Web Console / REST API
     #   Pods will be generated
-    autoConfigure: false
+    autoConfigure: true
     # -- The requested duration (i.e. lifetime) of the Certificates. See https://cert-manager.io/docs/reference/api-docs/#cert-manager.io%2fv1
     duration: "2160h"
     # -- How long before the currently issued certificate’s expiry cert-manager should renew the certificate. See https://cert-manager.io/docs/reference/api-docs/#cert-manager.io%2fv1
