@@ -15,6 +15,11 @@ spec:
   destination:
     name: in-cluster
     namespace: eve-dev    
+  ignoreDifferences:
+    - group: stackgres.io
+      kind: SGCluster
+      jsonPointers:
+        - /spec/managedSql/scripts/*/id
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
