@@ -18,9 +18,9 @@ spec:
   ignoreDifferences:
     - group: stackgres.io
       kind: SGCluster
-      jsonPointers:
-        - /spec/managedSql/scripts/*/id
-        - /spec/managedSql/scripts/[?(@.id==0)]
+      jqPathExpressions:
+        - .spec.managedSql.scripts[] | select(.id == 0)
+        - .spec.managedSql.scripts[].id
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
