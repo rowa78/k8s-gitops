@@ -16,5 +16,10 @@ spec:
     script: |
             ALTER USER eve WITH SUPERUSER;
   - name: extension hypopg
+    database: eve
     script: |
-            CREATE extension hypopg;;
+            CREATE extension hypopg;
+  - name: extension pg_stat_statements
+    database: eve
+    script: |
+            create extension pg_stat_statements;
