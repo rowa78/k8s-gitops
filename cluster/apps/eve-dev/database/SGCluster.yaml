@@ -22,6 +22,8 @@ spec:
     - sgScript: stackgres-script    
   distributedLogs:
     sgDistributedLogs: 'distributedlogs'
+  extensions:
+    - {name: 'hypopg'}
   prometheusAutobind: true
   nonProductionOptions:
     disableClusterResourceRequirements: true
