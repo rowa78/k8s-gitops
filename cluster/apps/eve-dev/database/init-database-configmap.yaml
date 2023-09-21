@@ -3,4 +3,7 @@ kind: ConfigMap
 metadata:
   name: init-database
 data:
-  init-database.sql: "create database eve owner eve;"
+  init-database.sql: |
+    create database eve owner eve;
+    CREATE extension pg_stat_statements;
+    CREATE extension pg_hypopg;
