@@ -17,9 +17,9 @@ spec:
     backups:
     - sgObjectStorage: 'objectstorage'      
       retention: 14
-#  managedSql:
-#    scripts:
-#    - sgScript: cluster-scripts
+  managedSql:
+    scripts:
+    - sgScript: stackgres-script
 #  distributedLogs:
 #    sgDistributedLogs: 'distributedlogs'
   prometheusAutobind: true
