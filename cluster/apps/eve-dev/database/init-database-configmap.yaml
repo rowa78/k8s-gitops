@@ -6,4 +6,4 @@ data:
   init-database.sql: |
     create database eve owner eve;
     CREATE extension pg_stat_statements;
-    CREATE extension pg_hypopg;
+    CREATE extension hypopg;
