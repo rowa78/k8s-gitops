@@ -53,7 +53,7 @@ redis:
   extraDeploy: []
   ## @param useHostnames Use hostnames internally when announcing replication. If false, the hostname will be resolved to an IP address
   ##
-  useHostnames: true
+  useHostnames: false
   ## @param nameResolutionThreshold Failure threshold for internal hostnames resolution
   ##
   nameResolutionThreshold: 5
