@@ -4,7 +4,7 @@ metadata:
   namespace: eve-dev
   name: pgconfig1
 spec:
-  postgresVersion: "12"
+  postgresVersion: "14"
   postgresql.conf:
     shared_buffers: '512MB'
     random_page_cost: '1.5'
