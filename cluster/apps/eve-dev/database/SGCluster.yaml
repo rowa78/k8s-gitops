@@ -15,6 +15,7 @@ spec:
       size: '150Gi'
   configurations:
     sgPostgresConfig: 'pgconfig1'
+    sgPoolingConfig: 'poolconfig1'
     backups:
     - sgObjectStorage: 'objectstorage'      
       retention: 14
@@ -22,8 +23,7 @@ spec:
     scripts:
     - sgScript: stackgres-script    
   distributedLogs:
-    sgDistributedLogs: 'distributedlogs'
-  
+    sgDistributedLogs: 'distributedlogs'  
   prometheusAutobind: true
   nonProductionOptions:
     disableClusterResourceRequirements: true
