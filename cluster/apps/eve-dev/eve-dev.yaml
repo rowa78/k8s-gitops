@@ -20,6 +20,7 @@ spec:
       kind: SGCluster
       jsonPointers:
         - /spec/managedSql/scripts/*/id
+        - /spec/managedSql/scripts/[?(@.id==0)]
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
