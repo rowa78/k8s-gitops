@@ -9,8 +9,12 @@ spec:
       secretKeyRef:
         name: create-db-user-secret
         key: create-user.sql
-  - name: init-database
-    scriptFrom:
-      configMapKeyRef:
-        name: init-database
-        key: init-database.sql
+  - name: create-db-database
+    script: |
+            CREATE DATABASE eve WITH OWNER eve;
+  - name: grant-superuser
+    script: |
+            ALTER USER eve WITH SUPERUSER;
+  - name: extension hypopg
+    script: |
+            CREATE extension hypopg;;
