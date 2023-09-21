@@ -5,3 +5,4 @@ metadata:
 spec:
   persistentVolume:
     size: 10Gi
+    storageClass: longhorn
