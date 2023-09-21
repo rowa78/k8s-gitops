@@ -24,6 +24,23 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
+  name: eve-dev-pghero
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/apps/eve-dev/pghero
+  destination:
+    name: in-cluster
+    namespace: eve-dev  
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
   name: eve-dev-rabbitmq
   namespace: argocd
   finalizers:
