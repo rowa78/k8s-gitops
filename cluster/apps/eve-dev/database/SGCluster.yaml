@@ -6,6 +6,8 @@ metadata:
 spec:
   postgres:
     version: '14.8'
+    extensions:
+    - {name: 'hypopg'}
   instances: 3
   sgInstanceProfile: 'size-small'
   pods:
@@ -22,8 +24,7 @@ spec:
     - sgScript: stackgres-script    
   distributedLogs:
     sgDistributedLogs: 'distributedlogs'
-  extensions:
-    - {name: 'hypopg'}
+  
   prometheusAutobind: true
   nonProductionOptions:
     disableClusterResourceRequirements: true
