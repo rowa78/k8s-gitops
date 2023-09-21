@@ -19,8 +19,7 @@ spec:
     - group: stackgres.io
       kind: SGCluster
       jqPathExpressions:
-        - .spec.managedSql.scripts[] | select(.id == 0)
-        - .spec.managedSql.scripts[].id
+        - .spec.managedSql.scripts[] | select(.id == 0)        
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
