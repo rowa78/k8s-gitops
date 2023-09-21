@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: init-database
 data:
-  create-database.sql: "create database eve owner eve;"
+  init-database.sql: "create database eve owner eve;"

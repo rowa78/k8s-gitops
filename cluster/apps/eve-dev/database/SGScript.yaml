@@ -1,0 +1,16 @@
+apiVersion: stackgres.io/v1
+kind: SGScript
+metadata:
+  name: stackgres-script
+spec:
+  scripts:
+  - name: create-db-user
+    scriptFrom:
+      secretKeyRef:
+        name: create-db-user-secret
+        key: create-user.sql
+  - name: init-database
+    scriptFrom:
+      configMapKeyRef:
+        name: init-database
+        key: init-database.sql
