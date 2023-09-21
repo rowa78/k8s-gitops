@@ -6,3 +6,6 @@ spec:
   persistentVolume:
     size: 10Gi
     storageClass: longhorn
+  nonProductionOptions:
+    disableClusterResourceRequirements: true
+    disablePatroniResourceRequirements: true
