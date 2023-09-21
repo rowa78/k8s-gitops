@@ -16,12 +16,12 @@ spec:
     - secretKey: user
       remoteRef:
         conversionStrategy: Default
-        decodingStrategy: Base64
+        decodingStrategy: None
         key: secret/eve-dev/database
         property: EVE_USERNAME    
     - secretKey: password
       remoteRef:
         conversionStrategy: Default
-        decodingStrategy: Base64
+        decodingStrategy: None
         key: secret/eve-dev/database
         property: EVE_PASSWORD
