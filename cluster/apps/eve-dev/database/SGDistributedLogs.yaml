@@ -1,0 +1,7 @@
+apiVersion: stackgres.io/v1
+kind: SGDistributedLogs
+metadata:
+  name: distributedlogs
+spec:
+  persistentVolume:
+    size: 10Gi

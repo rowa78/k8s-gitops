@@ -19,8 +19,7 @@ spec:
       retention: 14
   managedSql:
     scripts:
-    - sgScript: stackgres-script
-    - sgScript: foo
+    - sgScript: stackgres-script    
 #  distributedLogs:
 #    sgDistributedLogs: 'distributedlogs'
   prometheusAutobind: true
