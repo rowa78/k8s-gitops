@@ -16,9 +16,9 @@ spec:
   configurations:
     sgPostgresConfig: 'pgconfig1'
     sgPoolingConfig: 'poolconfig1'
-    backups:
-    - sgObjectStorage: 'objectstorage'      
-      retention: 14
+#    backups:
+#    - sgObjectStorage: 'objectstorage'      
+#      retention: 14
   managedSql:
     scripts:
     - sgScript: stackgres-script    
