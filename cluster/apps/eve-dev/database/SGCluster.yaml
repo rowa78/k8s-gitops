@@ -22,8 +22,8 @@ spec:
   managedSql:
     scripts:
     - sgScript: stackgres-script    
-  distributedLogs:
-    sgDistributedLogs: 'distributedlogs'  
+#  distributedLogs:
+#    sgDistributedLogs: 'distributedlogs'  
   prometheusAutobind: true
   nonProductionOptions:
     disableClusterResourceRequirements: true
