@@ -27,4 +27,5 @@ spec:
   prometheusAutobind: true
   nonProductionOptions:
     disableClusterResourceRequirements: true
-    disablePatroniResourceRequirements: true
+    enableSetClusterCpuRequests: true
+    enableSetClusterMemoryRequests: true
