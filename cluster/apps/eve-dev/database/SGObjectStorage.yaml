@@ -7,7 +7,7 @@ spec:
   s3Compatible:
     bucket: rwcloud-eve-db
     region: eu-central-2 
-    endpoint: https://s3.eu-central-2.wasabisys.com
+    endpoint: http://minio.minio.svc.cluster.local:9000
     awsCredentials:
       secretKeySelectors:
         accessKeyId:
