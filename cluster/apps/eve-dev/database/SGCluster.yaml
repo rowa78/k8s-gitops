@@ -16,14 +16,14 @@ spec:
   configurations:
     sgPostgresConfig: 'pgconfig1'
     sgPoolingConfig: 'poolconfig1'
-#    backups:
-#    - sgObjectStorage: 'objectstorage'      
-#      retention: 14
+    backups:
+    - sgObjectStorage: 'objectstorage'      
+       retention: 7
   managedSql:
     scripts:
     - sgScript: stackgres-script    
-  distributedLogs:
-    sgDistributedLogs: 'distributedlogs'  
+#  distributedLogs:
+#    sgDistributedLogs: 'distributedlogs'  
   prometheusAutobind: true
   nonProductionOptions:
     disableClusterResourceRequirements: true
