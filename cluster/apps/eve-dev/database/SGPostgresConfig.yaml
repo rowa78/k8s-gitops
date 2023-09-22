@@ -9,4 +9,5 @@ spec:
     shared_buffers: '512MB'
     random_page_cost: '1.5'
     password_encryption: 'scram-sha-256'
-    log_checkpoints: 'on'
+    log_checkpoints: 'on'    
+    pg_stat_statements.track: all
