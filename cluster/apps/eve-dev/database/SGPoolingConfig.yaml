@@ -7,6 +7,6 @@ spec:
   pgBouncer:
     pgbouncer.ini:
       pgbouncer:
-        pool_mode: transaction
+        pool_mode: session
         max_client_conn: '1000'
         default_pool_size: '80'
