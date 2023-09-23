@@ -267,6 +267,9 @@ minio:
     - name: thanos
       policy: none
       purge: false
+    - name: postgresql
+      policy: none
+      purge: false
     #   # Name of the bucket
     # - name: bucket1
     #   # Policy to be set on the
