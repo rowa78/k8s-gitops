@@ -110,7 +110,7 @@ openebs:
   # zfs local pv configuration goes here
   # ref - https://openebs.github.io/zfs-localpv
   zfs-localpv:
-    enabled: false
+    enabled: true
 
 
   # lvm local pv configuration goes here
