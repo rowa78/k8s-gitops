@@ -8,7 +8,7 @@ spec:
     version: '14.8'
     extensions:
     - {name: 'hypopg'}
-  instances: 3
+  instances: 2
   sgInstanceProfile: 'size-small'
   pods:
     persistentVolume:
