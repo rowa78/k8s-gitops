@@ -4,6 +4,6 @@ metadata:
   name: jivavolumepolicy
   namespace: openebs
 spec:
-  replicaSC: openebs-hostpath
+  replicaSC: zfs
   target:
     replicationFactor: 3     
