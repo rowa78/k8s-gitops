@@ -43,7 +43,7 @@ kube-prometheus-stack:
     persistence:
       enabled: false
       type: statefulset
-      storageClassName: local-path
+      storageClassName: openebs-zfs-default
       size: 1Gi
     ingress:
       enabled: true
@@ -143,7 +143,7 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
-            storageClassName: local-path
+            storageClassName: openebs-zfs-default
             resources:
               requests:
                 storage: 50Gi     
