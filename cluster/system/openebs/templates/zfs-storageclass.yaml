@@ -4,7 +4,7 @@ metadata:
   name: openebs-zfs-default
 parameters:
   recordsize: "128k"
-  compression: "om"
+  compression: "on"
   dedup: "off"
   fstype: "zfs"
   poolname: "zpool"
