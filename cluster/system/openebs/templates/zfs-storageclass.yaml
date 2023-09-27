@@ -1,8 +1,11 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: zfs
-allowVolumeExpansion: true
+  name: openebs-zfs-default
 parameters:
-  poolname: "tank/k8s"
+  recordsize: "128k"
+  compression: "om"
+  dedup: "off"
+  fstype: "zfs"
+  poolname: "zpool"
 provisioner: zfs.csi.openebs.io
