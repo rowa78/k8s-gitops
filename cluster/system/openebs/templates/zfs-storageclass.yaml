@@ -4,6 +4,6 @@ metadata:
   name: zfs
 allowVolumeExpansion: true
 parameters:
-  poolname: "tank/k8s"
+  poolname: "tank"
 provisioner: zfs.csi.openebs.io
 volumeBindingMode: WaitForFirstConsumer
