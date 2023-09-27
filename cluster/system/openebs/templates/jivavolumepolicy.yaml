@@ -1,0 +1,9 @@
+apiVersion: openebs.io/v1alpha1
+kind: JivaVolumePolicy
+metadata:
+  name: jivavolumepolicy
+  namespace: openebs
+spec:
+  replicaSC: zfs
+  target:
+    replicationFactor: 2
