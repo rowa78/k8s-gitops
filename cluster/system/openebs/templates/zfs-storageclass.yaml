@@ -10,3 +10,4 @@ parameters:
   poolname: "zpool"
 provisioner: zfs.csi.openebs.io
 volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
