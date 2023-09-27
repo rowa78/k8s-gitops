@@ -6,4 +6,4 @@ metadata:
 spec:
   replicaSC: zfs
   target:
-    replicationFactor: 3     
+    replicationFactor: 2
