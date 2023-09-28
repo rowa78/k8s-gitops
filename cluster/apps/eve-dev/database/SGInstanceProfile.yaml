@@ -4,8 +4,8 @@ metadata:
   namespace: eve-dev
   name: size-small
 spec:
-  cpu: "4"
-  memory: "12Gi"  
+  cpu: "8"
+  memory: "24Gi"  
   requests:
-    cpu: "2"
-    memory: 6Gi
+    cpu: "4"
+    memory: 24Gi

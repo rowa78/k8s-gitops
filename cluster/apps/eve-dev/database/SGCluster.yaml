@@ -13,6 +13,7 @@ spec:
   pods:
     persistentVolume:
       size: '150Gi'
+      storageClass: 'openebs-zfs-pg'
   configurations:
     sgPostgresConfig: 'pgconfig1'
     sgPoolingConfig: 'poolconfig1'

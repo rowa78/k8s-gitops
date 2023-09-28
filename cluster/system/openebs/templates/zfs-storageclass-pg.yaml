@@ -9,6 +9,7 @@ parameters:
   dedup: "off"
   fstype: "zfs"
   atime: "off"
+  logbias: "latency"
   poolname: "zpool/pvcs"  
 provisioner: zfs.csi.openebs.io
 volumeBindingMode: WaitForFirstConsumer
