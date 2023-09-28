@@ -7,7 +7,8 @@ parameters:
   compression: "on"
   dedup: "off"
   fstype: "zfs"
-  poolname: "zpool"
+  atime: "off"
+  poolname: "zpool/pvcs"  
 provisioner: zfs.csi.openebs.io
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
