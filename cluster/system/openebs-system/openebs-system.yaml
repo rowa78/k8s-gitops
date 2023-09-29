@@ -14,7 +14,11 @@ spec:
     path: cluster/system/openebs-system/openebs-zfs
   destination:
     name: in-cluster
-    namespace: openebs    
+    namespace: openebs 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true   
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -31,4 +35,8 @@ spec:
     path: cluster/system/openebs-system/openebs
   destination:
     name: in-cluster
-    namespace: openebs    
+    namespace: openebs 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true      
