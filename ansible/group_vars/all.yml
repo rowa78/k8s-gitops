@@ -59,15 +59,20 @@ vault_secrets:
       authelia_jwt_token={{ lookup('env', 'AUTHELIA_JWT') }}
       authelia_session_key={{ lookup('env', 'AUTHELIA_SESSION_KEY') }}
       authelia_storage_key={{ lookup('env', 'AUTHELIA_STORAGE_KEY') }}"
-  - path: secret/stackgres
-    kv: "username={{ lookup('env', 'STACKGRES_USERNAME') }}
-      password={{ lookup('env', 'STACKGRES_PASSWORD') }}"
   - path: secret/eve-dev/rabbitmq
     kv: "rabbitmq-password={{ lookup('env', 'EVE_DEV_RABBITMQ_PASSWORD') }}"
   - path: secret/eve-dev/esi
     kv: "CLIENT_SECRET={{ lookup('env', 'CLIENT_SECRET') }}
       CLIENT_ID={{ lookup('env', 'CLIENT_ID') }}
       REDIRECT_URL={{ lookup('env', 'REDIRECT_URL') }}"
+  - path: secret/eve-dev/database
+    kv: "EVE_USER={{ lookup('env', 'EVE_DB_USER') }}
+      EVE_USERNAME={{ lookup('env', 'EVE_DB_USERNAME') }}
+      EVE_PASSWORD={{ lookup('env', 'EVE_DB_PASSWORD') }}"
+  - path: secret/eve-dev/pghero
+    kv: "EVE_PGHERO_DATABASE={{ lookup('env', 'EVE_PGHERO_DATABASE') }}
+      EVE_PGHERO_USER={{ lookup('env', 'EVE_PGHERO_USER') }}
+      EVE_PGHERO_PASSWORD={{ lookup('env', 'EVE_PGHERO_PASSWORD') }}"
   - path: secret/paperless
     kv: "USER={{ lookup('env', 'PAPERLESS_USER') }}
       PASSWORD={{ lookup('env', 'PAPERLESS_PASSWORD') }}
@@ -84,5 +89,7 @@ vault_secrets:
         K10_DR_PASS={{ lookup('env', 'K10_DR_PASS') }}"
   - path: secret/stackgres
     kv: "STACKGRES_USERNAME={{ lookup('env', 'STACKGRES_USERNAME') }}
-        STACKGRES_PASSWORD={{ lookup('env', 'STACKGRES_PASSWORD') }}"
+        STACKGRES_PASSWORD={{ lookup('env', 'STACKGRES_PASSWORD') }}
+        STACKGRES_AWS_ACCESSKEY={{ lookup('env', 'STACKGRES_AWS_ACCESSKEY') }}
+        STACKGRES_AWS_SECRETKEY={{ lookup('env', 'STACKGRES_AWS_SECRETKEY') }}"
 

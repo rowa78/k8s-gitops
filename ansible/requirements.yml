@@ -3,6 +3,9 @@ roles:
   - spirkaa.nano
   - spirkaa.zsh_prezto
 
+  # Install a role from GitHub
+  - name: githubixx.etcd    
+
 collections:
   - ansible.posix
   - community.general

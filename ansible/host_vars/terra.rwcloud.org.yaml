@@ -1,0 +1,17 @@
+wireguard_address: "192.168.1.100/32"
+wireguard_endpoint: "terra.rwcloud.org"
+
+private_ip: "192.168.100.1"
+
+# eve-online-servers
+wireguard_postup:
+  - iptables -t nat -A POSTROUTING -o eno1 -d 172.65.201.188 -j MASQUERADE
+wireguard_postdown:
+  - iptables -t nat -D POSTROUTING -o eno1 -d 172.65.201.188 -j MASQUERADE
+
+# own wireguard ip and own private ip
+# + eve online server
+wireguard_allowed_ips: "192.168.1.100/32, 172.65.201.188/32"
+
+ansible_user: root
+ansible_host: terra.rwcloud.org

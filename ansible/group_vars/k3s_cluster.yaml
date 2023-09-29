@@ -1,5 +1,5 @@
 k3s_state: installed
-k3s_release_version: v1.27.3+k3s1
+k3s_release_version: v1.27.6+k3s1
 k3s_become: true
 k3s_build_cluster: true
 
@@ -11,16 +11,18 @@ k3s_etcd_datastore: true
 
 k3s_server:
   #datastore-endpoint: "postgres://k3s:{{ postgresql_password }}@192.168.1.100:5432/k3s?sslmode=disable"
-  flannel-iface: 'eth0.4000'
+  #datastore-endpoint: "http://192.168.100.1:2379,http://192.168.100.2:2379,http://192.168.100.3:2379"
+  flannel-iface: 'eno1.4000'
 #  node-taint: 
 #    - 'node-role.kubernetes.io/master=true:NoSchedule'
 #    - 'node-role.kubernetes.io/control-plane=true:NoSchedule'
   disable:
-#    - local-storage
+    - local-storage
     - traefik    
     - metrics-server
-  tls-san: 192.168.100.200
-
+  #tls-san: 192.168.100.1 tls-san: 192.168.1.100
+  #tls-san: 192.168.100.2
+  #tls-san: 192.168.1.101  
   # for monitoring
   kube-controller-manager-arg:
   #- "address=0.0.0.0"
@@ -32,6 +34,7 @@ k3s_server:
   - "bind-address=0.0.0.0"
   # Controller Manager exposes etcd sqllite metrics
   etcd-expose-metrics: true
+  snapshotter: zfs
 
 #k3s_server_manifests_urls:
 #  - url: https://kube-vip.io/manifests/rbac.yaml

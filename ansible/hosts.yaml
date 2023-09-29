@@ -2,9 +2,8 @@ all:
   children:    
     public_worker:
       hosts:
-        discovery.rwcloud.org:   
-        enterprise.rwcloud.org:    
-        voyager.rwcloud.org: 
+        terra.rwcloud.org:   
+        luna.rwcloud.org:            
     k3s_cluster:
       children:
         public_worker:    
@@ -15,4 +14,4 @@ all:
       hosts:
         pi-wg:      
       children:
-        public_nodes:
+        public_nodes:    

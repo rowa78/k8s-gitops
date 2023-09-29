@@ -1,9 +1,0 @@
-wireguard_address: "192.168.1.103/32"
-wireguard_endpoint: "master2.rwcloud.org"
-
-wireguard_allowed_ips: "192.168.1.103/32"
-
-
-ansible_user: ronny
-ansible_host: master2.rwcloud.org
-

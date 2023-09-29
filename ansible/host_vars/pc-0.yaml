@@ -1,8 +1,0 @@
-ansible_user: ubuntu
-ansible_host: 192.168.0.104
-
-k3s_agent:  
-  node-label:
-    - "location=onprem"
-    - "node=prometheus"
-    - "obenebs.storage.node=true"    
