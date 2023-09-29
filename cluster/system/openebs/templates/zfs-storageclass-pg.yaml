@@ -1,13 +1,15 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: openebs-zfs-default
+  name: openebs-zfs-pg
 parameters:
-  recordsize: "128k"
-  compression: "on"
+  recordsize: "16k"
+  compression: "lz4"
+  primarycache: "metadata"
   dedup: "off"
   fstype: "zfs"
   atime: "off"
+  logbias: "latency"
   poolname: "zpool/pvcs"  
 provisioner: zfs.csi.openebs.io
 volumeBindingMode: WaitForFirstConsumer
