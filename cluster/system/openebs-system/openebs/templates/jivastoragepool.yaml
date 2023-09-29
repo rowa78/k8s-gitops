@@ -1,0 +1,7 @@
+apiVersion: openebs.io/v1alpha1
+kind: StoragePool
+metadata:
+  name: ebs-jiva
+  type: hostdir
+spec:
+  path: "/zfs-pool/jiva"

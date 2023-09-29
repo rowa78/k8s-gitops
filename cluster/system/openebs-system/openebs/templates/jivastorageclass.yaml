@@ -1,9 +1,12 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: openebs-jiva  
-provisioner: jiva.csi.openebs.io
-allowVolumeExpansion: true
-parameters:
-  cas-type: "jiva"
-  policy: "jivavolumepolicy"
+  name: openebs-jiva
+  annotations:
+    openebs.io/cas-type: jiva
+    cas.openebs.io/config: |
+      - name: StoragePool
+        value: "ebs-jiva"
+      - name: ReplicaCount
+        value: "2"
+provisioner: openebs.io/provisioner-iscsi
