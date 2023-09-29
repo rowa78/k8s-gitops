@@ -1,0 +1,8 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: zfs
+allowVolumeExpansion: true
+parameters:
+  poolname: "tank/k8s"
+provisioner: zfs.csi.openebs.io
