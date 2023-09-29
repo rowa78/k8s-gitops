@@ -9,7 +9,7 @@ spec:
     password_encryption: 'scram-sha-256'
     log_checkpoints: 'on'    
     pg_stat_statements.track: all
-    full_page_writes: off
+    full_page_writes: false
     # DB Version: 14
     # OS Type: linux
     # DB Type: oltp
