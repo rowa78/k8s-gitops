@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: postgres-pod-config
 data:
-  AWS_ENDPOINT: s3.eu-central-2.wasabisys.com
+  AWS_ENDPOINT: https://s3.eu-central-2.wasabisys.com
