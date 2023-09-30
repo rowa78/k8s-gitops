@@ -41,7 +41,7 @@ kube-prometheus-stack:
     fullnameOverride: grafana
     defaultDashboardsTimezone: Europe/Berlin
     persistence:
-      enabled: false
+      enabled: true
       type: statefulset
       storageClassName: openebs-zfs-default
       size: 1Gi
