@@ -41,7 +41,7 @@ kube-prometheus-stack:
     fullnameOverride: grafana
     defaultDashboardsTimezone: Europe/Berlin
     persistence:
-      enabled: true
+      enabled: false
       type: deployment
       storageClassName: longhorn
       size: 1Gi
