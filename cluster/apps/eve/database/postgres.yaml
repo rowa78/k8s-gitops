@@ -6,6 +6,9 @@ spec:
   teamId: "rwcloud"
   numberOfInstances: 2  
   enableConnectionPooler: true
+  connectionPooler:
+    numberOfInstances: 2
+    mode: session
   databases:
     eve: eve_owner  # dbname: owner  
   preparedDatabases:
