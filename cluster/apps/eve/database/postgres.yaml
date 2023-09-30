@@ -16,6 +16,8 @@ spec:
       defaultUsers: true
       extensions:
         hpyopg: public
+      schemas:
+        - public
   postgresql:
     version: "14"    
     parameters:
