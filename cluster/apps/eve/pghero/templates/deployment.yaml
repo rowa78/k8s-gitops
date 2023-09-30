@@ -28,16 +28,28 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
+        command: ["/bin/sh", "-c"]
+          args:
+            - |
+              export DATABASE_URL="postgres://$DATABASE_USER:$DATABASE_PASSWORD@$DATABASE_HOST:$DATABASE_PORT/$DATABASE_DB"
+              exec puma -C /app/config/puma.rb
       - env:
-        - name: DATABASE_URL
-        {{ if .Values.secretName }}
+        - name: DATABASE_USER
           valueFrom:
             secretKeyRef:
-              name: "{{ .Values.secretName }}"
-              key: "database_url"
-        {{ else }}
-          value: "postgres://{{ .Values.database.user }}:{{ .Values.database.password }}@{{ .Values.database.url }}:{{ .Values.database.port }}/{{ .Values.database.dbName }}"
-        {{ end }}
+              name: {{ .Values.databaseSecretName }}
+              key: username
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.databaseSecretName }}
+              key: password
+        - name: DATABASE_HOST
+          value: "{{ .Values.database.host }}"
+        - name: DATABASE_PORT
+          value: "{{ .Values.database.port }}"
+        - name: DATABASE_DB
+          value: "{{ .Values.database.dbName }}"
         - name: PGHERO_USERNAME
         {{ if .Values.secretName }}
           valueFrom:
