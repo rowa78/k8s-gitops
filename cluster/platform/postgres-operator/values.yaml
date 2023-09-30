@@ -160,9 +160,9 @@ postgres-operator:
     # override topology key for pod anti affinity
     pod_antiaffinity_topology_key: "kubernetes.io/hostname"
     # namespaced name of the ConfigMap with environment variables to populate on every pod
-    # pod_environment_configmap: "default/my-custom-config"
+    pod_environment_configmap: "postgres-operator/postgres-pod-config"
     # name of the Secret (in cluster namespace) with environment variables to populate on every pod
-    # pod_environment_secret: "my-custom-secret"
+    pod_environment_secret: "postgres-operator"
 
     # specify the pod management policy of stateful sets of Postgres clusters
     pod_management_policy: "ordered_ready"
