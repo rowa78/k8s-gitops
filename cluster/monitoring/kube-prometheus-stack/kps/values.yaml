@@ -42,8 +42,8 @@ kube-prometheus-stack:
     defaultDashboardsTimezone: Europe/Berlin
     persistence:
       enabled: true
-      type: statefulset
-      storageClassName: openebs-zfs-default
+      type: deployment
+      storageClassName: longhorn
       size: 1Gi
     ingress:
       enabled: true
