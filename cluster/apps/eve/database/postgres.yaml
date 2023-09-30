@@ -5,6 +5,7 @@ metadata:
 spec:
   teamId: "rwcloud"
   numberOfInstances: 2  
+  enableConnectionPooler: true
   databases:
     eve: eve_owner  # dbname: owner  
   preparedDatabases:
