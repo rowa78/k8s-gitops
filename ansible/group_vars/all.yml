@@ -92,4 +92,6 @@ vault_secrets:
         STACKGRES_PASSWORD={{ lookup('env', 'STACKGRES_PASSWORD') }}
         STACKGRES_AWS_ACCESSKEY={{ lookup('env', 'STACKGRES_AWS_ACCESSKEY') }}
         STACKGRES_AWS_SECRETKEY={{ lookup('env', 'STACKGRES_AWS_SECRETKEY') }}"
-
+  - path: secret/postgres-operator
+    kv: "AWS_ACCESSKEY={{ lookup('env', 'POSTGRES_OPERATOR_AWS_ACCESSKEY') }}
+        AWS_SECRETKEY={{ lookup('env', 'POSTGRES_OPERATOR_AWS_SECRETKEY') }}"

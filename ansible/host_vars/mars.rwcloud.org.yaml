@@ -1,7 +1,7 @@
-wireguard_address: "192.168.1.102/32"
-wireguard_endpoint: "luna.rwcloud.org"
+wireguard_address: "192.168.1.103/32"
+wireguard_endpoint: "mars.rwcloud.org"
 
-private_ip: "192.168.100.2"
+private_ip: "192.168.100.3"
 
 # eve-online-servers
 #wireguard_postup:
@@ -12,7 +12,7 @@ private_ip: "192.168.100.2"
 
 # own wireguard ip and own private ip
 # + eve online server
-wireguard_allowed_ips: "192.168.1.102/32"
+wireguard_allowed_ips: "192.168.1.103/32"
 
 ansible_user: root
-ansible_host: luna.rwcloud.org
+ansible_host: mars.rwcloud.org

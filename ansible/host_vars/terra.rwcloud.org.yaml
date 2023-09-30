@@ -1,4 +1,4 @@
-wireguard_address: "192.168.1.100/32"
+wireguard_address: "192.168.1.101/32"
 wireguard_endpoint: "terra.rwcloud.org"
 
 private_ip: "192.168.100.1"
@@ -11,7 +11,7 @@ wireguard_postdown:
 
 # own wireguard ip and own private ip
 # + eve online server
-wireguard_allowed_ips: "192.168.1.100/32, 172.65.201.188/32"
+wireguard_allowed_ips: "192.168.1.101/32, 172.65.201.188/32"
 
 ansible_user: root
 ansible_host: terra.rwcloud.org

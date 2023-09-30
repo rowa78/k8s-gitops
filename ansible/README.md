@@ -28,32 +28,25 @@ prüfen: lsblk
 
 zpool erstellen, jeweils dritte partition
 
-zpool create -o ashift=12 zpool /dev/nvme0n1p3 /dev/nvme1n1p3
+zpool create -o ashift=12 zpool mirror /dev/nvme0n1p3 /dev/nvme1n1p3
+zfs set compression=lz4 zpool
 
-prüfen: zpool status
+zfs create -o compression=lz4 -o mountpoint=/var/log -o atime=off zpool/logs
 
-jetzt filesysteme erzeugen
+zfs create -o compression=lz4 -o mountpoint=/var/lib/rancher -o atime=off zpool/rancher
+zfs create -o compression=lz4 -o mountpoint=/var/lib/rancher/k3s/agent/containerd/io.containerd.snapshotter.v1.zfs -o atime=off zpool/containerd
+zfs create -o compression=lz4 -o mountpoint=/var/lib/kubelet -o atime=off zpool/kubelet
 
-wir erzeugen ein fs, dass mit ext4 formatiert wird und dann für longhorn verwendet wird. (shared volumes)
+zfs create -o compression=lz4 -o mountpoint=/storage/longhorn -o atime=off zpool/longhorn
+zfs create -o compression=lz4 -o mountpoint=/storage/openebs -o atime=off zpool/openebs
+zfs create -o compression=lz4 -o atime=off zpool/pvcs
+
+zfs create -o compression=lz4 -o atime=off zpool/jiva
 
 zfs create zpool/longhorn -V 100G
 mkfs.ext4 /dev/zvol/zpool/longhorn
 mkdir -p /storage/longhorn
 mount -o noatime,discard /dev/zvol/zpool/longhorn /storage/longhorn
-
-in die fstab:
-/dev/zvol/zpool/longhorn   /storage/longhorn   ext4    defaults,noatime,discard    0    0
-
-jetzt ein paar weitere zfs-volumes
-
-zfs create -o compression=lz4 -o mountpoint=/var/log zpool/logs
-
-zfs create -o compression=lz4 -o mountpoint=/var/lib/rancher zpool/rancher
-zfs create -o compression=lz4 -o mountpoint=/var/lib/rancher/k3s/agent/containerd/io.containerd.snapshotter.v1.zfs zpool/containerd
-zfs create -o compression=lz4 -o mountpoint=/var/lib/kubelet zpool/kubelet
-
-
-
 
 
 prüfen: 
