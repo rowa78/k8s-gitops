@@ -19,13 +19,14 @@ spec:
       max_connections: "500"
       full_page_writes: "off"
       logbias: "latency"
+      pg_stat_statements.track: all
   resources:
     limits:
-      cpu: 3000m
-      memory: 1500Mi
+      cpu: 6000m
+      memory: 12000Mi
     requests:
-      cpu: 100m
-      memory: 500Mi
+      cpu: 2000m
+      memory: 6000Mi
   volume:
     size: 100Gi
     storageClass: openebs-zfs-pg
