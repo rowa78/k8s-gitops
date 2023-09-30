@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: eve-dev-db
+  name: eve-db
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -11,20 +11,19 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/eve-dev/database
+    path: cluster/apps/eve/database
   destination:
     name: in-cluster
-    namespace: eve-dev    
-  ignoreDifferences:
-    - group: stackgres.io
-      kind: SGCluster
-      jqPathExpressions:
-        - .spec.managedSql.scripts[] | select(.id == 0)        
+    namespace: eve     
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true 
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: eve-dev-pghero
+  name: eve-pghero
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -33,27 +32,10 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/eve-dev/pghero
+    path: cluster/apps/eve/pghero
   destination:
     name: in-cluster
-    namespace: eve-dev  
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: eve-dev-rabbitmq
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: apps
-  source:
-    repoURL: https://github.com/rowa78/k8s-gitops.git
-    targetRevision: main
-    path: cluster/apps/eve-dev/rabbitmq
-  destination:
-    name: in-cluster
-    namespace: eve-dev
+    namespace: eve  
   syncPolicy:
     automated:
       prune: true
@@ -62,7 +44,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: eve-dev-application
+  name: eve-rabbitmq
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -71,10 +53,10 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/eve-dev/eve-dev
+    path: cluster/apps/eve/rabbitmq
   destination:
     name: in-cluster
-    namespace: eve-dev
+    namespace: eve
   syncPolicy:
     automated:
       prune: true
@@ -83,7 +65,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: eve-dev-redis
+  name: eve-application
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -92,10 +74,31 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/eve-dev/redis
+    path: cluster/apps/eve/eve
   destination:
     name: in-cluster
-    namespace: eve-dev
+    namespace: eve
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: eve-redis
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/apps/eve/redis
+  destination:
+    name: in-cluster
+    namespace: eve
   syncPolicy:
     automated:
       prune: true
