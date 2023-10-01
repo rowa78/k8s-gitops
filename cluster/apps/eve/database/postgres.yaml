@@ -15,7 +15,7 @@ spec:
     eve:
       defaultUsers: true
       extensions:
-        hpyopg: public
+        hypopg: public
       schemas:
         public: {}
   postgresql:
