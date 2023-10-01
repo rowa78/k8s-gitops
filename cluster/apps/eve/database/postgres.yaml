@@ -4,7 +4,7 @@ metadata:
   name: rwcloud-eve-db
 spec:
   teamId: "rwcloud"
-  numberOfInstances: 2  
+  numberOfInstances: 1
   enableConnectionPooler: true
   connectionPooler:
     numberOfInstances: 2
