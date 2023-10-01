@@ -3,7 +3,7 @@ kube-prometheus-stack:
   alertmanager:
     externalUrl: https://alertmanager.rwcloud.org
     fullnameOverride: alertmanager
-    replicas: 2
+    replicas: 1
     alertmanagerSpec:
       storage:
         volumeClaimTemplate:
@@ -134,7 +134,7 @@ kube-prometheus-stack:
   prometheus:
     fullnameOverride: prometheus
     prometheusSpec:
-      replicas: 2
+      replicas: 1
       externalUrl: https://prometheus.rwcloud.org
       ruleSelectorNilUsesHelmValues: false
       serviceMonitorSelectorNilUsesHelmValues: false
