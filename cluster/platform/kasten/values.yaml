@@ -144,6 +144,7 @@ k10:
     create: true
     tls:
       enabled: true
+      secretName: k10-cert
     class: "nginx" #Ingress controller type
     host: "k10.rwcloud.org" #ingress object host name
     urlPath: "" #url path for k10 gateway
@@ -157,7 +158,7 @@ k10:
       nginx.ingress.kubernetes.io/auth-snippet: |
         proxy_set_header X-Forwarded-Method $request_method;
       hajimari.io/enable: "true"
-      hajimari.io/icon: "file-document"
+      hajimari.io/icon: "alert-box"
       hajimari.io/group: system
       hajimari.io/appName: k10
 
