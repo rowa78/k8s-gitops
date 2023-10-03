@@ -10,6 +10,7 @@ spec:
       endpoint: https://s3.eu-central-2.wasabisys.com
       name: k10
       objectStoreType: S3
+      region: eu-central-2
       path: k10
       pathType: Directory
     credential:
