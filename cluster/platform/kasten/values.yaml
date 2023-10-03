@@ -94,8 +94,8 @@ k10:
     imagePullSecret: ''
     prometheus:
       external:
-        host: 'http://kps-prometheus.monitoring.svc.cluster.local' #FQDN of prometheus-service
-        port: '9090'
+        host: '' #FQDN of prometheus-service
+        port: ''
         baseURL: ''
     network:
       enable_ipv6: false
