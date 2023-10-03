@@ -177,7 +177,7 @@ k10:
       create: false
     server:
       # UID and groupid are from prometheus helm chart
-      enabled: false
+      enabled: true
       securityContext:
         runAsUser: 65534
         runAsNonRoot: true
@@ -185,7 +185,7 @@ k10:
         fsGroup: 65534
       retention: 30d
       persistentVolume:
-        storageClass: ""
+        storageClass: "longhorn"
       fullnameOverride: prometheus-server
       baseURL: /k10/prometheus/
       prefixURL: /k10/prometheus
@@ -438,7 +438,7 @@ k10:
   excludedApps: ["kube-system", "kube-ingress", "kube-node-lease", "kube-public", "kube-rook-ceph"]
 
   grafana:
-    enabled: false
+    enabled: true
 
   encryption:
     primaryKey: # primaryKey is used for enabling encryption of K10 primary key
