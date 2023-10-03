@@ -127,7 +127,7 @@ redis:
     enabled: true
     ## @param auth.sentinel Enable password authentication on sentinels too
     ##
-    sentinel: true
+    sentinel: false
     ## @param auth.password Redis&reg; password
     ## Defaults to a random 10-character alphanumeric string if not set
     ##
@@ -1023,7 +1023,7 @@ redis:
     ## IMPORTANT: this will disable the master and replicas services and
     ## create a single Redis&reg; service exposing both the Redis and Sentinel ports
     ##
-    enabled: false
+    enabled: true
     ## Bitnami Redis&reg; Sentinel image version
     ## ref: https://hub.docker.com/r/bitnami/redis-sentinel/tags/
     ## @param sentinel.image.registry Redis&reg; Sentinel image registry
