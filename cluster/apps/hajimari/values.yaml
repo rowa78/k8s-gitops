@@ -119,7 +119,7 @@ hajimari:
   persistence:
     data:
       enabled: true
-      storageClass:  "openebs-zfs-default"
+      storageClass:  "longhorn"
       type: pvc
       accessMode: ReadWriteOnce
       size: 1Gi
