@@ -164,6 +164,7 @@ k10:
   eula:
     accept: true #true value if EULA accepted
     company: "USO"
+    email: secret@domain.com
 
   license: "" #base64 encoded string provided by Kasten
 
