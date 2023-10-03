@@ -579,7 +579,7 @@ redis:
   replica:
     ## @param replica.replicaCount Number of Redis&reg; replicas to deploy
     ##
-    replicaCount: 1
+    replicaCount: 2
     ## @param replica.configuration Configuration for Redis&reg; replicas nodes
     ## ref: https://redis.io/topics/config
     ##
