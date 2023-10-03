@@ -7,11 +7,11 @@ spec:
   locationSpec:
     type: ObjectStore
     objectStore:
-      endpoint: https://s3.eu-central-2.wasabisys.com
-      name: k10
+      endpoint: s3.eu-central-2.wasabisys.com
+      name: rwcloud-k10
       objectStoreType: S3
       region: eu-central-2
-      path: k10
+      path: rwcloud-k10
       pathType: Directory
     credential:
       secretType: AwsAccessKey
