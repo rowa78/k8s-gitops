@@ -261,8 +261,8 @@ k10:
   #  - "group1"
   #  - "group2"
     basicAuth:
-      enabled: false
-      secretName: "" #htpasswd based existing secret
+      enabled: true
+      secretName: "k10-basic-auth-secret" #htpasswd based existing secret
       htpasswd: "" #htpasswd string, which will be used for basic auth
     tokenAuth:
       enabled: false
