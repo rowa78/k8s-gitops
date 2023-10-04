@@ -392,6 +392,13 @@ gitea:
       server:
         SSH_PORT: 22 # rootful image
         SSH_LISTEN_PORT: 2222 # rootless image
+
+      database:
+        DB_TYPE: sqlite3
+      session:
+        PROVIDER: memory
+      cache:
+        ADAPTER: memory
     #
     #  security:
     #    PASSWORD_COMPLEXITY: spec
@@ -477,7 +484,7 @@ gitea:
   ## @param redis-cluster.enabled Enable redis
   ## @param redis-cluster.usePassword Whether to use password authentication
   redis-cluster:
-    enabled: true
+    enabled: false
     usePassword: false
 
   ## @section postgresql-ha
