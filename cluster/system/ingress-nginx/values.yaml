@@ -24,6 +24,7 @@ ingress-nginx:
         enabled: true
     extraArgs:
       default-ssl-certificate: "ingress-nginx/wildcard-tls"
+      tcp-services-configmap: ingress-nginx/tcp-services
     resources:
       requests:
         memory: 100Mi
