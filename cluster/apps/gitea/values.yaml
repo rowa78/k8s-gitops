@@ -515,8 +515,6 @@ gitea:
       repmgrPassword: kljntrloif4nerfrjnke
       postgresPassword: klfjreljfeir
       password: kcreljflekr
-      persistance:
-        storageClass: openebs-zfs-pg
     pgpool:
       adminPassword: refenriu4cew
     service:
@@ -524,6 +522,7 @@ gitea:
         postgresql: 5432
     primary:
       persistence:
+        storageClass: openebs-zfs-pg
         size: 10Gi
 
   ## @section PostgreSQL
