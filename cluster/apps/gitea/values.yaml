@@ -389,10 +389,10 @@ gitea:
     config:
       #  APP_NAME: "Gitea: Git with a cup of tea"
       #  RUN_MODE: dev
-      disableRegistration: true
       server:
         SSH_PORT: 22 # rootful image
         SSH_LISTEN_PORT: 2222 # rootless image
+        disableRegistration: true
       session:
         PROVIDER: memory
       cache:
