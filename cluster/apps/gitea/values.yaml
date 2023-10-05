@@ -509,13 +509,14 @@ gitea:
         database: gitea
         password: gitea
         username: gitea
-    enabled: false
+      storageClass: openebs-zfs-pg
+    enabled: true
     postgresql:
-      repmgrPassword: changeme2
-      postgresPassword: changeme1
-      password: changeme4
+      repmgrPassword: kljntrloif4nerfrjnke
+      postgresPassword: klfjreljfeir
+      password: kcreljflekr
     pgpool:
-      adminPassword: changeme3
+      adminPassword: refenriu4cew
     service:
       ports:
         postgresql: 5432
