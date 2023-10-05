@@ -392,13 +392,6 @@ gitea:
       server:
         SSH_PORT: 22 # rootful image
         SSH_LISTEN_PORT: 2222 # rootless image
-      database:
-        DB_TYPE: postgres
-        HOST: rwcloud-gitea-db
-        NAME: gitea
-        USER: gitea-owner-user
-        PASSWD: ijwlUGI24pOz7c8PbkFXCCpsWtnPe9TcTfNbbOs7fDSCiABhuGeBJEPqAGY0ZJ0Y
-        SCHEMA: data
       session:
         PROVIDER: memory
       cache:
@@ -511,19 +504,6 @@ gitea:
         username: gitea
       
     enabled: false
-    postgresql:
-      repmgrPassword: kljntrloif4nerfrjnke
-      postgresPassword: klfjreljfeir
-      password: kcreljflekr
-    pgpool:
-      adminPassword: refenriu4cew
-    service:
-      ports:
-        postgresql: 5432
-    primary:
-      persistence:
-        storageClass: openebs-zfs-pg
-        size: 10Gi
 
   ## @section PostgreSQL
   #
