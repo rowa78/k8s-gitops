@@ -397,7 +397,7 @@ gitea:
         HOST: rwcloud-gitea-db
         NAME: gitea
         USER: gitea-owner-user
-        PASSWD: 7oq4eAYK2iVq94srPHP3jBXq1avNfy0FoNclqVt7uSOAfDvSN9ua4sOjMv4PhYI6
+        PASSWD: ijwlUGI24pOz7c8PbkFXCCpsWtnPe9TcTfNbbOs7fDSCiABhuGeBJEPqAGY0ZJ0Y
         SCHEMA: data
       session:
         PROVIDER: memory
