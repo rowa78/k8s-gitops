@@ -393,7 +393,12 @@ gitea:
         SSH_PORT: 22 # rootful image
         SSH_LISTEN_PORT: 2222 # rootless image
       database:
-        DB_TYPE: sqlite3
+        DB_TYPE: postgresql
+        HOST: rwcloud-gitea-db
+        NAME: gitea
+        USER: gitea-owner-user
+        PASSWD: 7oq4eAYK2iVq94srPHP3jBXq1avNfy0FoNclqVt7uSOAfDvSN9ua4sOjMv4PhYI6
+        SCHEMA: data
       session:
         PROVIDER: memory
       cache:

@@ -5,10 +5,6 @@ metadata:
 spec:
   teamId: "rwcloud"
   numberOfInstances: 2
-  enableConnectionPooler: true
-  connectionPooler:
-    numberOfInstances: 2
-    mode: session
   databases:
     eve: gitea_owner  # dbname: owner  
   preparedDatabases:
@@ -16,8 +12,6 @@ spec:
       defaultUsers: true
       extensions:
         hypopg: public
-      schemas:
-        public: {}
   postgresql:
     version: "14"    
     parameters:
