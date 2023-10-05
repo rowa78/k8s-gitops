@@ -391,8 +391,10 @@ gitea:
       #  RUN_MODE: dev
       server:
         SSH_PORT: 22 # rootful image
-        SSH_LISTEN_PORT: 2222 # rootless image
-        disableRegistration: true
+        SSH_LISTEN_PORT: 2222 # rootless image        
+      service:
+        DISABLE_REGISTRATION: true
+        SHOW_REGISTRATION_BUTTON: false
       session:
         PROVIDER: memory
       cache:
