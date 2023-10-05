@@ -534,7 +534,7 @@ gitea:
   ## @param postgresql.global.postgresql.service.ports.postgresql PostgreSQL service port (overrides `service.ports.postgresql`)
   ## @param postgresql.primary.persistence.size PVC Storage Request for PostgreSQL volume
   postgresql:
-    enabled: false
+    enabled: true
     global:
       postgresql:
         auth:
