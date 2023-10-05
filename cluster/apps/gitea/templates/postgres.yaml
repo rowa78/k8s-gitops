@@ -1,0 +1,37 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: rwcloud-gitea-db
+spec:
+  teamId: "rwcloud"
+  numberOfInstances: 2
+  enableConnectionPooler: true
+  connectionPooler:
+    numberOfInstances: 2
+    mode: session
+  databases:
+    eve: gitea_owner  # dbname: owner  
+  preparedDatabases:
+    gitea:
+      defaultUsers: true
+      extensions:
+        hypopg: public
+      schemas:
+        public: {}
+  postgresql:
+    version: "14"    
+    parameters:
+      max_connections: "500"
+      full_page_writes: "off"
+      logbias: "latency"
+      pg_stat_statements.track: all
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 4000Mi
+    requests:
+      cpu: 500m
+      memory: 500Mi
+  volume:
+    size: 100Gi
+    storageClass: openebs-zfs-pg
