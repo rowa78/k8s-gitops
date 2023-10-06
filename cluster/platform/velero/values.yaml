@@ -313,7 +313,7 @@ velero:
       # prefix is the directory under which all Velero data should be stored within the bucket. Optional.
       prefix:
       # default indicates this location is the default backup storage location. Optional.
-      default:
+      default: true
       # validationFrequency defines how frequently Velero should validate the object storage. Optional.
       validationFrequency:
       # accessMode determines if velero can write to this backup storage location. Optional.
@@ -388,11 +388,11 @@ velero:
     # `velero server` default: 20.0
     clientQPS:
     # Name of the default backup storage location. Default: default
-    defaultBackupStorageLocation: s3
+    defaultBackupStorageLocation: 
     # How long to wait by default before backups can be garbage collected. Default: 72h
     defaultBackupTTL:
     # Name of the default volume snapshot location.
-    defaultVolumeSnapshotLocations: s3
+    defaultVolumeSnapshotLocations: 
     # `velero server` default: empty
     disableControllers:
     # `velero server` default: 1h
