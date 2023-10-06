@@ -4,7 +4,7 @@ metadata:
   name: diskstation-profile
   namespace: kasten
   annotations:
-    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/sync-wave: "5"
 spec:
   locationSpec:
     type: ObjectStore
