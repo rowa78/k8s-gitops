@@ -3,6 +3,8 @@ kind: Profile
 metadata:
   name: diskstation-profile
   namespace: kasten
+  annotations:
+    argocd.argoproj.io/hook: PostSync
 spec:
   locationSpec:
     type: ObjectStore
