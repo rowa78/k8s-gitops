@@ -359,8 +359,7 @@ velero:
       # for details of required/optional fields for your provider.
       config: 
         region: eu-central-2
-        s3ForcePathStyle: true
-        s3Url: https://s3.eu-central-2.wasabisys.com
+         profile: "default"
     #    region:
     #    apiTimeout:
     #    resourceGroup:
