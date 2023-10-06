@@ -9,7 +9,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
-  project: apps
+  project: platform
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
@@ -32,7 +32,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "5"
 spec:
-  project: apps
+  project: platform
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
