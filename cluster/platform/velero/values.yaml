@@ -359,7 +359,7 @@ velero:
       # for details of required/optional fields for your provider.
       config: 
         region: eu-central-2
-         profile: "default"
+        profile: "default"
     #    region:
     #    apiTimeout:
     #    resourceGroup:
