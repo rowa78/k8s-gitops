@@ -305,7 +305,7 @@ velero:
       # a backup storage location will be created with the name "default". Optional.
     - name: s3
       # provider is the name for the backup storage location provider.
-      provider: wasabi
+      provider: aws
       # bucket is the name of the bucket to store backups in. Required.
       bucket: rwcloud-velero
       # caCert defines a base64 encoded CA bundle to use when verifying TLS connections to the provider. Optional.
@@ -349,7 +349,7 @@ velero:
       # name is the name of the volume snapshot location where snapshots are being taken. Required.
     - name: s2
       # provider is the name for the volume snapshot provider.
-      provider: wasabi
+      provider: aws
       credential:
         # name of the secret used by this volumeSnapshotLocation.
         name: velero-s3-credentials
