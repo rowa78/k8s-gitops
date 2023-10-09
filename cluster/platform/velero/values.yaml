@@ -86,24 +86,24 @@ velero:
   # Init containers to add to the Velero deployment's pod spec. At least one plugin provider image is required.
   # If the value is a string then it is evaluated as a template.
   initContainers:
-    - name: velero-plugin-for-csi
-      image: velero/velero-plugin-for-csi:v0.6.0
-      imagePullPolicy: IfNotPresent
-      volumeMounts:
-        - mountPath: /target
-          name: plugins
+    #- name: velero-plugin-for-csi
+    #  image: velero/velero-plugin-for-csi:v0.6.0
+    #  imagePullPolicy: IfNotPresent
+    #  volumeMounts:
+    #    - mountPath: /target
+    #      name: plugins
     - name: velero-plugin-for-aws
       image: velero/velero-plugin-for-aws:v1.8.0
       imagePullPolicy: IfNotPresent
       volumeMounts:
         - mountPath: /target
           name: plugins
-    - name: velero-plugin-openebs
-      image: openebs/velero-plugin:3.5.0
-      imagePullPolicy: IfNotPresent
-      volumeMounts:
-        - mountPath: /target
-          name: plugins
+    #- name: velero-plugin-openebs
+    #  image: openebs/velero-plugin:3.5.0
+    #  imagePullPolicy: IfNotPresent
+    #  volumeMounts:
+    #    - mountPath: /target
+    #      name: plugins
 
   # SecurityContext to use for the Velero deployment. Optional.
   # Set fsGroup for `AWS IAM Roles for Service Accounts`
@@ -422,7 +422,7 @@ velero:
     terminatingResourceTimeout:
     # Comma separated list of velero feature flags. default: empty
     # features: EnableCSI
-    features: EnableCSI
+    # features: EnableCSI
     # `velero server` default: velero
     namespace:
 
