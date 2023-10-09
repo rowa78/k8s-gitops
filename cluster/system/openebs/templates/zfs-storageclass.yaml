@@ -9,6 +9,7 @@ parameters:
   fstype: "zfs"
   atime: "off"
   poolname: "zpool/pvcs"  
+  shared: "yes"
 provisioner: zfs.csi.openebs.io
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
