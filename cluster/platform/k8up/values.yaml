@@ -48,7 +48,7 @@ k8up:
       - name: BACKUP_GLOBALS3BUCKET
         value: rwcloud-k8up-backups
       - name: BACKUP_PROMURL
-        value: http://kps-prometheus.monitoring.svc.cluster.local:9090
+        value: http://kps-prometheus-pushgateway.monitoring.svc.cluster.local:9091
 
     backupImage:
       # -- The backup runner image repository.
