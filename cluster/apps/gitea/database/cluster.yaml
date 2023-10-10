@@ -9,9 +9,9 @@ spec:
     initdb:
       database: gitea  
 
-  postgresql:
-    parameters:
-      full_page_writes: 'off'
+#  postgresql:
+#    parameters:
+      
 
   monitoring:
     enablePodMonitor: true
