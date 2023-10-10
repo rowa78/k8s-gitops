@@ -17,9 +17,11 @@ spec:
       database: eve
       owner: eve 
 
-#  postgresql:
-#    parameters:
-      
+  postgresql:
+    parameters:        
+      pg_stat_statements.max: "10000"
+      pg_stat_statements.track: all
+     
 
   monitoring:
     enablePodMonitor: true
