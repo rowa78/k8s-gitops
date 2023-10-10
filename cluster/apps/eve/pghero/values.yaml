@@ -6,7 +6,7 @@
 secretName: pghero
 
 database:
-  host: rwcloud-eve-db-pooler
+  host: pooler-evedb
   port: 5432
   dbName: eve
 databaseSecretName: evedb-app
