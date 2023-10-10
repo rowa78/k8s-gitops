@@ -5,13 +5,13 @@ metadata:
 spec:
   instances: 2
 
-  resources:
-    requests:
-      memory: "2Gi"
-      cpu: "2"
-    limits:
-      memory: "6Gi"
-      cpu: "6"
+#  resources:
+#    requests:
+#      memory: "2Gi"
+#      cpu: "2"
+#    limits:
+#      memory: "6Gi"
+#      cpu: "6"
   bootstrap:
     initdb:
       database: eve
