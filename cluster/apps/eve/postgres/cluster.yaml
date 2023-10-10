@@ -7,10 +7,10 @@ spec:
 
   resources:
     requests:
-      memory: "2048Mi"
+      memory: "2Gi"
       cpu: 2
     limits:
-      memory: "6144Mi"
+      memory: "6Gi"
       cpu: 6
   bootstrap:
     initdb:
