@@ -112,6 +112,8 @@ kube-prometheus-stack:
           url: https://grafana.com/api/dashboards/12937/revisions/4/download
         rabbitmq:
           url: https://grafana.com/api/dashboards/10991/revisions/12/download
+        cloudnative-pg:
+          url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
 #        proxmox:
 #          url: https://grafana.com/api/dashboards/10347/revisions/3/download
 #          datasource: Prometheus
