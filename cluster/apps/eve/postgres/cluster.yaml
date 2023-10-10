@@ -8,10 +8,10 @@ spec:
   resources:
     requests:
       memory: "2Gi"
-      cpu: 2
+      cpu: "2"
     limits:
       memory: "6Gi"
-      cpu: 6
+      cpu: "6"
   bootstrap:
     initdb:
       database: eve
