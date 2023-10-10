@@ -1,13 +1,14 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: gitea
+  name: giteadb
 spec:
   instances: 2
 
   bootstrap:
     initdb:
-      database: gitea  
+      database: giteadb
+      owner: giteadb 
 
 #  postgresql:
 #    parameters:

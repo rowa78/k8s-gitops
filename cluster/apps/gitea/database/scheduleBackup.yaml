@@ -1,9 +1,9 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
-  name: sched-backup-gitea
+  name: sched-backup-giteadb
 spec:
   schedule: "0 0 0 * * *"
   backupOwnerReference: self
   cluster:
-    name: gitea
+    name: giteadb
