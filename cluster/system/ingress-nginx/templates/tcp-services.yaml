@@ -4,4 +4,4 @@ metadata:
   name: tcp-services
   namespace: ingress-nginx
 data:
-  2222: "gitea/gitea-ssh:22"
+  2222: "gitea/gitea-app-ssh:22"
