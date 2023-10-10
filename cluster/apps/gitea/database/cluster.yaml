@@ -24,6 +24,7 @@ spec:
     barmanObjectStore:
       endpointURL: "https://s3.eu-central-2.wasabisys.com"      
       destinationPath: "s3://rwcloud-postgres-backups/"
+      immediateCheckpoint: false
       s3Credentials:
         accessKeyId:
           name: s3-creds
