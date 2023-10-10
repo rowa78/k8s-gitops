@@ -3,6 +3,7 @@ kind: Cluster
 metadata:
   name: evedb
 spec:
+  imageName: r0wa/postgresql:15.4-14
   instances: 2
 
   resources:
