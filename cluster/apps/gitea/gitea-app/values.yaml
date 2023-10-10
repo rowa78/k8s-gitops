@@ -402,7 +402,7 @@ gitea:
       database:
         DB_TYPE: postgres
         HOST: 127.0.0.1:3306
-        NAME: gitea
+        NAME: giteadb
     #
     #  security:
     #    PASSWORD_COMPLEXITY: spec
@@ -419,8 +419,13 @@ gitea:
       - name: GITEA__DATABASE__PASSWD
         valueFrom:
           secretKeyRef:
-            name: postgres-secret
+            name: giteadb-app
             key: password
+      - name: GITEA__DATABASE__USER
+        valueFrom:
+          secretKeyRef:
+            name: giteadb-app
+            key: username
 
     ## @param gitea.podAnnotations Annotations for the Gitea pod
     podAnnotations: {}
