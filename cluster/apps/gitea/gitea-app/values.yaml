@@ -399,6 +399,10 @@ gitea:
         PROVIDER: memory
       cache:
         ADAPTER: memory
+      database:
+        DB_TYPE: postgres
+        HOST: 127.0.0.1:3306
+        NAME: gitea
     #
     #  security:
     #    PASSWORD_COMPLEXITY: spec
@@ -411,7 +415,12 @@ gitea:
     #       name: gitea-app-ini-plaintext
 
     ## @param gitea.additionalConfigFromEnvs Additional configuration sources from environment variables
-    additionalConfigFromEnvs: []
+    additionalConfigFromEnvs: 
+      - name: GITEA__DATABASE__PASSWD
+        valueFrom:
+          secretKeyRef:
+            name: postgres-secret
+            key: password
 
     ## @param gitea.podAnnotations Annotations for the Gitea pod
     podAnnotations: {}
@@ -517,7 +526,7 @@ gitea:
   ## @param postgresql.global.postgresql.service.ports.postgresql PostgreSQL service port (overrides `service.ports.postgresql`)
   ## @param postgresql.primary.persistence.size PVC Storage Request for PostgreSQL volume
   postgresql:
-    enabled: true
+    enabled: false
     global:
       postgresql:
         auth:
