@@ -401,7 +401,7 @@ gitea:
         ADAPTER: memory
       database:
         DB_TYPE: postgres
-        HOST: 127.0.0.1:3306
+        HOST: giteadb-rw:5432
         NAME: giteadb
     #
     #  security:
