@@ -23,8 +23,7 @@ spec:
   backup:
     barmanObjectStore:
       endpointURL: "https://s3.eu-central-2.wasabisys.com"      
-      destinationPath: "s3://rwcloud-postgres-backups/"
-      immediateCheckpoint: false
+      destinationPath: "s3://rwcloud-postgres-backups/"      
       s3Credentials:
         accessKeyId:
           name: s3-creds
@@ -35,7 +34,6 @@ spec:
       wal:
         compression: bzip2        
       data:
-        compression: bzip2        
-        immediateCheckpoint: false
+        compression: bzip2                
         jobs: 2
     retentionPolicy: "14d"
