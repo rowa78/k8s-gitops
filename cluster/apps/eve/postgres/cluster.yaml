@@ -1,0 +1,47 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: evedb
+spec:
+  instances: 2
+
+  resources:
+    requests:
+      memory: "2048Mi"
+      cpu: 2
+    limits:
+      memory: "6144Mi"
+      cpu: 6
+  bootstrap:
+    initdb:
+      database: eve
+      owner: eve 
+
+#  postgresql:
+#    parameters:
+      
+
+  monitoring:
+    enablePodMonitor: true
+
+  storage:
+    size: 100Gi
+    storageClass: openebs-zfs-postgres
+
+  backup:
+    barmanObjectStore:
+      endpointURL: "https://s3.eu-central-2.wasabisys.com"      
+      destinationPath: "s3://rwcloud-postgres-backups/"      
+      s3Credentials:
+        accessKeyId:
+          name: s3-creds
+          key: aws_access_key_id
+        secretAccessKey:
+          name: s3-creds
+          key: aws_secret_access_key
+      wal:
+        compression: bzip2        
+      data:
+        compression: bzip2                
+        jobs: 2
+    retentionPolicy: "14d"
