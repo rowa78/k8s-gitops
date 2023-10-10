@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gitea-system
+  name: gitea-database
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -23,7 +23,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gitea
+  name: gitea-app
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
