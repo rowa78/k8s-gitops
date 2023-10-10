@@ -11,7 +11,7 @@ spec:
 
   postgresql:
     parameters:
-      full_page_writes: "off"
+      full_page_writes: 'off'
 
   monitoring:
     enablePodMonitor: true
@@ -19,7 +19,7 @@ spec:
   storage:
     size: 10Gi
     storageClass: openebs-zfs-potsgres
-    
+
   backup:
     barmanObjectStore:
       endpointURL: "https://s3.eu-central-2.wasabisys.com"      
