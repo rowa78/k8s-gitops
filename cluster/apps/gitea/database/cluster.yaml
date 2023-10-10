@@ -26,10 +26,10 @@ spec:
       destinationPath: "s3://rwcloud-postgres-backups/"
       s3Credentials:
         accessKeyId:
-          name: aws-creds
+          name: s3-creds
           key: ACCESS_KEY_ID
         secretAccessKey:
-          name: aws-creds
+          name: s3-creds
           key: ACCESS_SECRET_KEY
       wal:
         compression: bzip2        
