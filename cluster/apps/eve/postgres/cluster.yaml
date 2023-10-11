@@ -2,6 +2,8 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: evedb
+  annotations:
+    k8up.io/backup: false
 spec:
   imageName: r0wa/postgresql:15.4-14
   instances: 2
