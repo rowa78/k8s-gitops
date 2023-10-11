@@ -23,6 +23,9 @@ spec:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
      
+  replicationSlots:
+    highAvailability:
+      enabled: true
 
   monitoring:
     enablePodMonitor: true
