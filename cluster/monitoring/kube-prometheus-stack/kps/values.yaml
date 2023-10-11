@@ -8,7 +8,7 @@ kube-prometheus-stack:
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: openebs-zfs-default
+            storageClassName: openebs-zfs
             resources:
               requests:
                 storage: 1Gi
@@ -145,7 +145,7 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
-            storageClassName: openebs-zfs-default
+            storageClassName: openebs-zfs
             resources:
               requests:
                 storage: 50Gi     
