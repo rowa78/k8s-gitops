@@ -2,9 +2,9 @@ kube-prometheus-stack:
   fullnameOverride: kps
   alertmanager:
     externalUrl: https://alertmanager.rwcloud.org
-    fullnameOverride: alertmanager
-    replicas: 2
+    fullnameOverride: alertmanager    
     alertmanagerSpec:
+      replicas: 2
       storage:
         volumeClaimTemplate:
           spec:
