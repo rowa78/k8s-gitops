@@ -36,20 +36,20 @@ spec:
     size: 100Gi
     storageClass: openebs-zfs-postgres
 
-#  backup:
-#    barmanObjectStore:
-#      endpointURL: "https://s3.eu-central-2.wasabisys.com"      
-#      destinationPath: "s3://rwcloud-postgres-backups/"      
-#      s3Credentials:
-#        accessKeyId:
-#          name: s3-creds
-#          key: aws_access_key_id
-#        secretAccessKey:
-#          name: s3-creds
-#          key: aws_secret_access_key
-#      wal:
-#        compression: bzip2        
-#      data:
-#        compression: bzip2                
-#        jobs: 2
-#    retentionPolicy: "14d"
+  backup:
+    barmanObjectStore:
+      endpointURL: "https://s3.eu-central-2.wasabisys.com"      
+      destinationPath: "s3://rwcloud-postgres-backups/"      
+      s3Credentials:
+        accessKeyId:
+          name: s3-creds
+          key: aws_access_key_id
+        secretAccessKey:
+          name: s3-creds
+          key: aws_secret_access_key
+      wal:
+        compression: bzip2        
+      data:
+        compression: bzip2                
+        jobs: 2
+    retentionPolicy: "14d"
