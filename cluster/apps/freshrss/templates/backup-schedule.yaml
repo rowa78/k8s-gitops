@@ -4,6 +4,8 @@ metadata:
   name: backup-schedule
 spec:  
   backup:
+    podSecurityContext:
+      runAsUser: 0
     schedule: '@daily-random'
     failedJobsHistoryLimit: 4
     successfulJobsHistoryLimit: 2    
