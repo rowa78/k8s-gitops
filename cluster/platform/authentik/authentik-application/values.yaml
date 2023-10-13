@@ -123,13 +123,17 @@ authentik:
   #      name: special-config
 
   envValueFrom:
-    AK_ADMIN_PASS:
+    AUTHENTIK_BOOTSTRAP_PASSWORD:
       secretKeyRef:
         key: ak-admin-password
         name: authentik
-    AK_ADMIN_TOKEN:
+    AUTHENTIK_BOOTSTRAP_TOKEN:
       secretKeyRef:
         key: ak-admin-token
+        name: authentik
+    AUTHENTIK_BOOTSTRAP_EMAIL:
+      secretKeyRef:
+        key: email-username
         name: authentik
     AUTHENTIK_SECRET_KEY:
       secretKeyRef:
