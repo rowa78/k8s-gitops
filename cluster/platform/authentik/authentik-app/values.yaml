@@ -101,7 +101,7 @@ authentik:
       name: "authentik"
       # -- postgresql Username
       # @default -- `authentik`
-      user: "authentik"
+      user: ""
       password: ""
       port: 5432
     redis:
@@ -135,6 +135,10 @@ authentik:
       secretKeyRef:
         key: secret-key
         name: authentik
+    AUTHENTIK_POSTGRESQL__USER:
+      secretKeyRef:
+        key: user
+        name: authentik-app
     AUTHENTIK_POSTGRESQL__PASSWORD:
       secretKeyRef:
         key: password
