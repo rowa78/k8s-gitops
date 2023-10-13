@@ -137,7 +137,7 @@ authentik:
         name: authentik
     AUTHENTIK_POSTGRESQL__USER:
       secretKeyRef:
-        key: user
+        key: username
         name: authentik-app
     AUTHENTIK_POSTGRESQL__PASSWORD:
       secretKeyRef:
