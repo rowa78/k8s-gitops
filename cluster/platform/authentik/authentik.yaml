@@ -7,7 +7,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: apps
+  project: platform
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
@@ -23,16 +23,16 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: authentik-app
+  name: authentik-application
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: apps
+  project: platform
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/platform/authentik/authentik-app
+    path: cluster/platform/authentik/authentik-application
   destination:
     name: in-cluster
     namespace: authentik     
