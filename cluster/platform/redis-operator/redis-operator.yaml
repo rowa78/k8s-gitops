@@ -13,7 +13,7 @@ spec:
     path: cluster/platform/redis-operator/redis-operator-application
   destination:
     name: in-cluster
-    namespace: authentik     
+    namespace: redis-operator     
   syncPolicy:
     syncOptions:
     - ServerSideApply=true
