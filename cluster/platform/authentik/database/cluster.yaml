@@ -1,0 +1,43 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: authentik
+spec:
+  instances: 2
+
+  bootstrap:
+    initdb:
+      database: authentik
+      owner: authentik 
+
+#  postgresql:
+#    parameters:
+      
+  replicationSlots:
+    highAvailability:
+      enabled: true
+      
+  monitoring:
+    enablePodMonitor: true
+
+  storage:
+    size: 10Gi
+    storageClass: openebs-zfs-postgres
+
+  backup:
+    barmanObjectStore:
+      endpointURL: "https://s3.eu-central-2.wasabisys.com"      
+      destinationPath: "s3://rwcloud-postgres-backups/"      
+      s3Credentials:
+        accessKeyId:
+          name: s3-creds
+          key: aws_access_key_id
+        secretAccessKey:
+          name: s3-creds
+          key: aws_secret_access_key
+      wal:
+        compression: bzip2        
+      data:
+        compression: bzip2                
+        jobs: 2
+    retentionPolicy: "14d"
