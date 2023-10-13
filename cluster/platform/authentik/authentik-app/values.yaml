@@ -43,7 +43,7 @@ authentik:
           - path: "/"
             pathType: Prefix
     tls: 
-      hosts:
+      - hosts:
         - authentik.rwcloud.org
 
 
