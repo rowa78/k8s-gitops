@@ -122,11 +122,43 @@ authentik:
   #  - configMapRef:
   #      name: special-config
 
-  envValueFrom: {}
-  #  AUTHENTIK_VAR_NAME:
-  #    secretKeyRef:
-  #      key: password
-  #      name: my-secret
+  envValueFrom:
+    AK_ADMIN_PASS:
+      secretKeyRef:
+        key: ak-admin-password
+        name: authentik
+    AK_ADMIN_TOKEN:
+      secretKeyRef:
+        key: ak-admin-token
+        name: authentik
+    AUTHENTIK_SECRET_KEY:
+      secretKeyRef:
+        key: secret-key
+        name: authentik
+    AUTHENTIK_POSTGRESQL__PASSWORD:
+      secretKeyRef:
+        key: password
+        name: authentik-app
+    AUTHENTIK_EMAIL__HOST:
+      secretKeyRef:
+        key: email-host
+        name: authentik
+    AUTHENTIK_EMAIL__PORT:
+      secretKeyRef:
+        key: email-port
+        name: authentik
+    AUTHENTIK_EMAIL__USERNAME:
+      secretKeyRef:
+        key: email-username
+        name: authentik
+    AUTHENTIK_EMAIL__PASSWORD:
+      secretKeyRef:
+        key: email-password
+        name: authentik
+    AUTHENTIK_EMAIL__FROM:
+      secretKeyRef:
+        key: email-username
+        name: authentik
 
   service:
     # -- Service that is created to access authentik
