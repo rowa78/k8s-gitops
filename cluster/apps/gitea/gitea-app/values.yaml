@@ -372,7 +372,7 @@ gitea:
     ## @param gitea.oauth OAuth configuration
     oauth:      
       - name: 'OAuth 1'
-        provider: openid
+        provider: openidConnect
       #  key:
       #   secret:
         existingSecret: gitea-oauth-secret
