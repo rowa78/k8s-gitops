@@ -151,7 +151,7 @@ kube-prometheus-stack:
         role_attribute_path: "contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'"
     ldap:
       enabled: false      
-    envFromSecret: grafana 
+    envFromSecret: grafana-vault-secrets 
   prometheus:
     fullnameOverride: prometheus
     prometheusSpec:
