@@ -241,29 +241,23 @@ nextcloud:
   ## External database configuration
   ##
   externalDatabase:
-    enabled: false
+    enabled: true
 
     ## Supported database engines: mysql or postgresql
-    type: mysql
+    type: postgresql
 
     ## Database host
-    host:
-
-    ## Database user
-    user: nextcloud
-
-    ## Database password
-    password:
+    host: nextclouddb-rw
 
     ## Database name
-    database: nextcloud
+    database: nextclouddb
 
     ## Use a existing secret
     existingSecret:
-      enabled: false
-      # secretName: nameofsecret
-      # usernameKey: db-username
-      # passwordKey: db-password
+      enabled: true
+      secretName: nextclouddb-app
+      usernameKey: username
+      passwordKey: password
       # hostKey: db-hostname-or-ip
       # databaseKey: db-name
 
