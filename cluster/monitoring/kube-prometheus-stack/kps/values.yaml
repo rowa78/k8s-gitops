@@ -135,7 +135,7 @@ kube-prometheus-stack:
         config_file: /etc/grafana/ldap.toml
       auth.generic_oauth:
         enabled: true
-        allow_sign_up: false
+        allow_sign_up: true
         auto_login: true
         name: authentik
         client_id: TvlbUP776wqWNWmJ2j29HQ8peFTF4QZvrABVwZbD
