@@ -133,6 +133,19 @@ kube-prometheus-stack:
         enabled: true
         allow_sign_up: true
         config_file: /etc/grafana/ldap.toml
+      auth.generic_oauth:
+        enabled: true
+        allow_sign_up: false
+        auto_login: true
+        name: authentik
+        client_id: TvlbUP776wqWNWmJ2j29HQ8peFTF4QZvrABVwZbD
+        client_secret: Jl0h6hdPdJ0PJXf0ks5Fx7fQE17IQ8yEQNy4KlTo0w2v2tM2HBUeY71GVTOPTKt9zrxgMegX62rrRWLNW2N86u8DxAncK6ZylrFXD41g9qmchcW1ALnv4Yde0QtRYhjx
+        scopes: openid profile email offline_access
+        auth_url: https://auth.rwcloud.org/application/o/authorize/
+        token_url: https://auth.rwcloud.org/application/o/token/
+        api_url: https://auth.rwcloud.org/application/o/userinfo/
+        use_pkce: true
+        use_refresh_token: true
     ldap:
       enabled: false
       existingSecret: grafana
