@@ -11,6 +11,6 @@ spec:
           service:
             name: ak-outpost-authentik-embedded-outpost
             port:
-              name: 9000
+              number: 9000
         path: /outpost.goauthentik.io
         pathType: Prefix
