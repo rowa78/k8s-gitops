@@ -2,6 +2,8 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: giteadb
+  annotations:
+    k8up.io/backup: 'false'
 spec:
   instances: 2
 
