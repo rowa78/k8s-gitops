@@ -390,7 +390,8 @@ gitea:
       #  RUN_MODE: dev
       server:
         SSH_PORT: 2222 # rootful image
-        SSH_LISTEN_PORT: 2222 # rootless image        
+        SSH_LISTEN_PORT: 2222 # rootless image     
+        ROOT_URL: https://git.rwcloud.org/
       service:
         DISABLE_REGISTRATION: false
         ALLOW_ONLY_EXTERNAL_REGISTRATION: true
