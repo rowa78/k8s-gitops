@@ -394,6 +394,7 @@ gitea:
         SSH_LISTEN_PORT: 2222 # rootless image        
       service:
         DISABLE_REGISTRATION: true
+        ALLOW_ONLY_EXTERNAL_REGISTRATION: true
         SHOW_REGISTRATION_BUTTON: false
       session:
         PROVIDER: memory
@@ -403,10 +404,10 @@ gitea:
         DB_TYPE: postgres
         HOST: giteadb-rw:5432
         NAME: giteadb
-      oauth:
-        name: authentik
-        autoDiscoverUrl: https://auth.rwcloud.org/application/o/gitea/.well-known/openid-configuration
-        existingSecret: gitea-oauth-secret
+      openid:
+        ENABLE_OPENID_SIGNIN: false
+        ENABLE_OPENID_SIGNUP: true
+        WHITELISTED_URIS: auth.rwcloud.org
 
     #
     #  security:
