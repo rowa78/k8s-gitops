@@ -409,7 +409,7 @@ gitea:
         ENABLE_OPENID_SIGNUP: true
         WHITELISTED_URIS: auth.rwcloud.org
       oauth2_client:
-        OPENID_CONNECT_SCOPES: mail
+        OPENID_CONNECT_SCOPES: email
         ENABLE_AUTO_REGISTRATION: true
 
     #
