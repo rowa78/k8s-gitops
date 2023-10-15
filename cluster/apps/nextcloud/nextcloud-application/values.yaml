@@ -234,7 +234,7 @@ nextcloud:
     #   readOnlyRootFilesystem: true
 
   internalDatabase:
-    enabled: true
+    enabled: false
     name: nextcloud
 
   ##
