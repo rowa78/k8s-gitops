@@ -389,7 +389,7 @@ nextcloud:
     # existingClaim:
 
     accessMode: ReadWriteOnce
-    size: 1Gi
+    size: 10Gi
 
     ## Use an additional pvc for the data directory rather than a subpath of the default PVC
     ## Useful to store data on a different storageClass (e.g. on slower disks)
