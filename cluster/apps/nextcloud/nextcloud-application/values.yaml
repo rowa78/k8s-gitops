@@ -67,7 +67,7 @@ nextcloud:
     # preStopCommand: []
 
   phpClientHttpsFix:
-    enabled: false
+    enabled: true
     protocol: https
 
   nextcloud:
