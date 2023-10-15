@@ -29,7 +29,7 @@ gitea:
   ## @param strategy.rollingUpdate.maxSurge maxSurge
   ## @param strategy.rollingUpdate.maxUnavailable maxUnavailable
   strategy:
-    type: "RollingUpdate"
+    type: "Recreate"
     rollingUpdate:
       maxSurge: "100%"
       maxUnavailable: 0
