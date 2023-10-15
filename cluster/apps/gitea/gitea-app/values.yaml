@@ -403,6 +403,11 @@ gitea:
         DB_TYPE: postgres
         HOST: giteadb-rw:5432
         NAME: giteadb
+      oauth:
+        name: authentik
+        autoDiscoverUrl: https://auth.rwcloud.org/application/o/gitea/.well-known/openid-configuration
+        existingSecret: gitea-oauth-secret
+
     #
     #  security:
     #    PASSWORD_COMPLEXITY: spec
