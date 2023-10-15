@@ -14,3 +14,6 @@ spec:
               number: 9000
         path: /outpost.goauthentik.io
         pathType: Prefix
+  tls:
+    - hosts:
+      - authentik.rwcloud.org
