@@ -52,10 +52,9 @@ nextcloud:
     #    location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
     #      deny all;
     #    }
-    # tls:
-    #   - secretName: nextcloud-tls
-    #     hosts:
-    #       - nextcloud.kube.home
+    tls:
+      - hosts:
+          - nextcloud.rwcloud.org
     labels: {}
     path: /
     pathType: Prefix
