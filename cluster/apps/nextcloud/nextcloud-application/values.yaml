@@ -76,11 +76,11 @@ nextcloud:
     password: changeme
     ## Use an existing secret
     existingSecret:
-      enabled: false
-      # secretName: nameofsecret
-      # usernameKey: nextcloud-username
-      # passwordKey: nextcloud-password
-      # tokenKey: nextcloud-token
+      enabled: true
+      secretName: nextcloud-admin-secret
+      usernameKey: username
+      passwordKey: password
+      tokenKey: token
       # smtpUsernameKey: smtp-username
       # smtpPasswordKey: smtp-password
       # smtpHostKey: smtp-host
