@@ -37,16 +37,16 @@ zfs create -o compression=lz4 -o mountpoint=/var/lib/rancher -o atime=off zpool/
 zfs create -o compression=lz4 -o mountpoint=/var/lib/rancher/k3s/agent/containerd/io.containerd.snapshotter.v1.zfs -o atime=off zpool/containerd
 zfs create -o compression=lz4 -o mountpoint=/var/lib/kubelet -o atime=off zpool/kubelet
 
-zfs create -o compression=lz4 -o mountpoint=/storage/longhorn -o atime=off zpool/longhorn
-zfs create -o compression=lz4 -o mountpoint=/storage/openebs -o atime=off zpool/openebs
 zfs create -o compression=lz4 -o atime=off zpool/pvcs
 
-zfs create -o compression=lz4 -o atime=off zpool/jiva
-
-zfs create zpool/longhorn -V 100G
+zfs create zpool/longhorn -V 150G
 mkfs.ext4 /dev/zvol/zpool/longhorn
 mkdir -p /storage/longhorn
 mount -o noatime,discard /dev/zvol/zpool/longhorn /storage/longhorn
+
+in die fstab:
+
+/dev/zvol/zpool/longhorn /storage/longhorn ext4 noatime,discard 0 0
 
 
 prüfen: 

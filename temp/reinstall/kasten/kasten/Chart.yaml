@@ -1,0 +1,7 @@
+apiVersion: v2
+name: metrics-server
+version: 0.0.0
+dependencies:
+- name: k10
+  version: 6.0.8
+  repository: https://charts.kasten.io/

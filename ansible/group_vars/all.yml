@@ -86,7 +86,9 @@ vault_secrets:
       SYNO_Hostname={{ lookup('env', 'SYNO_Hostname') }}"
   - path: secret/kasten
     kv: "K10_AUTH={{ lookup('env', 'K10_AUTH') }}
-        K10_DR_PASS={{ lookup('env', 'K10_DR_PASS') }}"
+        K10_DR_PASS={{ lookup('env', 'K10_DR_PASS') }}
+        K10_AWS_ACCESS_KEY={{ lookup('env', 'K10_AWS_ACCESS_KEY') }}
+        K10_AWS_SECRET_KEY={{ lookup('env', 'K10_AWS_SECRET_KEY') }}"
   - path: secret/stackgres
     kv: "STACKGRES_USERNAME={{ lookup('env', 'STACKGRES_USERNAME') }}
         STACKGRES_PASSWORD={{ lookup('env', 'STACKGRES_PASSWORD') }}
@@ -95,3 +97,13 @@ vault_secrets:
   - path: secret/postgres-operator
     kv: "AWS_ACCESSKEY={{ lookup('env', 'POSTGRES_OPERATOR_AWS_ACCESSKEY') }}
         AWS_SECRETKEY={{ lookup('env', 'POSTGRES_OPERATOR_AWS_SECRETKEY') }}"
+  - path: secret/velero
+    kv: "AWS_ACCESSKEY={{ lookup('env', 'VELERO_ACCESS_KEY') }}
+        AWS_SECRETKEY={{ lookup('env', 'VELERO_SECRET_KEY') }}"
+  - path: secret/k8up
+    kv: "AWS_ACCESSKEY={{ lookup('env', 'K8UP_ACCESS_KEY') }}
+        AWS_SECRETKEY={{ lookup('env', 'K8UP_SECRET_KEY') }}
+        REPO_PASSWORD={{ lookup('env', 'K8UP_REPO_PASSWORD') }}"
+  - path: secret/cnpg
+    kv: "AWS_ACCESSKEY={{ lookup('env', 'CNPG_ACCESS_KEY') }}
+        AWS_SECRETKEY={{ lookup('env', 'CNPG_SECRET_KEY') }}"

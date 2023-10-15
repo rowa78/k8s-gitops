@@ -2,9 +2,8 @@ all:
   children:    
     public_worker:
       hosts:
-        terra.rwcloud.org:   
-        luna.rwcloud.org:      
-        mars.rwcloud.org:      
+        terra.rwcloud.org: 
+        luna.rwcloud.org:  
     k3s_cluster:
       children:
         public_worker:    
