@@ -370,14 +370,13 @@ gitea:
 
     # Either specify inline `key` and `secret` or refer to them via `existingSecret`
     ## @param gitea.oauth OAuth configuration
-    oauth:
-      []
-      # - name: 'OAuth 1'
-      #   provider:
-      #   key:
+    oauth:      
+      - name: 'OAuth 1'
+        provider: auth
+      #  key:
       #   secret:
-      #   existingSecret:
-      #   autoDiscoverUrl:
+        existingSecret: gitea-oauth-secret
+        autoDiscoverUrl: https://auth.rwcloud.org/application/o/gitea/.well-known/openid-configuration
       #   useCustomUrls:
       #   customAuthUrl:
       #   customTokenUrl:
