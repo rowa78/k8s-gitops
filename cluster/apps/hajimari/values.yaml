@@ -65,6 +65,12 @@ hajimari:
         - name: Webmail
           url: 'https://mail.rwcloud.org/SOGo/'
           icon: 'mdi:email'
+    - group: system
+      apps:
+        - name: wasabi
+          url: 'https://console.wasabisys.com'
+          icon: 'mdi:cloud-arrow-up-outline'
+          info: Wasabi Console
     
     # -- Set default bookmarks
     globalBookmarks: []
