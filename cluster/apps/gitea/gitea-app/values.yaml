@@ -371,7 +371,7 @@ gitea:
     # Either specify inline `key` and `secret` or refer to them via `existingSecret`
     ## @param gitea.oauth OAuth configuration
     oauth:      
-      - name: 'OAuth 1'
+      - name: 'authentik'
         provider: openidConnect
       #  key:
       #   secret:
