@@ -1,0 +1,33 @@
+suite: test initialization configmaps
+templates:
+  - initialization-configmaps.yaml
+tests:
+  - it: should apply correct changes to initialization-configmaps.yaml
+    set:
+      glowroot:
+        enabled: true
+        version: 0.14.0
+        url: https://github.com/glowroot/glowroot/releases/download/v${GLOWROOT_VERSION}/glowroot-${GLOWROOT_VERSION}-dist.zip
+      customConfigs:
+        xwiki.properties:
+          extension.repositories.privatemavenid.http.headers.headername: headervalue
+          extension.repositories: 
+          - "xwiki-extensions-xxx:maven:http://172.25.128.67:8081/repository/xwiki/"
+          - store.xwiki.com:xwiki:https://store.xwiki.com/xwiki/rest/
+          core.defaultDocumentSyntax: xwiki/2.1
+    asserts:
+      - matchRegex:
+          path: data["entrypoint"]
+          pattern: "extension.repositories=xwiki-extensions-xxx:maven:http://172.25.128.67:8081/repository/xwiki/"
+      - matchRegex:
+          path: data["entrypoint"]
+          pattern: "extension.repositories=store.xwiki.com:xwiki:https://store.xwiki.com/xwiki/rest/"
+      - matchRegex:
+          path: data["entrypoint"]
+          pattern: "'core.defaultDocumentSyntax' 'xwiki/2.1'"
+      - matchRegex:
+          path: data["entrypoint"]
+          pattern: GLOWROOT_VERSION="0.14.0"
+      - matchRegex:
+          path: data["entrypoint"]
+          pattern: wget -O  \/tmp\/glowroot-\${GLOWROOT_VERSION}-dist\.zip https://github\.com/glowroot/glowroot/releases/download/v\${GLOWROOT_VERSION}/glowroot-\${GLOWROOT_VERSION}-dist\.zip

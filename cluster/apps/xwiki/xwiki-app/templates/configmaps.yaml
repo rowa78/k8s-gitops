@@ -1,0 +1,32 @@
+{{- $fullName := include "xwiki.fullname" . -}}
+{{- $solrHost := include "solr.fullname" . -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "xwiki.labels" . | nindent 4 }}
+data:
+{{- if .Values.solr.enabled }}
+  SOLR_BASEURL: "http://{{ $solrHost }}:{{ .Values.solr.service.externalPort }}/solr"
+{{- end }}
+{{- if .Values.mariadb.enabled }}
+  DB_USER: {{ .Values.mariadb.auth.username | quote }}
+  DB_HOST: "{{ .Release.Name }}-mariadb"
+  DB_DATABASE: {{ .Values.mariadb.auth.database | quote }}
+{{- else if .Values.mysql.enabled }}
+  DB_USER: {{ .Values.mysql.auth.username | quote }}
+  DB_HOST: "{{ .Release.Name }}-mysql"
+  DB_DATABASE: {{ .Values.mysql.auth.database | quote }}
+{{- else if .Values.postgresql.enabled }}
+  DB_USER: {{ .Values.postgresql.auth.username | quote }}
+  DB_HOST: "{{ .Release.Name }}-postgresql"
+  DB_DATABASE: {{ .Values.postgresql.auth.database | quote }}
+{{- else }}
+  DB_USER: {{ .Values.externalDB.user | quote }}
+  DB_HOST: {{ .Values.externalDB.host | quote }}
+  DB_DATABASE: {{ .Values.externalDB.database | quote }}
+{{- end }}
+# {{- range $key, $value := .Values.database }}
+#   {{ $key }}: {{ $value | indent 4 }}
+# {{- end }}
