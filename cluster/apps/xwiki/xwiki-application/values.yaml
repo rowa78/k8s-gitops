@@ -269,7 +269,7 @@ persistence:
   existingClaim: ""
   storageClass: ""
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   size: "500Mi"
   annotations: {}
   labels: {}
