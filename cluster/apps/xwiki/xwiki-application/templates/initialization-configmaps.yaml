@@ -1,0 +1,274 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ (include "xwiki.initScripts" .) }}
+  labels:
+    {{- include "xwiki.labels" . | nindent 4 }}
+data:
+  entrypoint: |
+    #!/bin/bash
+    ##
+    # *Experimental* solution for custom properties.
+    # With time we are looking other alternatives to setup this custom values.
+    ##
+    # Always execute "first_start" in order to get all new values keys from future versions.
+    rm -f /usr/local/xwiki/data/xwiki.cfg
+    rm -f /usr/local/xwiki/data/xwiki.properties
+    rm -f /usr/local/xwiki/data/hibernate.cfg.xml
+
+    # Reuse commands/resources from default entrypoint.
+    source /usr/local/bin/docker-entrypoint.sh
+    file_env 'CONTEXT_PATH' 'ROOT'
+    if [ -d "/usr/local/tomcat" ]; then
+      export AS_PATH=/usr/local/tomcat
+    else
+      export AS_PATH=/var/lib/jetty
+    fi
+    echo "Path: ${AS_PATH}"
+    # Setup all default actions from first start
+    first_start
+    ## 
+    # On future versions, when LTS start have this method we can remove this from this script. 
+    # This method was requested on: https://github.com/xwiki/xwiki-docker/pull/36
+    ## 
+    function xwiki_replace_or_add() {
+      local file_path="$1"
+      local setting="$2"
+      local new_value="$3"
+
+      # Check if the setting exists in the file
+      if grep -Eq "^ *#? *$setting=" "$file_path"; then
+        # If the setting exists, replace the occurrence with the new value
+        sed -i 's|^\( *#\? *\)'"$setting"'=.*$|'"$setting"'='"$new_value"'|g' "$file_path"
+      else
+        # If the setting doesn't exist, add it at the end of the file
+        echo "$setting=$new_value" >> "$file_path"
+      fi
+    }
+
+    # Add URL for Solr Remote instance
+    # Backward compatibility for old image
+    {{- if .Values.solr.enabled }}
+    # Remove SOLR variables (will be overriden)
+    INDEX_PORT=""
+    INDEX_HOST=""
+    echo "Adding SOLR_URL to xwiki.properties: ${SOLR_URL}"
+    xwiki_replace_or_add /usr/local/xwiki/data/xwiki.properties "solr.type" "remote"
+    xwiki_replace_or_add /usr/local/xwiki/data/xwiki.properties "solr.remote.baseURL" "${SOLR_BASEURL}"
+    {{- end }}
+
+    # Replace all values from keys defineded on customConfigs
+    # If we detect extension, we loop over the array and add them
+    {{- range $file, $values := .Values.customConfigs }}
+      {{- range $key, $value := $values }}
+        {{ if eq (toString $key) "extension.repositories" }}
+          {{- range $property := $value }}
+            if [ "${alreadyAddExtensionRepo}" == "true" ]; then
+              echo '{{ $key }}={{ $property }}' >> /usr/local/xwiki/data/{{ $file }}
+            else
+              xwiki_replace_or_add "/usr/local/xwiki/data/{{ $file }}" '{{ $key }}' '{{ $property }}'
+              alreadyAddExtensionRepo="true"
+            fi
+          {{- end }}
+        {{ else }}
+          xwiki_replace_or_add "/usr/local/xwiki/data/{{ $file }}" '{{ $key }}' '{{ $value }}'
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- if .Values.glowroot.enabled }}
+    mkdir -p /usr/local/xwiki/data/glowroot
+    GLOWROOT_VERSION={{ .Values.glowroot.version | quote }}
+    if ! [ -d "/usr/local/xwiki/data/glowroot/glowroot-${GLOWROOT_VERSION}" ]; then
+      wget -O  /tmp/glowroot-${GLOWROOT_VERSION}-dist.zip {{ .Values.glowroot.url }}
+      unzip /tmp/glowroot-${GLOWROOT_VERSION}-dist.zip -d /usr/local/xwiki/data/glowroot/
+      rm -f /tmp/glowroot-${GLOWROOT_VERSION}-dist.zip
+      mv /usr/local/xwiki/data/glowroot/glowroot /usr/local/xwiki/data/glowroot/glowroot-${GLOWROOT_VERSION}
+    fi
+    cp /configmaps/glowroot.properties /usr/local/xwiki/data/glowroot/glowroot-${GLOWROOT_VERSION}/glowroot.properties
+    # Append first to enable user override agent.
+    export JAVA_OPTS=" -javaagent:/usr/local/xwiki/data/glowroot/glowroot-${GLOWROOT_VERSION}/glowroot.jar ${JAVA_OPTS}"
+    {{- end }}
+
+    {{- if .Values.logback.enabled }}
+    cp /configmaps/logback.xml $AS_PATH/webapps/ROOT/WEB-INF/classes/logback.xml
+    {{- end }}
+
+    # Replace the platform provenance to keep track of the image
+    sed -i 's/<id>org.xwiki.platform:xwiki-platform-distribution-war/<id>org.xwiki.contrib:xwiki-platform-distribution-helm-docker/' \
+      $AS_PATH/webapps/ROOT/META-INF/extension.xed
+    sed -i 's/<id>org.xwiki.platform:xwiki-platform-distribution-docker/<id>org.xwiki.contrib:xwiki-platform-distribution-helm-docker/' \
+      $AS_PATH/webapps/ROOT/META-INF/extension.xed
+
+    {{- if (.Values.cluster.enabled) }}
+      mkdir -p /usr/local/xwiki/data/jgroups 
+      KUBEPING_VERSION="{{ .Values.cluster.jgroups.kube_ping.version }}"
+      KUBEPING_URL={{ .Values.cluster.jgroups.kube_ping.url }}
+      KUBEPING_FILENAME=$(basename $KUBEPING_URL)
+      echo "Version ${KUBEPING_VERSION} URL: ${KUBEPING_URL} File: ${KUBEPING_FILENAME}"
+      if ! [ -f "/usr/local/xwiki/data/jgroups/${KUBEPING_FILENAME}" ]; then 
+        curl -L "${KUBEPING_URL}" -o "/usr/local/xwiki/data/jgroups/${KUBEPING_FILENAME}"
+      fi
+      cp /usr/local/xwiki/data/jgroups/${KUBEPING_FILENAME} $AS_PATH/webapps/ROOT/WEB-INF/lib/
+      cp /configmaps/kubeping.xml $AS_PATH/webapps/ROOT/WEB-INF/observation/remote/jgroups/kubeping.xml 
+      
+      xwiki_replace_or_add /usr/local/xwiki/data/xwiki.properties "observation.remote.enabled" "true"
+      xwiki_replace_or_add /usr/local/xwiki/data/xwiki.properties "observation.remote.channels" "kubeping"
+    {{- end }}
+
+    if [ -d "/var/lib/jetty" ]; then
+      echo "" > start.d/xwiki.ini 
+      {{- range $file, $value := .Values.properties }}
+        echo "-D{{ $file }}=\"{{ $value }}\"" >> start.d/xwiki.ini 
+      {{- end }}
+      export JAVA_OPTIONS="${JAVA_OPTS}"
+    else 
+      ## Clear contents of /tmp/java_opts.txt so that we don't add extra arguments at each pod restart.
+      echo "" > /tmp/java_opts.txt
+      {{- range $file, $value := .Values.properties }}
+        echo "-D{{ $file }}=\"{{ $value }}\"" >> /tmp/java_opts.txt
+      {{- end }}
+      export JAVA_OPTS="${JAVA_OPTS} @/tmp/java_opts.txt"
+    fi 
+
+    exec /usr/local/bin/docker-entrypoint.sh xwiki
+
+  {{- if .Values.logback.enabled }}
+  logback.xml: | 
+    <?xml version="1.0" encoding="UTF-8"?>
+    <configuration>
+
+    {{- if (.Values.logback.customConfiguration) }}
+      {{- .Values.logback.customConfiguration | nindent 6 }}
+    {{- else }}
+      <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- Direct log messages to stdout -->
+        <Target>System.out</Target>
+        <encoder>
+          <pattern>%d [%t] %-5p %-30.30c{2} - %m %n</pattern>
+        </encoder>
+      </appender>
+
+      <!-- Logback 1.3+ is very verbose by default when loading the configuration but it's mostly noise from XWiki log point of view -->
+      <logger name="ch.qos.logback.classic.model.processor" level="warn"/>
+
+      <logger name="org.xwiki" level="info"/>
+      <logger name="com.xwiki" level="info"/>
+
+      <!-- Old code is using the com.xpn.xwiki package and is logging too much stuff at INFO level, which is why we use
+          the default WARN level. -->
+      <logger name="com.xpn.xwiki" level="warn"/>
+      <logger name="com.xpn.xwiki.store.migration" level="info"/>
+      <logger name="com.xpn.xwiki.internal.filter" level="info"/>
+
+      <!-- Special loggers, not using class names -->
+
+      <!-- Set it to DEBUG to get logs for shuts down operations -->
+      <logger name="org.xwiki.shutdown" level="info"/>
+
+      <!-- Hibernate logging options -->
+
+      <!-- Global level for all Hibernate logs -->
+      <logger name="org.hibernate" level="warn"/>
+
+      <!-- Log HQL query parser activity -->
+      <logger name="org.hibernate.hql.ast.AST" level="warn"/>
+      <!-- Log just the SQL -->
+      <logger name="org.hibernate.SQL" level="warn"/>
+      <!-- Log JDBC bind parameters -->
+      <logger name="org.hibernate.type" level="warn"/>
+      <!-- Log schema export/update -->
+      <logger name="org.hibernate.tool.hbm2ddl" level="warn"/>
+      <!-- Log HQL parse trees -->
+      <logger name="org.hibernate.hql" level="warn"/>
+      <!-- Log cache activity -->
+      <logger name="org.hibernate.cache" level="warn"/>
+      <!-- Log transaction activity -->
+      <logger name="org.hibernate.transaction" level="warn"/>
+      <!-- Log JDBC resource acquisition -->
+      <logger name="org.hibernate.jdbc" level="warn"/>
+      <!-- Enable the following line if you want to track down connection leakages when using
+          DriverManagerConnectionProvider -->
+      <logger name="org.hibernate.connection.DriverManagerConnectionProvider" level="warn"/>
+      <!-- Log prepared statement cache activity -->
+      <logger name="org.hibernate.ps.PreparedStatementCache" level="warn"/>
+
+      <!-- Deactive PDF Export CSS Applier warnings -->
+      <logger name="org.apache.fop.layoutmgr.inline.ContentLayoutManager" level="error"/>
+      <logger name="info.informatica.doc.style.css.dom" level="error"/>
+
+      <!-- Deactivate JGroups warnings -->
+      <logger name="org.jgroups" level="error"/>
+
+      <!-- By default everything that is of severity WARN, ERROR or FATAL is logged to the console.
+          Since the console output is captured and redirected by the servlet container in most cases,
+          the logs will end up the container's logs, for example in catalina.out in Tomcat.
+      -->
+      <root level="warn">
+        <appender-ref ref="stdout"/>
+      </root>
+
+      {{- with .Values.logback.extraConfiguration }}
+        {{- . | nindent 6 }}
+      {{- end }}
+    {{- end }}
+
+    </configuration>
+  {{- end }}
+
+  glowroot.properties: |
+    {{- with .Values.glowroot.properties }}
+      {{- range $k, $v := . }}
+        {{- printf "%s=%s" $k $v | nindent 4 }}
+      {{- end }}
+    {{- end }}
+
+  {{- if (.Values.cluster.enabled) }}
+  kubeping.xml: |
+    <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="urn:org:jgroups"
+            xsi:schemaLocation="urn:org:jgroups http://www.jgroups.org/schema/jgroups.xsd">
+        <TCP external_addr="${JGROUPS_EXTERNAL_ADDR:match-interface:eth0}"
+          bind_addr="site_local,match-interface:eth0"
+          bind_port="{{ .Values.cluster.jgroups.port }}"
+          recv_buf_size="${tcp.recv_buf_size:512k}"
+          send_buf_size="${tcp.send_buf_size:512k}"
+          bundler.max_size="64K"
+          diag.enabled="true"
+          thread_naming_pattern="cl"
+          sock_conn_timeout="300"
+
+          use_virtual_threads="${use_fibers:false}"
+          thread_pool.min_threads="0"
+          thread_pool.max_threads="20"
+          thread_pool.keep_alive_time="30000" />
+
+        <org.jgroups.protocols.kubernetes.KUBE_PING
+            port_range="1"
+            namespace="{{ .Release.Namespace }}"
+            labels="app.kubernetes.io/instance={{ .Release.Name }},app.kubernetes.io/name={{ include "common.names.name" . }}"
+        />
+
+        <MERGE3  min_interval="10000"
+                max_interval="30000"/>
+        <FD_SOCK/>
+        <FD_ALL timeout="9000" interval="3000" />
+        <VERIFY_SUSPECT timeout="1500"  />
+        <BARRIER />
+        <pbcast.NAKACK2 use_mcast_xmit="false"
+                      discard_delivered_msgs="true"/>
+        <UNICAST3 />
+        <pbcast.STABLE desired_avg_gossip="50000"
+                      max_bytes="4M"/>
+        <pbcast.GMS print_local_addr="true" join_timeout="3000"/>
+        <UFC max_credits="2M"
+            min_threshold="0.4"/>
+        <MFC max_credits="2M"
+            min_threshold="0.4"/>
+        <FRAG2 frag_size="60K"  />
+        <!--RSVP resend_interval="2000" timeout="10000"/-->
+        <pbcast.STATE_TRANSFER/>
+        <CENTRAL_LOCK />
+        <COUNTER/>
+    </config>
+  {{- end }}
