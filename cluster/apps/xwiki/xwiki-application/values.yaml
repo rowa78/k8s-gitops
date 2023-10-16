@@ -14,7 +14,7 @@ image:
   name: xwiki
   pullPolicy: IfNotPresent
 ## Image Tag useful when externalDB is been used
-  tag: ''
+  tag: '14.10.18-postgres-tomcat'
 service:
   portName: node
   name: http
