@@ -215,8 +215,8 @@ solr:
 
 # To use ingress for routing set ingress.enabled value to true and istio.enabled value to false
 ingress:
-  enabled: false
-  className: ""
+  enabled: true
+  className: "nginx"
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/affinity: cookie
@@ -225,11 +225,13 @@ ingress:
     # kubernetes.io/tls-acme: "true"
     # ingress.kubernetes.io/rewrite-target: /
   hosts:
-    - host: ""
+    - host: "xwiki.rwcloud.org"
       paths:
         - path: /
           pathType: ImplementationSpecific
-  tls: []
+  tls: 
+    - hosts:
+      - xwiki.rwcloud.org
   #  - secretName: secret-tls
   #    hosts:
   #      - xwiki.local
