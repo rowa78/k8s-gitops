@@ -23,7 +23,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: xwiki-app
+  name: xwiki-application
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -32,7 +32,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/xwiki/xwiki-app
+    path: cluster/apps/xwiki/xwiki-application
   destination:
     name: in-cluster
     namespace: xwiki     
