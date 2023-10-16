@@ -2,8 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 cluster:
-  enabled: false
-  replicas: 1
+  enabled: true
+  replicas: 2
   jgroups:
     port: 7800
     kube_ping:
