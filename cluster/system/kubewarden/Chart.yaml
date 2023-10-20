@@ -8,3 +8,8 @@ dependencies:
   - name: kubewarden-controller
     version: 2.0.1
     repository: https://charts.kubewarden.io
+  - name: kubewarden-defaults
+    version: 1.8.1
+    repository: https://charts.kubewarden.io
+
+    
