@@ -57,7 +57,7 @@ minio:
     storageClass: "longhorn"
     VolumeName: ""
     accessMode: ReadWriteOnce
-    size: 75Gi
+    size: 100Gi
 
     ## If subPath is set mount a sub folder of a volume instead of the root of the volume.
     ## This is especially handy for volume plugins that don't natively support sub mounting (like glusterfs).
@@ -109,13 +109,6 @@ minio:
       # node-role.kubernetes.io/ingress: platform
 
     annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-production      
-      nginx.ingress.kubernetes.io/auth-method: GET
-      nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
-      nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
-      nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-      nginx.ingress.kubernetes.io/auth-snippet: |
-        proxy_set_header X-Forwarded-Method $request_method;
       hajimari.io/enable: "true"
       hajimari.io/icon: "file-document"
       hajimari.io/group: system
