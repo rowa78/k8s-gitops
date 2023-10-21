@@ -9,7 +9,7 @@ database:
   host: evedb-r
   port: 5432
   dbName: eve
-databaseSecretName: evedb-app
+databaseSecretName: evedb-superuser
 
 image:
   repository: ankane/pghero
