@@ -44,9 +44,9 @@ k8up:
             name: k8up-secrets
             key: repo_password
       - name: BACKUP_GLOBALS3ENDPOINT
-        value: https://s3.eu-central-2.wasabisys.com
+        value: http://minio.minio.svc.cluster.local:9000
       - name: BACKUP_GLOBALS3BUCKET
-        value: rwcloud-k8up-backups
+        value: k8up
       - name: BACKUP_PROMURL
         value: http://kps-prometheus-pushgateway.monitoring.svc.cluster.local:9091
 
