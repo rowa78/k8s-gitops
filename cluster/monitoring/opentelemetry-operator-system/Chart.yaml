@@ -1,7 +1,7 @@
 apiVersion: v2
-name: karma
+name: opentelemetry
 version: 0.0.0
 dependencies:
-- name: karma
-  version: 2.3.0
-  repository: https://wiremind.github.io/wiremind-helm-charts
+- name: opentelemetry-operator
+  version: 0.41.0
+  repository: https://open-telemetry.github.io/opentelemetry-helm-charts
