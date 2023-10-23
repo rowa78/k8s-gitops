@@ -75,7 +75,7 @@ kubewarden-controller:
   # open-telemetry options
   telemetry:
     metrics:
-      enabled: false
+      enabled: true
       # port of the prometheus exporter and PolicyServer metric service
       port: 8080
     tracing:
