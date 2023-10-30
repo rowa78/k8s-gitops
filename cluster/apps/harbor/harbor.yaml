@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/platform/harbor/database
+    path: cluster/apps/harbor/database
   destination:
     name: in-cluster
     namespace: harbor
@@ -33,7 +33,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/platform/harbor/harbor
+    path: cluster/apps/harbor/harbor
   destination:
     name: in-cluster
     namespace: harbor
