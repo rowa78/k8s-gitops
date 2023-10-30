@@ -3,9 +3,7 @@ vault:
     enabled: false
   ui:
     enabled: true
-  server:
-    nodeSelector:
-      kubernetes.io/arch: amd64
+  server:    
     dataStorage:
       storageClass: nfs-client
       size: 5Gi
