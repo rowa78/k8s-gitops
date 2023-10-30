@@ -772,7 +772,7 @@ harbor:
       port: "5432"
       username: "harbor"
       password: "password"
-      coreDatabase: "registry"
+      coreDatabase: "harbordb"
       # if using existing secret, the key must be "password"
       existingSecret: "harbordb-app"
       # "disable" - No SSL
