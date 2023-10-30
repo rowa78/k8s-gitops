@@ -55,7 +55,7 @@ argo-cd:
     extraArgs:
       - --insecure 
     config:
-      url: https://argocd.rwcloud.org
+      url: https://argocd.pi.rwcloud.org
 #      admin.enabled: "false"
 #      oidc.config: |
 #        name: Dex
@@ -159,10 +159,10 @@ argo-cd:
       ingressClassName: nginx
 #      https: true
       hosts:
-        - argocd.rwcloud.org
+        - argocd.pi.rwcloud.org
       tls:
         - hosts:
-            - argocd.rwcloud.org          
+            - argocd.pi.rwcloud.org
           secretName: argocd-tls
     metrics:
       enabled: true
@@ -179,7 +179,7 @@ argo-cd:
       serviceMonitor:
         enabled: true
   notifications:
-    argocdUrl: https://argocd.rwcloud.org
+    argocdUrl: https://argocd.ronnywalter.de
     secret:
       create: false
     notifiers:
