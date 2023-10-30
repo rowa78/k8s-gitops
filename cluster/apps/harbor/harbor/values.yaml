@@ -190,7 +190,7 @@ harbor:
         # Specify the "storageClass" used to provision the volume. Or the default
         # StorageClass will be used (the default).
         # Set it to "-" to disable dynamic provisioning
-        storageClass: ""
+        storageClass: "longhorn"
         subPath: ""
         accessMode: ReadWriteOnce
         size: 5Gi
@@ -198,7 +198,7 @@ harbor:
       jobservice:
         jobLog:
           existingClaim: ""
-          storageClass: ""
+          storageClass: "longhorn"
           subPath: ""
           accessMode: ReadWriteOnce
           size: 1Gi
@@ -216,14 +216,14 @@ harbor:
       # be ignored
       redis:
         existingClaim: ""
-        storageClass: ""
+        storageClass: "longhorn"
         subPath: ""
         accessMode: ReadWriteOnce
         size: 1Gi
         annotations: {}
       trivy:
         existingClaim: ""
-        storageClass: ""
+        storageClass: "longhorn"
         subPath: ""
         accessMode: ReadWriteOnce
         size: 5Gi
@@ -798,7 +798,7 @@ harbor:
   redis:
     # if external Redis is used, set "type" to "external"
     # and fill the connection information in "external" section
-    type: external
+    type: internal
     internal:
       # set the service account to be used, default if left empty
       serviceAccountName: ""
