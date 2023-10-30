@@ -11,7 +11,7 @@ spec:
         repoURL: {{ $.Values.repo }}
         revision: {{ $.Values.revision }}
         directories:
-          - path: "cluster/{{ $appset.name }}/*"
+          - path: "pi-cluster/{{ $appset.name }}/*"
   template:
     metadata:
       name: {{ `"{{path.basename}}"` }}
