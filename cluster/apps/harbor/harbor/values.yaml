@@ -725,7 +725,7 @@ harbor:
   database:
     # if external database is used, set "type" to "external"
     # and fill the connection information in "external" section
-    type: internal
+    type: external
     internal:
       # set the service account to be used, default if left empty
       serviceAccountName: ""
@@ -768,13 +768,13 @@ harbor:
         #    memory: 128Mi
         #    cpu: 100m
     external:
-      host: "192.168.0.1"
+      host: "harbordb-rw"
       port: "5432"
-      username: "user"
+      username: "harbor"
       password: "password"
       coreDatabase: "registry"
       # if using existing secret, the key must be "password"
-      existingSecret: ""
+      existingSecret: "harbordb-app"
       # "disable" - No SSL
       # "require" - Always SSL (skip verification)
       # "verify-ca" - Always SSL (verify that the certificate presented by the
