@@ -14,10 +14,14 @@ spec:
   data:
     - secretKey: s3Key
       remoteRef:
+        conversionStrategy: Default	
+        decodingStrategy: None
         key: secret/k8up
         property: AWS_ACCESSKEY
     - secretKey: s3KeySecret
       remoteRef:
+        conversionStrategy: Default	
+        decodingStrategy: None
         key: secret/k8up
         property: AWS_SECRETKEY    
         
