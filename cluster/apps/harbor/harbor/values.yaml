@@ -26,7 +26,7 @@ harbor:
         # The name of secret which contains keys named:
         # "tls.crt" - the certificate
         # "tls.key" - the private key
-        secretName: ""
+        secretName: "harbor-system-ingress"
     ingress:
       hosts:
         core: harbor.rwcloud.org
