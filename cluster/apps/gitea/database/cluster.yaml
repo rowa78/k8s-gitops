@@ -43,3 +43,13 @@ spec:
         compression: bzip2                
         jobs: 2
     retentionPolicy: "14d"
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: giteadb-backup
+spec:
+  schedule: "0 0 1 * * *"
+  backupOwnerReference: self
+  cluster:
+    name: giteadb
