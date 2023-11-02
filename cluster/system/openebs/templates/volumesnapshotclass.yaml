@@ -1,6 +1,6 @@
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
-  name: openebs-zfs  
+  name: local-path  
 driver: zfs.csi.openebs.io
 deletionPolicy: Delete

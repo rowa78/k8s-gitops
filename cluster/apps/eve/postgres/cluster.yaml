@@ -35,7 +35,7 @@ spec:
 
   storage:
     size: 100Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: local-path
 
   backup:
     barmanObjectStore:

@@ -1,7 +1,7 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: openebs-zfs-pg
+  name: local-path-pg
 parameters:
   recordsize: "16k"
   compression: "lz4"

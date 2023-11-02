@@ -5,7 +5,7 @@ metadata:
 spec:
   replicas: 1
   persistence:
-    storageClassName: openebs-zfs
+    storageClassName: local-path
     storage: 10Gi
   resources:
    requests:
