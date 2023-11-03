@@ -109,6 +109,7 @@ minio:
       # node-role.kubernetes.io/ingress: platform
 
     annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
       hajimari.io/enable: "true"
       hajimari.io/icon: "file-document"
       hajimari.io/group: system
