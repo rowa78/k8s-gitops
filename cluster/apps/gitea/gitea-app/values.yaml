@@ -155,7 +155,7 @@ gitea:
     # className: nginx
     className: nginx
     annotations:
-      {}
+      cert-manager.io/cluster-issuer: letsencrypt-production
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
     hosts:
@@ -164,9 +164,9 @@ gitea:
           - path: /
             pathType: Prefix
     tls: 
-      - 
+      - secretName: git-certificate-tls
         hosts:
-          - git.rwcloud.org
+        - git.rwcloud.org
     # Mostly for argocd or any other CI that uses `helm template | kubectl apply` or similar
     # If helm doesn't correctly detect your ingress API version you can set it here.
     # apiVersion: networking.k8s.io/v1
