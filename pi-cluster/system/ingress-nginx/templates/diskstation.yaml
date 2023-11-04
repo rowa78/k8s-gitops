@@ -21,6 +21,7 @@ spec:
     protocol: TCP
     targetPort: 9001   
   - name: auth
+    port: 12080
     protocol: TCP
     targetPort: 12080
 ---
