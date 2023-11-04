@@ -45,6 +45,9 @@ subsets:
   - name: minioconsole 
     port: 9001
     protocol: TCP  
+  - name: auth 
+    port: 12080
+    protocol: TCP  
 ---
 
 apiVersion: networking.k8s.io/v1
