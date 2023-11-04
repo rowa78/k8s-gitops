@@ -6,7 +6,7 @@ karma:
     - name: ALERTMANAGER_URI
       value: http://kps-alertmanager:9093
     - name: ALERTMANAGER_EXTERNAL_URI
-      value: https://alertmanager.rwcloud.org
+      value: https://alertmanager.pi.rwcloud.org
   ingress:
     enabled: true
     ingressClassName: nginx
@@ -27,7 +27,7 @@ karma:
     #  nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
     #  nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start
     hosts:
-      - &host karma.rwcloud.org
+      - &host karma.pi.rwcloud.org
     path: /
     tls:
       - hosts:
