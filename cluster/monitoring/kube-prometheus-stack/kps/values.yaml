@@ -131,7 +131,7 @@ kube-prometheus-stack:
 #        comes from secret; see envFromSecret
 #        client_id: 
 #        client_secret: 
-        scopes: openid profile email offline_access
+        scopes: openid profile email groups
         auth_url: https://auth.rwcloud.org/api/oidc/authorization
         token_url: https://auth.rwcloud.org/api/oidc/token
         api_url: https://auth.rwcloud.org/api/oidc/userinfo
