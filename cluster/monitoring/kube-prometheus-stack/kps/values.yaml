@@ -20,15 +20,12 @@ kube-prometheus-stack:
       ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
-        nginx.ingress.kubernetes.io/auth-url: |-
-          https://auth.rwcloud.org/outpost.goauthentik.io/auth/nginx
-        # If you're using domain-level auth, use the authentication URL instead of the application URL
-        nginx.ingress.kubernetes.io/auth-signin: |-
-          https://auth.rwcloud.org/outpost.goauthentik.io/start?rd=$escaped_request_uri
-        nginx.ingress.kubernetes.io/auth-response-headers: |-
-          Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-url: https://auth.rwcloud.org/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
         nginx.ingress.kubernetes.io/auth-snippet: |
-          proxy_set_header X-Forwarded-Host $http_host;  
+          proxy_set_header X-Forwarded-Method $request_method;   
         hajimari.io/enable: "true"
         hajimari.io/icon: "monitor-eye"                    
         hajimari.io/group: system
@@ -130,14 +127,14 @@ kube-prometheus-stack:
         enabled: true
         allow_sign_up: true
         auto_login: true
-        name: authentik
+        name: authelia
 #        comes from secret; see envFromSecret
 #        client_id: 
 #        client_secret: 
         scopes: openid profile email offline_access
-        auth_url: https://auth.rwcloud.org/application/o/authorize/
-        token_url: https://auth.rwcloud.org/application/o/token/
-        api_url: https://auth.rwcloud.org/application/o/userinfo/
+        auth_url: https://auth.rwcloud.org/api/oidc/authorization
+        token_url: https://auth.rwcloud.org/api/oidc/token
+        api_url: https://auth.rwcloud.org/api/oidc/userinfo
         use_pkce: true
         use_refresh_token: true
             # Optionally map user groups to Grafana roles
