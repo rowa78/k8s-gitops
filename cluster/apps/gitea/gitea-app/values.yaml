@@ -368,12 +368,12 @@ gitea:
     # Either specify inline `key` and `secret` or refer to them via `existingSecret`
     ## @param gitea.oauth OAuth configuration
     oauth:      
-      - name: 'Authentik'
+      - name: 'authelia'
         provider: openidConnect
       #  key:
       #   secret:
         existingSecret: gitea-oauth-secret
-        autoDiscoverUrl: https://auth.rwcloud.org/application/o/gitea/.well-known/openid-configuration
+        autoDiscoverUrl: https://auth.rwcloud.org/.well-known/openid-configuration
       #   useCustomUrls:
       #   customAuthUrl:
       #   customTokenUrl:
@@ -406,7 +406,7 @@ gitea:
         ENABLE_OPENID_SIGNUP: true
         WHITELISTED_URIS: auth.rwcloud.org
       oauth2_client:
-        OPENID_CONNECT_SCOPES: profile email offline_access
+        OPENID_CONNECT_SCOPES: profile email groups
         ENABLE_AUTO_REGISTRATION: true
 
     #
