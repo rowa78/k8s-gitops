@@ -48,6 +48,10 @@ harbor:
         ingress.kubernetes.io/proxy-body-size: "0"
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
         nginx.ingress.kubernetes.io/proxy-body-size: "0"
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "file-document"
+        hajimari.io/group: system
+        hajimari.io/appName: harbor
       harbor:
         # harbor ingress-specific annotations
         annotations: {}
