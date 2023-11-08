@@ -53,7 +53,7 @@ spec:
       data:
         compression: bzip2                
         jobs: 2
-    retentionPolicy: "14d"
+    retentionPolicy: "5d"
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
