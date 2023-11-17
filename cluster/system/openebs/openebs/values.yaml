@@ -653,12 +653,12 @@ openebs:
     
     storageClass:
       # Name of the default StorageClass
-      name: openebs-jiva
-      # If true, enables creation of the openebs-jiva-csi-default StorageClass
+      name: longhorn
+      # If true, enables creation of the longhorn-csi-default StorageClass
       enabled: true
       # Available reclaim policies: Delete/Retain, defaults: Delete.
       reclaimPolicy: Delete
-      # If true, sets the openebs-jiva-csi-default StorageClass as the
+      # If true, sets the longhorn-csi-default StorageClass as the
       # default kubernetes StorageClass for the cluster
       isDefaultClass: false
       # If true, allows resize of the volumes
@@ -666,8 +666,8 @@ openebs:
     
     defaultPolicy:
       # Name of the default default JivaVolumePolicy
-      name: openebs-jiva-default-policy
-      # If true, enables creation of the openebs-jiva-default-policy JivaVolumePolicy
+      name: longhorn-default-policy
+      # If true, enables creation of the longhorn-default-policy JivaVolumePolicy
       enabled: true
       # replicaSC represents the storage class used for creating
       # the pvc for the replica sts provisioned by localpv provisioner

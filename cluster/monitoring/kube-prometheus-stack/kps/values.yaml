@@ -43,7 +43,7 @@ kube-prometheus-stack:
     persistence:
       enabled: false
       type: deployment
-      storageClassName: openebs-jiva
+      storageClassName: longhorn
       size: 1Gi
     ingress:
       enabled: true
@@ -428,7 +428,7 @@ prometheus-pushgateway:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "openebs-jiva"
+    storageClass: "longhorn"
 
     ## Subdirectory of pushgateway data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty

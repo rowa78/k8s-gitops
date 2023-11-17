@@ -62,7 +62,7 @@ freshrss:
   persistence:
     config:
       enabled: true
-      storageClass: openebs-jiva
+      storageClass: longhorn
       size: 1Gi
       accessMode: ReadWriteOnce
 
