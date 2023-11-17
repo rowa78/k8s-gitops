@@ -1,0 +1,7 @@
+name: openebs
+apiVersion: v2
+version: 1.0.0
+dependencies:
+  - name: openebs-monitoring
+    version: "0.4.13"
+    repository: https://openebs.github.io/monitoring/
