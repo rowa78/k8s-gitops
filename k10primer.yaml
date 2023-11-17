@@ -27,7 +27,7 @@ spec:
   template:
     spec:
       containers:
-      - image: gcr.io/kasten-images/k10tools:6.0.8
+      - image: gcr.io/kasten-images/k10tools:6.0.12
         imagePullPolicy: IfNotPresent
         name: k10primer
         command: [ "/bin/bash", "-c", "--" ]
@@ -42,7 +42,7 @@ spec:
           - name: POD_SERVICE_ACCOUNT
             value: k10-primer
           - name: KANISTER_TOOLS
-            value: ghcr.io/kanisterio/kanister-tools:0.96.0
+            value: gcr.io/kasten-images/kanister-tools:6.0.12
       restartPolicy: Never
       serviceAccount: k10-primer
   backoffLimit: 4
