@@ -196,7 +196,7 @@ harbor:
         # Set it to "-" to disable dynamic provisioning
         storageClass: "openebs-jiva"
         subPath: ""
-        accessMode: ReadWriteMany
+        accessMode: ReadWriteOnce
         size: 5Gi
         annotations: {}
       jobservice:
@@ -204,7 +204,7 @@ harbor:
           existingClaim: ""
           storageClass: "openebs-jiva"
           subPath: ""
-          accessMode: ReadWriteMany
+          accessMode: ReadWriteOnce
           size: 1Gi
           annotations: {}
       # If external database is used, the following settings for database will
