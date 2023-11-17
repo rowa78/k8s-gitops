@@ -8,7 +8,7 @@ longhorn:
 
   persistence:
     defaultClassReplicaCount: 2
-    defaultFsType: xfs
+    defaultFsType: ext4
     defaultClass: true
     defaultDataLocality: best-effort
     removeSnapshotsDuringFilesystemTrim: "enabled"
