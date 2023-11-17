@@ -6,9 +6,9 @@ neubooten, netplan anpassen, insbesondere vswitch settings.
 
 
   vlans:
-    eth0.4000:
+    eno1.4000:
       id: 4000
-      link: eth0
+      link: eno1
       mtu: 1400
       addresses:
         - 192.168.100.1/24
@@ -39,14 +39,14 @@ zfs create -o compression=lz4 -o mountpoint=/var/lib/kubelet -o atime=off zpool/
 
 zfs create -o compression=lz4 -o atime=off zpool/pvcs
 
-zfs create zpool/longhorn -V 150G
-mkfs.ext4 /dev/zvol/zpool/longhorn
+zfs create zpool/longhorn -V 200G
+mkfs.xfs /dev/zvol/zpool/longhorn
 mkdir -p /storage/longhorn
 mount -o noatime,discard /dev/zvol/zpool/longhorn /storage/longhorn
 
 in die fstab:
 
-/dev/zvol/zpool/longhorn /storage/longhorn ext4 noatime,discard 0 0
+/dev/zvol/zpool/longhorn /storage/longhorn xfs noatime,discard 0 0
 
 
 prüfen: 

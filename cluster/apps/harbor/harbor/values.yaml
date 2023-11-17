@@ -194,7 +194,7 @@ harbor:
         # Specify the "storageClass" used to provision the volume. Or the default
         # StorageClass will be used (the default).
         # Set it to "-" to disable dynamic provisioning
-        storageClass: "longhorn"
+        storageClass: "openebs-jiva"
         subPath: ""
         accessMode: ReadWriteMany
         size: 5Gi
@@ -202,7 +202,7 @@ harbor:
       jobservice:
         jobLog:
           existingClaim: ""
-          storageClass: "longhorn"
+          storageClass: "openebs-jiva"
           subPath: ""
           accessMode: ReadWriteMany
           size: 1Gi
@@ -220,14 +220,14 @@ harbor:
       # be ignored
       redis:
         existingClaim: ""
-        storageClass: "longhorn"
+        storageClass: "openebs-jiva"
         subPath: ""
         accessMode: ReadWriteOnce
         size: 1Gi
         annotations: {}
       trivy:
         existingClaim: ""
-        storageClass: "longhorn"
+        storageClass: "openebs-jiva"
         subPath: ""
         accessMode: ReadWriteOnce
         size: 5Gi

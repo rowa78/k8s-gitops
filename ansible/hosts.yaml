@@ -4,6 +4,8 @@ all:
       hosts:
         terra.rwcloud.org: 
         luna.rwcloud.org:  
+    local_worker:
+      hosts:
     k3s_cluster:
       children:
         public_worker:    
@@ -12,6 +14,6 @@ all:
         public_worker:         
     wireguard_peers:
       hosts:
-        pi-wg:      
+        pi-hole:      
       children:
         public_nodes:    

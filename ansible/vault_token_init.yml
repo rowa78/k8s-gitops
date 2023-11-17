@@ -1,0 +1,14 @@
+---
+#- name: k8s cluster init
+#  hosts: all
+#  gather_facts: true
+
+#  roles:
+#    - { role: k8s/cluster_init }
+
+- name: set_vault_token
+  hosts: localhost
+  gather_facts: false
+  become: false
+  roles:    
+    - { role: external-secrets }

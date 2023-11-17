@@ -1,0 +1,6 @@
+---
+- name: vault - put secrets
+  ansible.builtin.command: >
+      sh -c 'vault kv put -format=json {{ item.path }} {{ item.kv }}'
+  no_log: false
+  loop: "{{ vault_secrets }}"

@@ -1,0 +1,15 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-path
+parameters:
+  recordsize: "128k"
+  compression: "on"
+  dedup: "off"
+  fstype: "zfs"
+  atime: "off"
+  poolname: "zpool/pvcs"  
+  shared: "yes"
+provisioner: zfs.csi.openebs.io
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true

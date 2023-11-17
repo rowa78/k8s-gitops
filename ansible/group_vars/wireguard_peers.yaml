@@ -2,7 +2,7 @@ wireguard_port: "51820"
 
 wireguard_unmanaged_peers:
   macbook:
-    public_key: Vgv14IVmY7aitqIqBPcp1iLLBZchRzx3n8WtwsbJtV0=
+    public_key: LA0GmePr2SsCglWazybXvqdDjhHDc24JBqtM0aJs4Dc=
     # preshared_key: ... e.g. from ansible-vault?
     allowed_ips: 192.168.1.88/32
     persistent_keepalive: 0

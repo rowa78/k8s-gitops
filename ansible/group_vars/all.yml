@@ -12,7 +12,9 @@ vault_secrets:
       password={{ lookup('env', 'SMTP_PASSWORD') }}"
   - path: secret/monitoring/grafana
     kv: "admin-user={{ lookup('env', 'GRAFANA_ADMIN_USER') }}
-      admin-password={{ lookup('env', 'GRAFANA_ADMIN_PASSWORD') }}"
+      admin-password={{ lookup('env', 'GRAFANA_ADMIN_PASSWORD') }}
+      client-id={{ lookup('env', 'GRAFANA_OAUTH2_CLIENT_ID') }}
+      client-secret={{ lookup('env', 'GRAFANA_OAUTH2_CLIENT_SECRET') }}"
   - path: secret/minio
     kv: "rootUser={{ lookup('env', 'MINIO_ROOT_USER') }}
           rootPassword={{ lookup('env', 'MINIO_ROOT_PASSWORD') }}
@@ -107,3 +109,13 @@ vault_secrets:
   - path: secret/cnpg
     kv: "AWS_ACCESSKEY={{ lookup('env', 'CNPG_ACCESS_KEY') }}
         AWS_SECRETKEY={{ lookup('env', 'CNPG_SECRET_KEY') }}"
+  - path: secret/gitea
+    kv: "client-id={{ lookup('env', 'GITEA_OAUTH2_CLIENT_ID') }}
+        client-secret={{ lookup('env', 'GITEA_OAUTH2_CLIENT_SECRET') }}
+        admin-user={{ lookup('env', 'GITEA_ADMIN_USER') }}
+        admin-pass={{ lookup('env', 'GITEA_ADMIN_PASSWORD') }}
+        admin-email={{ lookup('env', 'GITEA_ADMIN_EMAIL') }}"
+  - path: secret/nextcloud
+    kv: "NEXTCLOUD_ADMIN={{ lookup('env', 'NEXTCLOUD_ADMIN') }}
+        NEXTCLOUD_ADMIN_PASSWORD={{ lookup('env', 'NEXTCLOUD_ADMIN_PASSWORD') }}
+        NEXTCLOUD_ADMIN_TOKEN={{ lookup('env', 'NEXTCLOUD_ADMIN_TOKEN') }}"

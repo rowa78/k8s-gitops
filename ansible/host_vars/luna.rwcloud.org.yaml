@@ -9,10 +9,11 @@ private_ip: "192.168.100.2"
 #wireguard_postdown:
 #  - iptables -t nat -D POSTROUTING -o enp0s31f6 -d 172.65.201.188 -j MASQUERADE
 
+wireguard_persistent_keepalive: 25
 
 # own wireguard ip and own private ip
 # + eve online server
-wireguard_allowed_ips: "192.168.1.102/32"
+wireguard_allowed_ips: "192.168.1.102/32, 192.168.100.2/32"
 
 ansible_user: root
 ansible_host: luna.rwcloud.org

@@ -1,0 +1,20 @@
+wireguard_address: "192.168.1.99/32"
+ansible_user: ubuntu
+#ansible_host: 192.168.0.88
+ansible_host: uso.synology.me
+ansible_port: 22222
+wireguard_endpoint: "ipv4.ronnywalter.de"
+
+wireguard_postup:
+  - iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+  - iptables -A FORWARD -i %i -j ACCEPT
+  - iptables -A FORWARD -o %i -j ACCEPT
+wireguard_postdown:
+  - iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+  - iptables -D FORWARD -i %i -j ACCEPT
+  - iptables -D FORWARD -o %i -j ACCEPT
+
+
+# eve online server: 172.xxxx
+wireguard_allowed_ips: "192.168.1.99/32, 192.168.0.1/24"
+wireguard_persistent_keepalive: 25
