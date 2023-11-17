@@ -650,6 +650,22 @@ openebs:
     localpv-provisioner:
       openebsNDM:
         enabled: false
+    
+    storageClass:
+      # Name of the default StorageClass
+      name: openebs-jiva
+      # If true, enables creation of the openebs-jiva-csi-default StorageClass
+      enabled: true
+      # Available reclaim policies: Delete/Retain, defaults: Delete.
+      reclaimPolicy: Delete
+      # If true, sets the openebs-jiva-csi-default StorageClass as the
+      # default kubernetes StorageClass for the cluster
+      isDefaultClass: false
+      # If true, allows resize of the volumes
+      allowVolumeExpansion: true
+      cas.openebs.io/config: |
+      - name: ReplicaCount
+        value: "2"
 
     # Sample configuration if you want to configure jiva csi driver with custom values.
     # This is a small part of the full configuration. Full configuration available
