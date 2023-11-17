@@ -663,9 +663,10 @@ openebs:
       isDefaultClass: false
       # If true, allows resize of the volumes
       allowVolumeExpansion: true
-      cas.openebs.io/config: |
-        - name: ReplicaCount
-          value: "2"
+      annotations:
+        cas.openebs.io/config: |
+          - name: ReplicaCount
+            value: "2"
 
     # Sample configuration if you want to configure jiva csi driver with custom values.
     # This is a small part of the full configuration. Full configuration available
