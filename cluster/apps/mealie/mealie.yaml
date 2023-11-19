@@ -32,7 +32,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/mealie/mealie-app
+    path: cluster/apps/mealie/mealie
   destination:
     name: in-cluster
     namespace: mealie     
