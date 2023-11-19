@@ -3,7 +3,7 @@ kind: Cluster
 metadata:
   name: evedb
   annotations:
-    k8up.io/backupcommand: sh -c 'PGDATABASE="$POSTGRES_DB" PGUSER="$POSTGRES_USER" PGPASSWORD="$POSTGRES_PASSWORD" pg_dump --clean'
+    k8up.io/backupcommand: sh -c 'pg_dump --clean evedb'
     k8up.io/file-extension: .sql
 spec:
   imageName: r0wa/postgresql:15.4-14
