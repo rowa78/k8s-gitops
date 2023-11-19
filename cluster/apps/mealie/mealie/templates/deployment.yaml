@@ -101,6 +101,12 @@ spec:
             value: cn
           - name: LDAP_ADMIN_FILTER
             value: "cn=Mealie-admins,ou=groups,dc=rwcloud,dc=org"
+          - name: ALLOW_SIGNUP
+            value: false
+          - name: PUID
+            value: 1000
+          - name: PGID
+            value: 1000
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
