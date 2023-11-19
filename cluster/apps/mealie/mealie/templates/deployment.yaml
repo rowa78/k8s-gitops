@@ -61,7 +61,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: mealiedb-app
-                key: username
+                key: password
                 optional: false
           - name: POSTGRES_SERVER
             value: mealiedb-rw
