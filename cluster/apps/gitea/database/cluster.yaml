@@ -12,9 +12,6 @@ spec:
     initdb:
       database: giteadb
       owner: giteadb 
-
-#  postgresql:
-#    parameters:
       
   replicationSlots:
     highAvailability:
