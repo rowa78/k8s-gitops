@@ -68,7 +68,7 @@ spec:
           - name: POSTGRES_PORT
             value: "5432"
           - name: POSTGRES_DB
-            value: mealie
+            value: mealiedb
           - name: TZ
             value: Europe/Berlin        
           resources:
