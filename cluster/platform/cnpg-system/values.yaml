@@ -60,7 +60,7 @@ cloudnative-pg:
     # https://cloudnative-pg.io/documentation/current/operator_conf/#available-options
     # for all the available options.
     data: 
-      INHERITED_ANNOTATIONS: k8up.io/backup
+      INHERITED_ANNOTATIONS: k8up.io/backup, k8up.io/backupcommand, k8up.io/file-extension
     # INHERITED_ANNOTATIONS: categories
     # INHERITED_LABELS: environment, workload, app
     # WATCH_NAMESPACE: namespace-a,namespace-b
