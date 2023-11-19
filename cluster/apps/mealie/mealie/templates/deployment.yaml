@@ -53,16 +53,16 @@ spec:
             value: postgres
           - name: POSTGRES_USER
             valueFrom:
-            secretKeyRef:
-              name: mealiedb-app
-              key: username
-              optional: false
+              secretKeyRef:
+                name: mealiedb-app
+                key: username
+                optional: false
           - name: POSTGRES_PASSWORD
             valueFrom:
-            secretKeyRef:
-              name: mealiedb-app
-              key: username
-              optional: false
+              secretKeyRef:
+                name: mealiedb-app
+                key: username
+                optional: false
           - name: POSTGRES_SERVER
             value: mealiedb-rw
           - name: POSTGRES_PORT
