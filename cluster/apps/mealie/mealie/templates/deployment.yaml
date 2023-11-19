@@ -28,29 +28,6 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "mealie.serviceAccountName" . }}
-      env:
-        - name: DB_ENGINE
-          value: postgres
-        - name: POSTGRES_USER
-          valueFrom:
-          secretKeyRef:
-            name: mealiedb-app
-            key: username
-            optional: false
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-          secretKeyRef:
-            name: mealiedb-app
-            key: username
-            optional: false
-        - name: POSTGRES_SERVER
-          value: mealiedb-rw
-        - name: POSTGRES_PORT
-          value: 5432
-        - name: POSTGRES_DB
-          value: mealie
-        - name: TZ
-          value: Europe/Berlin        
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -71,6 +48,29 @@ spec:
             httpGet:
               path: /
               port: http
+          env:
+          - name: DB_ENGINE
+            value: postgres
+          - name: POSTGRES_USER
+            valueFrom:
+            secretKeyRef:
+              name: mealiedb-app
+              key: username
+              optional: false
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+            secretKeyRef:
+              name: mealiedb-app
+              key: username
+              optional: false
+          - name: POSTGRES_SERVER
+            value: mealiedb-rw
+          - name: POSTGRES_PORT
+            value: 5432
+          - name: POSTGRES_DB
+            value: mealie
+          - name: TZ
+            value: Europe/Berlin        
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
