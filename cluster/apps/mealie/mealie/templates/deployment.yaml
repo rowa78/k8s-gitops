@@ -104,9 +104,9 @@ spec:
           - name: ALLOW_SIGNUP
             value: "false"
           - name: PUID
-            value: 1000
+            value: "1000"
           - name: PGID
-            value: 1000
+            value: "1000"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
