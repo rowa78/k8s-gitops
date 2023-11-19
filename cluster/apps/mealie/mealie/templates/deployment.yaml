@@ -97,6 +97,8 @@ spec:
                 name: ldap-secret
                 key: LDAP_PASSWORD
                 optional: false
+          - name: LDAP_NAME_ATTRIBUTE
+            value: cn
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
