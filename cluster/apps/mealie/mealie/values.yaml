@@ -46,6 +46,10 @@ ingress:
   enabled: true
   className: "nginx"
   annotations: 
+    hajimari.io/enable: "true"
+    hajimari.io/icon: "bowl-mix"                    
+    hajimari.io/group: apps
+    hajimari.io/appName: mealie
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
