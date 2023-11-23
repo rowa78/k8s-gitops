@@ -207,6 +207,8 @@ kube-prometheus-stack:
   kube-state-metrics:
     fullnameOverride: kube-state-metrics
   kubeEtcd:
+    enabled: true
+    endpoints: ["192.168.100.1"]
     service:
       port: 2381
       targetPort: 2381
