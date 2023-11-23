@@ -381,7 +381,7 @@ cockroachdb:
       # If undefined or empty (default), then no `storageClassName` spec is set,
       # so the default provisioner will be chosen (gp2 on AWS, standard on
       # GKE, AWS & OpenStack).
-      storageClass: "local-path"
+      storageClass: "openebs-zfs"
 
       # Additional labels to apply to the created PersistentVolumeClaims.
       labels: {}

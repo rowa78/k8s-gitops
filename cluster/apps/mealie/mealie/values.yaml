@@ -85,5 +85,5 @@ tolerations: []
 affinity: {}
 
 persistence:
-  storageClass: longhorn
+  storageClass: openebs-zfs
   size: 10G

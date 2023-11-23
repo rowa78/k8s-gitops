@@ -4,11 +4,11 @@ kube-prometheus-stack:
     externalUrl: https://alertmanager.rwcloud.org
     fullnameOverride: alertmanager    
     alertmanagerSpec:
-      replicas: 2
+      replicas: 1
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: local-path
+            storageClassName: openebs-zfs
             resources:
               requests:
                 storage: 1Gi
@@ -43,7 +43,7 @@ kube-prometheus-stack:
     persistence:
       enabled: false
       type: deployment
-      storageClassName: longhorn
+      storageClassName: openebs-zfs
       size: 1Gi
     ingress:
       enabled: true
@@ -86,7 +86,7 @@ kube-prometheus-stack:
               path: /var/lib/grafana/dashboards/default
     dashboards:
       default:
-        local-path:
+        openebs-zfs:
           url: https://grafana.com/api/dashboards/13032/revisions/6/download
           datasource: Prometheus
         node-exporter-full:
@@ -145,7 +145,7 @@ kube-prometheus-stack:
   prometheus:
     fullnameOverride: prometheus
     prometheusSpec:
-      replicas: 2
+      replicas: 1
       externalUrl: https://prometheus.rwcloud.org
       ruleSelectorNilUsesHelmValues: false
       serviceMonitorSelectorNilUsesHelmValues: false
@@ -154,7 +154,7 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
-            storageClassName: local-path
+            storageClassName: openebs-zfs
             resources:
               requests:
                 storage: 50Gi     
@@ -428,7 +428,7 @@ prometheus-pushgateway:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "longhorn"
+    storageClass: "openebs-zfs"
 
     ## Subdirectory of pushgateway data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
