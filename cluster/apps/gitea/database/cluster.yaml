@@ -6,7 +6,7 @@ metadata:
     k8up.io/backupcommand: sh -c 'pg_dump --clean giteadb'
     k8up.io/file-extension: .sql
 spec:
-  instances: 2
+  instances: 1
 
   bootstrap:
     initdb:
