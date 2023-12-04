@@ -35,7 +35,7 @@ spec:
     enablePodMonitor: true
 
   storage:
-    size: 100Gi
+    size: 150Gi
     storageClass: openebs-zfs-postgres
 
   backup:
