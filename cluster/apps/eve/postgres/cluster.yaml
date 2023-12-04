@@ -50,9 +50,9 @@ spec:
           name: s3-creds
           key: aws_secret_access_key
       wal:
-        compression: bzip2        
+        compression: gzip        
       data:
-        compression: bzip2                
+        compression: gzip                
         jobs: 2
     retentionPolicy: "5d"
 ---
