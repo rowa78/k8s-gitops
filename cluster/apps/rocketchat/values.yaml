@@ -10,7 +10,7 @@ rocketchat:
 
   ## Host for the application
   ## set it to a domain pointing to your loadbalancer
-  # host:
+  host: chat.rwcloud.org
 
   replicaCount: 1
   minAvailable: 1
@@ -108,7 +108,8 @@ rocketchat:
       # rootPassword:
       usernames:
         - rocketchat
-      # passwords:
+      passwords:
+        - rocketchat
       databases:
         - rocketchat
 
@@ -184,17 +185,17 @@ rocketchat:
   ### ref : http://kubernetes.io/docs/user-guide/ingress/
   ###
   ingress:
-    enabled: false
+    enabled: true
     pathType: Prefix
-    # ingressClassName: "nxinx"
+    ingressClassName: "nxinx"
     annotations:
       {}
       # kubernetes.io/ingress.class: "nginx"
     path: /
-    tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
+    tls: 
+      - secretName: chat-rwcloud-tls
+        hosts:
+        - chat.rwcloud.org
 
   service:
     annotations: {}
