@@ -44,7 +44,7 @@ k8up:
             name: k8up-secrets
             key: repo_password
       - name: BACKUP_GLOBALS3ENDPOINT
-        value: http://192.168.0.3:9000
+        value: http://diskstation.tail72ab4.ts.net:9000
       - name: BACKUP_GLOBALS3BUCKET
         value: k8up
       - name: BACKUP_PROMURL
