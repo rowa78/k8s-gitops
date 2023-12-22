@@ -56,7 +56,7 @@ hajimari:
     - group: apps
       apps:
         - name: Paperless
-          url: 'http://192.168.0.3:8777/dashboard'
+          url: 'http://100.80.144.45:8777/dashboard'
           icon: 'mdi:note-multiple'
           info: Paperless@Diskstation
         - name: Diskstation
