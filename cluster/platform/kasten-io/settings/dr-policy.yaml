@@ -2,8 +2,7 @@
 apiVersion: config.kio.kasten.io/v1alpha1
 kind: Policy
 metadata:
-  name: k10-disaster-recovery-policy
-  namespace: kasten
+  name: k10-disaster-recovery-policy  
 spec:
   actions:
   - action: backup
