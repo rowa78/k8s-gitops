@@ -20,7 +20,7 @@ actions:
             - -c
             - >
               namespace={{ .Namespace.Name }} 
-              selector='role=primary' 
+              selector="role=primary"
               for pod in $(kubectl get po --no-headers -n $namespace -l $selector|awk '{print $1}') do
                 command="psql -c 'select pg_backup_stop();'"
                 result=$(kubectl exec -it $pod -c postgres -n $namespace $pod -- bash -c "if $command; then echo success; else echo failure; fi" | tail -1)
@@ -48,7 +48,7 @@ actions:
             - -c
             - >
               namespace={{ .Namespace.Name }}
-              selector='role=primary' 
+              selector="role=primary"
               for pod in $(kubectl get po --no-headers -n $namespace -l $selector|awk '{print $1}') do                              
                 command="echo 'start'"
                 result=$(kubectl exec -it $pod -c postgres -n $namespace $pod -- bash -c "if $command; then echo success; else echo failure; fi" | tail -1)
