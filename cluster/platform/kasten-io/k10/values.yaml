@@ -234,7 +234,7 @@ k10:
     promoID: '' # sets the K10 promotion ID
 
   clusterName: ''
-  executorReplicas: 3
+  executorReplicas: 1
   logLevel: info
 
   externalGateway:
