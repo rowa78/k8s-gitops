@@ -1,33 +1,65 @@
-apiVersion: cr.kanister.io/v1alpha1
 kind: Blueprint
+apiVersion: cr.kanister.io/v1alpha1
 metadata:
-  name: eve-postgresql-hooks
+  name: eve-postgresql-hooks2
 actions:
-  backupPrehook:
-    phases:
-    - func: KubeExec
-      name: makePGCheckPoint
-      args:
-        command:
-        - bash
-        - -o
-        - errexit
-        - -o
-        - pipefail
-        - -c
-        - |          
-          psql -c "select pg_backup_start('app_cons');"
   backupPosthook:
+    name: ""
+    kind: ""
     phases:
-    - func: KubeExec
-      name: afterPGBackup
-      args:
-        command:
-        - bash
-        - -o
-        - errexit
-        - -o
-        - pipefail
-        - -c
-        - |
-          psql -c "select pg_backup_stop();"
+      - func: KubeTask
+        name: edbPostBackupHook
+        args:
+          command:
+            - bash
+            - -x
+            - -o
+            - errexit
+            - -o
+            - pipefail
+            - -c
+            - >
+              namespace={{ .Namespace.Name }} selector='role=primary' 
+              for pod in $(kubectl get po --no-headers -n $namespace -l $selector|awk '{print $1}') do              
+                container="postgres"
+                command="psql -c 'select pg_backup_stop();'"
+                result=$(kubectl exec -it $pod -c $container -n $namespace $pod -- bash -c "if $command; then echo success; else echo failure; fi" | tail -1)
+                if [[ $result == "failure" ]]
+                then 
+                  echo "Error after running $preCommand in $pod/$container"
+                  echo "Executing $preOnErrorCommand"
+                  command=${preOnErrorCommand//[\[\]\"\,]/' '}
+                  kubectl exec -it $pod -c $container -n $namespace $pod -- bash -c $command
+                  exit 1
+                fi
+              done
+              exit 0  
+          image: ghcr.io/kanisterio/kanister-kubectl-1.18:0.91.0
+  backupPrehook:
+    name: ""
+    kind: ""
+    phases:
+      - func: KubeTask
+        name: edbPreBackupHook
+        args:
+          command:
+            - bash
+            - -x
+            - -o
+            - errexit
+            - -o
+            - pipefail
+            - -c
+            - >
+              namespace={{ .Namespace.Name }} selector='role=primary' for pod in
+              $(kubectl get po --no-headers -n $namespace -l $selector|awk
+              '{print $1}') do              
+                container="postgres"
+                command="echo 'start'"
+                result=$(kubectl exec -it $pod -c $container -n $namespace $pod -- bash -c "if $command; then echo success; else echo failure; fi" | tail -1)
+                if [[ $result == "failure" ]]
+                then 
+                  exit 1
+                fi
+              done exit 0  
+          image: ghcr.io/kanisterio/kanister-kubectl-1.18:0.91.0
