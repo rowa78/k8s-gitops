@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/platform/kasten/k10
+    path: cluster/platform/kasten-io/k10
   destination:
     name: in-cluster
     namespace: kasten-io
