@@ -141,8 +141,11 @@ k10:
 
   ingress:
     create: true
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production    
     tls:
       enabled: true
+      secretName: "k10-tls-secret"
     class: "nginx" #Ingress controller type
     host: "k10.rwcloud.org" #ingress object host name
     urlPath: "" #url path for k10 gateway
