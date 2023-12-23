@@ -21,16 +21,11 @@ actions:
             - |
               namespace={{ .Namespace.Name }} 
               selector='role=primary' 
-              for pod in $(kubectl get po --no-headers -n $namespace -l $selector|awk '{print $1}') do              
-                container="postgres"
+              for pod in $(kubectl get po --no-headers -n $namespace -l $selector|awk '{print $1}') do
                 command="psql -c 'select pg_backup_stop();'"
-                result=$(kubectl exec -it $pod -c $container -n $namespace $pod -- bash -c "if $command; then echo success; else echo failure; fi" | tail -1)
+                result=$(kubectl exec -it $pod -c postgres -n $namespace $pod -- bash -c "if $command; then echo success; else echo failure; fi" | tail -1)
                 if [[ $result == "failure" ]]
                 then 
-                  echo "Error after running $preCommand in $pod/$container"
-                  echo "Executing $preOnErrorCommand"
-                  command=${preOnErrorCommand//[\[\]\"\,]/' '}
-                  kubectl exec -it $pod -c $container -n $namespace $pod -- bash -c $command
                   exit 1
                 fi
               done
@@ -54,10 +49,9 @@ actions:
             - |
               namespace={{ .Namespace.Name }}
               selector='role=primary' 
-              for pod in $(kubectl get po --no-headers -n $namespace -l $selector|awk '{print $1}') do              
-                container="postgres"
+              for pod in $(kubectl get po --no-headers -n $namespace -l $selector|awk '{print $1}') do                              
                 command="echo 'start'"
-                result=$(kubectl exec -it $pod -c $container -n $namespace $pod -- bash -c "if $command; then echo success; else echo failure; fi" | tail -1)
+                result=$(kubectl exec -it $pod -c postgres -n $namespace $pod -- bash -c "if $command; then echo success; else echo failure; fi" | tail -1)
                 if [[ $result == "failure" ]]
                 then 
                   exit 1
