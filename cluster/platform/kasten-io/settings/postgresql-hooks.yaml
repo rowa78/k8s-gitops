@@ -1,0 +1,33 @@
+apiVersion: cr.kanister.io/v1alpha1
+kind: Blueprint
+metadata:
+  name: eve-postgresql-hooks
+actions:
+  backupPrehook:
+    phases:
+    - func: KubeExec
+      name: makePGCheckPoint
+      args:
+        command:
+        - bash
+        - -o
+        - errexit
+        - -o
+        - pipefail
+        - -c
+        - |          
+          psql -c "select pg_backup_start('app_cons');"
+  backupPosthook:
+    phases:
+    - func: KubeExec
+      name: afterPGBackup
+      args:
+        command:
+        - bash
+        - -o
+        - errexit
+        - -o
+        - pipefail
+        - -c
+        - |
+          psql -c "select pg_backup_stop();"
