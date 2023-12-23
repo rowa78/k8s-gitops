@@ -18,7 +18,7 @@ actions:
             - -o
             - pipefail
             - -c
-            - |
+            - >
               namespace={{ .Namespace.Name }} 
               selector='role=primary' 
               for pod in $(kubectl get po --no-headers -n $namespace -l $selector|awk '{print $1}') do
@@ -46,7 +46,7 @@ actions:
             - -o
             - pipefail
             - -c
-            - |
+            - >
               namespace={{ .Namespace.Name }}
               selector='role=primary' 
               for pod in $(kubectl get po --no-headers -n $namespace -l $selector|awk '{print $1}') do                              
