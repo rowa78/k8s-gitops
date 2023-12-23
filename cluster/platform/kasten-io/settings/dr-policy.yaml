@@ -10,7 +10,7 @@ spec:
       filters: {}
       profile:
         name: diskstation-profile
-        namespace: kasten
+        namespace: kasten-io
   createdBy: k10-admin
   frequency: '@hourly'
   retention:
