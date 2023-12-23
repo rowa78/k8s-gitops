@@ -39,7 +39,7 @@ spec:
     namespace: kasten-io
   syncPolicy:
     syncOptions:
-    - ServerSideApply=true
+    - ServerSideApply=false
     automated:
       prune: true
       selfHeal: true
