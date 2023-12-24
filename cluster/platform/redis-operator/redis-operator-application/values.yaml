@@ -51,7 +51,7 @@ redis-operator:
       ingressClass: nginx
 
   certmanager:
-    enabled: false
+    enabled: true
 
   priorityClassName: ""
   nodeSelector: {}
