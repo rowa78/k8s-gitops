@@ -121,6 +121,8 @@ spec:
     name: in-cluster
     namespace: eve
   syncPolicy:
+    syncOptions:
+    - ServerSideApply=true
     automated:
       prune: true
       selfHeal: true
