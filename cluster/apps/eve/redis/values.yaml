@@ -609,9 +609,9 @@ redis:
     ## Commands will be completely disabled by renaming each to an empty string.
     ## ref: https://redis.io/topics/security#disabling-of-specific-commands
     ##
-    disableCommands:
-      - FLUSHDB
-      - FLUSHALL
+    disableCommands: []
+    #  - FLUSHDB
+    #  - FLUSHALL
     ## @param replica.command Override default container command (useful when using custom images)
     ##
     command: []
