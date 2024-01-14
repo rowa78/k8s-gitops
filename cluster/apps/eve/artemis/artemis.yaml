@@ -10,11 +10,11 @@
         messageMigration: true
         storage:
           size: 3G
-          storageClassName: openebs-zfs
-        console:
-          expose: true
+          storageClassName: openebs-zfs        
         podSecurityContext:
           fsGroup: 185
           runAsGroup: 185
           runAsUser: 185
           runAsNonRoot: true
+      console:
+          expose: true
