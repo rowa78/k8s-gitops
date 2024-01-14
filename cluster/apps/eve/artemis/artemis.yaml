@@ -10,4 +10,4 @@
         messageMigration: true
         storage:
           size: 5G
-          storageClass: openebs-zfs
+          storageClassName: openebs-zfs
