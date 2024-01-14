@@ -13,3 +13,8 @@
           storageClassName: openebs-zfs
         console:
           expose: true
+        podSecurityContext:
+          fsGroup: 185
+          runAsGroup: 185
+          runAsUser: 185
+          runAsNonRoot: true
