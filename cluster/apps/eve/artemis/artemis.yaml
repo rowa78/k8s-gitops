@@ -11,3 +11,5 @@
         storage:
           size: 3G
           storageClassName: openebs-zfs
+        console:
+          expose: true
