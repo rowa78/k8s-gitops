@@ -8,6 +8,6 @@
         image: quay.io/artemiscloud/activemq-artemis-broker-kubernetes:1.0.23
         persistenceEnabled: true
         messageMigration: true
-      storage:
-        size: 5G
-        storageClassName: openebs-zfs
+        storage:
+          size: 3G
+          storageClassName: openebs-zfs
