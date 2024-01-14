@@ -29,3 +29,4 @@ spec:
   tls:
   - hosts:
     - eve-dev-artemis.rwcloud.org
+    secretName: eve-artemis-tls
