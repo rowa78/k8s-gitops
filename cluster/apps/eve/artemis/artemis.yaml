@@ -1,0 +1,13 @@
+    apiVersion: broker.amq.io/v2alpha4
+    kind: ActiveMQArtemis
+    metadata:
+      name: eve
+    spec:
+      deploymentPlan:
+        size: 1
+        image: quay.io/artemiscloud/activemq-artemis-broker-kubernetes:1.0.23
+        persistenceEnabled: true
+        messageMigration: true
+        storage:
+          size: 5G
+          storageClassName: openebs-zfs
