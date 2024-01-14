@@ -102,9 +102,7 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: WATCH_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
+          value: "*"
         - name: ENABLE_WEBHOOKS
           value: "false"
         image: quay.io/artemiscloud/activemq-artemis-operator:1.0.16
