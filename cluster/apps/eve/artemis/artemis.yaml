@@ -1,20 +1,20 @@
-# apiVersion: broker.amq.io/v1beta1
-# kind: ActiveMQArtemis
-# metadata:
-#   name: eve
-# spec:
-#   deploymentPlan:
-#     size: 1
-#     image: quay.io/artemiscloud/activemq-artemis-broker-kubernetes:1.0.23
-#     persistenceEnabled: true
-#     messageMigration: true
-#     storage:
-#       size: 3G
-#       storageClassName: openebs-zfs        
-#     podSecurityContext:
-#       fsGroup: 185
-#       runAsGroup: 185
-#       runAsUser: 185
-#       runAsNonRoot: true
-#   console:
-#       expose: false
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemis
+metadata:
+  name: eve
+spec:
+  deploymentPlan:
+    size: 1
+    image: quay.io/artemiscloud/activemq-artemis-broker-kubernetes:1.0.23
+    persistenceEnabled: true
+    messageMigration: true
+    storage:
+      size: 3G
+      storageClassName: openebs-zfs        
+    podSecurityContext:
+      fsGroup: 185
+      runAsGroup: 185
+      runAsUser: 185
+      runAsNonRoot: true
+  console:
+      expose: false
