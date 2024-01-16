@@ -9,7 +9,7 @@ spec:
     messageMigration: true
     enableMetricsPlugin: true
     storage:
-      size: 5G
+      size: 10G
       storageClassName: openebs-zfs        
     podSecurityContext:
       fsGroup: 185
