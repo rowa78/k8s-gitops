@@ -7,6 +7,7 @@ spec:
     size: 1    
     persistenceEnabled: true
     messageMigration: true
+    enableMetricsPlugin: true
     storage:
       size: 5G
       storageClassName: openebs-zfs        
@@ -15,5 +16,6 @@ spec:
       runAsGroup: 185
       runAsUser: 185
       runAsNonRoot: true
+  ingressDomain: rwcloud.org
   console:
       expose: true
