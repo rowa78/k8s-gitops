@@ -20,3 +20,8 @@ spec:
   console:
       expose: true
       ingressHost: $(CR_NAME)-$(ITEM_NAME)-$(BROKER_ORDINAL)-svc-$(RES_TYPE).$(INGRESS_DOMAIN)
+  resourceTemplates:
+   - selector:
+       kind: "Ingress"
+     annotations:
+       foo: "bar"
