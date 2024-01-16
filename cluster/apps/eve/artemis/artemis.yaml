@@ -16,6 +16,7 @@ spec:
       runAsGroup: 185
       runAsUser: 185
       runAsNonRoot: true
-  ingressHost: rwcloud.org
+  ingressDomain: rwcloud.org
   console:
       expose: true
+      ingressHost: $(CR_NAME)-$(ITEM_NAME)-$(BROKER_ORDINAL)-svc-$(RES_TYPE).$(INGRESS_DOMAIN)
