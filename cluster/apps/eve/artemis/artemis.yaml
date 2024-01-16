@@ -4,12 +4,11 @@ metadata:
   name: eve
 spec:
   deploymentPlan:
-    size: 1
-    image: quay.io/artemiscloud/activemq-artemis-broker-kubernetes:1.0.23
+    size: 1    
     persistenceEnabled: true
     messageMigration: true
     storage:
-      size: 3G
+      size: 5G
       storageClassName: openebs-zfs        
     podSecurityContext:
       fsGroup: 185
@@ -17,4 +16,4 @@ spec:
       runAsUser: 185
       runAsNonRoot: true
   console:
-      expose: false
+      expose: true
