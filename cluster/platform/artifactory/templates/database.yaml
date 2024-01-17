@@ -1,7 +1,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: artifactory
+  name: artifactorydb
   annotations:
     k8up.io/backupcommand: sh -c 'pg_dump --clean eve'
     k8up.io/file-extension: .sql
@@ -18,7 +18,7 @@ spec:
       cpu: "2"
   bootstrap:
     initdb:
-      database: artifactory
+      database: artifactorydb
       owner: artifactory 
      
   replicationSlots:
@@ -53,9 +53,9 @@ spec:
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
-  name: artifactory-backup
+  name: artifactorydb-backup
 spec:
   schedule: "0 0 0 * * *"
   backupOwnerReference: self
   cluster:
-    name: artifactory
+    name: artifactorydb
