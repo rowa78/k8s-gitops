@@ -12,23 +12,23 @@ artifactory-jcr:
   artifactory:
     postgresql:
       enabled: true
-    database:
-      type: postgresql
-      driver: org.postgresql.Driver
-      ## If you set the url, leave host and port empty
-      # url:       
-      ## If you have existing Kubernetes secrets containing db credentials, use
-      ## these values
-      secrets: 
-        user:
-          name: "artifactorydb-app"
-          key: "username"
-        password:
-          name: "artifactorydb-app"
-          key: "password"
-        url:
-          name: artifactory-db-url
-          key: "url"
+    # database:
+    #   type: postgresql
+    #   driver: org.postgresql.Driver
+    #   ## If you set the url, leave host and port empty
+    #   # url:       
+    #   ## If you have existing Kubernetes secrets containing db credentials, use
+    #   ## these values
+    #   secrets: 
+    #     user:
+    #       name: "artifactorydb-app"
+    #       key: "username"
+    #     password:
+    #       name: "artifactorydb-app"
+    #       key: "password"
+    #     url:
+    #       name: artifactory-db-url
+    #       key: "url"
     ## Artifactory
     ## See full list of supported Artifactory options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
     artifactory:
@@ -88,8 +88,12 @@ artifactory-jcr:
     ## Configuration values for the PostgreSQL dependency sub-chart
     ## ref: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/README.md
     postgresql:
-      enabled: false
-    
+      enabled: true
+      global:
+        storageClass: "openebs-zfs-postgres"
+      primary:
+        persistence:
+          size: 8Gi
       #  url:
       #    name: "rds-artifactory"
       #    key: "db-url"
