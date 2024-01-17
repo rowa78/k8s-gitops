@@ -10,6 +10,8 @@ artifactory-jcr:
 
   ## All values are under the 'artifactory' sub chart.
   artifactory:
+    postgresql:
+      enabled: true
     ## Artifactory
     ## See full list of supported Artifactory options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
     artifactory:
@@ -38,8 +40,6 @@ artifactory-jcr:
         enabled: true      
         storageClassName: "openebs-zfs"
         size: 100Gi
-      postgresql:
-        enabled: true
       database:
         type: postgresql
         driver: org.postgresql.Driver
