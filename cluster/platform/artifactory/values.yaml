@@ -34,6 +34,11 @@ artifactory-jcr:
       # xms: "1g"
       # xmx: "3g"
       # other: ""
+      persistence:      
+        enabled: true      
+        storageClassName: "openebs-zfs"
+        size: 100Gi
+
     installer:
       platform: jcr-helm
     installerInfo: '{"productId": "Helm_artifactory-jcr/{{ .Chart.Version }}", "features": [ { "featureId": "Platform/{{ default "kubernetes" .Values.installer.platform }}"}]}'
@@ -93,10 +98,6 @@ artifactory-jcr:
       enabled: false
     federation:
       enabled: false
-    persistence:      
-      enabled: true      
-      storageClassName: "openebs-zfs"
-      size: 100Gi
 
   ## Enable the PostgreSQL sub chart
   postgresql:
