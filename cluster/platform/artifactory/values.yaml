@@ -12,6 +12,20 @@ artifactory-jcr:
   artifactory:
     postgresql:
       enabled: true
+    database:
+      type: postgresql
+      driver: org.postgresql.Driver
+      ## If you set the url, leave host and port empty
+      url: jdbc:postgresql://artifactorydb-rw:5432/artifactorydb      
+      ## If you have existing Kubernetes secrets containing db credentials, use
+      ## these values
+      secrets: 
+        user:
+          name: "artifactorydb-app"
+          key: "username"
+        password:
+          name: "artifactorydb-app"
+          key: "password"
     ## Artifactory
     ## See full list of supported Artifactory options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
     artifactory:
@@ -40,20 +54,6 @@ artifactory-jcr:
         enabled: true      
         storageClassName: "openebs-zfs"
         size: 100Gi
-      database:
-        type: postgresql
-        driver: org.postgresql.Driver
-        ## If you set the url, leave host and port empty
-        url: jdbc:postgresql://artifactorydb-rw:5432/artifactorydb      
-        ## If you have existing Kubernetes secrets containing db credentials, use
-        ## these values
-        secrets: 
-          user:
-            name: "artifactorydb-app"
-            key: "username"
-          password:
-            name: "artifactorydb-app"
-            key: "password"
     installer:
       platform: jcr-helm
     installerInfo: '{"productId": "Helm_artifactory-jcr/{{ .Chart.Version }}", "features": [ { "featureId": "Platform/{{ default "kubernetes" .Values.installer.platform }}"}]}'
