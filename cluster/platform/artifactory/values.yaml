@@ -38,6 +38,8 @@ artifactory-jcr:
         enabled: true      
         storageClassName: "openebs-zfs"
         size: 100Gi
+      postgresql:
+        enabled: true
       database:
         type: postgresql
         driver: org.postgresql.Driver
