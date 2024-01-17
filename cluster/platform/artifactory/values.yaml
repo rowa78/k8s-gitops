@@ -11,24 +11,24 @@ artifactory-jcr:
   ## All values are under the 'artifactory' sub chart.
   artifactory:
     postgresql:
-      enabled: false
-    # database:
-    #   type: postgresql
-    #   driver: org.postgresql.Driver
-    #   ## If you set the url, leave host and port empty
-    #   # url:       
-    #   ## If you have existing Kubernetes secrets containing db credentials, use
-    #   ## these values
-    #   secrets: 
-    #     user:
-    #       name: "artifactorydb-app"
-    #       key: "username"
-    #     password:
-    #       name: "artifactorydb-app"
-    #       key: "password"
-    #     url:
-    #       name: artifactory-db-url
-    #       key: "url"
+      enabled: true
+    database:
+      type: postgresql
+      driver: org.postgresql.Driver
+      ## If you set the url, leave host and port empty
+      # url:       
+      ## If you have existing Kubernetes secrets containing db credentials, use
+      ## these values
+      secrets: 
+        user:
+          name: "artifactorydb-app"
+          key: "username"
+        password:
+          name: "artifactorydb-app"
+          key: "password"
+        url:
+          name: artifactory-db-url
+          key: "url"
     ## Artifactory
     ## See full list of supported Artifactory options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
     artifactory:
