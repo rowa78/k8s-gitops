@@ -88,7 +88,7 @@ artifactory-jcr:
     ## Configuration values for the PostgreSQL dependency sub-chart
     ## ref: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/README.md
     postgresql:
-      enabled: true
+      enabled: false
       # global:
       #   storageClass: "openebs-zfs-postgres"
       # persistence:
