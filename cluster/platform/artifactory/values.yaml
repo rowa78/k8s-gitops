@@ -91,9 +91,8 @@ artifactory-jcr:
       enabled: true
       global:
         storageClass: "openebs-zfs-postgres"
-      primary:
-        persistence:
-          size: 8Gi
+      persistence:
+        size: 8Gi
       #  url:
       #    name: "rds-artifactory"
       #    key: "db-url"
