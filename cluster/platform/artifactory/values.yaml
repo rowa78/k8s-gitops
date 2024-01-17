@@ -95,7 +95,9 @@ artifactory-jcr:
       enabled: false
     persistence:      
       enabled: true      
-      existingClaim: artifactory-data
+      storageClassName: "openebs-zfs"
+      size: 100Gi
+
   ## Enable the PostgreSQL sub chart
   postgresql:
     enabled: false
