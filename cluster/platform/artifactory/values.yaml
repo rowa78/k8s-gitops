@@ -38,7 +38,20 @@ artifactory-jcr:
         enabled: true      
         storageClassName: "openebs-zfs"
         size: 100Gi
-
+      database:
+        type: postgresql
+        driver: org.postgresql.Driver
+        ## If you set the url, leave host and port empty
+        url: jdbc:postgresql://artifactorydb-rw:5432/artifactorydb      
+        ## If you have existing Kubernetes secrets containing db credentials, use
+        ## these values
+        secrets: 
+          user:
+            name: "artifactorydb-app"
+            key: "username"
+          password:
+            name: "artifactorydb-app"
+            key: "password"
     installer:
       platform: jcr-helm
     installerInfo: '{"productId": "Helm_artifactory-jcr/{{ .Chart.Version }}", "features": [ { "featureId": "Platform/{{ default "kubernetes" .Values.installer.platform }}"}]}'
@@ -71,20 +84,7 @@ artifactory-jcr:
     ## ref: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/README.md
     postgresql:
       enabled: false
-    database:
-      type: postgresql
-      driver: org.postgresql.Driver
-      ## If you set the url, leave host and port empty
-      url: jdbc:postgresql://artifactorydb-rw:5432/artifactorydb      
-      ## If you have existing Kubernetes secrets containing db credentials, use
-      ## these values
-      secrets: 
-        user:
-          name: "artifactorydb-app"
-          key: "username"
-        password:
-          name: "artifactorydb-app"
-          key: "password"
+    
       #  url:
       #    name: "rds-artifactory"
       #    key: "db-url"
