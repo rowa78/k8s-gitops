@@ -351,17 +351,7 @@ jenkins:
           users:
           - id: "${chart-admin-username}"
             name: "Jenkins Admin"
-            password: "${chart-admin-password}"
-        oic:
-          automanualconfigure: "auto"
-          clientId: "my-client-id"
-          clientSecret: "foo"
-          disableSslVerification: false
-          escapeHatchSecret: "bar"
-          logoutFromOpenidProvider: false
-          scopes: "openid email"
-          tokenAuthMethod: "client_secret_post"
-          wellKnownOpenIDConfigurationUrl: "https://authelia.example.com"
+            password: "${chart-admin-password}"        
       # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
       authorizationStrategy: |-
         loggedInUsersCanDoAnything:
