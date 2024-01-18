@@ -66,7 +66,7 @@ artifactory-jcr:
       enabled: true
       tlsSecretName: ""
       service:
-        type: ClusterIP
+        type: NodePort
     ## Ingress
     ## See full list of supported Ingress options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
     ingress:
