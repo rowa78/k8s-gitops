@@ -20,8 +20,8 @@ k3s_server:
     - traefik    
     - metrics-server
   tls-san: 
+    - 192.168.100.1
     - 192.168.1.101
-    - 192.168.1.102
   #tls-san: 192.168.100.2
   #tls-san: 192.168.1.101  
   # for monitoring
@@ -35,7 +35,7 @@ k3s_server:
   - "bind-address=0.0.0.0"
   # Controller Manager exposes etcd sqllite metrics
   etcd-expose-metrics: true
-  #snapshotter: zfs
+  snapshotter: zfs
 
 #k3s_server_manifests_urls:
 #  - url: https://kube-vip.io/manifests/rbac.yaml

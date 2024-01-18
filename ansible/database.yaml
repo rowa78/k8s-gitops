@@ -1,5 +1,0 @@
----
-- name: 
-  hosts: database
-  roles:
-    - geerlingguy.postgresql

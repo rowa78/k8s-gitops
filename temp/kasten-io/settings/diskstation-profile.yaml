@@ -1,13 +1,12 @@
 apiVersion: config.kio.kasten.io/v1alpha1
 kind: Profile
 metadata:
-  name: diskstation-profile
-  namespace: kasten
+  name: diskstation-profile  
 spec:
   locationSpec:
     type: ObjectStore
     objectStore:
-      endpoint: https://minio.ronnywalter.de
+      endpoint: http://100.80.144.45:9000
       name: k10
       objectStoreType: S3
       path: k10
@@ -18,5 +17,5 @@ spec:
         apiVersion: v1
         kind: secret
         name: s3-secret
-        namespace: kasten
+        namespace: kasten-io
   type: Location

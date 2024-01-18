@@ -63,10 +63,10 @@ artifactory-jcr:
     ## Nginx
     ## See full list of supported Nginx options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
     nginx:
-      enabled: true
+      enabled: false
       tlsSecretName: ""
       service:
-        type: NodePort
+        type: ClusterIP
     ## Ingress
     ## See full list of supported Ingress options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
     ingress:

@@ -125,15 +125,15 @@
     name: rsyslog
     state: present
 
-#- name: install zfs-utils
-#  package:
-#    name: zfsutils-linux    
-#    state: present
+- name: install zfs-utils
+  package:
+    name: zfsutils-linux    
+    state: present
 
-#- name: install fdisk
-#  package:
-#    name: fdisk
-#    state: present
+- name: install fdisk
+  package:
+    name: fdisk
+    state: present
 
 - name: Enable service fail2ban
   ansible.builtin.service:
