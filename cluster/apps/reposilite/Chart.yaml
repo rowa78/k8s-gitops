@@ -1,7 +1,0 @@
-apiVersion: v2
-name: reposilite
-version: 1.0.0
-dependencies:
-  - name: reposilite
-    version: 1.3.3
-    repository: http://helm.reposilite.com
