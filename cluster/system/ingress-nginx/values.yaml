@@ -37,7 +37,7 @@ ingress-nginx:
         memory: 100Mi
         cpu: 100m
       limits:
-        memory: 500Mi
+        memory: 1000Mi
     admissionWebhooks:
       annotations: {}
       # ignore-check.kube-linter.io/no-read-only-rootfs: "This deployment needs write access to root filesystem".
