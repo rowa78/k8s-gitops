@@ -2,8 +2,7 @@
 apiVersion: config.kio.kasten.io/v1alpha1
 kind: Policy
 metadata:
-  name: k10-disaster-recovery-policy
-  namespace: kasten
+  name: k10-disaster-recovery-policy  
 spec:
   actions:
   - action: backup
@@ -11,10 +10,9 @@ spec:
       filters: {}
       profile:
         name: diskstation-profile
-        namespace: kasten
+        namespace: kasten-io
   createdBy: k10-admin
   frequency: '@hourly'
-  lastModifyHash: 4014765349
   retention:
     daily: 1
     hourly: 4
@@ -26,4 +24,4 @@ spec:
     - key: k10.kasten.io/appNamespace
       operator: In
       values:
-      - kasten
+      - kasten-io

@@ -41,26 +41,26 @@ spec:
       prune: true
       selfHeal: true
 ---
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: eve-rabbitmq
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: apps
-  source:
-    repoURL: https://github.com/rowa78/k8s-gitops.git
-    targetRevision: main
-    path: cluster/apps/eve/rabbitmq
-  destination:
-    name: in-cluster
-    namespace: eve
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: eve-rabbitmq
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+# spec:
+#   project: apps
+#   source:
+#     repoURL: https://github.com/rowa78/k8s-gitops.git
+#     targetRevision: main
+#     path: cluster/apps/eve/rabbitmq
+#   destination:
+#     name: in-cluster
+#     namespace: eve
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -82,7 +82,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
-      ServerSideApply: true
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application

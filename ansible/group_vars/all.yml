@@ -75,6 +75,8 @@ vault_secrets:
     kv: "EVE_PGHERO_DATABASE={{ lookup('env', 'EVE_PGHERO_DATABASE') }}
       EVE_PGHERO_USER={{ lookup('env', 'EVE_PGHERO_USER') }}
       EVE_PGHERO_PASSWORD={{ lookup('env', 'EVE_PGHERO_PASSWORD') }}"
+  - path: secret/eve-dev/redis
+    kv: "REDIS_PASSWORD={{ lookup('env', 'REDIS_PASSWORD') }}"
   - path: secret/paperless
     kv: "USER={{ lookup('env', 'PAPERLESS_USER') }}
       PASSWORD={{ lookup('env', 'PAPERLESS_PASSWORD') }}
@@ -119,3 +121,8 @@ vault_secrets:
     kv: "NEXTCLOUD_ADMIN={{ lookup('env', 'NEXTCLOUD_ADMIN') }}
         NEXTCLOUD_ADMIN_PASSWORD={{ lookup('env', 'NEXTCLOUD_ADMIN_PASSWORD') }}
         NEXTCLOUD_ADMIN_TOKEN={{ lookup('env', 'NEXTCLOUD_ADMIN_TOKEN') }}"
+  - path: secret/ldap
+    kv: "LDAP_URL={{ lookup('env', 'LDAP_URL') }}
+        LDAP_QUERY_USER={{ lookup('env', 'LDAP_QUERY_USER') }}
+        LDAP_PASSWORD={{ lookup('env', 'LDAP_PASSWORD') }}
+        LDAP_BASE_DN={{ lookup('env', 'LDAP_BASE_DN') }}"

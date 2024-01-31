@@ -162,6 +162,7 @@ gitea:
       hajimari.io/appName: gitea
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: 0
     hosts:
       - host: git.rwcloud.org
         paths:

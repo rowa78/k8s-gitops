@@ -2,8 +2,7 @@ all:
   children:    
     public_worker:
       hosts:
-        terra.rwcloud.org: 
-        luna.rwcloud.org:  
+        terra.rwcloud.org:         
     local_worker:
       hosts:
     k3s_cluster:

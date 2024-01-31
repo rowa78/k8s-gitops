@@ -1,7 +1,0 @@
----
-- name: pve api user
-  hosts: "{{ lookup('env', 'PROXMOX_NODE') }}"
-  gather_facts: false
-
-  roles:
-    - { role: pve/api_user }
