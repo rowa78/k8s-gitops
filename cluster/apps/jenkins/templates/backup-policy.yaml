@@ -3,6 +3,8 @@ kind: Policy
 metadata:
   name: jenkins
   namespace: kasten-io
+  annotations:
+    argocd.argoproj.io/sync-options: ServerSideApply=true
 spec:
   comment: ""
   paused: false
