@@ -1,0 +1,19 @@
+apiVersion: config.kio.kasten.io/v1alpha1
+kind: Policy
+metadata:
+  name: jenkins
+  namespace: kasten-io
+spec:
+  comment: ""
+  paused: false
+  actions:
+    - action: backup
+  presetRef:
+    name: daily
+    namespace: kasten-io
+  selector:
+    matchExpressions:
+      - key: k10.kasten.io/appNamespace
+        operator: In
+        values:
+          - jenkins
