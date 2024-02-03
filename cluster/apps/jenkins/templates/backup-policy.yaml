@@ -8,6 +8,7 @@ spec:
   paused: false
   actions:
     - action: backup
+    - action: export
   presetRef:
     name: daily
     namespace: kasten-io
