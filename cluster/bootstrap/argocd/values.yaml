@@ -135,6 +135,9 @@ argo-cd:
         jqPathExpressions:
           - '.spec.conversion.webhook.clientConfig.caBundle'
           - '.spec.versions[]?.additionalPrinterColumns[]?.priority | select(. == 0)'
+      resource.customizations.ignoreDifferences.config.kio.kasten.io_Policy: |
+        jqPathExpressions:
+          - '.spec.actions.exportParameters'          
     rbacConfig:
       policy.csv: |
         g, argocd_admins, role:admin
