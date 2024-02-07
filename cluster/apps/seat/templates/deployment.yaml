@@ -100,7 +100,7 @@ spec:
             - containerPort: 80
           env:
             - name: DB_HOST
-              value: seat-mariadb-primary
+              value: seat-mariadb
             - name: DB_DATABASE
               value: seat
             - name: DB_USERNAME
@@ -147,7 +147,7 @@ spec:
             - containerPort: 80
           env:
             - name: DB_HOST
-              value: seat-mariadb-primary
+              value: seat-mariadb
             - name: DB_DATABASE
               value: seat
             - name: DB_USERNAME
