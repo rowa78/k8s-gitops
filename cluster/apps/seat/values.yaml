@@ -9,7 +9,7 @@ mariadb:
 
   ## @param architecture MariaDB architecture (`standalone` or `replication`)
   ##
-  architecture: replication
+  architecture: standalone
   ## MariaDB Authentication parameters
   ##
   auth:
