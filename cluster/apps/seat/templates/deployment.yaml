@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: seat-web
-          image: eveseat/seat:4.2.9 
+          image: eveseat/seat:5.0.24
           args: ["web"]
           ports:
             - containerPort: 80
@@ -94,7 +94,7 @@ spec:
             - name: MAIL_FROM_NAME
               value: seat
         - name: seat-worker
-          image: eveseat/seat:4.2.9 
+          image: eveseat/seat:5.0.24
           args: ["worker"]
           ports:
             - containerPort: 80
@@ -141,7 +141,7 @@ spec:
                   name: seat
                   key: eve_callback_url
         - name: seat-cron
-          image: eveseat/seat:4.2.9 
+          image: eveseat/seat:5.0.24
           args: ["cron"]
           ports:
             - containerPort: 80
