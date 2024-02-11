@@ -49,15 +49,15 @@ spec:
               path: /
               port: http
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
+            {{- toYaml .Values.resources | nindent 12 }}          
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+            - name: config.ini
+              mountPath: /var/www/html/pathfinder/app/templateConfig.ini
+              subPath: config.ini
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        - name: config:
+          configMap: 
+            name: {{ include "pathfinder.fullname" . }}-conf      
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
