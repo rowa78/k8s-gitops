@@ -50,12 +50,12 @@ spec:
             - name: MYSQL_PORT
               value: "3306"            
             - name: MYSQL_USER
-              value: "pathfinder"
+              value: "root"
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: pathfinder-mariadb-secret
-                  key: mariadb-password
+                  key: mariadb-root-password
             - name: CCP_SSO_CLIENT_ID
               valueFrom:
                 secretKeyRef:
