@@ -71,6 +71,11 @@ spec:
                 secretKeyRef:
                   name: pathfinder-secret
                   key: esi_scopes
+            - name: APP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pathfinder-secret
+                  key: app_password
 
             
           ports:
