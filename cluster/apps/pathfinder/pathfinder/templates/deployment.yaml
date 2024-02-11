@@ -40,7 +40,7 @@ spec:
             - name: PATHFINDER_SOCKET_HOST
               value: localhost
             - name: DOMAIN
-              values: {{ .Values.pathfinder.domain }}
+              value: {{ .Values.pathfinder.domain }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
