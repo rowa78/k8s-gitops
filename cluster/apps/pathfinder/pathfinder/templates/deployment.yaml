@@ -38,7 +38,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: PATHFINDER_SOCKET_HOST
-              value: socket
+              value: localhost
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
