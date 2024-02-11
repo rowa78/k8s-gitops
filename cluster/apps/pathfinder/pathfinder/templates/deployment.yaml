@@ -41,6 +41,10 @@ spec:
               value: localhost
             - name: DOMAIN
               value: {{ .Values.pathfinder.domain }}
+            - name: REDIS_HOST
+              value: redis-pathfinder
+            - name: REDIS_PORT
+              value: 6379
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
