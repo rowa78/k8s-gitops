@@ -56,6 +56,23 @@ spec:
                 secretKeyRef:
                   name: pathfinder-mariadb-secret
                   key: mariadb-password
+            - name: CCP_SSO_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: pathfinder-secret
+                  key: client_id
+            - name: CCP_SSO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: pathfinder-secret
+                  key: secret_key
+            - name: CCP_ESI_SCOPES
+              valueFrom:
+                secretKeyRef:
+                  name: pathfinder-secret
+                  key: esi_scopes
+
+            
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
