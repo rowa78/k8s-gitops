@@ -51,11 +51,11 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}          
           volumeMounts:
-            - name: config.ini
-              mountPath: /var/www/html/pathfinder/app/templateConfig.ini
-              subPath: config.ini
+          - name: config.ini
+            mountPath: /var/www/html/pathfinder/app/templateConfig.ini
+            subPath: config.ini
       volumes:
-        - name: config:
+        - name: 
           configMap: 
             name: {{ include "pathfinder.fullname" . }}-conf      
       {{- with .Values.nodeSelector }}
