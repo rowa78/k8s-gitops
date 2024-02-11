@@ -54,6 +54,12 @@ spec:
           - name: config
             mountPath: /var/www/html/pathfinder/app/templateConfig.ini
             subPath: config.ini
+          - name: config
+            mountPath: /var/www/html/pathfinder/app/pathfinder.ini
+            subPath: pathfinder.ini
+          - name: config
+            mountPath: /var/www/html/pathfinder/app/plugin.ini
+            subPath: plugin.ini
       volumes:
         - name: config
           configMap: 
