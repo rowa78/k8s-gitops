@@ -45,6 +45,17 @@ spec:
               value: redis-pathfinder
             - name: REDIS_PORT
               value: "6379"
+            - name: MYSQL_HOST
+              value: "pathfinder-database-mariadb"
+            - name: MYSQL_PORT
+              value: "3306"            
+            - name: MYSQL_USER
+              value: "pathfinder"
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pathfinder-mariadb-secret
+                  key: mariadb-password
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
