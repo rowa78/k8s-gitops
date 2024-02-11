@@ -60,6 +60,23 @@ spec:
           - name: config
             mountPath: /var/www/html/pathfinder/app/plugin.ini
             subPath: plugin.ini
+        - name: websocket
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.websocketimage.repository }}:{{ .Values.websocketimage.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.websocketimage.pullPolicy }}
+          ports:
+            - name: socket
+              containerPort: 8020
+              protocol: TCP
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http          
       volumes:
         - name: config
           configMap: 
