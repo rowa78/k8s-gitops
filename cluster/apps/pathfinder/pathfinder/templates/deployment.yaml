@@ -76,7 +76,12 @@ spec:
                 secretKeyRef:
                   name: pathfinder-secret
                   key: app_password
-
+            - name: MYSQL_PF_DB_NAME
+              value: "pathfinder" # mysql pathfinder table name
+            - name: MYSQL_UNIVERSE_DB_NAME
+              value: "eve_universe"
+            - name: MYSQL_CCP_DB_NAME
+              value: "eve_lifeblood_min"
             
           ports:
             - name: http
