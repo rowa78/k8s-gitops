@@ -55,7 +55,7 @@ spec:
             mountPath: /var/www/html/pathfinder/app/templateConfig.ini
             subPath: config.ini
       volumes:
-        - name: 
+        - name: config
           configMap: 
             name: {{ include "pathfinder.fullname" . }}-conf      
       {{- with .Values.nodeSelector }}
