@@ -62,7 +62,7 @@ docker-registry-ui:
     # This needs to update your registry configuration with : `Access-Control-Allow-Headers: ['Authorization', 'Accept', 'Cache-Control']`
     useControlCacheHeader: false
     # Use root or nginx user inside the container, when this is false the target port must be greater or equal to 1024.
-    runAsRoot: true
+    runAsRoot: false
 
     # Select the default theme to apply, values can be `auto`, `dark` and `light`
     defaultTheme: "dark"
@@ -150,6 +150,7 @@ docker-registry-ui:
   registry:
     # Enable the registry server.
     enabled: true
+    runAsRoot: true
     # The name and tag of the docker registry server image
     image: registry:2.8.2
     # Override default image pull secrets
