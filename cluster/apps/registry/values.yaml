@@ -136,9 +136,9 @@ docker-registry-ui:
       # The name of an IngressClass cluster resource.
       ingressClassName: nginx
       # TLS configuration
-      tls: 
-        hosts:
-          - registry.rwcloud.org
+      tls:
+      - hosts:
+        - registry.rwcloud.org
       # Annotations to apply to the user interface ingress.
       annotations: {}
       # If you want a custom path, you can try this example:
