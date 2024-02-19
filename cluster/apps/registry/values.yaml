@@ -16,7 +16,7 @@ docker-registry-ui:
     # Title of the registry
     title: "Docker registry UI"
     # UI behave as a proxy of the registry
-    proxy: false
+    proxy: true
     # The URL of your docker registry, may be a service (when proxy is on) or an external URL.
     dockerRegistryUrl: null
     # Override the pull URL
