@@ -1,4 +1,4 @@
-joxit:
+docker-registry-ui:
   ## Global
   global:
     # Set the prefix used for all resources in the Helm chart. If not set,
