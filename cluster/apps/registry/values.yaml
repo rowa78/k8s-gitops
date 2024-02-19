@@ -157,7 +157,9 @@ docker-registry-ui:
     # Override default pull policy
     imagePullPolicy: "-"
     # Configuration for the data directory.  When null it will create an emptyDir.
-    dataVolume: data
+    dataVolume: 
+      persistentVolumeClaim:
+        claimName: data
     # The resource settings for registry server pod.
     resources: {}
     # Optional YAML string to specify a nodeSelector config.
