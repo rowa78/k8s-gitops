@@ -38,23 +38,23 @@ spec:
     size: 200Gi
     storageClass: openebs-zfs-postgres
 
-  # backup:
-  #   barmanObjectStore:
-  #     endpointURL: "http://minio.minio.svc.cluster.local:9000"      
-  #     destinationPath: "s3://postgresql/"      
-  #     s3Credentials:
-  #       accessKeyId:
-  #         name: s3-creds
-  #         key: aws_access_key_id
-  #       secretAccessKey:
-  #         name: s3-creds
-  #         key: aws_secret_access_key
-  #     wal:
-  #       compression: gzip        
-  #     data:
-  #       compression: gzip                
-  #       jobs: 2
-  #   retentionPolicy: "5d"
+  backup:
+    barmanObjectStore:
+      endpointURL: "http://minio.minio.svc.cluster.local:9000"      
+      destinationPath: "s3://postgresql/"      
+      s3Credentials:
+        accessKeyId:
+          name: s3-creds
+          key: aws_access_key_id
+        secretAccessKey:
+          name: s3-creds
+          key: aws_secret_access_key
+      wal:
+        compression: gzip        
+      data:
+        compression: gzip                
+        jobs: 2
+    retentionPolicy: "5d"
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
