@@ -141,6 +141,8 @@ cloudnative-pg:
     podMonitorEnabled: true
     grafanaDashboard:
       create: true
+      # -- Label value that ConfigMaps should have to be loaded as dashboards.
+      sidecarLabelValue: "1"
 
   # Default monitoring queries
   monitoringQueriesConfigMap:
