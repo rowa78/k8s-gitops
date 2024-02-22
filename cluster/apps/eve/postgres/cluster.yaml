@@ -7,7 +7,7 @@ metadata:
     k8up.io/file-extension: .sql
 spec:
   imageName: r0wa/postgresql:15.4-14
-  instances: 1
+  instances: 2
 
   resources:
     requests:
