@@ -6,7 +6,7 @@ metadata:
     k8up.io/backupcommand: sh -c 'pg_dump --clean mealiedb'
     k8up.io/file-extension: .sql
 spec:
-  instances: 1
+  instances: 2
 
   bootstrap:
     initdb:
