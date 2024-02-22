@@ -15,7 +15,7 @@ minio:
     pullPolicy: IfNotPresent
 
   ## minio mode, i.e. standalone or distributed or gateway.
-  mode: standalone ## other supported values are "standalone", "gateway"
+  mode: distibuted ## other supported values are "standalone", "gateway"
 
   deployment:
     updateStrategy:
@@ -54,7 +54,7 @@ minio:
     ##
     ## Storage class of PV to bind. By default it looks for standard storage class.
     ## If the PV uses a different storage class, specify that here.
-    storageClass: "openebs-zfs"
+    storageClass: "longhorn"
     VolumeName: ""
     accessMode: ReadWriteOnce
     size: 500Gi
