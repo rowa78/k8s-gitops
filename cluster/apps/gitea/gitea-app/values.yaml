@@ -268,7 +268,7 @@ gitea:
     accessModes:
       - ReadWriteOnce
     labels: {}
-    storageClass: openebs-zfs
+    storageClass: longhorn
     subPath:
     volumeName: ""
     annotations:
@@ -554,7 +554,7 @@ gitea:
             postgresql: 5432
     primary:
       persistence:
-        storageClass: openebs-zfs
+        storageClass: longhorn
         size: 10Gi
 
   # By default, removed or moved settings that still remain in a user defined values.yaml will cause Helm to fail running the install/update.
