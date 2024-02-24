@@ -5,3 +5,4 @@ metadata:
   namespace: ingress-nginx
 data:
   2222: "gitea/gitea-app-ssh:22"
+  30100: "minecraft/minecraft-minecraft:25565" 
