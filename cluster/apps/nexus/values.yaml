@@ -152,7 +152,7 @@ nexus-repository-manager:
     # existingClaim:
     # annotations:
     #  "helm.sh/resource-policy": keep
-    storageClass: "openebs-zfs"
+    storageClass: "longhorn"
     storageSize: 25Gi
     # If PersistentDisk already exists you can create a PV for it by including the 2 following keypairs.
     # pdName: nexus-data-disk
