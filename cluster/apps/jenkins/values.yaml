@@ -855,7 +855,7 @@ jenkins:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: jenkins
+    storageClass: longhorn
     annotations: {}
     labels: {}
     accessMode: "ReadWriteOnce"
