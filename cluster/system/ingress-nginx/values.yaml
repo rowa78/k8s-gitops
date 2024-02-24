@@ -54,6 +54,5 @@ ingress-nginx:
       # -- Is this the default ingressClass for the cluster
       default: true
   tcp:
-    30100: "minecraft-ronny-caro/minecraft-ronny-caro-minecraft:25565"
-    30101: "minecraft-caro-sofia-robert/minecraft-caro-sofia-robert-minecraft:25565"
+    30100: "minecraft/minecraft-minecraft:25565"    
     2222: "gitea/gitea-ssh:2222"
