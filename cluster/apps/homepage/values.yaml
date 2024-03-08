@@ -72,12 +72,6 @@ homepage:
                 href: https://hub.docker.com
 
     widgets:
-      - diskstation:
-          type: diskstation
-          url: http://100.80.144.45:5000
-          username: remote_stats
-          password: "wyt]mJ"
-          volume: volume_1 # optional
       - search:
           provider: duckduckgo
           target: _blank
@@ -97,15 +91,16 @@ homepage:
 
     services: 
       - Storage:
-        - Synology DS1821+:
+        - Diskstation:
             icon: synology-dsm.svg
-            href: "https://synology.mydomain"
+            href: "https://ds.ronnywalter.de"
             description: Synology DSM
+            siteMonitor: "https://ds.ronnywalter.de"
             widget:
                 type: diskstation
                 url: http://100.80.144.45:5000
-                username: remote_stats
-                password: "wyt]mJ"
+                username: '{{HOMEPAGE_VAR_DISKSTATION_USER}}'
+                password: '{{HOMEPAGE_VAR_DISKSTATION_PASSWORD}}'
     kubernetes:
       # change mode to 'cluster' to use RBAC service account
       mode: cluster
