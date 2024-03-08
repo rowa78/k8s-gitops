@@ -140,7 +140,13 @@ docker-registry-ui:
       - hosts:
         - registry.rwcloud.org
       # Annotations to apply to the user interface ingress.
-      annotations: {}
+      annotations: 
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/description: Docker Registry
+        gethomepage.dev/group: System
+        gethomepage.dev/icon: docker.png
+        gethomepage.dev/name: Docker Registry
+        gethomepage.dev/pod-selector: ""
       # If you want a custom path, you can try this example:
       # path: /ui(/|$)(.*)
       # annotations:
