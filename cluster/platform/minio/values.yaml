@@ -110,10 +110,12 @@ minio:
 
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
-      hajimari.io/enable: "true"
-      hajimari.io/icon: "file-document"
-      hajimari.io/group: system
-      hajimari.io/appName: minio
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Minio Console rwcloud.org
+      gethomepage.dev/group: Storage
+      gethomepage.dev/icon: minio.png
+      gethomepage.dev/name: minio (rwcloud.org)        
+      gethomepage.dev/pod-selector: ""
     path: /
     hosts:
       - minio-console.rwcloud.org
