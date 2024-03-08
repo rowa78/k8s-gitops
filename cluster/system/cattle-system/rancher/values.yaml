@@ -5,9 +5,12 @@ rancher:
   ingress:
     extraAnnotations:
       kubernetes.io/ingress.class: "nginx"
-      hajimari.io/enable: "true"
-      hajimari.io/icon: "kubernetes"                    
-      hajimari.io/group: system
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Rancher
+      gethomepage.dev/group: System
+      gethomepage.dev/icon: rancher.png
+      gethomepage.dev/name: Rancher
+      gethomepage.dev/pod-selector: ""
 #      nginx.ingress.kubernetes.io/auth-method: GET
 #      nginx.ingress.kubernetes.io/auth-url: http://authelia.authelia.svc.cluster.local/api/verify
 #      nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
