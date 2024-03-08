@@ -26,10 +26,12 @@ kube-prometheus-stack:
         nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
         nginx.ingress.kubernetes.io/auth-snippet: |
           proxy_set_header X-Forwarded-Method $request_method;   
-        hajimari.io/enable: "true"
-        hajimari.io/icon: "monitor-eye"                    
-        hajimari.io/group: system
-        hajimari.io/appName: alertmanager
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/description: Alertmanager
+        gethomepage.dev/group: System
+        gethomepage.dev/icon: alertmanager.png
+        gethomepage.dev/name: Alertmanager
+        gethomepage.dev/pod-selector: ""
       hosts:
         - &host alertmanager.rwcloud.org
       tls:
@@ -50,10 +52,12 @@ kube-prometheus-stack:
       ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
-        hajimari.io/enable: "true"
-        hajimari.io/icon: "monitor-eye"                    
-        hajimari.io/group: system
-        hajimari.io/appName: grafana
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/description: Grafana
+        gethomepage.dev/group: System
+        gethomepage.dev/icon: grafana.png
+        gethomepage.dev/name: Grafana
+        gethomepage.dev/pod-selector: ""
       hosts:
         - &host grafana.rwcloud.org
       tls:
@@ -186,10 +190,12 @@ kube-prometheus-stack:
         nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
         nginx.ingress.kubernetes.io/auth-snippet: |
           proxy_set_header X-Forwarded-Method $request_method;   
-        hajimari.io/enable: "true"
-        hajimari.io/icon: "monitor-eye"                    
-        hajimari.io/group: system
-        hajimari.io/appName: prometheus
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/description: Prometheus
+        gethomepage.dev/group: System
+        gethomepage.dev/icon: prometheus.png
+        gethomepage.dev/name: Prometheus
+        gethomepage.dev/pod-selector: ""
       hosts:
         - &host prometheus.rwcloud.org
       tls:
