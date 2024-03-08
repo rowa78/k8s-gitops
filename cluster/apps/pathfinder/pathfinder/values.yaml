@@ -52,9 +52,20 @@ service:
 ingress:
   enabled: true
   className: "nginx"
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  annotations: 
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/auth-method: GET
+    nginx.ingress.kubernetes.io/auth-url: https://auth.rwcloud.org/api/verify
+    nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+    nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+    nginx.ingress.kubernetes.io/auth-snippet: |
+      proxy_set_header X-Forwarded-Method $request_method; 
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Eve Pathfinder
+    gethomepage.dev/group: Eve
+    gethomepage.dev/icon: mdi-map-marker-path
+    gethomepage.dev/name: Pathfinder        
+    gethomepage.dev/pod-selector: ""
   hosts:
     - host: pathfinder.rwcloud.org
       paths:
