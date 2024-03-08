@@ -1,6 +1,10 @@
 rancher:
   bootstrapPassword: "changemenow!"
   replicas: 2
+
+  antiAffinity: required
+  topologyKey: kubernetes.io/hostname
+
   hostname: "rancher.rwcloud.org"
   ingress:
     extraAnnotations:
