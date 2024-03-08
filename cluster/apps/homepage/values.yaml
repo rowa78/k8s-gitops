@@ -95,7 +95,17 @@ homepage:
             memory: true
             showLabel: true
 
-    services: {}
+    services: 
+      - Storage:
+        - Synology DS1821+:
+            icon: synology-dsm.svg
+            href: "https://synology.mydomain"
+            description: Synology DSM
+            widget:
+                type: diskstation
+                url: http://100.80.144.45:5000
+                username: remote_stats
+                password: "wyt]mJ"
     kubernetes:
       # change mode to 'cluster' to use RBAC service account
       mode: cluster
