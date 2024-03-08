@@ -72,6 +72,12 @@ homepage:
                 href: https://hub.docker.com
 
     widgets:
+      - diskstation:
+          type: diskstation
+          url: http://diskstation
+          username: '{{HOMEPAGE_VAR_DISKSTATION_USER}}'
+          password: '{{HOMEPAGE_VAR_DISKSTATION_PASSWORD}}'
+          volume: volume_1 # optional
       - search:
           provider: duckduckgo
           target: _blank
