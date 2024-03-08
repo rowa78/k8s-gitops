@@ -18,13 +18,13 @@ karma:
       nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
       nginx.ingress.kubernetes.io/auth-snippet: |
         proxy_set_header X-Forwarded-Method $request_method; 
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/description: Karma Dashboard
-        gethomepage.dev/group: System
-        gethomepage.dev/icon: karma.png
-        gethomepage.dev/name: Karma
-        gethomepage.dev/app: karma
-        gethomepage.dev/pod-selector: ""
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Karma Dashboard
+      gethomepage.dev/group: System
+      gethomepage.dev/icon: karma.png
+      gethomepage.dev/name: Karma
+      gethomepage.dev/app: karma
+      gethomepage.dev/pod-selector: ""
     #  nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
     #  nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start
     hosts:
