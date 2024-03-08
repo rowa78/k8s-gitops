@@ -28,13 +28,13 @@ homepage:
   ingress:
     main:
       enabled: true
-      # annotations:
-      #   # These annotations will configure how this deployment is shown in Homepage
-      #   gethomepage.dev/enabled: "true"
-      #   gethomepage.dev/description: Media Server
-      #   gethomepage.dev/group: Media
-      #   gethomepage.dev/icon: emby.png
-      #   gethomepage.dev/name: Emby
+      annotations:
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-url: https://auth.rwcloud.org/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          proxy_set_header X-Forwarded-Method $request_method;
       ingressClassName: "nginx"
       hosts:
         - host: &host "home.rwcloud.org"
