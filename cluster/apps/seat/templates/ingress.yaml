@@ -12,9 +12,12 @@ metadata:
       Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
     nginx.ingress.kubernetes.io/auth-snippet: |
       proxy_set_header X-Forwarded-Host $http_host;     
-    hajimari.io/enable: "true"
-    hajimari.io/icon: "rocket-launch"
-    hajimari.io/group: apps
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: "SeAT: A Simple, EVE Online API Tool and Corporation Manager"
+    gethomepage.dev/group: Eve
+    gethomepage.dev/icon: https://avatars.githubusercontent.com/u/13915359?s=200&v=4
+    gethomepage.dev/name: SeAT
+    gethomepage.dev/pod-selector: ""
   name: seat
   namespace: seat
 spec:
