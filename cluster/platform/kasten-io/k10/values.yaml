@@ -143,6 +143,12 @@ k10:
     create: true
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production    
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Kasten K10
+      gethomepage.dev/group: System
+      gethomepage.dev/icon: kasten-k10.png
+      gethomepage.dev/name: Kasten
+      gethomepage.dev/pod-selector: ""
     tls:
       enabled: true
       secretName: "k10-tls-secret"
