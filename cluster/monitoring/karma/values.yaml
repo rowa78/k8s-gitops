@@ -21,7 +21,7 @@ karma:
       gethomepage.dev/enabled: "true"
       gethomepage.dev/description: Karma Dashboard
       gethomepage.dev/group: System
-      gethomepage.dev/icon: karma.png
+      gethomepage.dev/icon: mdi-alert-box-outline
       gethomepage.dev/name: Karma
       gethomepage.dev/app: karma
       gethomepage.dev/pod-selector: ""
