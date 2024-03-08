@@ -25,16 +25,16 @@ homepage:
       maxUnavailable: 25%
 
   env:
-    - HOMEPAGE_VAR_DISKSTATION_USER:
-        valueFrom:
-          secretKeyRef:
-            name: widget-secrets
-            key: DISKSTATION_USER
-    - HOMEPAGE_VAR_DISKSTATION_PASSWORD:
-        valueFrom:
-          secretKeyRef:
-            name: widget-secrets
-            key: DISKSTATION_PASSWORD
+    - name: HOMEPAGE_VAR_DISKSTATION_USER:      
+      valueFrom:
+        secretKeyRef:
+          name: widget-secrets
+          key: DISKSTATION_USER
+    - name: HOMEPAGE_VAR_DISKSTATION_PASSWORD:
+      valueFrom:
+        secretKeyRef:
+          name: widget-secrets
+          key: DISKSTATION_PASSWORD
     
 
   # Enable the ingress to expose Homepage to the network.
