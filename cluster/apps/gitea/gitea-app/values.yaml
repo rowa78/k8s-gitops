@@ -156,10 +156,12 @@ gitea:
     className: nginx
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production            
-      hajimari.io/enable: "true"
-      hajimari.io/icon: "git"                    
-      hajimari.io/group: system
-      hajimari.io/appName: gitea
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Gitea
+      gethomepage.dev/group: System
+      gethomepage.dev/icon: gitea.png
+      gethomepage.dev/name: Gitea
+      gethomepage.dev/pod-selector: ""
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: 0
