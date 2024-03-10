@@ -262,6 +262,8 @@ jenkins:
       - prometheus
       - gitea
       - gradle
+      - kubernetes-cli
+      - cloudbees-disk-usage-simple
     #  - oic-auth
 
     # Enable to initialize the Jenkins controller only once on initial installation.
