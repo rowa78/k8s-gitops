@@ -1,0 +1,27 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disable-k8up-backups-for-pvc
+spec:
+  rules:
+    - name: match-pvcs-from-cnpg
+      match:
+        any:
+        # AND across kinds and namespaceSelector
+        - resources:
+            # OR inside list of kinds
+            kinds:
+            - PersistentVolumeClaim           
+            operations:
+            - CREATE
+            - UPDATE
+            selector:
+              matchLabels:
+                cnpg.io/cluster: '?*'
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            labels:
+              +(mutated.by): kyverno
+            annotations:
+              +(k8up.io/backup): "false"
