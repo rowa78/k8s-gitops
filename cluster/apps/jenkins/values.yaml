@@ -250,6 +250,7 @@ jenkins:
       - git
       - configuration-as-code
 
+
     # Set to false to download the minimum required version of all dependencies.
     installLatestPlugins: true
 
@@ -260,6 +261,7 @@ jenkins:
     additionalPlugins: 
       - prometheus
       - gitea
+      - gradle
     #  - oic-auth
 
     # Enable to initialize the Jenkins controller only once on initial installation.
