@@ -38,7 +38,7 @@ spec:
     size: 200Gi
     storageClass: openebs-zfs-postgres
   walStorage:
-    size: 10Gi
+    size: 50Gi
     storageClass: openebs-zfs-postgres
 
   backup:
