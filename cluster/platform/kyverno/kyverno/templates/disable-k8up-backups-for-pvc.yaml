@@ -5,6 +5,7 @@ metadata:
 spec:
   rules:
     - name: match-pvcs-from-cnpg
+      skipBackgroundRequests: true
       match:
         any:
         # AND across kinds and namespaceSelector
