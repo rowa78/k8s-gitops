@@ -20,6 +20,7 @@ ingress-nginx:
       #use-proxy-protocol: "true"
       use-forwarded-headers: "true"
       enable-real-ip: "true"
+      use-proxy-protocol: "true"
       #forwarded-for-header: proxy_protocol
       ssl-protocols: "TLSv1.3 TLSv1.2"
       proxy-body-size: "1000m"      
