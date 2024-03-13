@@ -1,0 +1,108 @@
+apiVersion: cr.kanister.io/v1alpha1
+kind: Blueprint
+metadata:
+  name: cnpg-blueprint    
+actions:
+  backup:
+    kind: clusters.postgresql.cnpg.io
+    outputArtifacts:
+      pgBackup:
+        kopiaSnapshot: '{{ .Phases.pgDump.Output.kopiaOutput }}'
+    phases:
+    - args:
+        command:
+        - bash
+        - -o
+        - errexit
+        - -o
+        - pipefail
+        - -c
+        - |
+          export PGHOST='{{ .Object.metadata.name }}-rw'
+          export PGUSER='postgres'
+          export PGPASSWORD='{{ index .Phases.pgDump.Secrets.pgSecret.Data "password" | toString }}'
+          mkdir -p backup
+          databases=$(psql -t -c "SELECT datname FROM pg_database WHERE datname NOT IN ('postgres','template0','template1');")
+          for database in $databases; do echo "Dumping database $database" && pg_dump --clean -U $PGUSER $database > backup/backup_$database.sql; done
+          cd backup
+          tar cvfz - backup* | kando location push --profile '{{ toJson .Profile }}' --path "backup.tar.gz" --output-name "kopiaOutput" -
+        image: ghcr.io/kanisterio/postgres-kanister-tools:0.106.0
+        namespace: '{{ .Object.metadata.namespace }}'
+      func: KubeTask
+      name: pgDump
+      objects:
+        pgSecret:
+          kind: Secret
+          name: '{{ .Object.metadata.name }}-superuser'
+          namespace: '{{ .Object.metadata.namespace }}'
+  restore:
+    inputArtifactNames:
+    - pgBackup
+    kind: clusters.postgresql.cnpg.io
+    phases:
+    - args:
+        command:
+        - bash
+        - -o
+        - errexit
+        - -o
+        - pipefail
+        - -c
+        - |
+          export PGHOST='{{ .Object.metadata.name }}-rw'
+          export PGUSER='postgres'
+          export PGPASSWORD='{{ index .Phases.pgRestore.Secrets.pgSecret.Data "password" | toString }}'
+          echo "Password: $PGPASSWORD"
+          kopia_snap='{{ .ArtifactsIn.pgBackup.KopiaSnapshot }}'
+          echo "Pulling kopia-snapshot: $kopia_snap"
+          mkdir backup
+          kando location pull --profile '{{ toJson .Profile }}' --path "backup.tar.gz" --kopia-snapshot "${kopia_snap}" - | tar xvfz - -C backup/
+          echo "files in backup-folder"
+          for file in $(ls -1 ./backup/); do echo "Importing $file" && psql < ./backup/$file; done
+        image: ghcr.io/kanisterio/postgres-kanister-tools:0.106.0
+        namespace: '{{ .Object.metadata.namespace }}'
+      func: KubeTask
+      name: pgRestore
+      objects:
+        pgSecret:
+          kind: Secret
+          name: '{{ .Object.metadata.name }}-superuser'
+          namespace: '{{ .Object.metadata.namespace }}'
+  delete:
+    inputArtifactNames:
+      - pgBackup
+    phases:
+      - func: KubeTask
+        name: deleteFromBlobStore
+        args:
+          image: ghcr.io/kanisterio/postgres-kanister-tools:0.106.0
+          command:
+            - bash
+            - -o
+            - errexit
+            - -o
+            - pipefail
+            - -c
+            - |
+              kopiaPath="backup.tar.gz"
+              kopia_snap='{{ .ArtifactsIn.mssqlCloudDump.KopiaSnapshot }}'
+              kando location delete --profile '{{ toJson .Profile }}' --path ${kopiaPath} --kopia-snapshot "${kopia_snap}"
+---
+apiVersion: config.kio.kasten.io/v1alpha1
+kind: BlueprintBinding
+metadata:
+  name: cnpg-blueprint-binding  
+spec:
+  blueprintRef:
+    name: cnpg-blueprint
+    namespace: kasten-io
+  resources:
+    matchAll:
+      - type:
+          operator: In
+          values:
+            - group: postgresql.cnpg.io
+              resource: clusters
+      - annotations:
+          key: kanister.kasten.io/blueprint
+          operator: DoesNotExist
