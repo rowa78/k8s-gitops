@@ -59,7 +59,12 @@ actions:
           kando location pull --profile '{{ toJson .Profile }}' --path "backup.tar.gz" --kopia-snapshot "${kopia_snap}" - | tar xvfz - -C backup/
           echo "files in backup-folder"
           for i in {1..60}; do pg_isready && echo "Database available." && break || echo "Waiting for database..."; sleep 1; done
-          for file in $(ls -1 ./backup/); do echo "Importing $file" && psql < ./backup/$file; done
+          for file in ./backup/*.sql; do
+            dbname=$(echo "$file" | sed 's/\.\/backup\/backup_\(.*\)\.sql/\1/')
+            echo "Importing $file to database $dbname"
+            psql -d "$dbname" -f "$file"
+            echo "Import of db $dbname done"
+          done
           sleep 120
         image: ghcr.io/kanisterio/postgres-kanister-tools:0.106.0
         namespace: '{{ .Object.metadata.namespace }}'
