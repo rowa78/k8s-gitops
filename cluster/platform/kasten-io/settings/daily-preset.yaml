@@ -19,11 +19,11 @@ spec:
       monthly: 12
       yearly: 7
     profile:
-      name: diskstation-profile
+      name: storagebox-profile
       namespace: kasten-io
   export:
     profile:
-      name: diskstation-profile
+      name: storagebox-profile
       namespace: kasten-io
     exportData:
       enabled: true
