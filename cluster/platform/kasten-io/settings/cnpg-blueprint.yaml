@@ -81,7 +81,7 @@ actions:
             - -c
             - |
               kopiaPath="backup.sql.gz"
-              kopia_snap='{{ .ArtifactsIn.mssqlCloudDump.KopiaSnapshot }}'
+              kopia_snap='{{ .ArtifactsIn.pgBackup.KopiaSnapshot }}'
               kando location delete --profile '{{ toJson .Profile }}' --path ${kopiaPath} --kopia-snapshot "${kopia_snap}"
 ---
 apiVersion: config.kio.kasten.io/v1alpha1
