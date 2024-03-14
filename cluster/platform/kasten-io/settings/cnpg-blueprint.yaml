@@ -48,9 +48,9 @@ actions:
         - -c
         - |
           export PGHOST='{{ .Object.metadata.name }}-rw'
-          export PGUSER='{{ index .Phases.pgDump.Secrets.pgSecret.Data "username" | toString }}'
-          export PGPASSWORD='{{ index .Phases.pgDump.Secrets.pgSecret.Data "password" | toString }}'
-          export DBNAME='{{ index .Phases.pgDump.Secrets.pgSecret.Data "dbname" | toString }}'
+          export PGUSER='{{ index .Phases.pgRestore.Secrets.pgSecret.Data "username" | toString }}'
+          export PGPASSWORD='{{ index .Phases.pgRestore.Secrets.pgSecret.Data "password" | toString }}'
+          export DBNAME='{{ index .Phases.pgRestore.Secrets.pgSecret.Data "dbname" | toString }}'
           kopia_snap='{{ .ArtifactsIn.pgBackup.KopiaSnapshot }}'
           echo "Pulling kopia-snapshot: $kopia_snap"          
           for i in {1..60}; do pg_isready && echo "Database available." && break || echo "Waiting for database..."; sleep 1; done
