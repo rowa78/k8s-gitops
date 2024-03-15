@@ -1,7 +1,0 @@
-name: k10
-apiVersion: v2
-version: 1.0.0
-dependencies:
-  - name: k10restore
-    version: "6.5.8"
-    repository: https://charts.kasten.io
