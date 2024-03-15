@@ -53,6 +53,7 @@ kube-prometheus-stack:
       ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
+        nginx.ingress.kubernetes.io/affinity: "cookie"
         gethomepage.dev/enabled: "true"
         gethomepage.dev/description: Grafana
         gethomepage.dev/group: System
