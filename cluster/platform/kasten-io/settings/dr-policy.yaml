@@ -18,7 +18,6 @@ spec:
     hourly: 4
     monthly: 1
     weekly: 1
-    yearly: 0
   selector:
     matchExpressions:
     - key: k10.kasten.io/appNamespace
