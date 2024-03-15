@@ -14,10 +14,7 @@ spec:
   destination:
     name: in-cluster
     namespace: kasten-io
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+  syncPolicy: {}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -35,10 +32,7 @@ spec:
   destination:
     name: in-cluster
     namespace: kasten-io
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+  syncPolicy: {}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
