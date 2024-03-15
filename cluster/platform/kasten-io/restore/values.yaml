@@ -3,7 +3,7 @@ k10-restore:
   # This is a YAML-formatted file.
   # Declare variables to be passed into your templates.
 
-  enabled: false
+  enabled: true
 
   image:
     registry: gcr.io
@@ -23,7 +23,7 @@ k10-restore:
   # Added for the k10 Operator
   # A non nested value allows for a cleaner k10restore form view
   # Nested values are shown folded in a sub form
-  profileName:
+  profileName: diskstation-profile
 
   profile:
     create: false
