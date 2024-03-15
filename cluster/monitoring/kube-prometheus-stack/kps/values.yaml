@@ -42,10 +42,11 @@ kube-prometheus-stack:
   grafana:
     fullnameOverride: grafana
     defaultDashboardsTimezone: Europe/Berlin
+    replicas: 2
     persistence:
       enabled: true
       type: sts
-      storageClassName: longhorn
+      storageClassName: openebs-zfs
       size: 1Gi
     ingress:
       enabled: true
