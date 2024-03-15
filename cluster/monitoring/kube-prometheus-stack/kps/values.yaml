@@ -8,7 +8,7 @@ kube-prometheus-stack:
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: openebs-zfs
+            storageClassName: longhorn
             resources:
               requests:
                 storage: 1Gi
@@ -43,9 +43,9 @@ kube-prometheus-stack:
     fullnameOverride: grafana
     defaultDashboardsTimezone: Europe/Berlin
     persistence:
-      enabled: false
+      enabled: true
       type: deployment
-      storageClassName: openebs-zfs
+      storageClassName: longhorn
       size: 1Gi
     ingress:
       enabled: true
@@ -149,7 +149,7 @@ kube-prometheus-stack:
   prometheus:
     fullnameOverride: prometheus
     prometheusSpec:
-      replicas: 1
+      replicas: 2
       externalUrl: https://prometheus.rwcloud.org
       ruleSelectorNilUsesHelmValues: false
       serviceMonitorSelectorNilUsesHelmValues: false
@@ -405,6 +405,8 @@ prometheus-pushgateway:
     ##
     enabled: true
 
+    replicaCount: 2
+
     ## pushgateway data Persistent Volume access modes
     ## Must match those of existing PV or dynamic provisioner
     ## Ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
@@ -436,7 +438,7 @@ prometheus-pushgateway:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "openebs-zfs"
+    storageClass: "longhorn"
 
     ## Subdirectory of pushgateway data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
