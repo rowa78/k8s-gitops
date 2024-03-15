@@ -50,7 +50,4 @@ spec:
   destination:
     name: in-cluster
     namespace: kasten-io
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+  syncPolicy: {}
