@@ -14,9 +14,7 @@ spec:
             # skip resources created by cnpg operator, only the cluster itself should be stored in backup
             - matchExpressions:
                 - key: cnpg.io/clusters
-                  operator: In
-                  values:
-                    - evedb
+                  operator: Exists                  
     - action: export
   presetRef:
     name: daily
