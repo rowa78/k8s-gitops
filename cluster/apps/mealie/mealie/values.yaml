@@ -46,10 +46,13 @@ ingress:
   enabled: true
   className: "nginx"
   annotations: 
-    hajimari.io/enable: "true"
-    hajimari.io/icon: "bowl-mix"                    
-    hajimari.io/group: apps
-    hajimari.io/appName: mealie
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Mealie
+    gethomepage.dev/group: Apps
+    gethomepage.dev/icon: mealie.png
+    gethomepage.dev/name: Mealie
+    gethomepage.dev/app: mealie  
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
