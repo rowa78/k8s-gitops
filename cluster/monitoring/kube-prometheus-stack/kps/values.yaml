@@ -44,7 +44,7 @@ kube-prometheus-stack:
     defaultDashboardsTimezone: Europe/Berlin
     persistence:
       enabled: true
-      type: deployment
+      type: sts
       storageClassName: longhorn
       size: 1Gi
     ingress:
