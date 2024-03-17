@@ -286,23 +286,7 @@ authentik:
     # -- Environment variables to pass to the authentik server. Does not apply to GeoIP
     # See configuration options at https://goauthentik.io/docs/installation/configuration/
     # @default -- `[]` (See [values.yaml])
-    env: []
-      # - name: AUTHENTIK_VAR_NAME
-      #   value: VALUE
-      # - name: AUTHENTIK_VAR_OTHER
-      #   valueFrom:
-      #     secretKeyRef:
-      #       name: secret-name
-      #       key: secret-key
-      # - name: AUTHENTIK_VAR_ANOTHER
-      #   valueFrom:
-      #     configMapKeyRef:
-      #       name: config-map-name
-      #       key: config-map-key
-
-    # -- envFrom to pass to the authentik server. Does not apply to GeoIP
-    # @default -- `[]` (See [values.yaml])
-    envValueFrom:
+    env: 
       AUTHENTIK_BOOTSTRAP_PASSWORD:
         secretKeyRef:
           key: ak-admin-password
@@ -347,6 +331,22 @@ authentik:
         secretKeyRef:
           key: email-username
           name: authentik
+      # - name: AUTHENTIK_VAR_NAME
+      #   value: VALUE
+      # - name: AUTHENTIK_VAR_OTHER
+      #   valueFrom:
+      #     secretKeyRef:
+      #       name: secret-name
+      #       key: secret-key
+      # - name: AUTHENTIK_VAR_ANOTHER
+      #   valueFrom:
+      #     configMapKeyRef:
+      #       name: config-map-name
+      #       key: config-map-key
+
+    # -- envFrom to pass to the authentik server. Does not apply to GeoIP
+    # @default -- `[]` (See [values.yaml])
+    envValueFrom: []
       # - configMapRef:
       #     name: config-map-name
       # - secretRef:
