@@ -287,50 +287,61 @@ authentik:
     # See configuration options at https://goauthentik.io/docs/installation/configuration/
     # @default -- `[]` (See [values.yaml])
     env: 
-      AUTHENTIK_BOOTSTRAP_PASSWORD:
-        secretKeyRef:
-          key: ak-admin-password
-          name: authentik
-      AUTHENTIK_BOOTSTRAP_TOKEN:
-        secretKeyRef:
-          key: ak-admin-token
-          name: authentik
-      AUTHENTIK_BOOTSTRAP_EMAIL:
-        secretKeyRef:
-          key: email-username
-          name: authentik
-      AUTHENTIK_SECRET_KEY:
-        secretKeyRef:
-          key: secret-key
-          name: authentik
-      AUTHENTIK_POSTGRESQL__USER:
-        secretKeyRef:
-          key: username
-          name: authentik-app
-      AUTHENTIK_POSTGRESQL__PASSWORD:
-        secretKeyRef:
-          key: password
-          name: authentik-app
-      AUTHENTIK_EMAIL__HOST:
-        secretKeyRef:
-          key: email-host
-          name: authentik
-      AUTHENTIK_EMAIL__PORT:
-        secretKeyRef:
-          key: email-port
-          name: authentik
-      AUTHENTIK_EMAIL__USERNAME:
-        secretKeyRef:
-          key: email-username
-          name: authentik
-      AUTHENTIK_EMAIL__PASSWORD:
-        secretKeyRef:
-          key: email-password
-          name: authentik
-      AUTHENTIK_EMAIL__FROM:
-        secretKeyRef:
-          key: email-username
-          name: authentik
+      - name: AUTHENTIK_BOOTSTRAP_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            key: ak-admin-password
+            name: authentik
+      - name: AUTHENTIK_BOOTSTRAP_TOKEN:
+        valueFrom:
+          secretKeyRef:
+            key: ak-admin-token
+            name: authentik
+      - name: AUTHENTIK_BOOTSTRAP_EMAIL:
+        valueFrom:
+          secretKeyRef:
+            key: email-username
+            name: authentik
+      - name: AUTHENTIK_SECRET_KEY:
+        valueFrom:
+          secretKeyRef:
+            key: secret-key
+            name: authentik
+      - name: AUTHENTIK_POSTGRESQL__USER:
+        valueFrom:
+          secretKeyRef:
+            key: username
+            name: authentik-app
+      - name: AUTHENTIK_POSTGRESQL__PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            key: password
+            name: authentik-app
+      - name: AUTHENTIK_EMAIL__HOST:
+        valueFrom:
+          secretKeyRef:
+            key: email-host
+            name: authentik
+      - name: AUTHENTIK_EMAIL__PORT:
+        valueFrom:
+          secretKeyRef:
+            key: email-port
+            name: authentik
+      - name: AUTHENTIK_EMAIL__USERNAME:
+        valueFrom:
+          secretKeyRef:
+            key: email-username
+            name: authentik
+      - name: AUTHENTIK_EMAIL__PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            key: email-password
+            name: authentik
+      - name: AUTHENTIK_EMAIL__FROM:
+        valueFrom:
+          secretKeyRef:
+            key: email-username
+            name: authentik
       # - name: AUTHENTIK_VAR_NAME
       #   value: VALUE
       # - name: AUTHENTIK_VAR_OTHER
