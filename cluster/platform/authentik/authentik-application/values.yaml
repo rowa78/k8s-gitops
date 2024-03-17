@@ -287,57 +287,57 @@ authentik:
     # See configuration options at https://goauthentik.io/docs/installation/configuration/
     # @default -- `[]` (See [values.yaml])
     env: 
-      - name: AUTHENTIK_BOOTSTRAP_PASSWORD:
+      - name: AUTHENTIK_BOOTSTRAP_PASSWORD
         valueFrom:
           secretKeyRef:
             key: ak-admin-password
             name: authentik
-      - name: AUTHENTIK_BOOTSTRAP_TOKEN:
+      - name: AUTHENTIK_BOOTSTRAP_TOKEN
         valueFrom:
           secretKeyRef:
             key: ak-admin-token
             name: authentik
-      - name: AUTHENTIK_BOOTSTRAP_EMAIL:
+      - name: AUTHENTIK_BOOTSTRAP_EMAIL
         valueFrom:
           secretKeyRef:
             key: email-username
             name: authentik
-      - name: AUTHENTIK_SECRET_KEY:
+      - name: AUTHENTIK_SECRET_KEY
         valueFrom:
           secretKeyRef:
             key: secret-key
             name: authentik
-      - name: AUTHENTIK_POSTGRESQL__USER:
+      - name: AUTHENTIK_POSTGRESQL__USER
         valueFrom:
           secretKeyRef:
             key: username
             name: authentik-app
-      - name: AUTHENTIK_POSTGRESQL__PASSWORD:
+      - name: AUTHENTIK_POSTGRESQL__PASSWORD
         valueFrom:
           secretKeyRef:
             key: password
             name: authentik-app
-      - name: AUTHENTIK_EMAIL__HOST:
+      - name: AUTHENTIK_EMAIL__HOST
         valueFrom:
           secretKeyRef:
             key: email-host
             name: authentik
-      - name: AUTHENTIK_EMAIL__PORT:
+      - name: AUTHENTIK_EMAIL__PORT
         valueFrom:
           secretKeyRef:
             key: email-port
             name: authentik
-      - name: AUTHENTIK_EMAIL__USERNAME:
+      - name: AUTHENTIK_EMAIL__USERNAME
         valueFrom:
           secretKeyRef:
             key: email-username
             name: authentik
-      - name: AUTHENTIK_EMAIL__PASSWORD:
+      - name: AUTHENTIK_EMAIL__PASSWORD
         valueFrom:
           secretKeyRef:
             key: email-password
             name: authentik
-      - name: AUTHENTIK_EMAIL__FROM:
+      - name: AUTHENTIK_EMAIL__FROM
         valueFrom:
           secretKeyRef:
             key: email-username
