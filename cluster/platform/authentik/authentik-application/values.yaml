@@ -184,7 +184,7 @@ authentik:
       # -- set the postgresql hostname to talk to
       # if unset and .Values.postgresql.enabled == true, will generate the default
       # @default -- `{{ .Release.Name }}-postgresql`
-      host: "authentik-rw"
+      host: "authentikdb-rw"
       # -- postgresql Database name
       # @default -- `authentik`
       name: "authentik"
@@ -311,12 +311,12 @@ authentik:
         valueFrom:
           secretKeyRef:
             key: username
-            name: authentik-app
+            name: authentikdb-app
       - name: AUTHENTIK_POSTGRESQL__PASSWORD
         valueFrom:
           secretKeyRef:
             key: password
-            name: authentik-app
+            name: authentikdb-app
       - name: AUTHENTIK_EMAIL__HOST
         valueFrom:
           secretKeyRef:
@@ -752,12 +752,12 @@ authentik:
         valueFrom:
           secretKeyRef:
             key: username
-            name: authentik-app
+            name: authentikdb-app
       - name: AUTHENTIK_POSTGRESQL__PASSWORD
         valueFrom:
           secretKeyRef:
             key: password
-            name: authentik-app
+            name: authentikdb-app
       - name: AUTHENTIK_EMAIL__HOST
         valueFrom:
           secretKeyRef:
