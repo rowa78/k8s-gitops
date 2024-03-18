@@ -55,6 +55,6 @@ tolerations: []
 
 affinity: {}
 
-persistance:
+persistence:
   size: 1G
   storageclass: longhorn
