@@ -27,7 +27,7 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          command: ["sh -c"]
+          command: ["/bin/sh -c"]
           args: ["sleep 999d"]
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
