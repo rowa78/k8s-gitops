@@ -54,3 +54,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+persistance:
+  size: 1G
+  storageclass: longhorn
