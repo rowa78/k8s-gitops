@@ -1,0 +1,7 @@
+name: cockroachdb
+apiVersion: v2
+version: 1.0.0
+dependencies:
+  - name: cockroachdb
+    version: "11.1.6"
+    repository: https://charts.cockroachdb.com/
