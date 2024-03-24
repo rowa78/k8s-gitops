@@ -60,7 +60,6 @@ rancher:
     enabled: true
     includeDefaultExtraAnnotations: true
     extraAnnotations: 
-      extraAnnotations:
       kubernetes.io/ingress.class: "nginx"
       gethomepage.dev/enabled: "true"
       gethomepage.dev/description: Rancher
