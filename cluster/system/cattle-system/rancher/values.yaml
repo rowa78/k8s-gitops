@@ -44,7 +44,7 @@ rancher:
   #   value: "1.0"
 
   # Fully qualified name to reach your Rancher server
-  # hostname: rancher.my.org
+  hostname: rancher.rwcloud.org
 
   ## Optional array of imagePullSecrets containing private registry credentials
   ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -59,8 +59,16 @@ rancher:
     # options: true, false
     enabled: true
     includeDefaultExtraAnnotations: true
-    extraAnnotations: {}
-    ingressClassName: ""
+    extraAnnotations: 
+      extraAnnotations:
+      kubernetes.io/ingress.class: "nginx"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Rancher
+      gethomepage.dev/group: System
+      gethomepage.dev/icon: rancher.png
+      gethomepage.dev/name: Rancher
+      gethomepage.dev/pod-selector: ""
+    ingressClassName: "nginx"
     # backend port number
     servicePort: 80
 
@@ -70,7 +78,7 @@ rancher:
 
     tls:
       # options: rancher, letsEncrypt, secret
-      source: rancher
+      source: secret
       secretName: tls-rancher-ingress
 
   ### service ###
