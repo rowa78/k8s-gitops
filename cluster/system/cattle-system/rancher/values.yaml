@@ -175,7 +175,7 @@ rancher:
     ignoreTimeoutError: false
 
   # Set a bootstrap password. If leave empty, a random password will be generated.
-  bootstrapPassword: "changeit!"
+  bootstrapPassword: ""
 
   livenessProbe:
     initialDelaySeconds: 60
