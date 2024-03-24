@@ -32,7 +32,7 @@ ingress-nginx:
         enabled: true
     extraArgs:
       default-ssl-certificate: "ingress-nginx/wildcard-tls"
-      tcp-services-configmap: ingress-nginx/tcp-services
+#      tcp-services-configmap: ingress-nginx/tcp-services
     resources:
       requests:
         memory: 100Mi
@@ -54,6 +54,6 @@ ingress-nginx:
       enabled: true
       # -- Is this the default ingressClass for the cluster
       default: true
-  tcp:
-    30100: "minecraft/minecraft-minecraft:25565"    
-    2222: "gitea/gitea-ssh:2222"
+#  tcp:
+#    30100: "minecraft/minecraft-minecraft:25565"    
+#    2222: "gitea/gitea-ssh:2222"
