@@ -130,7 +130,7 @@ gitea:
     ssh:
       type: NodePort
       port: 22
-      clusterIP: None
+      #clusterIP: None
       loadBalancerIP:
       nodePort: 30022
       externalTrafficPolicy:
