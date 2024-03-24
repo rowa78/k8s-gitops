@@ -133,7 +133,7 @@ gitea:
       #clusterIP: None
       loadBalancerIP:
       nodePort: 30022
-      externalTrafficPolicy:
+      externalTrafficPolicy: Local
       externalIPs:
       ipFamilyPolicy:
       ipFamilies:
