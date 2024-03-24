@@ -1,0 +1,130 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mealie.fullname" . }}
+  labels:
+    {{- include "mealie.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "mealie.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "mealie.labels" . | nindent 8 }}
+	{{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "mealie.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          env:
+          - name: DB_ENGINE
+            value: postgres
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: mealiedb-app
+                key: username
+                optional: false
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mealiedb-app
+                key: password
+                optional: false
+          - name: POSTGRES_SERVER
+            value: mealiedb-rw
+          - name: POSTGRES_PORT
+            value: "5432"
+          - name: POSTGRES_DB
+            value: mealiedb
+          - name: TZ
+            value: Europe/Berlin        
+          - name: LDAP_AUTH_ENABLED
+            value: "true"
+          - name: LDAP_SERVER_URL
+            valueFrom:
+              secretKeyRef:
+                name: ldap-secret
+                key: LDAP_URL
+                optional: false
+          - name: LDAP_BASE_DN
+            valueFrom:
+              secretKeyRef:
+                name: ldap-secret
+                key: LDAP_BASE_DN
+                optional: false
+          - name: LDAP_QUERY_BIND
+            valueFrom:
+              secretKeyRef:
+                name: ldap-secret
+                key: LDAP_QUERY_USER
+                optional: false
+          - name: LDAP_QUERY_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: ldap-secret
+                key: LDAP_PASSWORD
+                optional: false
+          - name: LDAP_NAME_ATTRIBUTE
+            value: cn
+          - name: LDAP_ADMIN_FILTER
+            value: "cn=Mealie-admins,ou=groups,dc=rwcloud,dc=org"
+          - name: ALLOW_SIGNUP
+            value: "false"
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: "/app/data/"
+              name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "mealie.fullname" . }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
