@@ -1,0 +1,27 @@
+apiVersion: config.kio.kasten.io/v1alpha1
+kind: Policy
+metadata:
+  name: jenkins
+  namespace: kasten-io
+  annotations:
+    argocd.argoproj.io/sync-options: ServerSideApply=true
+spec:
+  actions:
+    - action: backup
+      backupParameters:
+        filters:
+          excludeResources:
+            # skip resources created by cnpg operator, only the cluster itself should be stored in backup
+            - matchExpressions:
+                - key: cnpg.io/cluster
+                  operator: Exists                  
+    - action: export
+  presetRef:
+    name: daily
+    namespace: kasten-io
+  selector:
+    matchExpressions:
+      - key: k10.kasten.io/appNamespace
+        operator: In
+        values:
+          - jenkins
