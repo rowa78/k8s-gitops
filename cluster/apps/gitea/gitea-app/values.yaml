@@ -128,11 +128,11 @@ gitea:
     ## @param service.ssh.loadBalancerSourceRanges Source range filter for ssh loadbalancer
     ## @param service.ssh.annotations SSH service annotations
     ssh:
-      type: ClusterIP
+      type: NodePort
       port: 22
       clusterIP: None
       loadBalancerIP:
-      nodePort:
+      nodePort: 30022
       externalTrafficPolicy:
       externalIPs:
       ipFamilyPolicy:
