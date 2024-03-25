@@ -9,15 +9,15 @@ spec:
   target:
     template:
       data:
-        aws_access_key_id: "{{ .s3Key }}"
-        aws_secret_access_key: "{{ .s3KeySecret }}"
+        aws_access_key_id:  {{ `"{{ .s3Key }}"` }}
+        aws_secret_access_key:  {{ `"{{ .s3KeySecret }}"` }}
   data:
     - secretKey: s3Key
       remoteRef:
-        key: secret/k8ups
+        key: secret/k8up
         property: AWS_ACCESSKEY
     - secretKey: s3KeySecret
       remoteRef:
-        key: secret/k8ups
+        key: secret/k8up
         property: AWS_SECRETKEY    
         
