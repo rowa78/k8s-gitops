@@ -1,5 +1,5 @@
 mimir-distributed: 
-  global:
+  mimir:
     structuredConfig:
       common:
         storage:
