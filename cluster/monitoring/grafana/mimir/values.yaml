@@ -5,7 +5,8 @@ mimir-distributed:
         storage:
           backend: s3
           s3:
-            endpoint: http://minio.minio.svc.cluster.local:9000
+            endpoint: minio.minio.svc.cluster.local:9000
+            insecure: true
             secret_access_key: "${AWS_SECRET_ACCESS_KEY}" # This is a secret injected via an environment variable
             access_key_id: "${AWS_ACCESS_KEY_ID}" # This is a secret injected via an environment variable
 
