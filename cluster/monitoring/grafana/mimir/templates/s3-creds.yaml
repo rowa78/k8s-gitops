@@ -14,10 +14,10 @@ spec:
   data:
     - secretKey: s3Key
       remoteRef:
-        key: secret/k8up
+        key: secret/k8ups
         property: AWS_ACCESSKEY
     - secretKey: s3KeySecret
       remoteRef:
-        key: secret/k8up
+        key: secret/k8ups
         property: AWS_SECRETKEY    
         
