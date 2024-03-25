@@ -1,7 +1,7 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: s3-creds
+  name: s3-credentials
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
