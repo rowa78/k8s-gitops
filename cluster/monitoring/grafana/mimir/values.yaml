@@ -264,7 +264,7 @@ mimir-distributed:
     # If store_gateway.zoneAwareReplication.enabled=false, this number is taken as is.
     # Otherwise each zone starts `ceil(replicas / number_of_zones)` number of pods.
     #   E.g. if 'replicas' is set to 4 and there are 3 zones, then 4/3=1.33 and after rounding up it means 2 pods per zone are started.
-    replicas: 1
+    replicas: 2
 
     persistentVolume:
       # If true Store-gateway will create/use a Persistent Volume Claim
@@ -372,7 +372,7 @@ mimir-distributed:
       # -- Name of the zone, used in labels and selectors. Must follow Kubernetes naming restrictions: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
       
   compactor:
-    replicas: 1
+    replicas: 2
     
     persistentVolume:
       # If true compactor will create/use a Persistent Volume Claim

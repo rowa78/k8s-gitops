@@ -1568,7 +1568,7 @@ store_gateway:
       storageClass: null
 
 compactor:
-  replicas: 1
+  replicas: 2
 
   service:
     annotations: {}
@@ -1644,7 +1644,7 @@ compactor:
     # If undefined (the default) or set to null, no storageClassName spec is
     #   set, choosing the default provisioner.
     #
-    # storageClass: "-"
+    storageClass: "openebs-zfs"
 
     # -- Enable StatefulSetAutoDeletePVC feature
     # https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-retention
