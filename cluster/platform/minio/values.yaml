@@ -281,6 +281,15 @@ minio:
     - name: enterprise-metrics-ruler
       policy: none
       purge: false
+    - name: mimir-blocks
+      policy: none
+      purge: false
+    - name: mimir-alertmanager
+      policy: none
+      purge: false
+    - name: enterprise-metrics-ruler
+      policy: none
+      purge: false            
     #   # Name of the bucket
     # - name: bucket1
     #   # Policy to be set on the
