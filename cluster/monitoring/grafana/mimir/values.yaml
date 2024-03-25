@@ -809,6 +809,10 @@ mimir-distributed:
     #     hosts:
     #       - mimir.example.com
 
+  distributor:
+    # Setting it to null will produce a deployment without replicas set, allowing you to use autoscaling with the deployment
+    replicas: 2
+
   # -- A reverse proxy deployment that is meant to receive traffic for Mimir or GEM.
   # When enterprise.enabled is true the GEM gateway is deployed. Otherwise, it is an nginx.
   # Options except those under gateway.nginx apply to both versions - nginx and GEM gateway.
