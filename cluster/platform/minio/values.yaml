@@ -265,6 +265,21 @@ minio:
       purge: false
     - name: postgresql
       policy: none
+      purge: false      
+    - name: mimir-tsdb
+      policy: none
+      purge: false
+    - name: mimir-ruler
+      policy: none
+      purge: false
+    - name: enterprise-metrics-tsdb
+      policy: none
+      purge: false
+    - name: enterprise-metrics-admin
+      policy: none
+      purge: false
+    - name: enterprise-metrics-ruler
+      policy: none
       purge: false
     #   # Name of the bucket
     # - name: bucket1
