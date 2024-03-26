@@ -25,6 +25,23 @@ grafana:
       - hosts:
           - *host
         secretName: grafana-tls
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      # -- Datasources linked to the Grafana instance. Override if you disable any components.
+      datasources:
+        # https://grafana.com/docs/grafana/latest/datasources/loki/#provision-the-loki-data-source
+        - name: Loki
+          uid: loki
+          type: loki
+          url: http://{{ .Release.Name }}-loki-gateway
+          isDefault: false
+        # https://grafana.com/docs/grafana/latest/datasources/prometheus/#provision-the-data-source
+        - name: Mimir
+          uid: prom
+          type: prometheus
+          url: http://mimir-nginx/prometheus
+          isDefault: true
   sidecar:
     datasources:
       enabled: true
