@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/monitoring/grafana/mimir
+    path: cluster/monitoring/lgtm/mimir
   destination:
     name: in-cluster
     namespace: monitoring
