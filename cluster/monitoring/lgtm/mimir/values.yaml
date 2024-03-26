@@ -1250,7 +1250,7 @@ mimir-distributed:
       # -- Controls whether to create PodLogs, MetricsInstance, LogsInstance, and GrafanaAgent CRs to scrape the
       # ServiceMonitors of the chart and ship metrics and logs to the remote endpoints below.
       # Note that you need to configure serviceMonitor in order to have some metrics available.
-      enabled: false
+      enabled: true
 
       # -- Controls the image repository and tag for config-reloader and grafana-agent containers in the meta-monitoring
       # StatefulSet and DaemonSet created by the grafana-agent-operator. You can define one or both sections under imageRepo.
@@ -1272,7 +1272,7 @@ mimir-distributed:
 
       logs:
         # -- Controls whether to create resources PodLogs and LogsInstance resources
-        enabled: true
+        enabled: false
 
         # -- Default destination for logs. The config here is translated to Promtail client
         # configuration to write logs to this Loki-compatible remote. Optional.
