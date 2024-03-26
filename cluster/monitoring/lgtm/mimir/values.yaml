@@ -1179,7 +1179,7 @@ mimir-distributed:
     # ServiceMonitor configuration for monitoring Kubernetes Services with Prometheus Operator and/or Grafana Agent
     serviceMonitor:
       # -- If enabled, ServiceMonitor resources for Prometheus Operator are created
-      enabled: false
+      enabled: true
       # -- To disable setting a 'cluster' label in metrics, set to 'null'.
       # To overwrite the 'cluster' label with your own value, set to a non-empty string.
       # Keep empty string "" to have the default value in the 'cluster' label, which is the helm release name for Mimir and the actual cluster name for Enterprise Metrics.
@@ -1212,7 +1212,7 @@ mimir-distributed:
     # Rules for the Prometheus Operator
     prometheusRule:
       # -- If enabled, a PrometheusRule resource for Prometheus Operator is created
-      enabled: false
+      enabled: true
       # -- Create standard Mimir alerts in Prometheus Operator via a PrometheusRule CRD
       mimirAlerts: false
       # -- Create standard Mimir recording rules in Prometheus Operator via a PrometheusRule CRD
