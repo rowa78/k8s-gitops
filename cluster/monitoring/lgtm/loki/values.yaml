@@ -92,3 +92,11 @@ loki:
       storageClass: openebs-zfs
       # -- Selector for persistent disk
       selector: null
+
+  tableManager:
+    # -- Specifies whether the table-manager should be enabled
+    enabled: true    
+    # -- Enable deletes by retention
+    retention_deletes_enabled: true
+    # -- Set retention period
+    retention_period: 2w
