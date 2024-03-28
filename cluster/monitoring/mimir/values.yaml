@@ -31,7 +31,6 @@ mimir-distributed:
       ruler_storage:
         s3:
           bucket_name: mimir-ruler
-
           
   runtimeConfig:
     ingester_limits:
@@ -39,6 +38,7 @@ mimir-distributed:
       max_series: 1500000
       max_tenants: 1000
       max_inflight_push_requests: 30000
+      max_global_series_per_user: 1500000
 
   alertmanager:
     enabled: false
