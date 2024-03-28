@@ -11,25 +11,64 @@ loki:
         endpoint: "${GRAFANA-LOKI-S3-ENDPOINT}"
         accessKeyId: "${GRAFANA-LOKI-S3-ACCESSKEYID}"
         secretAccessKey: "${GRAFANA-LOKI-S3-SECRETACCESSKEY}"
+  write:
+    # -- Number of replicas for the write
+    replicas: 2
+    persistence:
+      # -- Enable volume claims in pod spec
+      volumeClaimsEnabled: true
+      # -- Parameters used for the `data` volume when volumeClaimEnabled if false
+      dataVolumeParameters:
+        emptyDir: {}
+      # -- Enable StatefulSetAutoDeletePVC feature
+      enableStatefulSetAutoDeletePVC: false
+      # -- Size of persistent disk
+      size: 10Gi
+      # -- Storage class to be used.
+      # If defined, storageClassName: <storageClass>.
+      # If set to "-", storageClassName: "", which disables dynamic provisioning.
+      # If empty or set to null, no storageClassName spec is
+      # set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
+      storageClass: openebs-zfs
+      # -- Selector for persistent disk
+      selector: null
   # Configuration for the backend pod(s)
   backend:
     # -- Number of replicas for the backend
-    replicas: 3
+    replicas: 2
     extraArgs: 
       - '-config.expand-env=true'    
     extraEnv: 
       - name: GRAFANA-LOKI-S3-ENDPOINT 
         valueFrom:
           secretKeyRef:
-            name: loki-s3-secrets
+            name: loki-s3-credentials
             key: grafana-loki-s3-endpoint
       - name: GRAFANA-LOKI-S3-ACCESSKEYID 
         valueFrom:
           secretKeyRef:
-            name: loki-s3-secrets
+            name: loki-s3-credentials
             key: grafana-loki-s3-accessKeyId
       - name: GRAFANA-LOKI-S3-SECRETACCESSKEY
         valueFrom:
           secretKeyRef:
-            name: loki-s3-secrets
+            name: loki-s3-credentials
             key: grafana-loki-s3-secretAccessKey
+    persistence:
+      # -- Enable volume claims in pod spec
+      volumeClaimsEnabled: true
+      # -- Parameters used for the `data` volume when volumeClaimEnabled if false
+      dataVolumeParameters:
+        emptyDir: {}
+      # -- Enable StatefulSetAutoDeletePVC feature
+      enableStatefulSetAutoDeletePVC: true
+      # -- Size of persistent disk
+      size: 10Gi
+      # -- Storage class to be used.
+      # If defined, storageClassName: <storageClass>.
+      # If set to "-", storageClassName: "", which disables dynamic provisioning.
+      # If empty or set to null, no storageClassName spec is
+      # set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
+      storageClass: openebs-zfs
+      # -- Selector for persistent disk
+      selector: null
