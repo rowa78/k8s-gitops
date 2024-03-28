@@ -2,8 +2,6 @@ apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: loki-s3-credentials
-  annotations:
-    argocd.argoproj.io/sync-options: ServerSideApply=false
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
@@ -16,10 +14,16 @@ spec:
   data:
     - secretKey: s3Key
       remoteRef:
+        conversionStrategy: Default
+        decodingStrategy: None
         key: secret/k8up
         property: AWS_ACCESSKEY
+        metadataPolicy: None
     - secretKey: s3KeySecret
       remoteRef:
+        conversionStrategy: Default
+        decodingStrategy: None
         key: secret/k8up
         property: AWS_SECRETKEY    
+        metadataPolicy: None
         
