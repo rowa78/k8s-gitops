@@ -43,16 +43,16 @@ loki:
     extraArgs: 
       - '-config.expand-env=true'    
     extraEnv: 
-      - name: GRAFANA-LOKI-S3-ACCESSKEYID 
+      - name: AWS_ACCESSKEY
         valueFrom:
           secretKeyRef:
             name: loki-s3-credentials
-            key: GRAFANA-LOKI-S3-ACCESSKEYID
-      - name: GRAFANA-LOKI-S3-SECRETACCESSKEY
+            key: AWS_ACCESSKEY
+      - name: AWS_SECRETKEY
         valueFrom:
           secretKeyRef:
             name: loki-s3-credentials
-            key: GRAFANA-LOKI-S3-SECRETACCESSKEY
+            key: AWS_SECRETKEY
     persistence:
       # -- Enable volume claims in pod spec
       volumeClaimsEnabled: true
