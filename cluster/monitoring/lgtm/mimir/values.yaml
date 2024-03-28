@@ -1250,7 +1250,7 @@ mimir-distributed:
       # -- Controls whether to create PodLogs, MetricsInstance, LogsInstance, and GrafanaAgent CRs to scrape the
       # ServiceMonitors of the chart and ship metrics and logs to the remote endpoints below.
       # Note that you need to configure serviceMonitor in order to have some metrics available.
-      enabled: false
+      enabled: true
 
       # -- Controls the image repository and tag for config-reloader and grafana-agent containers in the meta-monitoring
       # StatefulSet and DaemonSet created by the grafana-agent-operator. You can define one or both sections under imageRepo.
@@ -1350,7 +1350,7 @@ mimir-distributed:
           # -- When grafanaAgent.enabled and serviceMonitor.enabled, controls whether to create ServiceMonitors CRs
           # for cadvisor, kubelet, and kube-state-metrics. The scraped metrics are reduced to those pertaining to
           # Mimir pods only.
-          enabled: true
+          enabled: false
 
           # -- Controls service discovery of kube-state-metrics.
           kubeStateMetrics:
