@@ -9,6 +9,7 @@ loki:
       type: s3
       s3:    
         endpoint: "${GRAFANA-LOKI-S3-ENDPOINT}"
+        insecure: true
         accessKeyId: "${GRAFANA-LOKI-S3-ACCESSKEYID}"
         secretAccessKey: "${GRAFANA-LOKI-S3-SECRETACCESSKEY}"
   write:
@@ -40,10 +41,7 @@ loki:
       - '-config.expand-env=true'    
     extraEnv: 
       - name: GRAFANA-LOKI-S3-ENDPOINT 
-        valueFrom:
-          secretKeyRef:
-            name: loki-s3-credentials
-            key: grafana-loki-s3-endpoint
+        value: minio.minio.svc.cluster.local:9000
       - name: GRAFANA-LOKI-S3-ACCESSKEYID 
         valueFrom:
           secretKeyRef:
