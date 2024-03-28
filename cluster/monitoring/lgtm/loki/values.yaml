@@ -46,12 +46,12 @@ loki:
         valueFrom:
           secretKeyRef:
             name: loki-s3-credentials
-            key: grafana-loki-s3-accessKeyId
+            key: GRAFANA-LOKI-S3-ACCESSKEYID
       - name: GRAFANA-LOKI-S3-SECRETACCESSKEY
         valueFrom:
           secretKeyRef:
             name: loki-s3-credentials
-            key: grafana-loki-s3-secretAccessKey
+            key: GRAFANA-LOKI-S3-SECRETACCESSKEY
     persistence:
       # -- Enable volume claims in pod spec
       volumeClaimsEnabled: true
