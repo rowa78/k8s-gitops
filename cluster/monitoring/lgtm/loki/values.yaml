@@ -9,7 +9,7 @@ loki:
       type: s3
       s3:    
         endpoint: "${GRAFANA-LOKI-S3-ENDPOINT}"
-        insecure: true
+        insecure: "true"
         accessKeyId: "${GRAFANA-LOKI-S3-ACCESSKEYID}"
         secretAccessKey: "${GRAFANA-LOKI-S3-SECRETACCESSKEY}"
   write:
