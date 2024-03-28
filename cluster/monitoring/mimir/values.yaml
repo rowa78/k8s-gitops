@@ -39,6 +39,7 @@ mimir-distributed:
       max_series: 1500000
       max_tenants: 1000
       max_inflight_push_requests: 30000
+      max-global-series-per-user: 1500000
 
   alertmanager:
     enabled: false
