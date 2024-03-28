@@ -2,6 +2,8 @@ apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: loki-s3-credentials
+  annotations:
+    argocd.argoproj.io/sync-options: ServerSideApply=false
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
