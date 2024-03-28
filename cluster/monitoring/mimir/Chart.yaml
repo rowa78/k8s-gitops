@@ -1,0 +1,7 @@
+apiVersion: v2
+name: cert-manager
+version: 0.0.0
+dependencies:
+  - name: mimir-distributed
+    version: 5.2.3
+    repository: https://grafana.github.io/helm-charts
