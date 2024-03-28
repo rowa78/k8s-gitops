@@ -1,0 +1,23 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: loki-s3-credentials
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: vault-backend
+  target:
+    template:
+      data:
+        GRAFANA-LOKI-S3-ACCESSKEYID:  {{ `"{{ .s3Key }}"` }}
+        GRAFANA-LOKI-S3-SECRETACCESSKEY:  {{ `"{{ .s3KeySecret }}"` }}
+  data:
+    - secretKey: s3Key
+      remoteRef:
+        key: secret/k8up
+        property: AWS_ACCESSKEY
+    - secretKey: s3KeySecret
+      remoteRef:
+        key: secret/k8up
+        property: AWS_SECRETKEY    
+        

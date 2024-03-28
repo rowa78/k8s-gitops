@@ -1,0 +1,35 @@
+loki:
+  loki:
+    # -- Storage config. Providing this will automatically populate all necessary storage configs in the templated config.
+    storage:
+      bucketNames:
+        chunks: loki-chunks
+        ruler: loki-ruler
+        admin: loki-admin
+      type: s3
+      s3:    
+        endpoint: "${GRAFANA-LOKI-S3-ENDPOINT}"
+        accessKeyId: "${GRAFANA-LOKI-S3-ACCESSKEYID}"
+        secretAccessKey: "${GRAFANA-LOKI-S3-SECRETACCESSKEY}"
+  # Configuration for the backend pod(s)
+  backend:
+    # -- Number of replicas for the backend
+    replicas: 3
+    extraArgs: 
+      - '-config.expand-env=true'    
+    extraEnv: 
+      - name: GRAFANA-LOKI-S3-ENDPOINT 
+        valueFrom:
+          secretKeyRef:
+            name: loki-secrets
+            key: grafana-loki-s3-endpoint
+      - name: GRAFANA-LOKI-S3-ACCESSKEYID 
+        valueFrom:
+          secretKeyRef:
+            name: loki-secrets
+            key: grafana-loki-s3-accessKeyId
+      - name: GRAFANA-LOKI-S3-SECRETACCESSKEY
+        valueFrom:
+          secretKeyRef:
+            name: loki-secrets
+            key: grafana-loki-s3-secretAccessKey
