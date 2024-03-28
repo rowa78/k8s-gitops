@@ -23,15 +23,7 @@ loki:
   
   monitoring:
     selfMonitoring:
-      enabled: false
-      # -- Tenant to use for self monitoring
-      tenant:
-        # -- Name of the tenant
-        name: "self-monitoring"
-        # -- Namespace to create additional tenant token secret in. Useful if your Grafana instance
-        # is in a separate namespace. Token will still be created in the canary namespace.
-        secretNamespace: "{{ .Release.Namespace }}"
-      # Grafana Agent configuration
+      enabled: false      
       grafanaAgent:
         # -- Controls whether to install the Grafana Agent Operator and its CRDs.
         # Note that helm will not install CRDs if this flag is enabled during an upgrade.
