@@ -74,6 +74,11 @@ kube-prometheus-stack:
         type: loki
         url: http://loki-gateway
         isDefault: false
+      - name: Mimir
+        uid: prom
+        type: prometheus
+        url: http://{{ .Release.Name }}-mimir-nginx/prometheus
+        isDefault: true
     sidecar:
       datasources:
         enabled: true
