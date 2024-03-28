@@ -9,8 +9,8 @@ spec:
   target:
     template:
       data:
-        GRAFANA-LOKI-S3-ACCESSKEYID:  {{ `"{{ .s3Key }}"` }}
-        GRAFANA-LOKI-S3-SECRETACCESSKEY:  {{ `"{{ .s3KeySecret }}"` }}
+        AWS_ACCESSKEY:  {{ `"{{ .s3Key }}"` }}
+        AWS_SECRETKEY:  {{ `"{{ .s3KeySecret }}"` }}
   data:
     - secretKey: s3Key
       remoteRef:

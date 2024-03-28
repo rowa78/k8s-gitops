@@ -10,8 +10,8 @@ loki:
       s3:    
         endpoint: "minio.minio.svc.cluster.local:9000"
         insecure: "true"
-        accessKeyId: '${GRAFANA-LOKI-S3-ACCESSKEYID}'
-        secretAccessKey: 'yyyyy' # '${GRAFANA-LOKI-S3-SECRETACCESSKEY}'
+        accessKeyId: '${AWS_ACCESSKEY}'
+        secretAccessKey: '${AWS_SECRETKEY}'
   
   read:
     replicas: 2
