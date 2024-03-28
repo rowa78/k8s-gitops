@@ -80,7 +80,7 @@ kube-prometheus-stack:
         uid: prom
         type: prometheus
         url: http://mimir-nginx
-        isDefault: true
+        isDefault: false
     sidecar:
       datasources:
         enabled: true
