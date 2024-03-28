@@ -289,7 +289,17 @@ minio:
       purge: false
     - name: enterprise-metrics-ruler
       policy: none
-      purge: false            
+      purge: false   
+    - name: loki-chunks
+      policy: none
+      purge: false   
+    - name: loki-ruler
+      policy: none
+      purge: false   
+    - name: loki-admin
+      policy: none
+      purge: false   
+
     #   # Name of the bucket
     # - name: bucket1
     #   # Policy to be set on the
