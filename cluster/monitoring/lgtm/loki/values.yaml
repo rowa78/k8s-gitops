@@ -19,7 +19,7 @@ loki:
       #working_directory: /data/loki/boltdb-shipper-compactor
       retention_enabled: true
     limits_config:
-      retention_period: 740h
+      retention_period: 168h
   
   monitoring:
     selfMonitoring:
