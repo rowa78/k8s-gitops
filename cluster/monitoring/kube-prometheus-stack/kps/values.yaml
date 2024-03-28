@@ -68,6 +68,8 @@ kube-prometheus-stack:
         - hosts:
             - *host
           secretName: grafana-tls
+    datasources:
+      enabled: false
     additionalDataSources:
       - name: Loki
         uid: loki
