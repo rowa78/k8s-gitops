@@ -34,7 +34,7 @@ grafana:
         - name: Loki
           uid: loki
           type: loki
-          url: http://{{ .Release.Name }}-loki-gateway
+          url: http://loki-gateway
           isDefault: false
         # https://grafana.com/docs/grafana/latest/datasources/prometheus/#provision-the-data-source
         - name: Mimir
