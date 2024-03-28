@@ -79,7 +79,7 @@ kube-prometheus-stack:
       - name: Mimir
         uid: prom
         type: prometheus
-        url: http://{{ .Release.Name }}-mimir-nginx/prometheus
+        url: http://mimir-nginx/prometheus
         isDefault: true
     sidecar:
       datasources:
