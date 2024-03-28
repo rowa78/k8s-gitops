@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metrics-server
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: monitoring
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/monitoring/metrics/metrics-server
+  destination:
+    name: in-cluster
+    namespace: kube-system
+  syncPolicy:
+    # syncOptions:
+    # - ServerSideApply=true
+    automated:
+      prune: true
+      selfHeal: true
