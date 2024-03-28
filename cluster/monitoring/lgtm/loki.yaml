@@ -14,9 +14,7 @@ spec:
   destination:
     name: in-cluster
     namespace: monitoring
-  syncPolicy:
-    syncOptions:
-    - ServerSideApply=true
+  syncPolicy:    
     automated:
       prune: true
       selfHeal: true
