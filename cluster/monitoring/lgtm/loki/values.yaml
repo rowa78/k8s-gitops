@@ -17,7 +17,7 @@ loki:
   
   monitoring:
     selfMonitoring:
-      enabled: false
+      enabled: true
       # -- Tenant to use for self monitoring
       tenant:
         # -- Name of the tenant
