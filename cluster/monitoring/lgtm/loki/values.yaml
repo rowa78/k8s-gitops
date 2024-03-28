@@ -12,6 +12,9 @@ loki:
         insecure: "true"
         accessKeyId: 'xxxx' #'${GRAFANA-LOKI-S3-ACCESSKEYID}'
         secretAccessKey: 'yyyyy' # '${GRAFANA-LOKI-S3-SECRETACCESSKEY}'
+  
+  read:
+    replicas: 2
   write:
     # -- Number of replicas for the write
     replicas: 2
