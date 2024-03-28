@@ -12,7 +12,7 @@ loki:
         insecure: "true"
         accessKeyId: '${AWS_ACCESSKEY}'
         secretAccessKey: '${AWS_SECRETKEY}'
-        s3forcepathstyle: 'true'
+        s3forcepathstyle: true
   
   read:
     replicas: 2
