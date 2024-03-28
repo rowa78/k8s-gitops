@@ -15,7 +15,7 @@ loki:
         secretAccessKey: '${AWS_SECRETKEY}'
         s3ForcePathStyle: true
     compactor:
-      shared_store: s3
+      #shared_store: s3
       #working_directory: /data/loki/boltdb-shipper-compactor
       retention_enabled: true
     limits_config:
