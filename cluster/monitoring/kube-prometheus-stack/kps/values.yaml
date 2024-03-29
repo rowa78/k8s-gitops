@@ -160,6 +160,8 @@ kube-prometheus-stack:
   prometheus:
     fullnameOverride: prometheus
     prometheusSpec:
+      remoteWrite:
+        - url: "http://mimir-grafana-mimir-gateway/api/v1/push"
       replicas: 2
       externalUrl: https://prometheus.rwcloud.org
       ruleSelectorNilUsesHelmValues: false
