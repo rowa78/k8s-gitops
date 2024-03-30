@@ -158,6 +158,8 @@ kube-prometheus-stack:
       enabled: false      
     envFromSecret: grafana-vault-secrets 
   prometheus:
+    remoteWrite:
+      - url: http://mimir-grafana-mimir-gateway/api/v1/push
     fullnameOverride: prometheus
     prometheusSpec:
       replicas: 2
