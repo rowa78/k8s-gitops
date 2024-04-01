@@ -229,7 +229,10 @@ metallb:
         # cpu: 100m
         # memory: 100Mi
     nodeSelector: {}
-    tolerations: []
+    tolerations: 
+      - key: pi-node
+        operator: Exists
+        effect: NoSchedule
     priorityClassName: ""
     runtimeClassName: ""
     affinity: {}
