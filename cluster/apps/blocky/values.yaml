@@ -203,29 +203,29 @@ blocky:
       blockTTL: 1m
       # optional: Configure how lists, AKA sources, are loaded
       loading:
-      # optional: list refresh period in duration format.
-      # Set to a value <= 0 to disable.
-      # default: 4h
-      refreshPeriod: 24h
-      # optional: Applies only to lists that are downloaded (HTTP URLs).
-      downloads:
-        # optional: timeout for list download (each url). Use large values for big lists or slow internet connections
-        # default: 5s
-        timeout: 60s
-        # optional: Maximum download attempts
-        # default: 3
-        attempts: 5
-        # optional: Time between the download attempts
-        # default: 500ms
-        cooldown: 10s
-      # optional: Maximum number of lists to process in parallel.
-      # default: 4
-      concurrency: 16
-      # Configure startup behavior.
-      # accepted: blocking, failOnError, fast
-      # default: blocking
-      strategy: failOnError
-      # Number of errors allowed in a list before it is considered invalid.
-      # A value of -1 disables the limit.
-      # default: 5
-      maxErrorsPerSource: 5
+        # optional: list refresh period in duration format.
+        # Set to a value <= 0 to disable.
+        # default: 4h
+        refreshPeriod: 24h
+        # optional: Applies only to lists that are downloaded (HTTP URLs).
+        downloads:
+          # optional: timeout for list download (each url). Use large values for big lists or slow internet connections
+          # default: 5s
+          timeout: 60s
+          # optional: Maximum download attempts
+          # default: 3
+          attempts: 5
+          # optional: Time between the download attempts
+          # default: 500ms
+          cooldown: 10s
+        # optional: Maximum number of lists to process in parallel.
+        # default: 4
+        concurrency: 16
+        # Configure startup behavior.
+        # accepted: blocking, failOnError, fast
+        # default: blocking
+        strategy: failOnError
+        # Number of errors allowed in a list before it is considered invalid.
+        # A value of -1 disables the limit.
+        # default: 5
+        maxErrorsPerSource: 5
