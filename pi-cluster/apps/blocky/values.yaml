@@ -46,7 +46,7 @@ blocky:
           protocol: TCP
           targetPort: 53
     dns-udp:
-      enabled: false
+      enabled: true
       type: LoadBalancer
       externalTrafficPolicy: Local
       ports:
