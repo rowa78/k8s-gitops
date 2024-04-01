@@ -7,13 +7,14 @@ blocky:
   #
 
   affinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: location
-          operator: In
-          values:
-          - lan
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: location
+            operator: In
+            values:
+            - lan
 
 
   image:
