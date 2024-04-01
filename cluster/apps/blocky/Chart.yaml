@@ -1,0 +1,7 @@
+apiVersion: v2
+name: karma
+version: 0.0.0
+dependencies:
+- name: blocky
+  version: 14.6.4
+  repository: https://charts.truecharts.org/
