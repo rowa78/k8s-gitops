@@ -202,6 +202,9 @@ promtail:
     - key: node-role.kubernetes.io/control-plane
       operator: Exists
       effect: NoSchedule
+    - key: pi-node
+      operator: Exists
+      effect: NoSchedule
 
   # -- Default volumes that are mounted into pods. In most cases, these should not be changed.
   # Use `extraVolumes`/`extraVolumeMounts` for additional custom volumes.
