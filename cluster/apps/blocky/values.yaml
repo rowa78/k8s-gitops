@@ -156,6 +156,10 @@ blocky:
       dns: 53
       http: 4000
 
+    prometheus:
+      enable: true
+      path: /metrics
+
     # optional: use black and white lists to block queries (for example ads, trackers, adult pages etc.)
     blocking:
       # definition of blacklist groups. Can be external link (http/https) or local file
