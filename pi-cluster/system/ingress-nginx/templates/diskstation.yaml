@@ -21,7 +21,7 @@ spec:
     protocol: TCP
     targetPort: 9001   
   - name: auth
-    port: 12080
+    port: 9091
     protocol: TCP
     targetPort: 12080
 ---
@@ -46,7 +46,7 @@ subsets:
     port: 9001
     protocol: TCP  
   - name: auth 
-    port: 12080
+    port: 9091
     protocol: TCP  
 ---
 
