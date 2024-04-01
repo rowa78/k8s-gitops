@@ -133,10 +133,6 @@ blocky:
         - 80.241.218.68
         - tcp-tls:fdns1.dismail.de:853
         - https://dns.digitale-gesellschaft.ch/dns-query
-      # optional: use client name (with wildcard support: * - sequence of any characters, [0-9] - range)
-      # or single ip address / client subnet as CIDR notation
-      laptop*:
-        - 123.123.123.123
 
     # optional: timeout to query the upstream resolver. Default: 2s
     upstreamTimeout: 2s
@@ -246,20 +242,7 @@ blocky:
       # Default (0): unlimited
       prefetchMaxItemsCount: 0
 
-    # optional: configuration of client name resolution
-    clientLookup:
-      # optional: this DNS resolver will be used to perform reverse DNS lookup (typically local router)
-      upstream: udp:192.168.0.1:53
-      # optional: some routers return multiple names for client (host name and user defined name). Define which single name should be used.
-      # Example: take second name if present, if not take first name
-      singleNameOrder:
-        - 2
-        - 1
-      # optional: custom mapping of client name to IP addresses. Useful if reverse DNS does not work properly or just to have custom client names.
-      #clients:
-      #  laptop:
-      #    - 192.168.178.29
-    # optional: configuration for prometheus metrics endpoint
+      
     prometheus:
       # enabled if true
       enable: true
@@ -269,7 +252,7 @@ blocky:
     # optional: write query information (question, answer, client, duration etc.) to daily csv file
     queryLog:
       # optional one of: mysql, csv, csv-client. If empty, log to console
-      type: mysql
+      type: ""
       # directory (should be mounted as volume in docker) for csv, db connection string for mysql
       target: db_user:db_password@tcp(db_host_or_ip:3306)/db_user?charset=utf8mb4&parseTime=True&loc=Local
       # if > 0, deletes log files which are older than ... days
