@@ -8,12 +8,14 @@ blocky:
 
   affinity:
     requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: location
-            operator: In
-            values:
-            - lan
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: location
+          operator: In
+          values:
+          - lan
+
+
   image:
     # -- image repository
     repository: ghcr.io/0xerr0r/blocky
