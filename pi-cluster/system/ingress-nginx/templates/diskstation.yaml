@@ -23,7 +23,7 @@ spec:
   - name: auth
     port: 9091
     protocol: TCP
-    targetPort: 12080
+    targetPort: 9091
 ---
 apiVersion: v1
 kind: Endpoints
