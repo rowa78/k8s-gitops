@@ -6,6 +6,21 @@ blocky:
   # https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
   #
 
+  affinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: location
+            operator: In
+            values:
+            - lan
+  
+  tolerations:
+    - key: pi-node
+      operator: Exists
+      effect: NoSchedule
+
+
   image:
     # -- image repository
     repository: ghcr.io/0xerr0r/blocky
