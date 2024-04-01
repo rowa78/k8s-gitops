@@ -46,7 +46,7 @@ blocky:
   # @default -- See values.yaml
   service:
     main:
-      enabled: false
+      enabled: true
       ports:
         http:
           port: 4000
