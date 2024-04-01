@@ -144,6 +144,13 @@ blocky:
       default:
         - 1.1.1.1
         - 1.0.0.1
+
+    bootstrapDns:
+    - tcp+udp:1.1.1.1
+    - https://1.1.1.1/dns-query
+    - upstream: https://dns.digitale-gesellschaft.ch/dns-query
+      ips:
+        - 185.95.218.42
     blocking:
       blackLists:
         ads:
