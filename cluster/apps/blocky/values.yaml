@@ -1,0 +1,144 @@
+blocky:
+  #
+  # IMPORTANT NOTE
+  #
+  # This chart inherits from our common library chart. You can check the default values/options here:
+  # https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
+  #
+
+  image:
+    # -- image repository
+    repository: ghcr.io/0xerr0r/blocky
+    # -- image tag
+    # @default -- chart.appVersion
+    tag: v0.23
+    # -- image pull policy
+    pullPolicy: IfNotPresent
+
+  controller:
+    # -- Set the controller upgrade strategy
+    strategy: RollingUpdate
+    # -- (int) Number of pods to load balance between
+    replicas: 1
+
+  # -- environment variables. See [image docs](https://0xerr0r.github.io/blocky/installation/#run-with-docker) for more details.
+  # @default -- See below
+  env:
+    # -- Set the container timezone
+    TZ: Europe/Berlin
+
+  # -- Configures service settings for the chart.
+  # @default -- See values.yaml
+  service:
+    main:
+      enabled: false
+      ports:
+        http:
+          port: 4000
+    dns-tcp:
+      enabled: false
+      type: ClusterIP
+      externalTrafficPolicy: Local
+      ports:
+        dns-tcp:
+          enabled: true
+          port: 53
+          protocol: TCP
+          targetPort: 53
+    dns-udp:
+      enabled: true
+      type: LoadBalancer
+      externalTrafficPolicy: Local
+      ports:
+        dns-udp:
+          enabled: true
+          port: 53
+          protocol: UDP
+          targetPort: 53
+
+  # -- Enable and configure ingress settings for the chart under this key.
+  # @default -- See values.yaml
+  ingress:
+    main:
+      enabled: false
+      hosts:
+        - host: blocky-api.local
+          paths:
+          - path: /
+            pathType: Prefix
+            service:
+              port: 4000
+
+  # -- Configure persistence settings for the chart under this key.
+  # @default -- See values.yaml
+  persistence:
+    logs:
+      enabled: false
+      mountPath: /logs
+
+  metrics:
+    # -- Enable and configure a Prometheus serviceMonitor for the chart under this key.
+    # @default -- See values.yaml
+    enabled: false
+    serviceMonitor:
+      # -- Interval at which Prometheus should scrape metrics
+      interval: 30s
+      # -- Timeout after which the scrape is ended
+      scrapeTimeout: 10s
+      # -- Additional labels for the Kubernetes `ServiceMonitor` object
+      labels: {}
+      # -- The Kubernetes `Endpoints` label to use as the Prometheus job name
+      jobLabel: ""
+      # -- TargetLabels transfers labels from the Kubernetes `Service`` onto the created metrics.
+      targetLabels: []
+      # -- PodTargetLabels transfers labels on the Kubernetes `Pod`` onto the created metrics.
+      podTargetLabels: []
+    # -- Enable and configure Prometheus Rules for the chart under this key.
+    # @default -- See values.yaml
+    prometheusRule:
+      enabled: false
+      labels: {}
+      # -- Configure additionial rules for the chart under this key.
+      # @default -- See prometheusrules.yaml
+      rules: []
+        # - alert: BlockyDisabled
+        #   annotations:
+        #     description: Blocky's ad blocking has been disabled for 15min.
+        #       Please re-enable protection.
+        #     summary: Blocky is disabled.
+        #   expr: |
+        #     blocky_blocking_enabled == 0
+        #   for: 15m
+        #   labels:
+        #     severity: critical
+
+  # -- Enable and configure redis subchart under this key.
+  # Useful if you're running more than one replica of blocky dns.
+  # For more options see [redis chart documentation](https://github.com/bitnami/charts/tree/master/bitnami/redis)
+  # @default -- See values.yaml
+  redis:
+    enabled: false
+    # auth:
+    #   enabled: false
+
+  # -- Full list of options https://github.com/0xERR0R/blocky/blob/v0.18/docs/config.yml
+  # @default -- see URL to default config
+  config: |
+    upstream:
+      default:
+        - 46.182.19.48
+        - 80.241.218.68
+        - tcp-tls:fdns1.dismail.de:853
+        - https://dns.digitale-gesellschaft.ch/dns-query
+    blocking:
+      blackLists:
+        ads:
+          - https://big.oisd.nl/domainswild
+          - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+      clientGroupsBlock:
+        default:
+          - ads
+    ports:
+      dns: 53
+      http: 4000
+
