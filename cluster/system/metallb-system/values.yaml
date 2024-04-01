@@ -229,10 +229,7 @@ metallb:
         # cpu: 100m
         # memory: 100Mi
     nodeSelector: {}
-    tolerations: 
-      - key: pi-node
-        operator: Exists
-        effect: NoSchedule
+    tolerations: []
     priorityClassName: ""
     runtimeClassName: ""
     affinity: {}
@@ -295,7 +292,10 @@ metallb:
         # cpu: 100m
         # memory: 100Mi
     nodeSelector: {}
-    tolerations: []
+    tolerations: 
+      - key: pi-node
+        operator: Exists
+        effect: NoSchedule
     priorityClassName: ""
     affinity: {}
     ## Selects which runtime class will be used by the pod.
