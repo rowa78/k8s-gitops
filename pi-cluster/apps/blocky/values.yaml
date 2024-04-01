@@ -143,9 +143,9 @@ blocky:
 
     # optional: custom IP address(es) for domain name (with all sub-domains). Multiple addresses must be separated by a comma
     # example: query "printer.lan" or "my.printer.lan" will return 192.168.178.3
-    customDNS:
-      mapping:
-        printer.lan: 192.168.178.3,2001:0db8:85a3:08d3:1319:8a2e:0370:7344
+    #customDNS:
+    #  mapping:
+    #    printer.lan: 192.168.178.3,2001:0db8:85a3:08d3:1319:8a2e:0370:7344
 
     # optional: definition, which DNS resolver(s) should be used for queries to the domain (with all sub-domains). Multiple resolvers must be separated by a comma
     # Example: Query client.fritz.box will ask DNS server 192.168.178.1. This is necessary for local network, to resolve clients by host name
@@ -194,8 +194,8 @@ blocky:
         # or single ip address / client subnet as CIDR notation
         laptop*:
           - ads
-        192.168.178.1/24:
-          - special
+      #  192.168.178.1/24:
+      #    - special
       # which response will be sent, if query is blocked:
       # zeroIp: 0.0.0.0 will be returned (default)
       # nxDomain: return NXDOMAIN as return code
@@ -249,16 +249,16 @@ blocky:
     # optional: configuration of client name resolution
     clientLookup:
       # optional: this DNS resolver will be used to perform reverse DNS lookup (typically local router)
-      upstream: udp:192.168.178.1
+      upstream: udp:192.168.0.1:53
       # optional: some routers return multiple names for client (host name and user defined name). Define which single name should be used.
       # Example: take second name if present, if not take first name
       singleNameOrder:
         - 2
         - 1
       # optional: custom mapping of client name to IP addresses. Useful if reverse DNS does not work properly or just to have custom client names.
-      clients:
-        laptop:
-          - 192.168.178.29
+      #clients:
+      #  laptop:
+      #    - 192.168.178.29
     # optional: configuration for prometheus metrics endpoint
     prometheus:
       # enabled if true
