@@ -16,6 +16,10 @@ blocky:
             values:
             - lan
 
+  tolerations:
+    - key: pi-node
+      operator: Exists
+      effect: NoSchedule
 
   image:
     # -- image repository
