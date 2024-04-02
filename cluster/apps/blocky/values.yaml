@@ -152,6 +152,9 @@ blocky:
       ips:
         - 185.95.218.42
 
+    clientLookup:
+      upstream: 192.168.0.1
+
     ports:
       dns: 53
       http: 4000
