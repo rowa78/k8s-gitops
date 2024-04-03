@@ -235,3 +235,8 @@ config: |
       # A value of -1 disables the limit.
       # default: 5
       maxErrorsPerSource: 5
+
+  queryLog:
+    type: postgresql
+    target: postgresql://blocky:C5ZNkO3dUJyCln5IEF7MJmKhfjLKB0ke0lC7ZjEUuajLmTedjYevs6y4SWSP7hDP@blockydb-rw:5432/blockydb
+    logRetentionDays: 7
