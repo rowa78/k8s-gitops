@@ -375,7 +375,7 @@ blocky:
 
   cnpg:
     main:
-      enabled: true
+      enabled: false
       user: blocky
       database: blocky
       cluster:
