@@ -54,6 +54,13 @@ spec:
               command:
               - /app/blocky
               - healthcheck
+          startupProbe:
+            exec:
+              command:
+              - /app/blocky
+              - healthcheck
+            failureThreshold: 30
+            periodSeconds: 10
           # livenessProbe:
           #   httpGet:
           #     path: /
