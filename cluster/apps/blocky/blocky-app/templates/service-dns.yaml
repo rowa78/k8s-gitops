@@ -10,6 +10,7 @@ spec:
   {{- if contains "LoadBalancer" .Values.service.dns.type}}
   loadBalancerIP: {{ .Values.service.dns.loadBalancerIP }}
   {{- end }}
+  externalTrafficPolicy: Local
   ports:
     - port: {{ .Values.service.dns.port }}
       targetPort: 53
