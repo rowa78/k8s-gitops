@@ -1,0 +1,17 @@
+{{- if .Values.service.main.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "blocky.fullname" . }}
+  labels:
+    {{- include "blocky.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.main.type }}
+  ports:
+    - port: {{ .Values.service.main.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "blocky.selectorLabels" . | nindent 4 }}
+{{- end }}
