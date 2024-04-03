@@ -12,6 +12,8 @@ spec:
     initdb:
       database: blockydb
       owner: blocky 
+      secret:
+        name: blockydb-secret
       
   replicationSlots:
     highAvailability:
