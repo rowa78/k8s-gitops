@@ -236,6 +236,3 @@ config: |
       # default: 5
       maxErrorsPerSource: 5
 
-  queryLog:
-    type: postgresql    
-    logRetentionDays: 7
