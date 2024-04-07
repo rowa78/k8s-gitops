@@ -138,15 +138,10 @@ metrics:
 config: |
   upstream:
     default:
-      - 1.1.1.1
-      - 1.0.0.1
+      - 192.168.0.1
 
   bootstrapDns:
-  - tcp+udp:1.1.1.1
-  - https://1.1.1.1/dns-query
-  - upstream: https://dns.digitale-gesellschaft.ch/dns-query
-    ips:
-      - 185.95.218.42
+  - tcp+udp:192.168.0.1
 
   clientLookup:
     upstream: 192.168.0.1
