@@ -33,7 +33,7 @@ spec:
           command: ['/bin/sh', '-c']
           args:
           - |
-            echo "queryLog:
+            cp -v /tmp/config.yaml /app/config/config.yaml && echo "queryLog:
               target: postgresql://$DB_USER:$DB_PASSWORD@blockydb-rw:5432/blockydb" > /app/config/config-database.yaml
           env:
           - name: DB_USER
@@ -49,6 +49,9 @@ spec:
           volumeMounts:
           - name: config-volume
             mountPath: /app/config
+          - name: configmap-volume    
+            mountPath: /tmp/config.yaml
+            subPath: config.yaml
       containers:
         - name: {{ .Chart.Name }}
           command: ["/app/blocky", "--config", "/app/config"]
@@ -96,9 +99,6 @@ spec:
           volumeMounts:
           - name: config-volume
             mountPath: /app/config    
-          - name: configmap-volume    
-            mountPath: /app/config/config.yaml
-            subPath: config.yaml
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
