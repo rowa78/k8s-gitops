@@ -40,7 +40,7 @@ spec:
               logRetentionDays: 7
               target: postgresql://$DB_USER:$DB_PASSWORD@blockydb-rw:5432/blockydb
             redis:
-              address: blocky-redis-master
+              address: blocky-redis-master:6379
               password: $REDIS_PASSWORD         
               required: true
               connectionAttempts: 10
