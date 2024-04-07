@@ -34,6 +34,22 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/bin/sh", "-c"]
+          args:
+          - |
+            echo "queryLog:              
+              target: postgresql://$DB_USER:$DB_PASSWORD@blockydb-rw:5432/blockydb" > /app/config/config-database.yaml && /app/blocky --config /app/config
+          env:
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: blockydb-secret
+                key: username
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: blockydb-secret
+                key: password
           ports:
             - name: http
               containerPort: 4000

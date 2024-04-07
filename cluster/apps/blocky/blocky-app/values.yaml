@@ -237,6 +237,5 @@ config: |
       maxErrorsPerSource: 5
 
   queryLog:
-    type: postgresql
-    target: postgresql://blocky:C5ZNkO3dUJyCln5IEF7MJmKhfjLKB0ke0lC7ZjEUuajLmTedjYevs6y4SWSP7hDP@blockydb-rw:5432/blockydb
+    type: postgresql    
     logRetentionDays: 7
