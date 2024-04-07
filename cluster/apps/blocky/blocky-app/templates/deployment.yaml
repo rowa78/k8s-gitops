@@ -33,8 +33,8 @@ spec:
           command: ['/bin/sh', '-c']
           args:
           - |
-            sleep 3600 && cp -v /config/config.yaml /app/config/config.yaml && echo "queryLog:
-              target: postgresql://$DB_USER:$DB_PASSWORD@blockydb-rw:5432/blockydb" > /app/config/config-database.yaml
+            cp -v /config/config.yaml /app/config/config.yaml && echo "queryLog:
+              target: postgresql://$DB_USER:$DB_PASSWORD@blockydb-rw:5432/blockydb" > /app/config/config-database.yaml && sleep 3600
           env:
           - name: DB_USER
             valueFrom:
