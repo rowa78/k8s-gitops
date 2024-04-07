@@ -37,7 +37,13 @@ spec:
             echo "queryLog:
               type: postgresql    
               logRetentionDays: 7
-              target: postgresql://$DB_USER:$DB_PASSWORD@blockydb-rw:5432/blockydb" > /app/config/config-database.yaml
+              target: postgresql://$DB_USER:$DB_PASSWORD@blockydb-rw:5432/blockydb
+              redis:
+                address: blocky-redis-master
+                password: $REDIS_PASSWORD         
+                required: true
+                connectionAttempts: 10
+                connectionCooldown: 3s" > /app/config/config-database.yaml
           env:
           - name: DB_USER
             valueFrom:
@@ -48,6 +54,11 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: blockydb-secret
+                key: password
+          - name: REDIS_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: redis-secrets
                 key: password
           volumeMounts:
           - name: config-volume
