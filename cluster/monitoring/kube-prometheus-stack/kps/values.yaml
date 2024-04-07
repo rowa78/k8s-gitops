@@ -74,23 +74,23 @@ kube-prometheus-stack:
         type: loki
         url: http://loki-gateway
         isDefault: false
-      - name: BlockyPostgres
-        type: postgres
-        uid: blockypostgres
-        url: blockydb-r.blocky.svc.cluster.local:5432
-        access: proxy
-        user: blocky
-        secureJsonData:
-          password: C5ZNkO3dUJyCln5IEF7MJmKhfjLKB0ke0lC7ZjEUuajLmTedjYevs6y4SWSP7hDP
-        jsonData:
-          database: blockydb
-          sslmode: 'disable' # disable/require/verify-ca/verify-full
-          maxOpenConns: 100 # Grafana v5.4+
-          maxIdleConns: 100 # Grafana v5.4+
-          maxIdleConnsAuto: true # Grafana v9.5.1+
-          connMaxLifetime: 14400 # Grafana v5.4+
-          postgresVersion: 1500 # 903=9.3, 904=9.4, 905=9.5, 906=9.6, 1000=10
-          timescaledb: false
+      # - name: BlockyPostgres
+      #   type: postgres
+      #   uid: blockypostgres
+      #   url: blockydb-r.blocky.svc.cluster.local:5432
+      #   access: proxy
+      #   user: blocky
+      #   secureJsonData:
+      #     password: C5ZNkO3dUJyCln5IEF7MJmKhfjLKB0ke0lC7ZjEUuajLmTedjYevs6y4SWSP7hDP
+      #   jsonData:
+      #     database: blockydb
+      #     sslmode: 'disable' # disable/require/verify-ca/verify-full
+      #     maxOpenConns: 100 # Grafana v5.4+
+      #     maxIdleConns: 100 # Grafana v5.4+
+      #     maxIdleConnsAuto: true # Grafana v9.5.1+
+      #     connMaxLifetime: 14400 # Grafana v5.4+
+      #     postgresVersion: 1500 # 903=9.3, 904=9.4, 905=9.5, 906=9.6, 1000=10
+      #     timescaledb: false
         
     sidecar:
       datasources:
@@ -138,10 +138,6 @@ kube-prometheus-stack:
           url: https://grafana.com/api/dashboards/12937/revisions/4/download
         rabbitmq:
           url: https://grafana.com/api/dashboards/10991/revisions/12/download
-        blocky:
-          url: https://grafana.com/api/dashboards/13768/revisions/3/download
-        blocky-prostgres:
-          url: https://grafana.com/api/dashboards/17996/revisions/11/download
 #        cloudnative-pg:
 #          url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
 #        proxmox:
