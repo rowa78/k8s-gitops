@@ -70,7 +70,7 @@ kube-prometheus-stack:
           secretName: grafana-tls
     env:
       - name: GF_PANELS_DISABLE_SANITIZE_HTML
-        value: true
+        value: "true"
     additionalDataSources:
       - name: Loki
         uid: loki
