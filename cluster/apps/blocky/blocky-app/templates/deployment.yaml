@@ -34,16 +34,17 @@ spec:
           args:
           - |
             cp -v /config/config.yaml /app/config/config.yaml && \
-            echo "queryLog:
+            echo "
+            queryLog:
               type: postgresql    
               logRetentionDays: 7
               target: postgresql://$DB_USER:$DB_PASSWORD@blockydb-rw:5432/blockydb
-              redis:
-                address: blocky-redis-master
-                password: $REDIS_PASSWORD         
-                required: true
-                connectionAttempts: 10
-                connectionCooldown: 3s" > /app/config/config-database.yaml
+            redis:
+              address: blocky-redis-master
+              password: $REDIS_PASSWORD         
+              required: true
+              connectionAttempts: 10
+              connectionCooldown: 3s" > /app/config/config-database.yaml
           env:
           - name: DB_USER
             valueFrom:
