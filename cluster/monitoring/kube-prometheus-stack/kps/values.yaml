@@ -68,9 +68,6 @@ kube-prometheus-stack:
         - hosts:
             - *host
           secretName: grafana-tls
-    extraVars:
-      - name: GF_PANELS_DISABLE_SANITIZE_HTML
-        value: "true"
     additionalDataSources:
       - name: Loki
         uid: loki
@@ -141,13 +138,13 @@ kube-prometheus-stack:
           url: https://grafana.com/api/dashboards/12937/revisions/4/download
         rabbitmq:
           url: https://grafana.com/api/dashboards/10991/revisions/12/download
-        blocky:
-          url: https://grafana.com/api/dashboards/13768/revisions/3/download
-          datasource: Prometheus
-          VAR_BLOCKY_URL: http://foo.bar
-        blocky-postgres:
-          url: https://grafana.com/api/dashboards/17996/revisions/11/download
-          DS_BLOCKYDB: BlockyPostgres
+        # blocky:
+        #   url: https://grafana.com/api/dashboards/13768/revisions/3/download
+        #   datasource: Prometheus
+        #   VAR_BLOCKY_URL: http://foo.bar
+        # blocky-postgres:
+        #   url: https://grafana.com/api/dashboards/17996/revisions/11/download
+        #   DS_BLOCKYDB: BlockyPostgres
 #        cloudnative-pg:
 #          url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
 #        proxmox:
