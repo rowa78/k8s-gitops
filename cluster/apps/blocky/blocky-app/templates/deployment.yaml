@@ -50,7 +50,7 @@ spec:
           - name: config-volume
             mountPath: /app/config
           - name: configmap-volume    
-            mountPath: /tmp/config.yaml
+            mountPath: /tmp
             subPath: config.yaml
       containers:
         - name: {{ .Chart.Name }}
