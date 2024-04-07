@@ -54,8 +54,8 @@ spec:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
     path: cluster/apps/blocky/blocky-app
-  helm:
-    releaseName: blocky
+    helm:
+      releaseName: blocky
   destination:
     name: in-cluster
     namespace: blocky
