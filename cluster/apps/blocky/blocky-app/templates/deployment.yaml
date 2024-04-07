@@ -114,5 +114,5 @@ spec:
         - name: config-volume
           emptyDir: {}
         - name: configmap-volume
-          configmap:
+          configMap:
             name: {{ include "blocky.fullname" . }}-config
