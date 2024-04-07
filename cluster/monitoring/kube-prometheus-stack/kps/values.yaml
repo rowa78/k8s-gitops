@@ -68,7 +68,7 @@ kube-prometheus-stack:
         - hosts:
             - *host
           secretName: grafana-tls
-    env:
+    extraVars:
       - name: GF_PANELS_DISABLE_SANITIZE_HTML
         value: "true"
     additionalDataSources:
