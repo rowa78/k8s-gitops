@@ -27,18 +27,14 @@ spec:
       serviceAccountName: {{ include "blocky.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      containers:
-        - name: {{ .Chart.Name }}
-          command: ["/app/blocky", "--config", "/app/config"]
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["/bin/sh", "-c"]
+      initContainers:
+        - name: init-config
+          image: busybox # Oder ein anderes Image mit `sh`
+          command: ['/bin/sh', '-c']
           args:
           - |
-            echo "queryLog:              
-              target: postgresql://$DB_USER:$DB_PASSWORD@blockydb-rw:5432/blockydb" > /app/config/config-database.yaml && /app/blocky --config /app/config
+            echo "queryLog:
+              target: postgresql://$DB_USER:$DB_PASSWORD@blockydb-rw:5432/blockydb" > /app/config/config-database.yaml
           env:
           - name: DB_USER
             valueFrom:
@@ -50,6 +46,16 @@ spec:
               secretKeyRef:
                 name: blockydb-secret
                 key: password
+          volumeMounts:
+          - name: config-volume
+            mountPath: /app/config
+      containers:
+        - name: {{ .Chart.Name }}
+          command: ["/app/blocky", "--config", "/app/config"]
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
               containerPort: 4000
@@ -89,6 +95,8 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
           - name: config-volume
+            mountPath: /app/config    
+          - name: configmap-volume    
             mountPath: /app/config/config.yaml
             subPath: config.yaml
       {{- with .Values.nodeSelector }}
@@ -105,5 +113,7 @@ spec:
       {{- end }}
       volumes:
         - name: config-volume
-          configMap:
+          emptyDir: {}
+        - name: configmap-volume
+          configmap:
             name: {{ include "blocky.fullname" . }}-config
