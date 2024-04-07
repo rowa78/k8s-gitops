@@ -144,9 +144,10 @@ kube-prometheus-stack:
         blocky:
           url: https://grafana.com/api/dashboards/13768/revisions/3/download
           datasource: Prometheus
+          VAR_BLOCKY_URL: http://foo.bar
         blocky-postgres:
           url: https://grafana.com/api/dashboards/17996/revisions/11/download
-          datasource: BlockyPostgres
+          DS_BLOCKYDB: BlockyPostgres
 #        cloudnative-pg:
 #          url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
 #        proxmox:
