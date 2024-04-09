@@ -3,7 +3,7 @@ k10restore:
   # This is a YAML-formatted file.
   # Declare variables to be passed into your templates.
 
-  enabled: false
+  enabled: true
 
   image:
     registry: gcr.io
@@ -29,7 +29,7 @@ k10restore:
     create: false
     name:
 
-  sourceClusterID: 35c41941-10ae-449f-aaa6-ff4a6a1793bb
+  sourceClusterID: 128fd95d-613a-4eb7-9fbe-b0cb9d46f89e
 
   skipResource:
 
