@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "blocky.fullname" . }}-dns
+  name: {{ include "blocky.fullname" . }}-dns-ipv6
   labels:
     {{- include "blocky.labels" . | nindent 4 }}
 spec:
