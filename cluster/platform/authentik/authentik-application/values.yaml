@@ -288,7 +288,7 @@ authentik:
       tag: 15.4.0-debian-11-r0
   redis:
     # -- enable the bundled bitnami redis chart
-    enabled: false
+    enabled: true
     architecture: standalone
     auth:
       enabled: false
