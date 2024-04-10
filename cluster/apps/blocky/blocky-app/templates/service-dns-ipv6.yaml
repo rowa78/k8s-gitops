@@ -1,0 +1,27 @@
+{{- if .Values.service.dns.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "blocky.fullname" . }}-dns
+  labels:
+    {{- include "blocky.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.dns.type }}
+  {{- if contains "LoadBalancer" .Values.service.dns.type}}
+  loadBalancerIP: {{ .Values.service.dns.loadBalancerIPv6 }}
+  {{- end }}
+  externalTrafficPolicy: Local
+  ipFamilies:
+  - IPv6
+  ports:
+    - port: {{ .Values.service.dns.port }}
+      targetPort: 53
+      protocol: TCP
+      name: dns-tcp
+    - port: {{ .Values.service.dns.port }}
+      targetPort: 53
+      protocol: UDP
+      name: dns-udp
+  selector:
+    {{- include "blocky.selectorLabels" . | nindent 4 }}
+{{- end }}
