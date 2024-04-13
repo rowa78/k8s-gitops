@@ -10,7 +10,7 @@ kube-prometheus-stack:
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: longhorn
+            storageClassName: openebs-zfs
             resources:
               requests:
                 storage: 1Gi
@@ -44,7 +44,7 @@ kube-prometheus-stack:
   grafana:
     fullnameOverride: grafana
     defaultDashboardsTimezone: Europe/Berlin
-    replicas: 2
+    replicas: 1
     persistence:
       enabled: true
       type: sts
@@ -186,7 +186,7 @@ kube-prometheus-stack:
     prometheusSpec:
       # remoteWrite:
       # - url: http://mimir-grafana-mimir-gateway/api/v1/push
-      replicas: 2
+      replicas: 1
       externalUrl: https://prometheus.rwcloud.org
       ruleSelectorNilUsesHelmValues: false
       serviceMonitorSelectorNilUsesHelmValues: false
@@ -475,7 +475,7 @@ prometheus-pushgateway:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "longhorn"
+    storageClass: "openebs-zfs"
 
     ## Subdirectory of pushgateway data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
