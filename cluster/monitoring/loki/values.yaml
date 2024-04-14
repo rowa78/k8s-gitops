@@ -33,7 +33,7 @@ loki:
     enabled: false
   
   read:
-    replicas: 2
+    replicas: 1
     extraArgs: 
       - '-config.expand-env=true'    
     extraEnv: 
@@ -49,7 +49,7 @@ loki:
             key: AWS_SECRETKEY
   write:
     # -- Number of replicas for the write
-    replicas: 2
+    replicas: 1
     persistence:
       # -- Enable volume claims in pod spec
       volumeClaimsEnabled: true
@@ -84,7 +84,7 @@ loki:
   # Configuration for the backend pod(s)
   backend:
     # -- Number of replicas for the backend
-    replicas: 2
+    replicas: 1
     extraArgs: 
       - '-config.expand-env=true'    
     extraEnv: 
