@@ -57,4 +57,4 @@ affinity: {}
 
 persistence:
   size: 1G
-  storageclass: longhorn
+  storageclass: local-path

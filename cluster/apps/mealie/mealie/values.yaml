@@ -92,5 +92,5 @@ tolerations: []
 affinity: {}
 
 persistence:
-  storageClass: longhorn
+  storageClass: local-path
   size: 10G

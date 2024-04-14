@@ -38,10 +38,10 @@ spec:
 
   storage:
     size: 200Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: local-path
   walStorage:
     size: 50Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: local-path
 
   backup:
     barmanObjectStore:

@@ -270,7 +270,7 @@ gitea:
     accessModes:
       - ReadWriteOnce
     labels: {}
-    storageClass: longhorn
+    storageClass: local-path
     subPath:
     volumeName: ""
     annotations:
@@ -556,7 +556,7 @@ gitea:
             postgresql: 5432
     primary:
       persistence:
-        storageClass: longhorn
+        storageClass: local-path
         size: 10Gi
 
   # By default, removed or moved settings that still remain in a user defined values.yaml will cause Helm to fail running the install/update.

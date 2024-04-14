@@ -1,6 +1,6 @@
 mariadb:
   global:
-    storageClass: "openebs-zfs"
+    storageClass: "local-path"
 
   image:
     registry: docker.io

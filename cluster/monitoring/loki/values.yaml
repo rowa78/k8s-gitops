@@ -65,7 +65,7 @@ loki:
       # If set to "-", storageClassName: "", which disables dynamic provisioning.
       # If empty or set to null, no storageClassName spec is
       # set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
-      storageClass: openebs-zfs
+      storageClass: local-path
       # -- Selector for persistent disk
       selector: null
     extraArgs: 
@@ -113,7 +113,7 @@ loki:
       # If set to "-", storageClassName: "", which disables dynamic provisioning.
       # If empty or set to null, no storageClassName spec is
       # set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
-      storageClass: openebs-zfs
+      storageClass: local-path
       # -- Selector for persistent disk
       selector: null
 

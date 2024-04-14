@@ -1,7 +1,7 @@
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
-  name: openebs-zfs  
+  name: local-path  
   annotations:
     k10.kasten.io/is-snapshot-class: "true"
 driver: zfs.csi.openebs.io
