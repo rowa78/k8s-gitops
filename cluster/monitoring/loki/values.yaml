@@ -49,7 +49,7 @@ loki:
             key: AWS_SECRETKEY
   write:
     # -- Number of replicas for the write
-    replicas: 1
+    replicas: 2
     persistence:
       # -- Enable volume claims in pod spec
       volumeClaimsEnabled: true
@@ -65,7 +65,7 @@ loki:
       # If set to "-", storageClassName: "", which disables dynamic provisioning.
       # If empty or set to null, no storageClassName spec is
       # set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
-      storageClass: local-path
+      storageClass: longhorn-local
       # -- Selector for persistent disk
       selector: null
     extraArgs: 
@@ -84,7 +84,7 @@ loki:
   # Configuration for the backend pod(s)
   backend:
     # -- Number of replicas for the backend
-    replicas: 1
+    replicas: 2
     extraArgs: 
       - '-config.expand-env=true'    
     extraEnv: 
@@ -113,7 +113,7 @@ loki:
       # If set to "-", storageClassName: "", which disables dynamic provisioning.
       # If empty or set to null, no storageClassName spec is
       # set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
-      storageClass: local-path
+      storageClass: longhorn-local
       # -- Selector for persistent disk
       selector: null
 
