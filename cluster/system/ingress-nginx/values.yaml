@@ -8,10 +8,10 @@ ingress-nginx:
       enabled: true
       # -- Is this the default ingressClass for the cluster
       default: true
-    hostNetwork: false
+    hostNetwork: true
     kind: DaemonSet
     service:
-      enabled: true
+      enabled: false
       type: NodePort
       #loadBalancerIP: "10.0.1.200"
       nodePorts:
