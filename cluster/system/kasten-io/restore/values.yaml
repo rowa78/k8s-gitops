@@ -29,7 +29,8 @@ k10restore:
     create: false
     name:
 
-  sourceClusterID: 35c41941-10ae-449f-aaa6-ff4a6a1793bb
+  sourceClusterID: 61c98ad2-4dee-4a61-b8c8-689475c8a7b1
+
   skipResource:
 
   pointInTime:
@@ -65,7 +66,7 @@ k10restore:
   restore:
     # timeout specifies timeout for the entire restore process
     # it must be larger than 5
-    timeout: 180
+    timeout: 90
 
   google:
     workloadIdentityFederation:
