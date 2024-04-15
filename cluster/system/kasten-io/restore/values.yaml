@@ -3,7 +3,7 @@ k10restore:
   # This is a YAML-formatted file.
   # Declare variables to be passed into your templates.
 
-  enabled: true
+  enabled: false
 
   image:
     registry: gcr.io
@@ -39,11 +39,11 @@ k10restore:
     create: true
 
   serviceAccount:
-    create: true
+    create: false
     # The name of the ServiceAccount to use.
     # If not set and create is true, a name is derived using the release and chart names.
     # If value for `name` is provided and `create` is false a serviceaccount with the specified name must exist in cluster
-    name: ""
+    name: "k10-application-k10"
   secrets:
     awsIamRole: ''
 

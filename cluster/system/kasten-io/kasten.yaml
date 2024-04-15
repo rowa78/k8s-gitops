@@ -11,6 +11,8 @@ spec:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
     path: cluster/system/kasten-io/k10
+  helm:
+    releaseName: k10
   destination:
     name: in-cluster
     namespace: kasten-io
