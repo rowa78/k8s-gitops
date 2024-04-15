@@ -126,3 +126,22 @@ vault_secrets:
         LDAP_QUERY_USER={{ lookup('env', 'LDAP_QUERY_USER') }}
         LDAP_PASSWORD={{ lookup('env', 'LDAP_PASSWORD') }}
         LDAP_BASE_DN={{ lookup('env', 'LDAP_BASE_DN') }}"
+  - path: secret/pathfinder
+    kv: "mariadb_root_password={{ lookup('env', 'PF_MARIADB_ROOT_PASSWORD') }}
+      mariadb_user={{ lookup('env', 'PF_MARIADB_USER') }}
+      mariadb_password={{ lookup('env', 'PF_MARIADB_PASSWORD') }}
+      app_password={{ lookup('env', 'PF_APP_PASSWORD') }}
+      client_id={{ lookup('env', 'PF_CCP_SSO_CLIENT_ID') }}
+      secret_key={{ lookup('env', 'PF_CCP_SSO_SECRET_KEY') }}
+      esi_scopes={{ lookup('env', 'PF_CCP_ESI_SCOPES') }}
+      smtp_from={{ lookup('env', 'PF_SMTP_FROM') }}"
+  - path: secret/registry
+    kv: "registryPass={{ lookup('env', 'REGISTRY_AUTH') }}"
+  - path: secret/homepage
+    kv: "DISKSTATION_USER={{ lookup('env', 'HOMEPAGE_DISKSTATION_USER') }}
+      DISKSTATION_PASSWORD={{ lookup('env', 'HOMEPAGE_DISKSTATION_PASSWORD') }}"
+  - path: secret/blocky
+    kv: "BLOCKY_DB_USERNAME={{ lookup('env', 'BLOCKY_DB_USERNAME') }}
+      BLOCKY_DB_PASSWORD={{ lookup('env', 'BLOCKY_DB_PASSWORD') }}
+      BLOCKY_REDIS_PASSWORD={{ lookup('env', 'BLOCKY_REDIS_PASSWORD') }}"
+

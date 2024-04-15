@@ -4,3 +4,16 @@
       sh -c 'vault kv put -format=json {{ item.path }} {{ item.kv }}'
   no_log: false
   loop: "{{ vault_secrets }}"
+
+- name: create vault-token
+  kubernetes.core.k8s:
+    state: present
+    definition: 
+      apiVersion: v1
+      kind: Secret
+      type: Opaque             
+      metadata:
+        name: "vault-token"
+        namespace: "external-secrets"     
+      data:
+        vault-token: "{{ lookup('env', 'VAULT_TOKEN') | b64encode }}"

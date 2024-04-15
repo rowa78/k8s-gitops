@@ -1,5 +1,5 @@
 k3s_state: installed
-k3s_release_version: v1.27.6+k3s1
+k3s_release_version: v1.27.11+k3s1
 k3s_become: true
 k3s_build_cluster: true
 
@@ -9,25 +9,19 @@ k3s_use_unsupported_config: true
 # use internal ha datastore
 k3s_etcd_datastore: true
 
-datastore_password: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          62373262363739646532623939376236316435393664343230326535656238616464373339663964
-          3363623937356637653735613231316264333930393333610a376330333163343934303030346235
-          65306661326136396266616366616138313634333935333836336133326537303536643963383761
-          3632653063663332660a343165633464643134633637373966613635353236383738633165666564
-          35373063303934356534386137653366616562306433393764326639343963663366
-
 k3s_server:
-  datastore-endpoint: mysql://k3s:{{ datastore_password }}@tcp(192.168.0.3:3307)/k3s  
+  #datastore-endpoint: mysql://k3s:{{ datastore_password }}@tcp(192.168.0.3:3307)/k3s  
   #datastore-endpoint: "postgres://k3s:{{ postgresql_password }}@192.168.1.100:5432/k3s?sslmode=disable"
   #datastore-endpoint: "http://192.168.100.1:2379,http://192.168.100.2:2379,http://192.168.100.3:2379"
   #flannel-iface: 'eno1.4000'
 #  node-taint: 
 #    - 'node-role.kubernetes.io/master=true:NoSchedule'
 #    - 'node-role.kubernetes.io/control-plane=true:NoSchedule'
+  cluster-cidr: 10.42.0.0/16,2001:cafe:42::/56
+  service-cidr: 10.43.0.0/16,2001:cafe:43::/112
   disable:    
-    - traefik    
-    - metrics-server
+    - traefik 
+    - servicelb
   tls-san: 
     - 192.168.0.100 
     - 192.168.0.101

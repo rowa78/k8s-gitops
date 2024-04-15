@@ -1,4 +1,4 @@
 ansible_user: ubuntu
-ansible_host: 192.168.0.103
+ansible_host: luna
 
 k3s_control_node: false

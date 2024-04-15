@@ -12,7 +12,7 @@
   become: false
   roles:
     - { role: k8s_apps/argocd }
-    - { role: k8s_apps/vault_secrets }
+#    - { role: k8s_apps/vault_secrets }
   vars:
     argocd_chart: ../pi-cluster/bootstrap/argocd
     argocd_root_app_chart: ../pi-cluster/bootstrap/root

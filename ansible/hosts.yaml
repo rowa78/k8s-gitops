@@ -2,17 +2,19 @@ all:
   children:    
     public_worker:
       hosts:
-        terra.rwcloud.org:         
+        terra:
+    public_vms:
+      hosts:
+        s3.rwcloud.org: 
     local_worker:
       hosts:
     k3s_cluster:
       children:
-        public_worker:    
+        public_worker:   
+    pi_cluster:
+      children:
+        private_worker:
     public_nodes:
       children:    
-        public_worker:         
-    wireguard_peers:
-      hosts:
-        pi-hole:      
-      children:
-        public_nodes:    
+        public_worker: 
+   

@@ -1,3 +1,12 @@
 ansible_user: ubuntu
 ansible_host: 192.168.0.101
 
+k3s_control_node: false
+
+k3s_agent:
+  node-taint: pi-node=true:NoSchedule
+  node-label: location=lan
+  #node-ip: 100.106.132.82
+  #flannel-iface: 'tailscale0'
+
+k3s_registration_address: master01

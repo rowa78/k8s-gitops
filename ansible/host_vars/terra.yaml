@@ -1,0 +1,4 @@
+ansible_user: root
+ansible_host: terra.rwcloud.org
+
+k3s_control_node: true

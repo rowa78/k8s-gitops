@@ -1,0 +1,5 @@
+ansible_user: ubuntu
+ansible_host: master02
+
+k3s_control_node: true
+

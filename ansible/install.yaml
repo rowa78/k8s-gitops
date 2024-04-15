@@ -1,6 +1,10 @@
 ---
 - name: general setup
-  hosts: "all"  
+  hosts: "public_worker"  
   roles:
     - ronnywalter.prepare-k3s   
-#   - ronnywalter.resolv_nodes
+- name: general setup
+  hosts: "private_worker"  
+  roles:
+    - ronnywalter.prepare-k3s   
+
