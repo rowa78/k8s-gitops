@@ -29,8 +29,7 @@ k10restore:
     create: false
     name:
 
-  sourceClusterID: 61c98ad2-4dee-4a61-b8c8-689475c8a7b1
-
+  sourceClusterID: 35c41941-10ae-449f-aaa6-ff4a6a1793bb
   skipResource:
 
   pointInTime:
