@@ -12,9 +12,9 @@ k3s_etcd_datastore: true
 k3s_server:
   #datastore-endpoint: "postgres://k3s:{{ postgresql_password }}@192.168.1.100:5432/k3s?sslmode=disable"
   #datastore-endpoint: "http://192.168.100.1:2379,http://192.168.100.2:2379,http://192.168.100.3:2379"
-  flannel-iface: 'eno1.4000'
-  cluster-cidr: 10.42.0.0/16,2001:cafe:42::/56
-  service-cidr: 10.43.0.0/16,2001:cafe:43::/112
+  #flannel-iface: 'eno1.4000'
+  #cluster-cidr: 10.42.0.0/16,2001:cafe:42::/56
+  #service-cidr: 10.43.0.0/16,2001:cafe:43::/112
   flannel-ipv6-masq: true
   # node-taint: 
   #   - node-role.kubernetes.io/master=true:NoSchedule
