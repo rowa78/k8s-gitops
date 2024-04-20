@@ -10,7 +10,7 @@ kube-prometheus-stack:
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: longhorn-local
+            storageClassName: longhorn
             resources:
               requests:
                 storage: 1Gi
@@ -48,7 +48,7 @@ kube-prometheus-stack:
     persistence:
       enabled: true
       type: sts
-      storageClassName: longhorn-local
+      storageClassName: longhorn
       size: 1Gi
     ingress:
       enabled: true
@@ -186,7 +186,7 @@ kube-prometheus-stack:
     prometheusSpec:
       # remoteWrite:
       # - url: http://mimir-grafana-mimir-gateway/api/v1/push
-      replicas: 2
+      replicas: 1
       externalUrl: https://prometheus.rwcloud.org
       ruleSelectorNilUsesHelmValues: false
       serviceMonitorSelectorNilUsesHelmValues: false
