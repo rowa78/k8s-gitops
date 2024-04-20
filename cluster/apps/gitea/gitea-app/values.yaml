@@ -158,7 +158,7 @@ gitea:
       cert-manager.io/cluster-issuer: letsencrypt-production            
       gethomepage.dev/enabled: "true"
       gethomepage.dev/description: Gitea
-      gethomepage.dev/group: System
+      gethomepage.dev/group: Apps
       gethomepage.dev/icon: gitea.png
       gethomepage.dev/name: Gitea
       gethomepage.dev/pod-selector: ""

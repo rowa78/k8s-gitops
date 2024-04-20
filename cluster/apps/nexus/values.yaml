@@ -114,7 +114,7 @@ nexus-repository-manager:
       cert-manager.io/cluster-issuer: letsencrypt-production
       gethomepage.dev/enabled: "true"
       gethomepage.dev/description: Sonatype Nexus
-      gethomepage.dev/group: System
+      gethomepage.dev/group: Apps
       gethomepage.dev/icon: https://www.sonatype.com/hubfs/2-2023-Product%20Logos/sonatype-repo-icon.png
       gethomepage.dev/name: Nexus        
       gethomepage.dev/pod-selector: ""
