@@ -137,13 +137,15 @@ docker-registry-ui:
       ingressClassName: nginx
       # TLS configuration
       tls:
-      - hosts:
+      - secretName: registry-tls
+        hosts:
         - registry.rwcloud.org
       # Annotations to apply to the user interface ingress.
       annotations: 
+        cert-manager.io/cluster-issuer: letsencrypt-production
         gethomepage.dev/enabled: "true"
         gethomepage.dev/description: Docker Registry
-        gethomepage.dev/group: System
+        gethomepage.dev/group: Apps
         gethomepage.dev/icon: docker.png
         gethomepage.dev/name: Docker Registry
         gethomepage.dev/pod-selector: ""
