@@ -22,10 +22,10 @@ spec:
 
   storage:
     size: 10Gi
-    storageClass: local-path
+    storageClass: longhorn-local
   walStorage:
     size: 2Gi
-    storageClass: local-path
+    storageClass: longhorn-local
 
   backup:
     barmanObjectStore:
