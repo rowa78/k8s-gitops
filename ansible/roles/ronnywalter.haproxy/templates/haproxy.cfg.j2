@@ -9,7 +9,8 @@ defaults
     timeout server 30s
 
 listen stats
-  bind    {{wireguard_address | replace('/32','')}}:9000
+  bind    0.0.0.0:9000
+  bind    :::9000
   mode    http
   stats   enable
   stats   hide-version
@@ -20,7 +21,8 @@ listen stats
    
 ############## Configure HAProxy http Frontend #############
 frontend http
-    bind *:80
+    bind 0.0.0.0:80
+    bind :::80
     mode tcp
     tcp-request inspect-delay 5s
     tcp-request content accept if { req.ssl_hello_type 1 }
@@ -34,17 +36,13 @@ backend http
     option tcp-check
     default-server inter 10s downinter 5s rise 2 fall 2 slowstart 60s maxconn 250 maxqueue 256 weight 100
     {% for host in groups['public_worker'] %}
-      server {{ host }} {{hostvars[host]['wireguard_address'] | replace('/32','') }}:80 check send-proxy-v2
+      server {{ host }} {{ ansible_all_ipv4_addresses | ipaddr('10.0.1.0/24') | first }}:32080 check send-proxy-v2
     {% endfor %}
-    {% for host in groups['local_worker'] %}
-      server {{ host }} {{hostvars[host]['ansible_host'] }}:80 check send-proxy-v2
-    {% endfor %}
-
-
 
  ############## Configure HAProxy https Frontend #############
 frontend https
-    bind *:443
+    bind 0.0.0.0:443
+    bind :::443
     mode tcp
     tcp-request inspect-delay 5s
     tcp-request content accept if { req.ssl_hello_type 1 }
@@ -55,37 +53,48 @@ backend https
     balance roundrobin
     mode tcp
     #option tcplog
-    option ssl-hello-chk
+    option tcp-check
     default-server inter 10s downinter 5s rise 2 fall 2 slowstart 60s maxconn 250 maxqueue 256 weight 100
     {% for host in groups['public_worker'] %}
-      server {{ host }} {{hostvars[host]['wireguard_address'] | replace('/32','') }}:443 check send-proxy-v2
-    {% endfor %}
-    {% for host in groups['local_worker'] %}
-      server {{ host }} {{hostvars[host]['ansible_host'] }}:443 check send-proxy-v2
+      server {{ host }} {{ ansible_all_ipv4_addresses | ipaddr('10.0.1.0/24') | first }}:32443 check send-proxy-v2
     {% endfor %}
 
-frontend minecraft-caro-ronny
-    # receives traffic from clients
+############## Configure HAProxy http Frontend #############
+frontend gitea-ssh
+    bind 0.0.0.0:2222
+    bind :::2222
+    mode tcp
+    tcp-request inspect-delay 5s
+    tcp-request content accept if { req.ssl_hello_type 1 }
+    default_backend gitea-ssh
+
+############## Configure HAProxy k8s SecureBackend #############
+backend gitea-ssh
     balance roundrobin
     mode tcp
-    bind :30100
-    default_backend minecraft-caro-ronny
-
-backend minecraft-caro-ronny
+    #option tcplog
+    option tcp-check
     default-server inter 10s downinter 5s rise 2 fall 2 slowstart 60s maxconn 250 maxqueue 256 weight 100
     {% for host in groups['public_worker'] %}
-      server {{ host }} {{hostvars[host]['wireguard_address'] | replace('/32','') }}:30100 check
-    {% endfor %}    
+      server {{ host }} {{ ansible_all_ipv4_addresses | ipaddr('10.0.1.0/24') | first }}:30022 check
+    {% endfor %}
 
-frontend minecraft-caro-sofia-robert
-    # receives traffic from clients
+############## Configure HAProxy http Frontend #############
+frontend minecraft
+    bind 0.0.0.0:30100
+    bind :::30100
+    mode tcp
+    tcp-request inspect-delay 5s
+    tcp-request content accept if { req.ssl_hello_type 1 }
+    default_backend minecraft
+
+############## Configure HAProxy k8s SecureBackend #############
+backend minecraft
     balance roundrobin
     mode tcp
-    bind :30101
-    default_backend minecraft-caro-sofia-robert
-
-backend minecraft-caro-sofia-robert
+    #option tcplog
+    option tcp-check
     default-server inter 10s downinter 5s rise 2 fall 2 slowstart 60s maxconn 250 maxqueue 256 weight 100
     {% for host in groups['public_worker'] %}
-      server {{ host }} {{hostvars[host]['wireguard_address'] | replace('/32','') }}:30101 check
-    {% endfor %}    
+      server {{ host }} {{ ansible_all_ipv4_addresses | ipaddr('10.0.1.0/24') | first }}:30999 check
+    {% endfor %}

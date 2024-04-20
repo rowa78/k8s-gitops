@@ -125,15 +125,30 @@
     name: rsyslog
     state: present
 
-- name: install zfs-utils
-  package:
-    name: zfsutils-linux    
-    state: present
+# - name: install qemu-guest-agent
+#   package:
+#     name: qemu-guest-agent
+#     state: present
 
-- name: install fdisk
-  package:
-    name: fdisk
-    state: present
+# - name: enable service qemu-guest-agent
+#   ansible.builtin.service:
+#     name: qemu-guest-agent
+#     enabled: yes
+
+# - name: start service qemu-guest-agent
+#   ansible.builtin.service:
+#     name: qemu-guest-agent
+#     state: started
+
+# - name: install zfs-utils
+#   package:
+#     name: zfsutils-linux    
+#     state: present
+
+# - name: install fdisk
+#   package:
+#     name: fdisk
+#     state: present
 
 #- name: Enable service fail2ban
 #  ansible.builtin.service:
@@ -150,12 +165,12 @@
 #    name: fail2ban
 #    state: restarted
 
-- name: configure multipath.con
-  ansible.builtin.template:
-    src: multipath.conf.j2
-    dest: "/etc/multipath.conf"    
+# - name: configure multipath.con
+#   ansible.builtin.template:
+#     src: multipath.conf.j2
+#     dest: "/etc/multipath.conf"    
 
-- name: restart service multipathd
-  ansible.builtin.service:
-    name: multipathd
-    state: restarted
+# - name: restart service multipathd
+#   ansible.builtin.service:
+#     name: multipathd
+#     state: restarted

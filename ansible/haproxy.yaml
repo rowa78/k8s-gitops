@@ -1,0 +1,6 @@
+---
+- name: haproxy
+  #hosts: "public_nodes:loadbalancer"  
+  hosts: "terra"
+  roles:
+    - ronnywalter.haproxy

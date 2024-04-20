@@ -1,0 +1,6 @@
+ansible_user: debian
+ansible_host: worker03
+
+k3s_control_node: false
+
+rke2_type: agent

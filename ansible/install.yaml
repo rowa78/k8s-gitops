@@ -1,10 +1,5 @@
 ---
 - name: general setup
-  hosts: "public_worker"  
+  hosts: "all"  
   roles:
-    - ronnywalter.prepare-k3s   
-- name: general setup
-  hosts: "private_worker"  
-  roles:
-    - ronnywalter.prepare-k3s   
-
+    - ronnywalter.prepare-k3s  

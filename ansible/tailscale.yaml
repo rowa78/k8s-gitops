@@ -1,0 +1,8 @@
+- name: tailscale-setup
+  hosts: all
+  roles:
+    - role: artis3n.tailscale
+      tailscale_args: "--advertise-routes={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}/32,{{ hostvars[inventory_hostname]['ansible_default_ipv6']['address'] }}/128,10.0.1.2/32 --accept-routes --accept-dns=false"
+      vars:
+        # Example pulling the API key from the env vars on the host running Ansible
+        tailscale_authkey: "{{ lookup('env', 'TAILSCALE_KEY') }}"

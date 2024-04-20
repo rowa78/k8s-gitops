@@ -1,5 +1,5 @@
 k3s_state: installed
-k3s_release_version:  v1.27.11+k3s1
+k3s_release_version: v1.29.3+k3s1
 k3s_become: true
 k3s_build_cluster: true
 
@@ -12,36 +12,38 @@ k3s_etcd_datastore: true
 k3s_server:
   #datastore-endpoint: "postgres://k3s:{{ postgresql_password }}@192.168.1.100:5432/k3s?sslmode=disable"
   #datastore-endpoint: "http://192.168.100.1:2379,http://192.168.100.2:2379,http://192.168.100.3:2379"
-  #flannel-iface: 'eno1.4000'
+  #flannel-iface: none
   #cluster-cidr: 10.42.0.0/16,2001:cafe:42::/56
   #service-cidr: 10.43.0.0/16,2001:cafe:43::/112
-  flannel-ipv6-masq: true
-  # node-taint: 
-  #   - node-role.kubernetes.io/master=true:NoSchedule
-  #   - node-role.kubernetes.io/control-plane=true:NoSchedule
+  #flannel-backend: none
+  #flannel-ipv6-masq: true
+  #node-taint: 
+  #  - node-role.kubernetes.io/master=true:NoSchedule
+  #  - node-role.kubernetes.io/control-plane=true:NoSchedule
   disable:
     - traefik
     - metrics-server 
     - local-storage
     - servicelb
+  #  - network-policy
   tls-san: 
-    - 10.0.1.2
-    - 100.69.140.120
+   - 10.0.1.2
+   - 100.98.101.62   
   #tls-san: 192.168.100.2
   #tls-san: 192.168.1.101  
   # for monitoring
-  kube-controller-manager-arg:
+  #kube-controller-manager-arg:
   #- "address=0.0.0.0"
-  - "bind-address=0.0.0.0"
+  #- "bind-address=0.0.0.0"
   kube-proxy-arg:
-  - "metrics-bind-address=0.0.0.0"
+  #- "metrics-bind-address=0.0.0.0"
   - "nodeport-addresses=10.0.1.0/24,fd00::/8"
-  kube-scheduler-arg:
+  #kube-scheduler-arg:
   #- "address=0.0.0.0"
-  - "bind-address=0.0.0.0"
+  #- "bind-address=0.0.0.0"
   # Controller Manager exposes etcd sqllite metrics
   etcd-expose-metrics: true
-  snapshotter: zfs
+  #snapshotter: zfs
 
 #k3s_server_manifests_urls:
 #  - url: https://kube-vip.io/manifests/rbac.yaml

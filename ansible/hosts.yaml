@@ -3,18 +3,7 @@ all:
     public_worker:
       hosts:
         terra:
-    public_vms:
-      hosts:
-        s3.rwcloud.org: 
-    local_worker:
-      hosts:
     k3s_cluster:
       children:
-        public_worker:   
-    pi_cluster:
-      children:
-        private_worker:
-    public_nodes:
-      children:    
-        public_worker: 
+        public_worker:
    
