@@ -20,7 +20,7 @@ redis:
     ##   - myRegistryKeySecretName
     ##
     imagePullSecrets: []
-    storageClass: "local-path"
+    storageClass: "longhorn"
     redis:
       password: ""
 
