@@ -7,6 +7,4 @@ spec:
   - hetzner
   nodeSelectors:
   - matchLabels:
-      kubernetes.io/hostname: luna.rwcloud.org
-  - matchLabels:
       kubernetes.io/hostname: terra.rwcloud.org
