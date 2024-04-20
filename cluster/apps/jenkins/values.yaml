@@ -468,7 +468,7 @@ jenkins:
         cert-manager.io/cluster-issuer: letsencrypt-production
         gethomepage.dev/enabled: "true"
         gethomepage.dev/description: Jenkins
-        gethomepage.dev/group: System
+        gethomepage.dev/group: Apps
         gethomepage.dev/icon: jenkins.png
         gethomepage.dev/name: Jenkins
         gethomepage.dev/app: jenkins        
@@ -483,7 +483,8 @@ jenkins:
       path: "/"
       hostName: jenkins.rwcloud.org
       tls:
-        - hosts:
+        - secretName: jenkins-tls
+          hosts:
           - jenkins.rwcloud.org
 
     # often you want to have your controller all locked down and private
@@ -867,7 +868,7 @@ jenkins:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: local-path
+    storageClass: longhorn
     annotations: {}
     labels: {}
     accessMode: "ReadWriteOnce"
