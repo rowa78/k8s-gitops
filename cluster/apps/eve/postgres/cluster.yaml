@@ -40,7 +40,7 @@ spec:
     size: 200Gi
     storageClass: local-path
   walStorage:
-    size: 50Gi
+    size: 100Gi
     storageClass: local-path
 
   backup:
