@@ -42,6 +42,7 @@ homepage:
     main:
       enabled: true
       annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
         nginx.ingress.kubernetes.io/auth-method: GET
         nginx.ingress.kubernetes.io/auth-url: https://auth.rwcloud.org/api/verify
         nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
@@ -55,7 +56,8 @@ homepage:
             - path: /
               pathType: Prefix
       tls:
-        - hosts:
+        - secretName: homepage-tls
+          hosts:
             - *host
 
   # All the config files for Homepage can be specified under their relevant config block.
