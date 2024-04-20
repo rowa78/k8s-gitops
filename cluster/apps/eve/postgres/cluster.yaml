@@ -58,7 +58,7 @@ spec:
         compression: gzip        
       data:
         compression: gzip                
-        jobs: 2
+        jobs: 1
     retentionPolicy: "5d"
 ---
 apiVersion: postgresql.cnpg.io/v1
