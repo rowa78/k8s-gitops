@@ -270,7 +270,7 @@ gitea:
     accessModes:
       - ReadWriteOnce
     labels: {}
-    storageClass: local-path
+    storageClass: longhorn
     subPath:
     volumeName: ""
     annotations:
