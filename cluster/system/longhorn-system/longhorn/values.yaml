@@ -7,7 +7,7 @@ longhorn:
         tag: v6.3.2
         
   persistence:
-    defaultClassReplicaCount: 2
+    defaultClassReplicaCount: 1
     defaultFsType: ext4
     defaultClass: true
     defaultDataLocality: best-effort
@@ -15,7 +15,7 @@ longhorn:
   defaultSettings:    
     defaultDataPath: /storage/longhorn
     #createDefaultDiskLabeledNodes: "true"
-    defaultReplicaCount: 2
+    defaultReplicaCount: 1
     defaultDataLocality: best-effort
     nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
     replicaAutoBalance: best-effort
