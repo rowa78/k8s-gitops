@@ -44,7 +44,7 @@ kube-prometheus-stack:
   grafana:
     fullnameOverride: grafana
     defaultDashboardsTimezone: Europe/Berlin
-    replicas: 2
+    replicas: 1
     persistence:
       enabled: true
       type: sts
@@ -195,7 +195,7 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
-            storageClassName: longhorn-local
+            storageClassName: openebs-zfs
             resources:
               requests:
                 storage: 50Gi     
@@ -442,7 +442,7 @@ prometheus-pushgateway:
     ##
     enabled: true
 
-    replicaCount: 2
+    replicaCount: 1
 
     ## pushgateway data Persistent Volume access modes
     ## Must match those of existing PV or dynamic provisioner
