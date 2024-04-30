@@ -1,4 +1,4 @@
-openebs:
+zfs-localpv:
   crds:
     zfsLocalPv:
       # Install zfs-localpv CRDs
