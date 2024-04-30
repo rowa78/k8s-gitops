@@ -5,7 +5,7 @@ metadata:
 spec:  
   containers:  
   - name: psql
-    image: governmentpaas/psql:latest # Change to cockroachdb/cockroach:{version}
+    image: postgres:16 # Change to cockroachdb/cockroach:{version}
     imagePullPolicy: IfNotPresent
     volumeMounts:
     - name: temp
