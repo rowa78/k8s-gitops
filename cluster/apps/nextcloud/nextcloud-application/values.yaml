@@ -135,7 +135,7 @@ nextcloud:
       proxies.config.php: |-
         <?php
         $CONFIG = array (
-          'trusted_proxies' => ['cloud.rwcloud.org', '116.202.157.242', '2a01:4f8:10b:3c5b::2', '10.42.0.0/16', '2001:cafe:42::/56']
+          'trusted_proxies' => ['cloud.rwcloud.org', '116.202.157.242', '2a01:4f8:10b:3c5b::2', '10.42.0.0/16', '2001:cafe:42::/56', '10.43.0.0/16', '2001:cafe:43::/56']
         );
 
     # For example, to use S3 as primary storage
