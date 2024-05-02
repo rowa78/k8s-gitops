@@ -34,6 +34,7 @@ nextcloud:
       gethomepage.dev/icon: nextcloud.png
       gethomepage.dev/name: Nextcloud
       gethomepage.dev/app: nextcloud
+      nginx.ingress.kubernetes.io/rewrite-target: /
       nginx.ingress.kubernetes.io/server-snippet: |-
         server_tokens off;
         proxy_hide_header X-Powered-By;
@@ -42,10 +43,10 @@ nextcloud:
         rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
         rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
         location = /.well-known/carddav {
-          return 301 /remote.php/dav;
+          return 301 $scheme://$host/remote.php/dav;
         }
         location = /.well-known/caldav {
-          return 301 /remote.php/dav;
+          return 301 $scheme://$host/remote.php/dav;
         }
         location = /robots.txt {
           allow all;
