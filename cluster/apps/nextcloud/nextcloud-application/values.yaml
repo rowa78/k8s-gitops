@@ -27,7 +27,7 @@ nextcloud:
     annotations: 
       nginx.ingress.kubernetes.io/proxy-body-size: 4G
       kubernetes.io/tls-acme: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
+      cert-manager.io/cluster-issuer: letsencrypt-production
       gethomepage.dev/enabled: "true"
       gethomepage.dev/description: Nextcloud
       gethomepage.dev/group: Apps
