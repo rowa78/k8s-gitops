@@ -4,7 +4,7 @@ nextcloud:
   ##
   image:
     repository: nextcloud
-    # tag: 24.0.3-apache
+    tag: 24.0.3-fpm
     pullPolicy: IfNotPresent
     # pullSecrets:
     #   - myRegistrKeySecretName
@@ -232,7 +232,7 @@ nextcloud:
 
   nginx:
     ## You need to set an fpm version of the image for nextcloud if you want to use nginx!
-    enabled: false
+    enabled: true
     image:
       repository: nginx
       tag: alpine
