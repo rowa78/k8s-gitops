@@ -159,13 +159,8 @@ argo-cd:
         gethomepage.dev/pod-selector: ""
 
       ingressClassName: nginx
-#      https: true
-      hosts:
-        - argocd.rwcloud.org
-      tls:
-        - hosts:
-            - argocd.rwcloud.org          
-          secretName: argocd-tls
+      hostname: "argocd.rwcloud.org"
+      tls: true
     metrics:
       enabled: true
       serviceMonitor:
