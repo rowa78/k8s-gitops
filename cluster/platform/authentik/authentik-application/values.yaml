@@ -132,7 +132,16 @@ authentik:
           secretKeyRef:
             name: redis-secrets
             key: redis-password
-
+      - name: AUTHENTIK_BOOTSTRAP_EMAIL
+        valueFrom:
+          secretKeyRef:
+            name: authentik
+            key: email-username
+      - name: AUTHENTIK_BOOTSTRAP_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: authentik
+            key: email-username
             
 
       # - name: AUTHENTIK_VAR_NAME
