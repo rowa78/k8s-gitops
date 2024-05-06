@@ -127,6 +127,13 @@ authentik:
           secretKeyRef:
             name: authentik-app
             key: password
+      - name: AUTHENTIK_REDIS__PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: redis-secrets
+            key: redis-password
+
+            
 
       # - name: AUTHENTIK_VAR_NAME
       #   value: VALUE
