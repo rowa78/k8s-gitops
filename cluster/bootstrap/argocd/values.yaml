@@ -279,6 +279,9 @@ argo-cd:
   
   configs:
     cm:
+
+      admin.enabled: false
+
       dex.config: |
         connectors:
         - config:
