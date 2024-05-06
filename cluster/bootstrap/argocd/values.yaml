@@ -1,4 +1,7 @@
 argo-cd:
+  global:
+    domain: argocd.rwcloud.org
+
   repoServer:
     serviceAccount:
       create: true
