@@ -140,7 +140,7 @@ argo-cd:
           - '.spec.actions[]?.exportParameters'          
     rbacConfig:
       policy.csv: |
-        g, argocd_admins, role:admin
+        g, plattform-admins, role:admin
     ingress:
       enabled: true
       annotations:
@@ -277,7 +277,21 @@ argo-cd:
       serviceMonitor:
         enabled: true
   dex:
-    enabled: false
+    enabled: true
+  dex.config: |
+    connectors:
+    - config:
+        issuer: http://authentik.rwcloud.org/application/o/argocd/
+        clientID: $argocd-auth:client-id
+        clientSecret: $argocd-auth:client-id
+        insecureEnableGroups: true
+        scopes:
+          - openid
+          - profile
+          - email
+      name: authentik
+      type: oidc
+      id: authentik
 
   redis:
   # -- Enable redis
