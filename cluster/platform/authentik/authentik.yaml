@@ -57,7 +57,7 @@ spec:
   destination:
     name: in-cluster
     namespace: authentik     
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+#  syncPolicy:
+#    automated:
+#      prune: true
+#      selfHeal: true
