@@ -223,7 +223,7 @@ authentik:
     redis:
       # -- set the redis hostname to talk to
       # @default -- `{{ .Release.Name }}-redis-master`
-      host: "{{ .Release.Name }}-redis-master"
+      host: "authentik-redis-master"
       password: ""
 
 
