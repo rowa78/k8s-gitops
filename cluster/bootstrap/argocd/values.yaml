@@ -293,6 +293,9 @@ argo-cd:
           name: authentik
           type: oidc
           id: authentik
+    rbac:
+      policy.csv: |
+        g, plattform-admins, role:admin
 
   redis:
   # -- Enable redis
