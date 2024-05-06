@@ -141,7 +141,7 @@ authentik:
         valueFrom:
           secretKeyRef:
             name: authentik
-            key: email-username
+            key: ak-admin-password
             
 
       # - name: AUTHENTIK_VAR_NAME
