@@ -286,7 +286,7 @@ argo-cd:
         - config:
             issuer: https://authentik.rwcloud.org/application/o/argocd/
             clientID: $argocd-auth:client-id
-            clientSecret: $argocd-auth:client-id
+            clientSecret: $argocd-auth:client-secret
             insecureEnableGroups: true
             scopes:
               - openid
