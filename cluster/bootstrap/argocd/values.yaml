@@ -278,20 +278,23 @@ argo-cd:
         enabled: true
   dex:
     enabled: true
-  dex.config: |
-    connectors:
-    - config:
-        issuer: http://authentik.rwcloud.org/application/o/argocd/
-        clientID: $argocd-auth:client-id
-        clientSecret: $argocd-auth:client-id
-        insecureEnableGroups: true
-        scopes:
-          - openid
-          - profile
-          - email
-      name: authentik
-      type: oidc
-      id: authentik
+  
+  configs:
+    cm:
+      dex.config: |
+        connectors:
+        - config:
+            issuer: http://authentik.rwcloud.org/application/o/argocd/
+            clientID: $argocd-auth:client-id
+            clientSecret: $argocd-auth:client-id
+            insecureEnableGroups: true
+            scopes:
+              - openid
+              - profile
+              - email
+          name: authentik
+          type: oidc
+          id: authentik
 
   redis:
   # -- Enable redis
