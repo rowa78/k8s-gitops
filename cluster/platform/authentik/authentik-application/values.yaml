@@ -592,16 +592,22 @@ authentik:
 
     ingress:
       # -- enable an ingress resource for the authentik server
-      enabled: false
+      enabled: true
       # -- additional ingress annotations
-      annotations: {}
+      annotations: 
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/description: Authentik
+        gethomepage.dev/group: System
+        gethomepage.dev/icon: authentik.png
+        gethomepage.dev/name: Authentik
+        gethomepage.dev/pod-selector: ""
       # -- additional ingress labels
       labels: {}
       # -- defines which ingress controller will implement the resource
-      ingressClassName: ""
+      ingressClassName: "nginx"
       # -- List of ingress hosts
-      hosts: []
-        # - authentik.domain.tld
+      hosts: 
+        - authentik.rwcloud.org
 
       # -- List of ingress paths
       paths:
@@ -619,10 +625,10 @@ authentik:
         #         name: use-annotation
 
       # -- ingress TLS configuration
-      tls: []
-        # - secretName: authentik-tls
-        #   hosts:
-        #     - authentik.domain.tld
+      tls: 
+        - secretName: authentik-tls
+          hosts:
+            - authentik.rwcloud.org
 
       # -- uses `server.service.servicePortHttps` instead of `server.service.servicePortHttp`
       https: false
