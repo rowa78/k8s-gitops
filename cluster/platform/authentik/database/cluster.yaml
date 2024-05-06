@@ -26,8 +26,8 @@ spec:
 
   backup:
     barmanObjectStore:
-      endpointURL: "https://s3.eu-central-2.wasabisys.com"      
-      destinationPath: "s3://rwcloud-postgres-backups/"      
+      endpointURL: "http://minio.minio.svc.cluster.local:9000"      
+      destinationPath: "s3://postgresql/"      
       s3Credentials:
         accessKeyId:
           name: s3-creds
@@ -36,8 +36,8 @@ spec:
           name: s3-creds
           key: aws_secret_access_key
       wal:
-        compression: bzip2        
+        compression: gzip        
       data:
-        compression: bzip2                
-        jobs: 2
+        compression: gzip                
+        jobs: 1
     retentionPolicy: "14d"
