@@ -101,7 +101,12 @@ authentik:
     # -- Environment variables to pass to all deployed Deployments. Does not apply to GeoIP
     # See configuration options at https://goauthentik.io/docs/installation/configuration/
     # @default -- `[]` (See [values.yaml])
-    env: []
+    env:
+      - name: AUTHENTIK_SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: authentik
+            key: secret-key
       # - name: AUTHENTIK_VAR_NAME
       #   value: VALUE
       # - name: AUTHENTIK_VAR_OTHER
