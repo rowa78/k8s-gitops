@@ -107,6 +107,27 @@ authentik:
           secretKeyRef:
             name: authentik
             key: secret-key
+      - name: AUTHENTIK_POSTGRESQL__HOST: 
+        valueFrom:
+          secretKeyRef:
+            name: authentik-app
+            key: host
+      - name: AUTHENTIK_POSTGRESQL__NAME: 
+        valueFrom:
+          secretKeyRef:
+            name: authentik-app
+            key: dbname
+      - name: AUTHENTIK_POSTGRESQL__USER: 
+        valueFrom:
+          secretKeyRef:
+            name: authentik-app
+            key: user
+      - name: AUTHENTIK_POSTGRESQL__NAME: 
+        valueFrom:
+          secretKeyRef:
+            name: authentik-app
+            key: password
+
       # - name: AUTHENTIK_VAR_NAME
       #   value: VALUE
       # - name: AUTHENTIK_VAR_OTHER
