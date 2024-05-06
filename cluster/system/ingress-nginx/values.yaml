@@ -28,6 +28,7 @@ ingress-nginx:
       proxy-body-size: "1000m"      
       client-body-buffer-size: "1000m"
       compute-full-forwarded-for: "true"
+      allow-snippet-annotations: "true"
     metrics:
       enabled: true
       serviceMonitor:
