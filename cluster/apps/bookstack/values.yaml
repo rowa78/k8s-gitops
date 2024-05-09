@@ -1,0 +1,148 @@
+#
+# IMPORTANT NOTE
+#
+# This chart inherits from our common library chart. You can check the default values/options here:
+# https://github.com/bjw-s/helm-charts/blob/a081de5/charts/library/common/values.yaml
+#
+
+image:
+  # -- image repository
+  repository: ghcr.io/linuxserver/bookstack
+  # -- image pull policy
+  pullPolicy: IfNotPresent
+  # -- image tag
+  tag: version-v24.02.3
+
+# -- environment variables.
+#    For more options see [BookStack .env.example](https://github.com/BookStackApp/BookStack/blob/release/.env.example.complete).
+# @default -- See [values.yaml](./values.yaml)
+env: 
+  - name: FOO
+    value: bar
+  
+
+
+# MAIL_DRIVER=smtp
+# MAIL_FROM=bookstack@example.com
+# MAIL_FROM_NAME=BookStack
+
+# MAIL_HOST=localhost
+# MAIL_PORT=587
+# MAIL_USERNAME=null
+# MAIL_PASSWORD=null
+# MAIL_ENCRYPTION=null
+# MAIL_VERIFY_SSL=true
+
+
+# -- Configures service settings for the chart.
+# @default -- See [values.yaml](./values.yaml)
+service:
+  main:
+    ports:
+      http:
+        port: 80
+
+ingress:
+  # -- Enable and configure ingress settings for the chart under this key.
+  # @default -- See [values.yaml](./values.yaml)
+  main:
+    enabled: true
+    hosts:
+      - host: wiki.rwcloud.org
+        paths:
+          - path: /
+    tls:
+      - secretName: wiki-tls
+        hosts:
+          - wiki.rwcloud.org
+
+persistence:
+  # -- Configure persistence settings for the chart under this key.
+  # @default -- See [values.yaml](./values.yaml)
+   config:
+     enabled: false
+     retain: true
+     # storageClass: ""
+     # accessMode: ReadWriteOnce
+     # size: 1Gi
+
+# -- Enable and configure mariadb database subchart under this key.
+#    For more options see [mariadb chart documentation](https://github.com/bitnami/charts/tree/master/bitnami/mariadb)
+# @default -- See [values.yaml](./values.yaml)
+mariadb:
+  enabled: true
+  auth:
+    database: bookstack
+    username: bookstack
+    password: changeme
+    rootPassword: changeme
+  primary:
+    persistence:
+      enabled: true
+      storageClass: "longhorn"
+      size: 8Gi
+
+shelfPermissionsCron:
+  # -- Enables a CronJob that copies shelf permissions to all child books.
+  #    [[ref]](https://bookstackapp.com/docs/admin/commands/#copy-shelf-permission)
+  enabled: true
+  # -- Shelf permissions CronJob name
+  nameOverride: copy-shelf-permissions
+  controller:
+    # @ignored
+    type: cronjob
+    cronjob:
+      # -- Shelf permissions CronJob time
+      schedule: 0 0 * * *
+  # -- Shelf permissions CronJob command
+  # @default -- See [values.yaml](./values.yaml)
+  command:
+    - php
+    - /app/www/artisan
+    - bookstack:copy-shelf-permissions
+    - --no-interaction
+    - --all
+
+podSecurityContext:
+  # -- Volume group permissions
+  fsGroup: 911
+
+bookstack:
+  harcodedValues:
+    - name: APP_URL
+      value: https://wiki.rwcloud.org
+    - name: APP_TIMEZONE
+      value: Europe/Berlin
+    - name: AUTH_METHOD
+      value: saml2
+    - name: AUTH_AUTO_INITIATE
+      value: 'true'
+    - name: SAML2_NAME
+      value: authentik
+    # Name of the attribute which provides the user's email address
+    - name: SAML2_EMAIL_ATTRIBUTE
+      value: email
+    # Name of the attribute to use as an ID for the SAML user.
+    - name: SAML2_EXTERNAL_ID_ATTRIBUTE 
+      value: uid
+    # Enable SAML group sync.
+    - name: SAML2_USER_TO_GROUPS
+      value: true
+    # Set the attribute from which BookStack will read groups names from.
+    # You will need to rename your roles in Bookstack to match your groups in authentik.
+    - name: SAML2_GROUP_ATTRIBUTE
+      value: http://schemas.xmlsoap.org/claims/Group
+    # Name of the attribute(s) to use for the user's display name
+    # Can have multiple attributes listed, separated with a '|' in which
+    # case those values will be joined with a space.
+    # Example: SAML2_DISPLAY_NAME_ATTRIBUTES=firstName|lastName
+    # Defaults to the ID value if not found.
+    - name: SAML2_DISPLAY_NAME_ATTRIBUTES
+      value: http://schemas.microsoft.com/ws/2008/06/identity/claims/windowsaccountname
+    # Identity Provider entityID URL
+    - name: SAML2_IDP_ENTITYID
+      value: https://authentik.rwcloud.org/api/v3/providers/saml/7/metadata/?download
+    # Auto-load metadata from the IDP
+    # Setting this to true negates the need to specify the next three options
+    - name: SAML2_AUTOLOAD_METADATA
+      value: true
