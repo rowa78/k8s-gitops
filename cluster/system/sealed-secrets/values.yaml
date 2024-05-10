@@ -465,7 +465,7 @@ sealed-secrets:
       ## @param metrics.dashboards.create Specifies whether a ConfigMap with a Grafana dashboard configuration should be created
       ## ref https://github.com/helm/charts/tree/master/stable/grafana#configuration
       ##
-      create: true
+      create: false
       ## @param metrics.dashboards.labels Extra labels to be added to the Grafana dashboard ConfigMap
       ##
       labels: 
