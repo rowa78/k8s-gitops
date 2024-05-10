@@ -13,5 +13,8 @@ rules:
 - apiGroups: [""]
   resources: ["namespaces"]
   verbs: ["list"]
+- apiGroups: [""]
+  resources: ["services"]
+  verbs: ["get"]
 {{- end }}
 
