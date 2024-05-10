@@ -74,5 +74,5 @@ route:
 
 sealedSecrets:
   autoFetchCert: true
-  controllerName: sealed-secrets-controller
+  controllerName: sealed-secrets
   controllerNamespace: sealed-secrets
