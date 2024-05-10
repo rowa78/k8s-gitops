@@ -159,10 +159,6 @@ kube-prometheus-stack:
       server:
         root_url: https://grafana.rwcloud.org
         enable_gzip: true
-      auth.ldap:
-        enabled: true
-        allow_sign_up: true
-        config_file: /etc/grafana/ldap.toml
       admin:
         existingSecret: grafana-admin
       auth.generic_oauth:
@@ -180,7 +176,8 @@ kube-prometheus-stack:
         use_pkce: true
         use_refresh_token: true
             # Optionally map user groups to Grafana roles
-        role_attribute_path: contains(groups, 'plattform-admins') && 'Admin' || contains(groups, 'plattform-admins') && 'Editor' || 'Viewer'    ldap:
+        role_attribute_path: contains(groups, 'plattform-admins') && 'Admin' || contains(groups, 'plattform-admins') && 'Editor' || 'Viewer'
+    ldap:
       enabled: false      
     envFromSecret: sealed-secrets-rwcloud
   prometheus:
