@@ -862,7 +862,7 @@ authentik:
       # creates a service account secret by default which we don't need here,
       # disable its creation
       enabled: false
-    fullnameOverride: authentik
+    fullnameOverride: authentik-app
 
 
   geoip:
