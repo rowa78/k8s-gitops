@@ -297,6 +297,10 @@ mariadb:
   ## ref: https://kubernetes.io/docs/user-guide/persistent-volumes/
   ##
   primary:
+
+    podAnnotations:
+      kanister.kasten.io/blueprint: mysql-blueprint
+
     persistence:
       ## @param primary.persistence.enabled Enable persistence on MariaDB primary replicas using a `PersistentVolumeClaim`. If false, use emptyDir
       ##
