@@ -43,8 +43,8 @@ spec:
   ignoreDifferences:
   - group: ""
     kind: Service
-    fieldPaths:
-    - "spec.externalName"
+    jsonPointers:
+    - /spec/externalName
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
