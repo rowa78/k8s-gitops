@@ -272,8 +272,9 @@ mariadb:
   ## @param architecture MariaDB architecture (`standalone` or `replication`)
   ##
   architecture: standalone
-  ## Mariadb Authentication parameters
+  ## Mariadb Authentication parameters  
   ##
+
   auth:
     ## @param auth.rootPassword Password for the `root` user. Ignored if existing secret is provided.
     ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mariadb#setting-the-root-password-on-first-run
@@ -297,9 +298,7 @@ mariadb:
   ## ref: https://kubernetes.io/docs/user-guide/persistent-volumes/
   ##
   primary:
-
-    podAnnotations:
-      kanister.kasten.io/blueprint: mysql-blueprint
+      
 
     persistence:
       ## @param primary.persistence.enabled Enable persistence on MariaDB primary replicas using a `PersistentVolumeClaim`. If false, use emptyDir
