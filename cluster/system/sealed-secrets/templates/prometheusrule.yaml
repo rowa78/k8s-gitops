@@ -1,29 +1,10 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: prometheus-rules
+  name: prom-rules
 spec:
+  {{- with .Values.prometheusRule.rules }}
   groups:
-    - name: sealed-secrets
-      rules: 
-      - alert: SealedSecretsUnsealErrorHigh
-        annotations:
-          summary: Sealed Secrets Unseal Error High
-          runbook_url: https://github.com/bitnami-labs/sealed-secrets
-          description: |
-            High number of errors during unsealing Sealed Secrets in {{ $labels.namespace }}
-        expr: >-
-          sum by (reason, namespace) (rate(sealed_secrets_controller_unseal_errors_total{}[5m])) > 0
-        labels:
-          severity: warning
-      - alert: UnsyncedSealedSecrets
-        for: 5m
-        annotations:
-          summary: Unsynced Sealed Secrets in {{ $labels.namespace }}
-          runbook_url: https://github.com/bitnami-labs/sealed-secrets
-          description: |
-            There are unsynced sealed secrets in {{ $labels.namespace }}
-        expr: >-
-          count by (namespace, name) (sealed_secrets_controller_condition_info{condition="Synced"} != 1) > 0
-        labels:
-          severity: warning
+    - name: {{ "sealed-secrets" $ }}
+      rules: {{ toYaml . | nindent 8 }}
+  {{- end }}
