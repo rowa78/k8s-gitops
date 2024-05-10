@@ -6,7 +6,7 @@ spec:
   locationSpec:
     type: ObjectStore
     objectStore:
-      endpoint: http://100.80.144.45:9000
+      endpoint: http://diskstation.tailscale.svc.cluster.local:9000
       name: k10
       objectStoreType: S3
       pathType: Directory
