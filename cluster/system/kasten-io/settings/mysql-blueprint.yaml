@@ -31,7 +31,8 @@ actions:
         - |
           backup_file_path="dump.sql"
           root_password="{{ index .Phases.dumpToStore.Secrets.mysqlSecret.Data "mysql-root-password" | toString }}"
-          dump_cmd="mysqldump --column-statistics=0 -u root --password=${root_password} -h {{ index .Object.metadata.labels "app.kubernetes.io/instance" }} --single-transaction --all-databases"
+          hostname="{{ index .Phases.dumpToStore.Secrets.mysqlSecret.Data "hostname" | toString }}"
+          dump_cmd="mysqldump --column-statistics=0 -u root --password=${root_password} -h ${hostname} --single-transaction --all-databases"
           ${dump_cmd} | kando location push --profile '{{ toJson .Profile }}' --path "${backup_file_path}" --output-name "kopiaOutput" -
   restore:
     inputArtifactNames:
@@ -60,7 +61,8 @@ actions:
           backup_file_path="dump.sql"
           kopia_snap='{{ .ArtifactsIn.mysqlBackup.KopiaSnapshot }}'
           root_password="{{ index .Phases.restoreFromStore.Secrets.mysqlSecret.Data "mysql-root-password" | toString }}"
-          restore_cmd="mysql -u root --password=${root_password} -h {{ index .Object.metadata.labels "app.kubernetes.io/instance" }}"
+          hostname="{{ index .Phases.dumpToStore.Secrets.mysqlSecret.Data "hostname" | toString }}"
+          restore_cmd="mysql -u root --password=${root_password} -h ${hostname}"
           kando location pull --profile '{{ toJson .Profile }}' --path "${backup_file_path}" --kopia-snapshot "${kopia_snap}" - | ${restore_cmd}
   delete:
     inputArtifactNames:
