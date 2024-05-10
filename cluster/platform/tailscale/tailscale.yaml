@@ -41,10 +41,10 @@ spec:
       prune: true
       selfHeal: true 
   ignoreDifferences:
-  - group: core
+  - group: ""
     kind: Service
-    jsonPointers:
-    - /spec/externalName
+    fieldPaths:
+    - "spec.externalName"
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
