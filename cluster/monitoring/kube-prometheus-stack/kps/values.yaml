@@ -14,7 +14,6 @@ kube-prometheus-stack:
             resources:
               requests:
                 storage: 1Gi
-      useExistingSecret: true
       config:
         global:
           resolve_timeout: 5m
