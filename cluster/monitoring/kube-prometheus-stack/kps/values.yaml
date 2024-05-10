@@ -12,6 +12,7 @@ kube-prometheus-stack:
         - name: discord-notifier
           webhook_configs:
             - url: http://kps-alertmanager-discord:9094
+        - name: 'null'
       route:
         group_by:
           - alertname
