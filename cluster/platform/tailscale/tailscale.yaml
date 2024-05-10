@@ -40,6 +40,11 @@ spec:
     automated:
       prune: true
       selfHeal: true 
+  ignoreDifferences:
+  - group: core
+    kind: Services
+    jsonPointers:
+    - /spec/externalName
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
