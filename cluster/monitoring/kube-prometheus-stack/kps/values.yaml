@@ -151,6 +151,9 @@ kube-prometheus-stack:
 #          url: https://grafana.com/api/dashboards/10347/revisions/3/download
 #          datasource: Prometheus
     grafana.ini:
+      auth:
+        signout_redirect_url: "https://authentik.rwcloud/application/o/grafana/end-session/"
+        oauth_auto_login: true
       analytics:
         check_for_updates: false
       server:
@@ -166,19 +169,18 @@ kube-prometheus-stack:
         enabled: true
         allow_sign_up: true
         auto_login: true
-        name: authelia
+        name: authentik
 #        comes from secret; see envFromSecret
 #        client_id: 
 #        client_secret: 
-        scopes: openid profile email groups
-        auth_url: https://auth.rwcloud.org/api/oidc/authorization
-        token_url: https://auth.rwcloud.org/api/oidc/token
-        api_url: https://auth.rwcloud.org/api/oidc/userinfo
+        scopes: openid profile email
+        auth_url: https://authentik.rwcloud.org/application/o/authorize/
+        token_url: https://authentik.rwcloud.org/application/o/token/
+        api_url: https://authentik.rwcloud.org/application/o/userinfo/
         use_pkce: true
         use_refresh_token: true
             # Optionally map user groups to Grafana roles
-        role_attribute_path: "contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'"
-    ldap:
+        role_attribute_path: contains(groups, 'plattform-admins') && 'Admin' || contains(groups, 'plattform-admins') && 'Editor' || 'Viewer'    ldap:
       enabled: false      
     envFromSecret: sealed-secrets-rwcloud
   prometheus:
