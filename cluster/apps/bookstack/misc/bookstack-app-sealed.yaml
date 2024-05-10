@@ -1,0 +1,10 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: bookstack-app
+  namespace: bookstack
+  annotations: {}
+spec:
+  encryptedData: 
+    # needed for k10 backup
+    mariadb-root-password: AgBAdDlRbGb3zYe+kDY1AA2dSuBMdlrQszMF9Yz+mQAcLuSMt4iINv7jOzimk0opUWcTKuWwE9SVKHMM1eEFUM1jP2msZpAfgYtesE06BSHXcF0RptZAOsAw2lbryNxHRHxcld+kjrx7YV/OnKXtvcsF5+oUWedLQCc4PalRP+QQnQw+sjoJyblKudMZhLPvcdDgKpSMySMVYX1qnjmYpl9fUMLMOeXUC/oWq27Kb81LtedsZXvUfj3jZMlyUlPk/Yls8M0HuxzMsBR0iEaaqNIYMz0+n2YQy2Ni1wSN83uivYyE1RQLP2azXfGs0Wt5bg+sGUWoB3Lefp6Y3vRJX5ZdnunuU1x7LOf3p4C09I2f+AMHlmVDOZtq+UIdFRw/j4oIbzIwg34YoREU5M4TYQ1dm+5yd2dwbfwf8axf0pOmYRejSRkPhmdAEfNQ75OaOO7BLJfGScQzYz+MNvLBbAurX/R/FZy1LpzhSO0PMoMCwSVpL5QJPvcpPT8+PCSGeYfw2LrcvFAl/e8xMXMAW+wXmPnAjtJvUBbHORNauY36cPC4uEBx3FWVExNviYMqBQ+RVtn5eaN1xRQjhxgUF+WqFlPG1YWRuAr/e8+a5IQLuAoBqPw0LsICDfC6mg4YqnZG1U10rIHD1RBNiIqNNZt7UlrdhdYVLbMQjlTG13Wf8nabrCnsFuwC3nGMUEJjO8ebavXtGpIVFb8HISMStNxXhxsuY1T6yYFx
