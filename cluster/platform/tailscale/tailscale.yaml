@@ -42,7 +42,7 @@ spec:
       selfHeal: true 
   ignoreDifferences:
   - group: core
-    kind: Services
+    kind: Service
     jsonPointers:
     - /spec/externalName
 ---
