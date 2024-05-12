@@ -335,7 +335,7 @@ velero:
       config: 
         region: eu-central-2
         s3ForcePathStyle: true
-        s3Url: http://diskstation.tailscale.svc.cluster.local:9000
+        s3Url: http://diskstation.tail72ab4.ts.net:9000
       #  kmsKeyId:
       #  resourceGroup:
       #  The ID of the subscription containing the storage account, if different from the cluster’s subscription. (Azure only)
