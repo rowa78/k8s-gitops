@@ -4,6 +4,7 @@ metadata:
   name: local-path  
   annotations:
     k10.kasten.io/is-snapshot-class: "true"
+  labels:
     velero.io/csi-volumesnapshot-class: "true"
 driver: zfs.csi.openebs.io
 deletionPolicy: Delete
