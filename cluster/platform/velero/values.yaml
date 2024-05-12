@@ -309,7 +309,7 @@ velero:
     backupStorageLocation:
       # name is the name of the backup storage location where backups should be stored. If a name is not provided,
       # a backup storage location will be created with the name "default". Optional.
-    - name: s3
+    - name: default
       # provider is the name for the backup storage location provider.
       provider: aws
       # bucket is the name of the bucket to store backups in. Required.
@@ -353,7 +353,7 @@ velero:
     # See https://velero.io/docs/v1.6/api-types/volumesnapshotlocation/
     volumeSnapshotLocation:
       # name is the name of the volume snapshot location where snapshots are being taken. Required.
-    - name: s3
+    - name: default
       # provider is the name for the volume snapshot provider.
       provider: aws
       credential:
@@ -393,13 +393,13 @@ velero:
     # `velero server` default: 20.0
     clientQPS:
     # Name of the default backup storage location. Default: default
-    defaultBackupStorageLocation: s3
+    defaultBackupStorageLocation: 
     # The default duration any single item operation can take before timing out, especially important for large volume schedules. Default 4h
     defaultItemOperationTimeout:
     # How long to wait by default before backups can be garbage collected. Default: 72h
     defaultBackupTTL:
     # Name of the default volume snapshot location.
-    defaultVolumeSnapshotLocations: s3
+    defaultVolumeSnapshotLocations: 
     # `velero server` default: empty
     disableControllers:
     # `velero server` default: 1h
