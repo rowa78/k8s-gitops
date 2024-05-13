@@ -395,7 +395,7 @@ velero:
     # comments below.
     # --------------------
     # `velero server` default: kopia
-    uploaderType: restic
+    uploaderType: kopia
     # `velero server` default: 1m
     backupSyncPeriod:
     # `velero server` default: 4h
