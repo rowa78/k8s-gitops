@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: velero-settings
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -14,6 +16,10 @@ spec:
   destination:
     name: in-cluster
     namespace: velero
+  ignoreDifferences:
+  - kind: Service
+    jsonPointers:
+    - /spec/externalName
   # syncPolicy:
     # automated:
     #   prune: true
