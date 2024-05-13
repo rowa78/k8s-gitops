@@ -233,7 +233,7 @@ velero:
       # tlsConfig: {}
     nodeAgentPodMonitor:
       autodetect: true
-      enabled: false
+      enabled: true
       annotations: {}
       additionalLabels: {}
       # ServiceMonitor namespace. Default to Velero namespace.
@@ -245,7 +245,7 @@ velero:
 
     prometheusRule:
       autodetect: true
-      enabled: false
+      enabled: true
       # Additional labels to add to deployed PrometheusRule
       additionalLabels: {}
       # PrometheusRule namespace. Defaults to Velero namespace.
@@ -374,20 +374,6 @@ velero:
     #    incremental:
     #    snapshotLocation:
     #    project:
-    - name: zfspv-full
-      # provider is the name for the volume snapshot provider.
-      provider: openebs.io/zfspv-blockstore
-      credential:
-        # name of the secret used by this volumeSnapshotLocation.
-        name: velero-s3-credentials
-        # name of key that contains the secret data to be used.
-        key: aws
-      # Additional provider-specific configuration. See link above
-      # for details of required/optional fields for your provider.
-      config: 
-        region: eu-central-2
-        profile: "default"
-        namespace: "openebs"
 
     # These are server-level settings passed as CLI flags to the `velero server` command. Velero
     # uses default values if they're not passed in, so they only need to be explicitly specified
