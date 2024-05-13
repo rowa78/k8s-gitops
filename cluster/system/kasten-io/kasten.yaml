@@ -1,25 +1,25 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: k10-application
-#   namespace: argocd
-#   finalizers:
-#     - resources-finalizer.argocd.argoproj.io
-# spec:
-#   project: system
-#   source:
-#     repoURL: https://github.com/rowa78/k8s-gitops.git
-#     targetRevision: main
-#     path: cluster/system/kasten-io/k10
-#     helm:
-#       releaseName: k10
-#   destination:
-#     name: in-cluster
-#     namespace: kasten-io
-#   # syncPolicy:
-#     # automated:
-#     #   prune: true
-#     #   selfHeal: true
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k10-application
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: system
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/system/kasten-io/k10
+    helm:
+      releaseName: k10
+  destination:
+    name: in-cluster
+    namespace: kasten-io
+  # syncPolicy:
+    # automated:
+    #   prune: true
+    #   selfHeal: true
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
