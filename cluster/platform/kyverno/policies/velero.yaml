@@ -3,8 +3,21 @@ kind: ClusterPolicy
 metadata:
   name: autobackup-policy
 spec:
-  background: false
+  background: false  # Keine Hintergrund-Scans erforderlich
   rules:
+  - name: "add-default-backup-schedule-annotation"
+    match:
+      resources:
+        kinds:
+          - Namespace
+        selector:
+          matchLabels:
+            rwcloud.org/auto-backup: enabled
+    mutate:
+      patchStrategicMerge:
+        metadata:
+          annotations:
+            +(backupSchedule): "0 1 * * *"  # Standardwert, wenn die Annotation fehlt
   - name: "add-velero-autobackup-policy"
     match:
       resources:
