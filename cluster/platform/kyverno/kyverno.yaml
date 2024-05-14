@@ -16,7 +16,9 @@ spec:
   destination:
     name: in-cluster
     namespace: kyverno
-  # syncPolicy:
+  syncPolicy:
     # automated:
     #   prune: true
     #   selfHeal: true
+    syncOptions:
+      - Replace=true
