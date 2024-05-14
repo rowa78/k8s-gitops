@@ -13,7 +13,7 @@ kyverno:
         - apiGroups:
             - 'velero.io'
           resources:
-            - schedule
+            - Schedule
           verbs:
             - create
             - update
