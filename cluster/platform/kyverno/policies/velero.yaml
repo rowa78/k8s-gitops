@@ -25,7 +25,7 @@ spec:
             rwcloud.org/backup.type: auto
             rwcloud.org/namespace: '{{request.object.metadata.name}}'
         spec:
-          schedule: {{request.object.metadata.annotation.backupSchedule}}
+          schedule: "{{request.object.metadata.annotations.backupSchedule}}"
           template:
             includedNamespaces:
               - "{{request.object.metadata.name}}"
