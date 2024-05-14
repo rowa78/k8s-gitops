@@ -86,7 +86,7 @@ policy-reporter:
         gethomepage.dev/enabled: "true"
         gethomepage.dev/description: Kyverno Policy Reporter
         gethomepage.dev/group: System
-        gethomepage.dev/icon: kyverno.png
+        gethomepage.dev/icon: https://github.com/kyverno/.github/blob/main/kyverno-stacked-color.png?raw=true
         gethomepage.dev/name: Kyverno
         gethomepage.dev/pod-selector: ""
       hosts:
