@@ -78,6 +78,7 @@ policy-reporter:
         - host: kyverno.rwcloud.org
           paths:
           - path: "/(.*)"
+            pathType: Prefix
 
 
   kyvernoPlugin:
