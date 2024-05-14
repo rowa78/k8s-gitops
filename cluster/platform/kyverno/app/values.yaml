@@ -12,6 +12,8 @@ kyverno:
         extraResources: 
         - apiGroups:
             - 'velero.io'
+          resources:
+            - *
           verbs:
             - create
             - update
