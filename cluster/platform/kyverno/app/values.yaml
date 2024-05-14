@@ -1,0 +1,7 @@
+kyverno:
+
+  grafana:
+    # -- Enable grafana dashboard creation.
+    enabled: true
+
+  
