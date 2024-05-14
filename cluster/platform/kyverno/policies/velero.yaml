@@ -1,0 +1,36 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: autobackup-policy
+spec:
+  background: false
+  rules:
+  - name: "add-velero-autobackup-policy"
+    match:
+      resources:
+        kinds:
+          - Namespace
+        selector:
+          matchLabels:
+            rwcloud.org/auto-backup: enabled
+    generate:
+      kind: Schedule
+      name: "{{request.object.metadata.name}}-auto-schedule"
+      namespace: velero
+      apiVersion: velero.io/v1
+      synchronize: true
+      data:
+        metadata:
+          labels:
+            rwcloud.org/backup.type: auto
+            rwcloud.org/namespace: '{{request.object.metadata.name}}'
+        spec:
+          schedule: {{request.object.metadata.annotation.backupSchedule}}
+          template:
+            includedNamespaces:
+              - "{{request.object.metadata.name}}"
+            snapshotMoveData: true
+            storageLocation: default
+            ttl: 168h0m0s
+            volumeSnapshotLocations:
+              - default
