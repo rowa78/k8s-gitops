@@ -11,7 +11,8 @@ policy-reporter:
       cert-manager.io/cluster-issuer: letsencrypt-production
     hosts:
       - host: kyverno.rwcloud.org
-        paths: []
+        paths: 
+          - /
     tls: 
     - secretName: kyverno-tls
       hosts:
