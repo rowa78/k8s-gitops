@@ -5,7 +5,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: velero-server
+  name: velero-app-server
 subjects:
 - kind: ServiceAccount
   name: velero-cli
