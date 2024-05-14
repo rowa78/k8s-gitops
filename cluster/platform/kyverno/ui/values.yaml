@@ -74,11 +74,16 @@ policy-reporter:
       enabled: true
       annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /$1
+        cert-manager.io/cluster-issuer: letsencrypt-production
       hosts:
         - host: kyverno.rwcloud.org
           paths:
           - path: "/(.*)"
             pathType: Prefix
+      tls: 
+        - secretName: kyverno-tls
+          hosts:
+            - kyverno.rwcloud.org
 
 
   kyvernoPlugin:
