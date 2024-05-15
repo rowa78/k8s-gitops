@@ -477,7 +477,8 @@ redis:
       annotations: {}
       ## @param master.persistence.labels Additional custom labels for the PVC
       ##
-      labels: {}
+      labels: 
+        velero.io/exclude-from-backup: true
       ## @param master.persistence.selector Additional labels to match for the PVC
       ## e.g:
       ## selector:
