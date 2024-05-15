@@ -41,8 +41,7 @@ redis:
   namespaceOverride: ""
   ## @param commonLabels Labels to add to all deployed objects
   ##
-  commonLabels: 
-    velero.io/exclude-from-backup: true
+  commonLabels: {}
   ## @param commonAnnotations Annotations to add to all deployed objects
   ##
   commonAnnotations: {}
@@ -479,7 +478,7 @@ redis:
       ## @param master.persistence.labels Additional custom labels for the PVC
       ##
       labels: 
-        velero.io/exclude-from-backup: true
+        velero.io/exclude-from-backup: "true"
       ## @param master.persistence.selector Additional labels to match for the PVC
       ## e.g:
       ## selector:
