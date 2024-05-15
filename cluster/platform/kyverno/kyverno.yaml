@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: velero-settings
+  name: kyverno-app
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
@@ -12,23 +12,21 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/platform/velero/settings
+    path: cluster/platform/kyverno/app
   destination:
     name: in-cluster
-    namespace: velero
-  ignoreDifferences:
-  - kind: Service
-    jsonPointers:
-    - /spec/externalName
-  # syncPolicy:
+    namespace: kyverno
+  syncPolicy:
     # automated:
     #   prune: true
     #   selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: velero-app
+  name: kyverno-ui
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -37,11 +35,11 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/platform/velero/app
+    path: cluster/platform/kyverno/ui
   destination:
     name: in-cluster
-    namespace: velero
-  # syncPolicy:
+    namespace: kyverno
+  syncPolicy:
     # automated:
     #   prune: true
     #   selfHeal: true
@@ -49,7 +47,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: velero-cli
+  name: kyverno-policies
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -58,11 +56,11 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/platform/velero/cli
+    path: cluster/platform/kyverno/policies
   destination:
     name: in-cluster
-    namespace: velero
-  # syncPolicy:
+    namespace: kyverno
+  syncPolicy:
     # automated:
     #   prune: true
     #   selfHeal: true

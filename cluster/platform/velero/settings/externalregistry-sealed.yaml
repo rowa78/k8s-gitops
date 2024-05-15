@@ -1,0 +1,16 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: externalregistry
+  namespace: velero
+spec:
+  encryptedData:
+    .dockerconfigjson: AgAm2+AxEf7/ttIfSstwGdUAyA45P9jurzUWmB7WhFlznPW+BOXdMMcaXeLY9ia9ygeDr6Ex1EW7rbuv5aJCdCBXa2w+Az0RkI5kQC/9thkKKf9D1waRUZawCvqgbYrceN26c7Qx5Dtzyd2jHd/5oT8Ytpgp+kp5cXb+PomClBiebA+VPkm97p11fvFzgpMcyG5SZ0FNAv9SmzhNHOGb46+b+rLQFU3/7DbzBy9xf0lU7taUJssVGz0yjB9ARwdCy0qzgvYExLd0dgbLLD/O5LEQEgEbjQEmZxT1DKPI0/Pab/DbOEKTVqOYSs755n1tLrB3PNWpuSMRl+QaTQbfpF2r5CDYosQBM2U5I/1LFo4mh45bd+jBt4DuvARUmxOnLVgzMAbO5l9a8eNhKaRRpk8ghkKmol5qfnK2H0A4xTaPaZOEsiltHKEJ9MMXhrZ0MwuIAr8Nrg2jMW1hNUrYqxw2nJMY9/c7kG0IfIrGkKRqtyAJUxlgReiBrAemn0q0SVHjOGPyunlnYwGFpOi6wKm/sH5EAZ4mqfwvc4Ao97/cbXNrAEtDRvfHFhW1z8JnYgaiGTqG2Mf44pNdi9GefOaQ+GT/WPqwkwD0V4FDJpgHE1eSx9nviS7KiyIYI993euYi98g/WVTM7Hm5Vcr18VMA7GOyKnJ5TNdgqRLZPaYDAaC+OSi6lQNTX57XSV5N8ChuQgIsf2GL+8/jGGhUaV4A28k3vRzmrrOW5ZgZJ+fPIg2UsCFB4pM3HYtwvBwVw521GBKJTh33+F7p5YCp3u/xLjTQ3IrJ6vp8t4cZ1zKyevDNpZ0r
+  template:
+    metadata:
+      creationTimestamp: null
+      name: externalregistry
+      namespace: velero
+    type: kubernetes.io/dockerconfigjson
