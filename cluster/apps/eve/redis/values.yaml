@@ -41,7 +41,8 @@ redis:
   namespaceOverride: ""
   ## @param commonLabels Labels to add to all deployed objects
   ##
-  commonLabels: {}
+  commonLabels: 
+    velero.io/exclude-from-backup: true
   ## @param commonAnnotations Annotations to add to all deployed objects
   ##
   commonAnnotations: {}
