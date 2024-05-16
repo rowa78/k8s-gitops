@@ -23,7 +23,7 @@ actions:
           export PGPASSWORD='{{ index .Phases.pgDump.Secrets.pgSecret.Data "password" | toString }}'
           export DBNAME='{{ index .Phases.pgDump.Secrets.pgSecret.Data "dbname" | toString }}'
           mkdir -p backup
-          echo "Dumping database $DBNAME" && pg_dump --clean -U $PGUSER $DBNAME | gzip | kando location push --profile '{{ toJson .Profile }}' --path "backup.sql.gz" --output-name "kopiaOutput" -
+          echo "Dumping database $DBNAME" && pg_dump --clean -Fc -U $PGUSER $DBNAME | kando location push --profile '{{ toJson .Profile }}' --path "backup.dump" --output-name "kopiaOutput" -
         image: ghcr.io/kanisterio/postgres-kanister-tools:0.106.0
         namespace: '{{ .Object.metadata.namespace }}'
       func: KubeTask
@@ -54,7 +54,7 @@ actions:
           kopia_snap='{{ .ArtifactsIn.pgBackup.KopiaSnapshot }}'
           echo "Pulling kopia-snapshot: $kopia_snap"          
           for i in {1..60}; do pg_isready && echo "Database available." && break || echo "Waiting for database..."; sleep 1; done
-          kando location pull --profile '{{ toJson .Profile }}' --path "backup.sql.gz" --kopia-snapshot "${kopia_snap}" - | gzip -d | psql -d "$DBNAME" 
+          kando location pull --profile '{{ toJson .Profile }}' --path "backup.dump" --kopia-snapshot "${kopia_snap}" - | pg_restore -Fc -d "$DBNAME" 
         image: ghcr.io/kanisterio/postgres-kanister-tools:0.106.0
         namespace: '{{ .Object.metadata.namespace }}'
       func: KubeTask
@@ -80,7 +80,7 @@ actions:
             - pipefail
             - -c
             - |
-              kopiaPath="backup.sql.gz"
+              kopiaPath="backup.dump"
               kopia_snap='{{ .ArtifactsIn.pgBackup.KopiaSnapshot }}'
               kando location delete --profile '{{ toJson .Profile }}' --path ${kopiaPath} --kopia-snapshot "${kopia_snap}"
 ---
