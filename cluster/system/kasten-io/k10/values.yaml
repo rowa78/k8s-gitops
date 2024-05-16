@@ -436,7 +436,7 @@ k10:
         cpu: 1000m
 
   kanister:
-    backupTimeout: 45
+    backupTimeout: 150
     restoreTimeout: 600
     deleteTimeout: 45
     hookTimeout: 20
