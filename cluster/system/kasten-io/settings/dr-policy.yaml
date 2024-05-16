@@ -9,7 +9,7 @@ spec:
     backupParameters:
       filters: {}
       profile:
-        name: diskstation-profile
+        name: c2-profile
         namespace: kasten-io
   createdBy: k10-admin
   frequency: '@hourly'
