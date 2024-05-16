@@ -7,7 +7,7 @@ spec:
     type: ObjectStore
     objectStore:
       endpoint: https://eu-003.s3.synologyc2.net
-      name: k10
+      name: rwcloud-k10
       objectStoreType: S3
       pathType: Directory
     credential:
