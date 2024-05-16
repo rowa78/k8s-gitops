@@ -1,0 +1,20 @@
+apiVersion: config.kio.kasten.io/v1alpha1
+kind: Profile
+metadata:
+  name: diskstation-profile  
+spec:
+  locationSpec:
+    type: ObjectStore
+    objectStore:
+      endpoint: https://eu-003.s3.synologyc2.net
+      name: k10
+      objectStoreType: S3
+      pathType: Directory
+    credential:
+      secretType: AwsAccessKey
+      secret:
+        apiVersion: v1
+        kind: secret
+        name: c2-secrets
+        namespace: kasten-io
+  type: Location
