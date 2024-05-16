@@ -10,6 +10,7 @@ spec:
       name: rwcloud-k10
       objectStoreType: S3
       pathType: Directory
+      protectionPeriod: 168h0m0s
     credential:
       secretType: AwsAccessKey
       secret:
