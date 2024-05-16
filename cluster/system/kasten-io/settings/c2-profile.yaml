@@ -1,7 +1,7 @@
 apiVersion: config.kio.kasten.io/v1alpha1
 kind: Profile
 metadata:
-  name: diskstation-profile  
+  name: c2-profile  
 spec:
   locationSpec:
     type: ObjectStore
