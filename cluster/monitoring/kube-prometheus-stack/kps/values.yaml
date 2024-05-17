@@ -285,15 +285,15 @@ kube-prometheus-stack:
           metrics_path: /snmp
           params:
             module: [synology]
-          # relabel_configs:
-          #   - source_labels: [__address__]
-          #     target_label: __param_target
-          #   - source_labels: [__param_target]
-          #     target_label: instance
-          #   - source_labels: [__param_target]
-          #     regex: (.*)
-          #     replacement: ${1}:9116
-          #     target_label: __address__
+          relabel_configs:
+            - source_labels: [__address__]
+              target_label: __param_target
+            - source_labels: [__param_target]
+              target_label: instance
+            - source_labels: [__param_target]
+              regex: (.*)
+              replacement: localhost:9116
+              target_label: __address__
 #        - job_name: 'pve-exporter'
 #          static_configs:
 #            - targets:
