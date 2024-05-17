@@ -279,21 +279,22 @@ kube-prometheus-stack:
         - job_name: node
           static_configs:
           - targets: ['diskstation.tailscale.svc.cluster.local:9100']
-        - job_name: 'snmp-exporter'
-          static_configs:
-          - targets: ['127.0.0.1']
-          metrics_path: /snmp
-          params:
-            module: [synology]
-          relabel_configs:
-            - source_labels: [__address__]
-              target_label: __param_target
-            - source_labels: [__param_target]
-              target_label: instance
-            - source_labels: [__param_target]
-              regex: (.*)
-              replacement: diskstation.tailscale.svc.cluster.local:9116
-              target_label: __address__
+        - job_name: snmp_exporter
+         static_configs:
+           - targets: ['192.168.0.3']  # NAS IP
+         metrics_path: /snmp
+         params:
+           auth: [rwcloud.org]
+           module: [synology]
+         relabel_configs:
+           - source_labels: [__address__]
+             target_label: __param_target
+           - source_labels: [__param_target]
+             target_label: instance
+           - source_labels: [__param_target]
+             regex: (.*)
+             replacement: diskstation.tailscale.svc.cluster.local:9116
+             target_label: __address__
 #        - job_name: 'pve-exporter'
 #          static_configs:
 #            - targets:
