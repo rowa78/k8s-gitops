@@ -283,6 +283,8 @@ kube-prometheus-stack:
           static_configs:
             - targets: ['192.168.0.3']  # NAS IP
           metrics_path: /snmp
+          params:
+            module: [synology]
           relabel_configs:
             - source_labels: [__address__]
               target_label: __param_target
