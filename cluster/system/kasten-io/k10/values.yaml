@@ -262,8 +262,8 @@ k10:
     awsSSLCertARN: ''
 
   auth:
-    groupAllowList: 
-    - "k10-admin"
+    groupAllowList: []
+  #  - "group1"
   #  - "group2"
     basicAuth:
       enabled: false
