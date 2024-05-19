@@ -266,13 +266,13 @@ k10:
   #  - "group1"
   #  - "group2"
     basicAuth:
-      enabled: true
+      enabled: false
       secretName: "" #htpasswd based existing secret
       htpasswd: "ronny:$apr1$gamw3vqy$rteXYJo/mZWKXZnraTGlh." #htpasswd string, which will be used for basic auth
     tokenAuth:
       enabled: false
     oidcAuth:
-      enabled: false
+      enabled: true
       providerURL: "" #URL to your OIDC provider
       redirectURL: "" #URL to the K10 gateway service
       scopes: "" #Space separated OIDC scopes required for userinfo. Example: "profile email"
@@ -286,7 +286,7 @@ k10:
       logoutURL: "" #URL to your OIDC provider's logout endpoint
       #OIDC config based existing secret.
       #Must include providerURL, redirectURL, scopes, clientID/secret and logoutURL.
-      secretName: ""
+      secretName: "oidc-secret"
       sessionDuration: "1h" #Maximum OIDC session duration. Default value is 1 hour
       refreshTokenSupport: false #Enable Refresh Token support. Disabled by default
     dex:
