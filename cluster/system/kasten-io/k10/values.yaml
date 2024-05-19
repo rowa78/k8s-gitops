@@ -338,7 +338,8 @@ k10:
       groupnameClaim: "groups"
       groupnamePrefix: ""
     k10AdminUsers: []
-    k10AdminGroups: []
+    k10AdminGroups: 
+      - k10:admins
 
   optionalColocatedServices:
     vbrintegrationapi:
