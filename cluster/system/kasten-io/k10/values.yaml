@@ -273,7 +273,7 @@ k10:
       enabled: false
     oidcAuth:
       enabled: true
-      providerURL: "https://authentik.rwcloud.org/application/o/kasten/.well-known/openid-configuration" #URL to your OIDC provider
+      providerURL: "" #URL to your OIDC provider
       redirectURL: "" #URL to the K10 gateway service
       scopes: "" #Space separated OIDC scopes required for userinfo. Example: "profile email"
       prompt: "select_account" #The prompt type to be requested with the OIDC provider. Default is select_account.
