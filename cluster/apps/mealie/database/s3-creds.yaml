@@ -2,7 +2,6 @@ apiVersion: bitnami.com/v1alpha1
 kind: SealedSecret
 metadata:
   name: s3-creds
-  namespace: mealie
   annotations: { sealedsecrets.bitnami.com/cluster-wide: "true" }
 spec:
   encryptedData: 
