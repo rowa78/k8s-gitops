@@ -1,23 +1,9 @@
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
 metadata:
   name: s3-creds
+  annotations: { sealedsecrets.bitnami.com/cluster-wide: "true" }
 spec:
-  secretStoreRef:
-    kind: ClusterSecretStore
-    name: vault-backend
-  target:
-    template:
-      data:
-        aws_access_key_id: "{{ .s3Key }}"
-        aws_secret_access_key: "{{ .s3KeySecret }}"
-  data:
-    - secretKey: s3Key
-      remoteRef:
-        key: secret/k8up
-        property: AWS_ACCESSKEY
-    - secretKey: s3KeySecret
-      remoteRef:
-        key: secret/k8up
-        property: AWS_SECRETKEY    
-        
+  encryptedData: 
+    aws_access_key_id: AgCh98PpNsv8+DwBm14gyir9z5vk+tjPwztUD7rMziEflXIwGz3Z/aHJzmsvrmVOL60/H7h+580xMx9ta86vQSyGO3Ff76R/YHLMShDJ2QwVCoaPuib/IaJxsgq3noLG/Ze8yY4/52a0UhYIyxheU81TFNWZ3jYr8pheUa31ysOSBXIdabkwiwfYdtz0zxY9h6lCATvEwh63O9RP6eMrH0jHvWTbV5EWh/0X6NPLNH3LIgSeWXOaZ6bUQljOEXOvsS+GLm2y6XKdtsIGtNZX7xcsgGOFrP4gr7GKIiB0EYW0DZK6NeCKTFpY7ikZAY+k08p7REwbo57XDrq3uYpjFazT1NWeOHD2oVDlAXU4SNwA3RmSdPbc78sLkmNHPwL8Okizr6WzztE1gcfk+82iDArFJs41uST0At6Xl7vbi26rGz1ZKyvvbFJr40RNDwrludyayjDYpA4Kvg5o8BvToqtHoBypfvZCgmj17LviBr89ev5zQgVrjSCjYU5Syqo6jfUA9RZK6cl+f9QDNzf8TgNonnhISEdNOib9sGXIn92zHLLKJwOAYyWyXu50mzoLxm9uDbRbWPTEt9p39r4iCzE15piDCxa27uMXaVjJ4Su5cPtHiHZYVUCyBdRqek9Y4fAoDKJWHoXxrF8T3ujXxZnt9vE1snELAz9upYqarngE4T8FErIirnfi2pooxfRfOJOQgWLgYVG/OeGoChP/tX26Ig16pEXcJdEtSsakmov8tA==
+    aws_secret_access_key: AgAAGq+h12DvL10+KhRc7zQiKlyTYny/BppsUlx8WO2oK9vVWvrXc/B1itD05c0C+zpAbI4/Uy9oAUc3uOStihNJXiWYOheiXPrVk/LNUoFCBGKig1zYCr8v95xirEN00jSYzIqj3gboxJZxZtZW6/EU32EDALZfEIx6IWZZ89NPRRt2suKIRhTm4bk9c9fOsttLqg0syTb0fhU7FPj8iUNgAud/JPSRsVterhVz+dr5tsr+Dib5+xNnYM2kTuoBzYGADeE33a0O8gU/pe/q9bi29YVKsnYp69Zm0FsYtUqqiUYWDaRX3EWhPKW0HXaXvjGJVezI0+hZ6cdUetFhT9uwbBw/KZbRyNkMlgxwXYslDXDQlzS38rAoZpUKcJiK6qXiAXRivkxANvuvfvJZTBcBAm1tuxn82A/1ltSwPgeDW5w2u4fcv7D3rnotba2NjoIKvzKn3BinpQ8a34zaNnWrwiXCUvHJqmDGg4mhW+w239JVhbf4K+9jiiR5q7PzOrCJu50tMIaSJR/YVxIkufupcgoo1k4EnKZEt9H3ozad5hfQ4yPz5xt5EQkUStCSg7yF+D+QZvAUeUc2cIA4gngBrvyCdV7WhTMQ26mYzb0ZglOjQBQgQkbJjLqGfQ1d1nGyKaKEeKNEUCgXVP6GjGo+3AhuhsBPK/BjS28f8ltYdYH744AiLFBEULVSnZ9tG+50GKJtgv3ezSp7ofDYwa5u4r5fIrRitJ8tB+h3YFQyGw==
