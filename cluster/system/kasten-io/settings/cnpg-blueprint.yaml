@@ -9,6 +9,27 @@ actions:
       pgBackup:
         kopiaSnapshot: '{{ .Phases.pgDump.Output.kopiaOutput }}'
     phases:
+    - name: create-pvc
+      func: KubeTask
+      args:
+        image: bitnami/kubectl:latest
+        command:
+        - /bin/sh
+        - -c
+        - |
+          cat <<EOF | kubectl apply -f -
+          apiVersion: v1
+          kind: PersistentVolumeClaim
+          metadata:
+            name: kanister-backup-pvc-{{ .Phases.create-pvc.Name }}
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 50Gi
+            storageClassName: openebs-zfs
+          EOF
     - args:
         command:
         - bash
@@ -34,6 +55,10 @@ actions:
           kind: Secret
           name: '{{ .Object.metadata.name }}-app'
           namespace: '{{ .Object.metadata.namespace }}'
+      volumes:
+      - name: kanister-backup-volume
+        persistentVolumeClaim:
+          claimName: kanister-backup-pvc-{{ .Phases.create-pvc.Name }}
   restore:
     inputArtifactNames:
     - pgBackup
