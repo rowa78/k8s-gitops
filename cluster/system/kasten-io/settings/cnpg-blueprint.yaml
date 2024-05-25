@@ -22,8 +22,9 @@ actions:
           export PGUSER='{{ index .Phases.pgDump.Secrets.pgSecret.Data "username" | toString }}'
           export PGPASSWORD='{{ index .Phases.pgDump.Secrets.pgSecret.Data "password" | toString }}'
           export DBNAME='{{ index .Phases.pgDump.Secrets.pgSecret.Data "dbname" | toString }}'
+          export HOST='{{ index .Phases.pgDump.Secrets.pgSecret.Data "host" | toString }}'
           mkdir -p backup
-          echo "Dumping database $DBNAME" && pg_dump --clean -Fc -U $PGUSER $DBNAME | kando location push --profile '{{ toJson .Profile }}' --path "backup.dump" --output-name "kopiaOutput" -
+          echo "Dumping database $DBNAME" && pg_dump --clean -Fc -U $PGUSER -h $HOST $DBNAME | kando location push --profile '{{ toJson .Profile }}' --path "backup.dump" --output-name "kopiaOutput" -
         image: ghcr.io/kanisterio/postgres-kanister-tools:0.106.0
         namespace: '{{ .Object.metadata.namespace }}'
       func: KubeTask
@@ -51,10 +52,11 @@ actions:
           export PGUSER='{{ index .Phases.pgRestore.Secrets.pgSecret.Data "username" | toString }}'
           export PGPASSWORD='{{ index .Phases.pgRestore.Secrets.pgSecret.Data "password" | toString }}'
           export DBNAME='{{ index .Phases.pgRestore.Secrets.pgSecret.Data "dbname" | toString }}'
+          export HOST='{{ index .Phases.pgDump.Secrets.pgSecret.Data "host" | toString }}'
           kopia_snap='{{ .ArtifactsIn.pgBackup.KopiaSnapshot }}'
           echo "Pulling kopia-snapshot: $kopia_snap"          
           for i in {1..60}; do pg_isready && echo "Database available." && break || echo "Waiting for database..."; sleep 1; done
-          kando location pull --profile '{{ toJson .Profile }}' --path "backup.dump" --kopia-snapshot "${kopia_snap}" - | pg_restore -Fc -d "$DBNAME" 
+          kando location pull --profile '{{ toJson .Profile }}' --path "backup.dump" --kopia-snapshot "${kopia_snap}" - | pg_restore -Fc -U $PGUSER -h $HOST -d "$DBNAME" 
         image: ghcr.io/kanisterio/postgres-kanister-tools:0.106.0
         namespace: '{{ .Object.metadata.namespace }}'
       func: KubeTask
