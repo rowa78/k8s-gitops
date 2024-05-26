@@ -1,0 +1,568 @@
+kube-prometheus-stack:  
+  crds:
+    enabled: false
+  fullnameOverride: kps
+  alertmanager:
+    externalUrl: https://alertmanager.rwcloud.org
+    fullnameOverride: alertmanager
+    config:
+      global:
+        resolve_timeout: 5m
+      receivers:
+        - name: discord-notifier
+          webhook_configs:
+            - url: http://kps-alertmanager-discord:9094
+        - name: 'null'
+      route:
+        group_by:
+          - alertname
+          - instance
+          - job
+        group_wait: 30s
+        group_interval: 5m
+        repeat_interval: 12h
+        receiver: discord-notifier
+        routes:
+          - matchers:
+              - alertname = "Watchdog"
+            group_interval: 2m
+            repeat_interval: 2m
+            receiver: "null"
+          - matchers:
+              - alertname = "InfoInhibitor"
+            receiver: "null"
+          - matchers:
+              - alertname = "TargetDown"
+              - namespace =~ "kube-system|kured|local-path-system|metallb-system|observability"
+            group_by:
+              - alertname
+            group_wait: 6m
+            receiver: discord-notifier
+          - matchers:
+              - severity =~ "warning|critical"
+            continue: true
+            receiver: discord-notifier
+      inhibit_rules:
+        - source_matchers:
+            - severity = "critical"
+          target_matchers:
+            - severity =~ "warning|info"
+          equal:
+            - cluster
+            - namespace
+        - source_matchers:
+            - severity = "warning"
+          target_matchers:
+            - severity = "info"
+          equal:
+            - cluster
+            - namespace
+        - source_matchers:
+            - alertname = "KubeNodeUnreachable"
+          target_matchers:
+            - alertname = "KubeNodeNotReady"
+        - source_matchers:
+            - alertname = "KubeNodeUnreachable"
+          target_matchers:
+            - alertname =~ "KubeDaemonSetRolloutStuck|KubeDaemonSetMisScheduled|KubeDeploymentReplicasMismatch|KubeStatefulSetReplicasMismatch|KubePodNotReady"
+          equal:
+            - instance
+        - source_matchers:
+            - alertname = "KubeNodeUnreachable"
+          target_matchers:
+            - alertname = "TargetDown"
+            - namespace =~ "kube-system|kured|local-path-system|metallb-system|observability"
+
+
+    alertmanagerSpec:
+      replicas: 1
+      storage:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: longhorn
+            resources:
+              requests:
+                storage: 1Gi
+      
+      podAntiAffinity: hard
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-url: https://auth.rwcloud.org/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          proxy_set_header X-Forwarded-Method $request_method;   
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/description: Alertmanager
+        gethomepage.dev/group: System
+        gethomepage.dev/icon: alertmanager.png
+        gethomepage.dev/name: Alertmanager
+        gethomepage.dev/pod-selector: ""
+      hosts:
+        - &host alertmanager.rwcloud.org
+      tls:
+        - hosts:
+            - *host
+          secretName: alertmanager-tls
+
+  grafana:
+    fullnameOverride: grafana
+    defaultDashboardsTimezone: Europe/Berlin
+    replicas: 1
+    persistence:
+      enabled: true
+      type: sts
+      storageClassName: longhorn
+      size: 1Gi
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        nginx.ingress.kubernetes.io/affinity: "cookie"
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/description: Grafana
+        gethomepage.dev/group: System
+        gethomepage.dev/icon: grafana.png
+        gethomepage.dev/name: Grafana
+        gethomepage.dev/pod-selector: ""
+      hosts:
+        - &host grafana.rwcloud.org
+      tls:
+        - hosts:
+            - *host
+          secretName: grafana-tls
+    additionalDataSources:
+      - name: Loki
+        uid: loki
+        type: loki
+        url: http://loki-gateway
+        isDefault: false
+      - name: BlockyPostgres
+        type: postgres
+        uid: blockypostgres
+        url: blockydb-r.blocky.svc.cluster.local:5432
+        access: proxy
+        user: ${BLOCKY_DB_USERNAME}
+        secureJsonData:
+          password: ${BLOCKY_DB_PASSWORD}
+        jsonData:
+          database: blockydb
+          sslmode: 'disable' # disable/require/verify-ca/verify-full
+          maxOpenConns: 100 # Grafana v5.4+
+          maxIdleConns: 100 # Grafana v5.4+
+          maxIdleConnsAuto: true # Grafana v9.5.1+
+          connMaxLifetime: 14400 # Grafana v5.4+
+          postgresVersion: 1500 # 903=9.3, 904=9.4, 905=9.5, 906=9.6, 1000=10
+          timescaledb: false
+        
+    sidecar:
+      datasources:
+        enabled: true
+        searchNamespace: ALL
+      dashboards:
+        enabled: true
+        searchNamespace: ALL
+        folderAnnotation: grafana_folder
+        provider:
+          foldersFromFilesStructure: true
+          disableDeletion: true
+          allowUiUpdates: true
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+          - name: "default"
+            orgId: 1
+            folder: ""
+            type: file
+            disableDeletion: true
+            allowUiUpdates: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+    dashboards:
+      default:
+        local-path:
+          url: https://grafana.com/api/dashboards/13032/revisions/6/download
+          datasource: Prometheus
+        node-exporter-full:
+          url: https://grafana.com/api/dashboards/1860/revisions/22/download
+          datasource: Prometheus
+        ingress-nginx:
+          url: https://grafana.com/api/dashboards/9614/revisions/1/download
+          datasource: Prometheus
+        ingress-nginx-nextgen:
+          url: https://grafana.com/api/dashboards/14314/revisions/2/download
+          datasource: Prometheus
+        ingress-nginx-loki:
+          url: https://grafana.com/api/dashboards/12559/revisions/11/download
+        argocd:
+          url: https://raw.githubusercontent.com/argoproj/argo-cd/master/examples/dashboard.json
+        thanos:
+          url: https://grafana.com/api/dashboards/12937/revisions/4/download
+        rabbitmq:
+          url: https://grafana.com/api/dashboards/10991/revisions/12/download
+        # blocky:
+        #   url: https://grafana.com/api/dashboards/13768/revisions/3/download
+        #   datasource: Prometheus
+        #   VAR_BLOCKY_URL: http://foo.bar
+        # blocky-postgres:
+        #   url: https://grafana.com/api/dashboards/17996/revisions/11/download
+        #   DS_BLOCKYDB: BlockyPostgres
+#        cloudnative-pg:
+#          url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
+#        proxmox:
+#          url: https://grafana.com/api/dashboards/10347/revisions/3/download
+#          datasource: Prometheus
+    grafana.ini:
+      auth:
+        signout_redirect_url: "https://authentik.rwcloud.org/application/o/grafana/end-session/"
+        oauth_auto_login: true
+      analytics:
+        check_for_updates: false
+      server:
+        root_url: https://grafana.rwcloud.org
+        enable_gzip: true
+      #admin:
+      #  existingSecret: grafana-admin
+      auth.generic_oauth:
+        enabled: true
+        allow_sign_up: true
+        auto_login: true
+        name: authentik
+#        comes from secret; see envFromSecret
+#        client_id: 
+#        client_secret: 
+        scopes: openid profile email
+        auth_url: https://authentik.rwcloud.org/application/o/authorize/
+        token_url: https://authentik.rwcloud.org/application/o/token/
+        api_url: https://authentik.rwcloud.org/application/o/userinfo/
+        use_pkce: true
+        use_refresh_token: true
+            # Optionally map user groups to Grafana roles
+        role_attribute_path: contains(groups, 'plattform-admins') && 'Admin' || contains(groups, 'plattform-admins') && 'Editor' || 'Viewer'
+    ldap:
+      enabled: false      
+    envFromSecret: sealed-secrets-rwcloud
+  prometheus:
+    fullnameOverride: prometheus
+    prometheusSpec:
+      # remoteWrite:
+      # - url: http://mimir-grafana-mimir-gateway/api/v1/push
+      replicas: 1
+      externalUrl: https://prometheus.rwcloud.org
+      ruleSelectorNilUsesHelmValues: false
+      serviceMonitorSelectorNilUsesHelmValues: false
+      podMonitorSelectorNilUsesHelmValues: false
+      probeSelectorNilUsesHelmValues: false
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: openebs-zfs
+            resources:
+              requests:
+                storage: 50Gi     
+      ## How long to retain metrics
+      ##
+      retention: 10d
+
+      ## Maximum size of metrics
+      ##
+      retentionSize: "40GiB" 
+      podAntiAffinity: hard
+      thanos: {}        
+      additionalScrapeConfigs:
+        - job_name: node
+          static_configs:
+          - targets: ['diskstation.tailscale.svc.cluster.local:9100']
+        - job_name: snmp-exporter
+          static_configs:
+            - targets: ['192.168.0.3']  # NAS IP
+          metrics_path: /snmp
+          params:
+            module: [synology]
+          relabel_configs:
+            - source_labels: [__address__]
+              target_label: __param_target
+            - source_labels: [__param_target]
+              target_label: instance
+            - source_labels: [__param_target]
+              regex: (.*)
+              replacement: diskstation.tailscale.svc.cluster.local:9116
+              target_label: __address__
+#        - job_name: 'pve-exporter'
+#          static_configs:
+#            - targets:
+#              - 10.0.0.1:9221
+#          metrics_path: /pve
+#          params:
+#            module: [default]
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-url: https://auth.rwcloud.org/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          proxy_set_header X-Forwarded-Method $request_method;   
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/description: Prometheus
+        gethomepage.dev/group: System
+        gethomepage.dev/icon: prometheus.png
+        gethomepage.dev/name: Prometheus
+        gethomepage.dev/pod-selector: ""
+      hosts:
+        - &host prometheus.rwcloud.org
+      tls:
+        - hosts:
+            - *host
+          secretName: prometheus-tls
+    thanosService:
+      enabled: false
+    thanosServiceMonitor:
+      enabled: false
+  prometheusOperator:
+    fullnameOverride: prometheus-operator
+  prometheus-node-exporter:
+    fullnameOverride: node-exporter
+  kube-state-metrics:
+    fullnameOverride: kube-state-metrics
+  kubeEtcd:
+    enabled: false
+    endpoints: ["10.0.1.2"]
+    service:
+      port: 2381
+      targetPort: 2381
+  kubeProxy:
+    enabled: false
+    endpoints: ["10.0.1.2"]
+    service:
+      enabled: true
+      port: 10249
+      targetPort: 10249
+  kubeScheduler:
+    enabled: false
+    endpoints: ["10.0.1.2"]
+    service:
+      enabled: true
+      port: 10259
+      targetPort: 10259
+    serviceMonitor:
+      enabled: true
+      https: true
+  kubeControllerManager:
+    enabled: false
+    endpoints: ["10.0.1.2"]
+    service:
+      enabled: true
+      port: 10257
+      targetPort: 10257
+    serviceMonitor:
+      enabled: true
+      https: true
+alertmanager-discord:  
+  image:
+    # -- image repository
+    repository: rogerrum/alertmanager-discord
+    # -- image tag
+    tag: 1.0.4
+    # -- image pull policy
+    pullPolicy: IfNotPresent
+
+  # -- environment variables. See [image docs](https://github.com/metalmatze/alertmanager-bot) for more configuration options.
+  # @default -- See below
+  env:
+    # -- Discord Username
+    DISCORD_USERNAME: "Alertmanager"
+  #   -- Discord Avatar icon
+  #  DISCORD_AVATAR_URL: "https://avatars3.githubusercontent.com/u/3380462"
+  #   -- Enable Verbose mode (log request and responses)
+  #  VERBOSE: "ON"
+  #   -- Discord Webhook - Can be used from envValueFrom secrets
+  #  DISCORD_WEBHOOK=""
+    DISCORD_WEBHOOK:
+      valueFrom:
+        secretKeyRef:
+          name: alertmanager-discord-secret
+          key: DISCORD_WEBHOOK
+
+
+  # -- Configures service settings for the chart. Normally this does not need to be modified.
+  service:
+    main:
+      enabled: true
+      ports:
+        http:
+          port: 9094
+
+  # -- Enable and configure ingress settings for the chart under this key.
+  # @default -- Disabled
+  ingress:
+    main:
+      enabled: false
+
+  # -- Configures probes for the chart. Normally this does not need to be modified.
+  # @default -- Disabled
+  probes:
+    liveness:
+      enabled: true
+    readiness:
+      enabled: true
+    startup:
+      enabled: true
+
+  # -- Configure persistence settings for the chart under this key.
+  # @default -- See values.yaml
+  persistence:
+    data:
+      enabled: false
+
+prometheus-pushgateway:
+  ingress:
+    ## Enable Ingress.
+    ##
+    enabled: false
+    # AWS ALB requires path of /*
+    className: ""
+    path: /
+    pathType: ImplementationSpecific
+
+    ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
+    extraPaths: []
+    # - path: /*
+    #   backend:
+    #     serviceName: ssl-redirect
+    #     servicePort: use-annotation
+
+    ## Annotations.
+    ##
+    # annotations:
+    #   kubernetes.io/ingress.class: nginx
+    #   kubernetes.io/tls-acme: 'true'
+
+    ## Hostnames.
+    ## Must be provided if Ingress is enabled.
+    ##
+    # hosts:
+    #   - pushgateway.domain.com
+
+    ## TLS configuration.
+    ## Secrets must be manually created in the namespace.
+    ##
+    # tls:
+    #   - secretName: pushgateway-tls
+    #     hosts:
+    #       - pushgateway.domain.com
+
+
+  # Enable this if you're using https://github.com/coreos/prometheus-operator
+  serviceMonitor:
+    enabled: true
+    namespace: monitoring
+
+    # telemetryPath: HTTP resource path from which to fetch metrics.
+    # Telemetry path, default /metrics, has to be prefixed accordingly if pushgateway sets a route prefix at start-up.
+    #
+    telemetryPath: "/metrics"
+
+    # Fallback to the prometheus default unless specified
+    # interval: 10s
+
+    ## scheme: HTTP scheme to use for scraping. Can be used with `tlsConfig` for example if using istio mTLS.
+    # scheme: ""
+
+    ## tlsConfig: TLS configuration to use when scraping the endpoint. For example if using istio mTLS.
+    ## Of type: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#tlsconfig
+    # tlsConfig: {}
+
+    # bearerTokenFile:
+    # Fallback to the prometheus default unless specified
+    # scrapeTimeout: 30s
+
+    ## Used to pass Labels that are used by the Prometheus installed in your cluster to select Service Monitors to work with
+    ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#prometheusspec
+    additionalLabels: {}
+
+    # Retain the job and instance labels of the metrics pushed to the Pushgateway
+    # [Scraping Pushgateway](https://github.com/prometheus/pushgateway#configure-the-pushgateway-as-a-target-to-scrape)
+    honorLabels: true
+
+    ## Metric relabel configs to apply to samples before ingestion.
+    ## [Metric Relabeling](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs)
+    metricRelabelings: []
+    # - action: keep
+    #   regex: 'kube_(daemonset|deployment|pod|namespace|node|statefulset).+'
+    #   sourceLabels: [__name__]
+
+    ## Relabel configs to apply to samples before ingestion.
+    ## [Relabeling](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config)
+    relabelings: []
+    # - sourceLabels: [__meta_kubernetes_pod_node_name]
+    #   separator: ;
+    #   regex: ^(.*)$
+    #   targetLabel: nodename
+    #   replacement: $1
+    #   action: replace
+
+  # The values to set in the PodDisruptionBudget spec (minAvailable/maxUnavailable)
+  # If not set then a PodDisruptionBudget will not be created
+  podDisruptionBudget: {}
+
+  priorityClassName:
+
+  # Deployment Strategy type
+  strategy:
+    type: Recreate
+
+  persistentVolume:
+    ## If true, pushgateway will create/use a Persistent Volume Claim
+    ## If false, use emptyDir
+    ##
+    enabled: true
+
+    replicaCount: 1
+
+    ## pushgateway data Persistent Volume access modes
+    ## Must match those of existing PV or dynamic provisioner
+    ## Ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+    ##
+    accessModes:
+      - ReadWriteOnce
+
+    ## pushgateway data Persistent Volume Claim annotations
+    ##
+    annotations: {}
+
+    ## pushgateway data Persistent Volume existing claim name
+    ## Requires pushgateway.persistentVolume.enabled: true
+    ## If defined, PVC must be created manually before volume will be bound
+    existingClaim: ""
+
+    ## pushgateway data Persistent Volume mount root path
+    ##
+    mountPath: /data
+
+    ## pushgateway data Persistent Volume size
+    ##
+    size: 2Gi
+
+    ## pushgateway data Persistent Volume Storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    storageClass: "longhorn"
+
+    ## Subdirectory of pushgateway data Persistent Volume to mount
+    ## Useful if the volume's root directory is not empty
+    ##
+    subPath: ""

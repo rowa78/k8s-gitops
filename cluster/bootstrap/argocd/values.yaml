@@ -280,7 +280,7 @@ argo-cd:
   configs:
     cm:
 
-      admin.enabled: false
+      admin.enabled: true
 
       dex.config: |
         connectors:
