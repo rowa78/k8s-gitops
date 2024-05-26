@@ -15,10 +15,10 @@ spec:
   destination:
     name: in-cluster
     namespace: eve     
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true 
+  # syncPolicy:
+  #   automated:
+  #     prune: true
+  #     selfHeal: true 
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
