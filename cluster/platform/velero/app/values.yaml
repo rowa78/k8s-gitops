@@ -333,7 +333,7 @@ velero:
       # Additional provider-specific configuration. See link above
       # for details of required/optional fields for your provider.
       config: 
-        region: eu-central-2
+        region: eu-003
         s3ForcePathStyle: true
         s3Url: https://eu-003.s3.synologyc2.net
       #  kmsKeyId:
@@ -364,7 +364,7 @@ velero:
       # Additional provider-specific configuration. See link above
       # for details of required/optional fields for your provider.
       config: 
-        region: eu-central-2
+        region: eu-003
         profile: "default"
     #    region:
     #    apiTimeout:
