@@ -5,6 +5,16 @@ longhorn:
         repository: longhornio/csi-snapshotter
         # newer version since the default 3.0.1 always try to get beta-volumesnapshot-crds. Don't know why yet.
         tag: v6.3.2
+
+  csi:    
+    # -- Replica count of the CSI Attacher. When unspecified, Longhorn uses the default value ("3").
+    attacherReplicaCount: 1
+    # -- Replica count of the CSI Provisioner. When unspecified, Longhorn uses the default value ("3").
+    provisionerReplicaCount: 1
+    # -- Replica count of the CSI Resizer. When unspecified, Longhorn uses the default value ("3").
+    resizerReplicaCount: 1
+    # -- Replica count of the CSI Snapshotter. When unspecified, Longhorn uses the default value ("3").
+    snapshotterReplicaCount: 1
         
   persistence:
     defaultClassReplicaCount: 1
