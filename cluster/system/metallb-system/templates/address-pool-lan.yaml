@@ -1,0 +1,9 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: lan
+  namespace: metallb-system
+spec:
+  addresses:
+  - 192.168.0.240-192.168.0.250
+  - fd00:2222::1-fd00:2222::10

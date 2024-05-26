@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cockroachdb-client-secure
+spec:  
+  containers:  
+  - name: psql
+    image: postgres:16 # Change to cockroachdb/cockroach:{version}
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+    - name: temp
+      mountPath: /data
+    command:
+    - sleep
+    - "2147483648" # 2^31
+  - name: mc
+    image: bitnami/minio-client:latest # Change to cockroachdb/cockroach:{version}
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+    - name: temp
+      mountPath: /data
+    command:
+    - sleep
+    - "2147483648" # 2^31
+  terminationGracePeriodSeconds: 0
+  volumes:
+  - name: client-certs
+    projected:
+        sources:
+          - secret:
+              name: eve-dev-cockroachdb-client-secret # Change to {release}-client-secret
+              items:
+                - key: ca.crt
+                  path: ca.crt
+                - key: tls.crt
+                  path: client.root.crt
+                - key: tls.key
+                  path: client.root.key
+        defaultMode: 256
+  - name: temp
+    persistentVolumeClaim:
+      claimName: temp-dir

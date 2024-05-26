@@ -1,0 +1,137 @@
+homepage:
+  image:
+    repository: ghcr.io/gethomepage/homepage
+    tag: v0.8.8
+
+  # Enable RBAC. RBAC is necessary to use Kubernetes integration
+  enableRbac: true
+
+  serviceAccount:
+    # Specify a different service account name
+    name: homepage
+    # Create service account. Needed when RBAC is enabled.
+    create: true
+
+  service:
+    main:
+      ports:
+        http:
+          port: 3000
+
+  controller:
+    strategy: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+
+  env:
+    - name: HOMEPAGE_VAR_DISKSTATION_USER      
+      valueFrom:
+        secretKeyRef:
+          name: widget-secrets
+          key: DISKSTATION_USER
+    - name: HOMEPAGE_VAR_DISKSTATION_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: widget-secrets
+          key: DISKSTATION_PASSWORD
+    
+
+  # Enable the ingress to expose Homepage to the network.
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        #nginx.ingress.kubernetes.io/auth-method: GET
+        #nginx.ingress.kubernetes.io/auth-url: https://auth.rwcloud.org/api/verify
+        #nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+        #nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        #nginx.ingress.kubernetes.io/auth-snippet: |
+        #  proxy_set_header X-Forwarded-Method $request_method;        
+        # This should be the in-cluster DNS name for the authentik outpost service
+        # as when the external URL is specified here, nginx will overwrite some crucial headers
+        nginx.ingress.kubernetes.io/auth-url: |-
+            http://ak-outpost-authentik-embedded-outpost.authentik.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+        # If you're using domain-level auth, use the authentication URL instead of the application URL
+        nginx.ingress.kubernetes.io/auth-signin: |-
+            https://home.rwcloud.org/outpost.goauthentik.io/start?rd=$escaped_request_uri
+        nginx.ingress.kubernetes.io/auth-response-headers: |-
+            Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
+        nginx.ingress.kubernetes.io/auth-snippet: |
+            proxy_set_header X-Forwarded-Host $http_host;
+
+      ingressClassName: "nginx"
+      hosts:
+        - host: &host "home.rwcloud.org"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: homepage-tls
+          hosts:
+            - *host
+
+  # All the config files for Homepage can be specified under their relevant config block.
+  config:
+    # To use an existing ConfigMap uncomment this line and specify the name
+    # useExistingConfigMap: existing-homepage-configmap
+    bookmarks:
+      - Developer:
+          - Github:
+              - abbr: GH
+                href: https://github.com/
+          - Dockerhub:
+              - abbr: DH
+                href: https://hub.docker.com
+
+    widgets:
+      - search:
+          provider: duckduckgo
+          target: _blank
+      ## Uncomment to enable Kubernetes integration
+      - kubernetes:
+          cluster:
+            show: true
+            cpu: true
+            memory: true
+            showLabel: true
+            label: "cluster"
+          nodes:
+            show: true
+            cpu: true
+            memory: true
+            showLabel: true
+
+    services: 
+      - Storage:
+        - Diskstation:
+            icon: synology-dsm.svg
+            href: "https://ds.ronnywalter.de"
+            description: Synology DSM
+            siteMonitor: "https://ds.ronnywalter.de"
+            widget:
+                type: diskstation
+                url: http://192.168.0.3:5000
+                username: '{{HOMEPAGE_VAR_DISKSTATION_USER}}'
+                password: '{{HOMEPAGE_VAR_DISKSTATION_PASSWORD}}'
+    kubernetes:
+      # change mode to 'cluster' to use RBAC service account
+      mode: cluster
+    docker:
+    settings:
+
+  persistence:
+    logs:
+      enabled: true
+      type: emptyDir
+      mountPath: /app/config/logs
+
+  # resources:
+  #   requests:
+  #     memory: 10Mi
+  #     cpu: 10m
+  #   limits:
+  #     memory: 200Mi
+  #     cpu: 500m
+
