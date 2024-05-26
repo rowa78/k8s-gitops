@@ -517,7 +517,7 @@ velero:
         memory: 512Mi
       limits:
         cpu: 1000m
-        memory: 1024Mi
+        memory: 4096Mi
 
     # Tolerations to use for the node-agent daemonset. Optional.
     tolerations: []
