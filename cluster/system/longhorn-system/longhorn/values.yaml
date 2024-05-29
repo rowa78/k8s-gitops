@@ -1,10 +1,10 @@
 longhorn:  
-  image:    
-    csi:      
-      snapshotter:
-        repository: longhornio/csi-snapshotter
-        # newer version since the default 3.0.1 always try to get beta-volumesnapshot-crds. Don't know why yet.
-        tag: v6.3.2
+  # image:    
+  #   csi:      
+  #     snapshotter:
+  #       repository: longhornio/csi-snapshotter
+  #       # newer version since the default 3.0.1 always try to get beta-volumesnapshot-crds. Don't know why yet.
+  #       tag: v6.3.4
 
   csi:    
     # -- Replica count of the CSI Attacher. When unspecified, Longhorn uses the default value ("3").
