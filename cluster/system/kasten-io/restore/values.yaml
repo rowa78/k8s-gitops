@@ -23,7 +23,7 @@ k10restore:
   # Added for the k10 Operator
   # A non nested value allows for a cleaner k10restore form view
   # Nested values are shown folded in a sub form
-  profileName: diskstation-profile
+  profileName: c2-profile
 
   profile:
     create: false
