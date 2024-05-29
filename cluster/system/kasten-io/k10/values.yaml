@@ -337,7 +337,8 @@ k10:
       usernamePrefix: ""
       groupnameClaim: "groups"
       groupnamePrefix: ""
-    k10AdminUsers: []
+    k10AdminUsers: 
+      - mail@ronnywalter.de
     k10AdminGroups: 
       - k10:admins
 
