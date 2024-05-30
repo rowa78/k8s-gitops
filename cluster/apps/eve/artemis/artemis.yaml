@@ -10,7 +10,7 @@ spec:
     enableMetricsPlugin: true
     storage:
       size: 10G
-      storageClassName: longhorn
+      storageClassName: openebs-zfs
     podSecurityContext:
       fsGroup: 185
       runAsGroup: 185

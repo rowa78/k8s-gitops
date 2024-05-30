@@ -326,7 +326,7 @@ nextcloud:
         enabled: true
         # Use an existing Persistent Volume Claim (must be created ahead of time)
         # existingClaim: ""
-        storageClass: "longhorn"
+        storageClass: "openebs-zfs"
         accessMode: ReadWriteOnce
         size: 8Gi
 
@@ -420,7 +420,7 @@ nextcloud:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "longhorn"
+    storageClass: "openebs-zfs"
 
     ## A manually managed Persistent Volume and Claim
     ## Requires persistence.enabled: true
