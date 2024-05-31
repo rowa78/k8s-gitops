@@ -143,5 +143,5 @@ spec:
     namespace: eve
   syncPolicy:
     automated:
-      prune: true
+      prune: false
       selfHeal: true
