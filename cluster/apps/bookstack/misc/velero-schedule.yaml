@@ -1,0 +1,19 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  labels:
+    rwcloud.org/backup.type: auto
+    rwcloud.org/namespace: eve
+  name: bookstack-auto-schedule
+  namespace: velero  
+spec:
+  schedule: 0 2 * * *
+  skipImmediately: false
+  template:
+    includedNamespaces:
+    - bookstack
+    snapshotMoveData: true
+    storageLocation: default
+    ttl: 168h0m0s
+    volumeSnapshotLocations:
+    - default
