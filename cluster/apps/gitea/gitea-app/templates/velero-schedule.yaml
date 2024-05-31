@@ -1,0 +1,19 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  labels:
+    rwcloud.org/backup.type: auto
+    rwcloud.org/namespace: eve
+  name: gitea-auto-schedule
+  namespace: velero  
+spec:
+  schedule: 20 1 * * *
+  skipImmediately: false
+  template:
+    includedNamespaces:
+    - gitea
+    snapshotMoveData: true
+    storageLocation: default
+    ttl: 168h0m0s
+    volumeSnapshotLocations:
+    - default
