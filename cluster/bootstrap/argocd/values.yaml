@@ -296,15 +296,15 @@ argo-cd:
           name: authentik
           type: oidc
           id: authentik
-
+          
       resource.exclusions: |
-      - apiGroups:
-        - velero.io
-        kinds:
-        - Backup
-        - Restore
-        clusters:
-        - "*"
+        - apiGroups:
+          - velero.io
+          kinds:
+          - Backup
+          - Restore
+          clusters:
+          - "*"
     rbac:
       policy.csv: |
         g, plattform-admins, role:admin
