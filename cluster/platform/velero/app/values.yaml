@@ -366,6 +366,7 @@ velero:
       config: 
         region: eu-003
         profile: "default"
+        incrBackupCount: "3"
     #    region:
     #    apiTimeout:
     #    resourceGroup:
