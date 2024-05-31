@@ -1,0 +1,21 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  creationTimestamp: "2024-05-29T21:27:14Z"
+  generation: 4
+  labels:
+    rwcloud.org/backup.type: auto
+    rwcloud.org/namespace: registry
+  name: authentik-auto-schedule
+  namespace: velero  
+spec:
+  schedule: 0 1 * * *
+  skipImmediately: false
+  template:
+    includedNamespaces:
+    - registry
+    snapshotMoveData: true
+    storageLocation: default
+    ttl: 168h0m0s
+    volumeSnapshotLocations:
+    - default
