@@ -122,7 +122,7 @@ spec:
     namespace: eve
   syncPolicy:
     automated:
-      prune: true
+      prune: false
       selfHeal: true
 ---
 apiVersion: argoproj.io/v1alpha1
