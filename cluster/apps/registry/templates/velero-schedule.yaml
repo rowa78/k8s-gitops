@@ -6,7 +6,7 @@ metadata:
   labels:
     rwcloud.org/backup.type: auto
     rwcloud.org/namespace: registry
-  name: authentik-auto-schedule
+  name: registry-auto-schedule
   namespace: velero  
 spec:
   schedule: 0 1 * * *
