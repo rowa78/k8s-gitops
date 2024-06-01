@@ -305,6 +305,13 @@ argo-cd:
           - Restore
           clusters:
           - "*"
+        - apiGroups:
+          - snapshot.storage.k8s.io
+          kinds:
+          - VolumeSnapshot
+          - VolumeSnapshotContent
+          clusters:
+          - "*"
     rbac:
       policy.csv: |
         g, plattform-admins, role:admin
