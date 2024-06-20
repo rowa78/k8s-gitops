@@ -1,35 +1,14 @@
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
 metadata:
   name: synology-secret
+  namespace: ingress-nginx
+  annotations: {}
 spec:
-  secretStoreRef:
-    kind: ClusterSecretStore
-    name: vault-backend
-  target:
-    name: synology-secret
-  data:
-    - secretKey: SYNO_Username
-      remoteRef:
-        key: secret/diskstation/cert-upload
-        property: SYNO_Username
-    - secretKey: SYNO_Password
-      remoteRef:
-        key: secret/diskstation/cert-upload
-        property: SYNO_Password
-    - secretKey: SYNO_Scheme
-      remoteRef:
-        key: secret/diskstation/cert-upload
-        property: SYNO_Scheme
-    - secretKey: SYNO_Certificate
-      remoteRef:
-        key: secret/diskstation/cert-upload
-        property: SYNO_Certificate
-    - secretKey: SYNO_Create
-      remoteRef:
-        key: secret/diskstation/cert-upload
-        property: SYNO_Create
-    - secretKey: SYNO_Hostname
-      remoteRef:
-        key: secret/diskstation/cert-upload
-        property: SYNO_Hostname
+  encryptedData: 
+    SYNO_Certificate: AgCJYleu3oqu1/p2odS7774yiUF2gZDrQkvLeyUoeUXlJdQyC1ZqIAtsj/4uGkVa7N2kxZdUUtZ3KYbO/+FDTfLMm+ov6cRrm9ibVkO/m1uZxkCezRPV32maPcgKA77ufDjMYKGaqSc9/foeehgqQtNBulMU3oUnufjbbw12lZOHGnOXlqMU5RfdjnE+WCX4OCLpZasYwXdNoUI5JilBH+QtpP/3qXomu6lVUoI97GSUiuPtgrXEBx3PzbSzKGusPdfUrSCyZIie4nyY3cbInaPk/hHWMX4xWn/oyGeL7uIKtm0UtGgjJDLoR4SmIzdmJYgcHgEzZ5WHS6r8gpr7I1myVNrWAMjhITWgvfLRHdehO7gV8fjDV3dIj0OoLIxD4KW8DaCDGGpVzz+Wdz/SAh+e1MQ4+ReIaOjhTXl9WHRVdSAztV+WZ470GuodrkQMG92yA2eJGy4pmw1/0L7OtO8KuP4oK3V7C//MI+Mj0hjamoKk9tIb3SkVdMaNyv5i5cmAFkQaD7VvVtif9LF44/LcN/F6ysN7kd4K/YtNE6ccpWc9cl6VIRUHNY3qMELUfKIp2RfE5oxyfZbZi627iruxsAEddApWnW+02rOGGZ7ykJLzYd2JPVJ8MjTKAytYG++y2qdRqhXMs3Pv4r6bOImcmBpqhwcUNgU8LQ830AErGKWZd3+AiWXAM9njzATSzL74NE4=
+    SYNO_Create: AgA2JxCXKmThnEat95eJfkV9lb5gWNC5bvfDk3krp91t4K9gePOS+BGc6cw6Xcyt5W2WZBFjQtgCyMcSzsGAMZshEySCZ24nHLDZkggXNIWl+FSRyIaICWe9tz1yKg+KlUfplTzoph0c+XLdaS6T47j3dAEu3QRN4+gbB1LfCMfYsKfu3dILolZTHyGMMhlbaYce6+BRRa2XuxB0Fnw5NolZaCZqAyHDJkEijtsZ9CEqDp35beRnxFgPi/BZzqGxKpMbpx2I6PU75sfw4rfGvqi42dONjz6Bnz0EuiUMwuaWKHOWM6i3E6F7pJNoWyX40Ez4YnztavwsVCjGwHiryPzTnuXr+/qtjjEFGRfQjuyFJuAJnezDkR23qUnlV3uB86zxNjVybDcdXKKRurJq1sqMs7O5MgPzfHdlTjnsE4Wgo4P3cxIASI90QTD+p5ysJi/yCo6D37XRinqIe4ZV0BglQRX4ziuV7AEv4HoydxkV2ucshKKrvO6uiHdhhpclmTLO6uCLFLCxUsLsVYUSzP2XCK/tZGVV6K6eXOpU0JrSPHnNVllvVHwYSkA4PNHCEEOAwKFAUdPox5MwPA/TYqSSC+JWUHEPZl3WkAH8lbq3WPKouSSBgIZr1FlNpifKexMw8vYEfpahZTnCdVlsotX5A1Cp8K4WqXoyknPgQiwt5GgW019MVQGjIUdy0kSS4GcZ
+    SYNO_Hostname: AgCASdFAWd1+g7VTiHaIyUTu/jqqxN8+RUZPWQn9sDo/GcYWWpXoiS476Pdll2ZkWiUvWqPhCrFBZ1a26U/Lmdn8ODrzPtpw/DRCQQ035jZ0IwFqVZnMld1k+ljqkV1+4d+uSrdGLtkKu0AZGIIf9VWoSJBj+McRHBTiItSvncoiU6UIJ+XYWYUsUTqZgYLCgDpP10UOZ3fveTfPSBt1jcGUh8GiN5xZk2hk5Md5KTGKMIvaevlXJeBJvUsbE/00p0f3Lfi1GzN3J5k/v0nXlZBztp14hSe+DSNFQeZ0gf/ugXAfh7OGVYM9ibjVpEZwp0pNWFeXw8gXlMHY+PnGloujt6QdNj/QmAxwLjPHPk5OAWpe4TdhZ58YymiBBBseOmtnhafaLN6uHBZbsJ/PyKKhBv9iYXf+23E9ZGW51HS18eazu7mp7PMKkqxwnFiXodv4R1ZqIFJNLHDh5/Bja0RyxStFO+rQqHIGHVJYx+hM1Rvp/PxpGFVLhDTh3HzpqNZrDrMw5u7G2mAPy1fjNoCrocza0SIY3qtlkgltJbExglD5EbBM5GpcJpeMpNa35w5zMC/Yj2UU2XFQhRVZagEOcdd3iHeFWm8075R8ClnG8IYc6o5w4cIYHmvGvs+ouLnyvzkrpflxSLtMpxzWz6148JY8kiBtp3hHPaqUHP0mcE+x9A6c1T2vGirDM4oNffDQZuroSsZiMVAb+5smV2w+amOyaxDnuwLokprFkOcPaMmYYMD9hjw=
+    SYNO_Password: AgCggli1AippotkrkTH49lr7dZ9tDAV4mVNCp/1R02AWX7O5094GZ08j4RXqlJMehOIoRi9JZT2xOIOeugPjqQ+bw/um4j6nmVDR6i5tjU9evJsTgWaF3K4WBExR0+dHgsPr3rwONz1WKERlgUENQtmQ7qnwKHoK4BilJdPNLDqiodWvqdXJYdP4Zr9+Y4v23MXrFoxzusj6luiv5wvdrtUouantlEnmLvs3uO34M4m9YM3hdpl3OQxc2DXbT/VGlV8YYkU3whnFSKmrmrTr3j/zj4yoPi7Lk3u2ZDbvhpxypgrwT8bMbLYk9wiyfuliWNw86G0qejBKBshJHhTh+PLzJNH2FYrlDNgo25zVSM1s+MDnAbhOPv8cTxnsK5qTWfcUUeIhA08ep1NYBo1LJri5u8VEQr8sWkecA7bs0rsWRovUo0IMCyYvtOySpA5k3D6b73fOCkO/VpqXf2pJ9/5T7UxpaykvN/OnjEKnKA4krTwjkcfMs+QxfNycyWv+oqmOBcI3rnDnJN3U/jx5OsiJA226xgFP2E+AtNbyLBYh8RI94QaBo/QVq8yEoVWIUaGf60+yEHH40/TE9opHDAWNG5tjC00L/owNQk5s3NdZM2KCbAihm3imxDff27xqhDzUfpH91aoxVXUSoLXZndb7pK4mDjVtekfE2Oj/39om79PPKol+qMxzeRquEdpVC9qDqa/94O+0DyVLTugMtWAc
+    SYNO_Scheme: AgAo2lk26P5D+AJHAmUZ2LIz5rEB7waAmCt16lygDnmxa2pPlDvQqangvfMCS/vGxVSMGGaK1kYvimVyvZ9Zp7VwRhNah/uf3TvAr7FruZNIBf4HSS1TBGQd1pk2LLf9QrMqgatgBWUdkGhEQ946g15zafEpmIcjO2lnjhIZs81s5WLO5/QklhbckRZdZW5ZQXncUiYkY9OnwEbAsqLzzFW9hDeKSnRPkrsepxlafxFpfoN/oKk/QuZBNTWCWhoHUriDnFbPK6pxNSXi/ibq+4VNRiGhg3d1NVJfAzu2amXOMq4kMwZfsPWZL5BSP/OFH+NRSuzVvNPqWwL5rVFtYH1XVsFn/Hf1Q+KKvVdMqQJCGKJXBhQNHW+4zF6ltnVm5rSfIhykrggcsDIaJFbZ3EaAFrdMWOC1/ImA+nSphmWDpu08Z89MImn78kbvOjiCR8G0wKzDp7P6mTseSS4JMacPP2DIHWg7Y0ugkWetNe1sJ35vIZURbUaf9WBvK9VNv8ot9GEsMdMBiK6Vflfj4OzOFNCPKGmWg7/LCgMYGxql6oftd3JIJQbUXNQf2fQ1VBYo38W7i6y5QOKIGt1eJSmK0MAauqTKwnhHKqfHmF8Tvnv8t2yzQ7A1jXLG0fSYlDcG8E3qaRjjA7ZeBjalcZXSPt8SV90SPMt6+Z+BV4Vn48tfRuHHayKEsc9kfWr2cQx3ty9u
+    SYNO_Username: AgAGYHIRaV02SdGVNFMJ5zxUTLmBucfFqvCUUjOy3htK3cPNczMNi5NcyG843AMhGlzdFov1Hc8Rc+dpypMqmDCfCfWd/uUDaKHevYdf3WbXq/8NO84fDxwzXi+BcNr/8LVm5k8ffJICDjeoAFC6XqYXVAYTCX2oyrEfrdY6RMwi314nXpR6XPFzlnscqoJc0y8pdYmMmFmzTotBnEJpGYTqktNx9VO8twr1zJcLGW5rEuEUbsMChUbxAW+puM2bmhg2oCh3xcBY7T9hHf40qnjD7LOC1AjDTlLns/CGZjTnm6o8CvnBI0RJjIZEXtqci+wxBEP6Iga2yTzOKT1JOr/nBJyBOGBKa/5CyxgyDSyA8PaMK5dQW8T2GrQ/vWr55zNWaKnt3A93MbfullKqFc1CMJbNrJ4W9zYnQ+btwNP7BQrb/wMG3pc0bP0TzTPYJCAtskFh+bZ2YJIAp8OcoPDGqF7h0Sd6jTOZMfd4+1IbsQXjZx40bKhEkRSpvWS4sDpcq3pjyNr+ZS31zzafMmi9J92aF3XEMM8nOKg7VaM8CtWrVXrbBrq1Ub+8JwPsP8wdElexnbp3KB+aVwpM7dpoCSRHekapaJAe/gbeKvxXy600z7fPiNYrlMRq56Nmx2ScMRIXBXDJh3Rj+RItQG1kGHlQQQYlG4G5ml8aAZl/aWm/eR8YtzsbXdL0r8dAXXkghEhOvQ==
