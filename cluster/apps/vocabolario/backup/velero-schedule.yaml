@@ -4,14 +4,14 @@ metadata:
   labels:
     rwcloud.org/backup.type: auto
     rwcloud.org/namespace: eve
-  name: eve-auto-schedule
+  name: vocabolario-auto-schedule
   namespace: velero  
 spec:
   schedule: 1 0 * * *
   skipImmediately: false
   template:
     includedNamespaces:
-    - eve
+    - vocabolario
     snapshotMoveData: true
     storageLocation: default
     ttl: 168h0m0s
