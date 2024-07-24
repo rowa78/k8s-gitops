@@ -11,7 +11,7 @@ blocky:
     repository: ghcr.io/0xerr0r/blocky
     # -- image tag
     # @default -- chart.appVersion
-    tag: v0.23
+    tag: v0.24
     # -- image pull policy
     pullPolicy: IfNotPresent
 
