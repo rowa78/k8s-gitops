@@ -911,7 +911,7 @@ harbor:
     automountServiceAccountToken: false
     image:
       repository: goharbor/harbor-exporter
-      tag: v2.6.1
+      tag: v2.11.0
     nodeSelector: 
       obenebs.storage.node: "true"
       location: public
