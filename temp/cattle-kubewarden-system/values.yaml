@@ -171,7 +171,7 @@ kubewarden-controller:
       image:
         registry: ghcr.io
         repository: kyverno/policy-reporter-ui
-        tag: 1.9.0
+        tag: 1.9.2
 
 
 kubewarden-defaults:
