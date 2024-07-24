@@ -447,7 +447,7 @@ harbor:
   core:
     image:
       repository: goharbor/harbor-core
-      tag: v2.9.0
+      tag: v2.11.0
     # set the service account to be used, default if left empty
     serviceAccountName: ""
     # mount the service account token
