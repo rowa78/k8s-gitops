@@ -434,7 +434,7 @@ harbor:
   nginx:
     image:
       repository: goharbor/nginx-photon
-      tag: v2.6.1
+      tag: v2.11.0
     # set the service account to be used, default if left empty
     serviceAccountName: ""
     # mount the service account token
