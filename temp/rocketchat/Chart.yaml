@@ -3,5 +3,5 @@ name: rocketchat
 version: 1.0.0
 dependencies:
   - name: rocketchat
-    version: 6.4.4
+    version: 6.17.0
     repository: https://rocketchat.github.io/helm-charts
