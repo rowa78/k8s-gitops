@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/platform/velero/settings
+    path: cluster/platform/velero-system/settings
   destination:
     name: in-cluster
     namespace: velero
@@ -37,7 +37,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/platform/velero/app
+    path: cluster/platform/velero-system/app
   destination:
     name: in-cluster
     namespace: velero
@@ -58,7 +58,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/platform/velero/cli
+    path: cluster/platform/velero-system/cli
   destination:
     name: in-cluster
     namespace: velero
