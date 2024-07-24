@@ -11,10 +11,10 @@ renovate:
         "dependencyDashboardTitle": "Renovate Dashboard",
         "pre-commit": {
           "enabled": true
-        }
+        },
         "packageRules": [
           {
-            "paths": ["cluster/**"], // Ersetzen Sie dies durch den Pfad, den Sie scannen möchten
+            "paths": ["cluster/**"],
             "enabled": true
           }
         ]
