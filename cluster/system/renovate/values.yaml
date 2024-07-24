@@ -12,6 +12,12 @@ renovate:
         "pre-commit": {
           "enabled": true
         }
+        "packageRules": [
+          {
+            "paths": ["cluster/**"], // Ersetzen Sie dies durch den Pfad, den Sie scannen möchten
+            "enabled": true
+          }
+        ]
       }
   existingSecret: renovate
   nodeSelector: 
