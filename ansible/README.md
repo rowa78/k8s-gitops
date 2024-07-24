@@ -39,7 +39,6 @@ zpool create -o ashift=12 zpool /dev/nvme0n1p3 /dev/nvme1n1p3
 zfs set compression=lz4 zpool
 
 zfs create -o compression=lz4 -o mountpoint=/var/lib/rancher -o atime=off zpool/rancher
-zfs create -o compression=lz4 -o mountpoint=/var/lib/rancher/k3s/agent/containerd/io.containerd.snapshotter.v1.zfs -o atime=off zpool/containerd
 zfs create -o compression=lz4 -o mountpoint=/var/lib/kubelet -o atime=off zpool/kubelet
 
 zfs create -o compression=lz4 -o atime=off zpool/pvcs

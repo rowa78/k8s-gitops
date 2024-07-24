@@ -1,4 +1,11 @@
-ansible_user: root
-ansible_host: terra.rwcloud.org
+ansible_user: ronny
+ansible_host: terra
+
+wireguard_address: 10.100.0.2/24
+wireguard_allowed_ips: 10.100.0.2/32, 10.0.1.0/24
 
 k3s_control_node: true
+
+rke2_type: server
+
+tailscale_args: "--advertise-routes={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}/32,{{ hostvars[inventory_hostname]['ansible_default_ipv6']['address'] }}/128,10.0.1.2/32 --accept-routes --accept-dns=false"

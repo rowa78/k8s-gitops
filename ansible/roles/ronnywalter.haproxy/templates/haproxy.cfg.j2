@@ -9,8 +9,8 @@ defaults
     timeout server 30s
 
 listen stats
-  bind    0.0.0.0:9000
-  bind    :::9000
+  bind    10.0.1.2:9000
+  #bind    :::9000
   mode    http
   stats   enable
   stats   hide-version

@@ -144,4 +144,6 @@ vault_secrets:
     kv: "BLOCKY_DB_USERNAME={{ lookup('env', 'BLOCKY_DB_USERNAME') }}
       BLOCKY_DB_PASSWORD={{ lookup('env', 'BLOCKY_DB_PASSWORD') }}
       BLOCKY_REDIS_PASSWORD={{ lookup('env', 'BLOCKY_REDIS_PASSWORD') }}"
-
+  - path: secret/argocd
+    kv: "ARGOCD_OAUTH_CLIENT_ID={{ lookup('env', 'ARGOCD_OAUTH_CLIENT_ID') }}
+       ARGOCD_OAUTH_CLIENT_SECRET={{ lookup('env', 'ARGOCD_OAUTH_CLIENT_SECRET') }}"
