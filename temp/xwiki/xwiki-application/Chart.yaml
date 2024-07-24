@@ -21,7 +21,7 @@ maintainers:
 dependencies:
   - name: "common"
     repository: "https://charts.bitnami.com/bitnami"
-    version: "2.4.0"
+    version: "2.20.5"
   - name: mysql
     repository: https://charts.bitnami.com/bitnami
     version: 9.10.2
