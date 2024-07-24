@@ -529,7 +529,7 @@ harbor:
   jobservice:
     image:
       repository: goharbor/harbor-jobservice
-      tag: v2.6.1
+      tag: v2.11.0
     replicas: 1
     revisionHistoryLimit: 10
     # set the service account to be used, default if left empty
