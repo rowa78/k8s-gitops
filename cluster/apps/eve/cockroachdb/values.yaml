@@ -8,7 +8,7 @@ cockroachdb:
 
   image:
     repository: cockroachdb/cockroach
-    tag: v23.1.9
+    tag: v24.1.2
     pullPolicy: IfNotPresent
     credentials: {}
       # registry: docker.io
