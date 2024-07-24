@@ -810,7 +810,7 @@ harbor:
       automountServiceAccountToken: false
       image:
         repository: goharbor/redis-photon
-        tag: v2.9.0
+        tag: v2.11.0
       # resources:
       #  requests:
       #    memory: 256Mi
