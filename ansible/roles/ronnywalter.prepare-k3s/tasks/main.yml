@@ -140,30 +140,30 @@
 #     name: qemu-guest-agent
 #     state: started
 
-# - name: install zfs-utils
-#   package:
-#     name: zfsutils-linux    
-#     state: present
+- name: install zfs-utils
+  package:
+    name: zfsutils-linux    
+    state: present
 
-# - name: install fdisk
-#   package:
-#     name: fdisk
-#     state: present
+- name: install fdisk
+  package:
+    name: fdisk
+    state: present
 
-#- name: Enable service fail2ban
-#  ansible.builtin.service:
-#    name: fail2ban
-#    enabled: yes  
+- name: Enable service fail2ban
+  ansible.builtin.service:
+    name: fail2ban
+    enabled: yes  
 
-#- name: Generate fail2ban ssh configuration file
-#  ansible.builtin.template:
-#    src: jail.local.j2
-#    dest: "/etc/fail2ban/jail.d/jail.local"    
+- name: Generate fail2ban ssh configuration file
+  ansible.builtin.template:
+    src: jail.local.j2
+    dest: "/etc/fail2ban/jail.d/jail.local"    
 
-#- name: retart service fail2ban
-#  ansible.builtin.service:
-#    name: fail2ban
-#    state: restarted
+- name: retart service fail2ban
+  ansible.builtin.service:
+    name: fail2ban
+    state: restarted
 
 # - name: configure multipath.con
 #   ansible.builtin.template:

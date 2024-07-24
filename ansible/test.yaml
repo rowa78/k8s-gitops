@@ -1,5 +1,4 @@
-- hosts: terra
+- hosts: all
   tasks:
     - debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
     - debug: var=hostvars[inventory_hostname]['ansible_default_ipv6']['address']
-    - debug: var={{ ansible_all_ipv4_addresses | ipaddr('10.0.1.0/24') | first }}

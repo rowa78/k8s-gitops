@@ -1,5 +1,5 @@
 ansible_user: debian
-ansible_host: worker02
+ansible_host: 10.0.11.21
 
 k3s_control_node: false
 

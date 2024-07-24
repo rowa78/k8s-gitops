@@ -32,15 +32,15 @@ k3s_server:
   #tls-san: 192.168.100.2
   #tls-san: 192.168.1.101  
   # for monitoring
-  #kube-controller-manager-arg:
+  kube-controller-manager-arg:
   #- "address=0.0.0.0"
-  #- "bind-address=0.0.0.0"
+  - "bind-address=0.0.0.0"
   kube-proxy-arg:
-  #- "metrics-bind-address=0.0.0.0"
+  - "metrics-bind-address=0.0.0.0"
   - "nodeport-addresses=10.0.1.0/24,fd00::/8"
-  #kube-scheduler-arg:
+  kube-scheduler-arg:
   #- "address=0.0.0.0"
-  #- "bind-address=0.0.0.0"
+  - "bind-address=0.0.0.0"
   # Controller Manager exposes etcd sqllite metrics
   etcd-expose-metrics: true
   #snapshotter: zfs

@@ -9,4 +9,4 @@ k3s_agent:
   #node-ip: 100.70.19.73
   #flannel-iface: 'tailscale0'
 
-k3s_registration_address: master01
+tailscale_args: "--advertise-routes={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}/32 --accept-routes --accept-dns=false"
