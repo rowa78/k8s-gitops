@@ -585,7 +585,7 @@ harbor:
     controller:
       image:
         repository: goharbor/harbor-registryctl
-        tag: v2.9.0
+        tag: v2.11.0
 
       # resources:
       #  requests:
