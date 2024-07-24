@@ -15,7 +15,7 @@ image:
   repository: ankane/pghero
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: v2.8.3
+  tag: v3.6.0
 
 imagePullSecrets: []
 nameOverride: ""
