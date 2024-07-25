@@ -4,7 +4,7 @@ karma:
     tag: v0.120
   env:
     - name: ALERTMANAGER_URI
-      value: http://kps-alertmanager:9093
+      value: http://prometheus-alertmanager:9093
     - name: ALERTMANAGER_EXTERNAL_URI
       value: https://alertmanager.rwcloud.org
   ingress:
