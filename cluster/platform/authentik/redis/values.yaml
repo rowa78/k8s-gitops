@@ -95,7 +95,7 @@ redis:
   image:
     registry: docker.io
     repository: bitnami/redis
-    tag: 7.2.3-debian-11-r2
+    tag: 7.2.4-debian-11-r2
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -577,7 +577,7 @@ redis:
     serviceAccount:
       ## @param master.serviceAccount.create Specifies whether a ServiceAccount should be created
       ##
-      create: false
+      create: true
       ## @param master.serviceAccount.name The name of the ServiceAccount to use.
       ## If not set and create is true, a name is generated using the common.names.fullname template
       ##
@@ -1072,7 +1072,7 @@ redis:
     image:
       registry: docker.io
       repository: bitnami/redis-sentinel
-      tag: 7.2.3-debian-11-r2
+      tag: 7.2.4-debian-11-r2
       digest: ""
       ## Specify a imagePullPolicy
       ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -1555,7 +1555,7 @@ redis:
     image:
       registry: docker.io
       repository: bitnami/redis-exporter
-      tag: 1.55.0-debian-11-r3
+      tag: 1.57.0-debian-11-r3
       digest: ""
       pullPolicy: IfNotPresent
       ## Optionally specify an array of imagePullSecrets.

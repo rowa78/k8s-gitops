@@ -34,7 +34,7 @@ velero:
   # enabling node-agent). Required.
   image:
     repository: velero/velero
-    tag: v1.13.0
+    tag: v1.14.0
     # Digest value example: sha256:d238835e151cec91c6a811fe3a89a66d3231d9f64d09e5f3c49552672d271f38.
     # If used, it will take precedence over the image.tag.
     # digest:
@@ -86,24 +86,24 @@ velero:
   # Init containers to add to the Velero deployment's pod spec. At least one plugin provider image is required.
   # If the value is a string then it is evaluated as a template.
   initContainers:
-    - name: velero-plugin-for-csi
-      image: velero/velero-plugin-for-csi:v0.7.1
-      imagePullPolicy: IfNotPresent
-      volumeMounts:
-        - mountPath: /target
-          name: plugins
+#    - name: velero-plugin-for-csi
+#      image: velero/velero-plugin-for-csi:v0.7.1
+#      imagePullPolicy: IfNotPresent
+#      volumeMounts:
+#        - mountPath: /target
+#          name: plugins
     - name: velero-plugin-for-aws
-      image: velero/velero-plugin-for-aws:v1.8.0
+      image: velero/velero-plugin-for-aws:v1.10.0
       imagePullPolicy: IfNotPresent
       volumeMounts:
         - mountPath: /target
           name: plugins
-    - name: velero-plugin-openebs
-      image: openebs/velero-plugin:3.5.0
-      imagePullPolicy: IfNotPresent
-      volumeMounts:
-        - mountPath: /target
-          name: plugins
+#    - name: velero-plugin-openebs
+#      image: openebs/velero-plugin:3.6.0
+#      imagePullPolicy: IfNotPresent
+#      volumeMounts:
+#        - mountPath: /target
+#          name: plugins
 
   # SecurityContext to use for the Velero deployment. Optional.
   # Set fsGroup for `AWS IAM Roles for Service Accounts`
@@ -333,9 +333,9 @@ velero:
       # Additional provider-specific configuration. See link above
       # for details of required/optional fields for your provider.
       config: 
-        region: eu-003
+        region: us-east-1
         s3ForcePathStyle: true
-        s3Url: https://eu-003.s3.synologyc2.net
+        s3Url: https://minio.ronnywalter.de
       #  kmsKeyId:
       #  resourceGroup:
       #  The ID of the subscription containing the storage account, if different from the cluster’s subscription. (Azure only)
@@ -364,7 +364,7 @@ velero:
       # Additional provider-specific configuration. See link above
       # for details of required/optional fields for your provider.
       config: 
-        region: eu-003
+        region: us-east-1
         profile: "default"
         incrBackupCount: "6"
     #    region:

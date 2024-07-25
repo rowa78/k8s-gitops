@@ -327,6 +327,7 @@ metallb:
       image:
         repository: quay.io/frrouting/frr
         tag: 10.0.1
+
         pullPolicy:
       metricsPort: 7473
       resources: {}

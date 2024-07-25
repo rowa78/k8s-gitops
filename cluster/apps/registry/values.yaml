@@ -90,7 +90,7 @@ docker-registry-ui:
       footerNeutralText: ""
 
     # The name and tag of the docker image of the interface
-    image: joxit/docker-registry-ui:2.5.2
+    image: joxit/docker-registry-ui:2.5.7
     # Override default image pull secrets
     imagePullSecrets: "-"
     # Override default pull policy
@@ -160,7 +160,7 @@ docker-registry-ui:
     enabled: true
     runAsRoot: true
     # The name and tag of the docker registry server image
-    image: registry:2.8.2
+    image: registry:2.8.3
     # Override default image pull secrets
     imagePullSecrets: "-"
     # Override default pull policy
