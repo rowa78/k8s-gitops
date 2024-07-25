@@ -333,7 +333,7 @@ velero:
       # Additional provider-specific configuration. See link above
       # for details of required/optional fields for your provider.
       config: 
-        region: eu-central
+        region: us-east-1
         s3ForcePathStyle: true
         s3Url: https://minio.ronnywalter.de
       #  kmsKeyId:
@@ -364,7 +364,7 @@ velero:
       # Additional provider-specific configuration. See link above
       # for details of required/optional fields for your provider.
       config: 
-        region: eu-003
+        region: us-east-1
         profile: "default"
         incrBackupCount: "6"
     #    region:
