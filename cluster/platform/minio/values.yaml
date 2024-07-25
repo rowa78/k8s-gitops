@@ -31,7 +31,7 @@ minio:
   ## e.g:
   ## defaultBuckets: "my-bucket, my-second-bucket"
   ##
-  defaultBuckets: ""
+  defaultBuckets: "rwcloud-databases"
 
   ##
   provisioning:
