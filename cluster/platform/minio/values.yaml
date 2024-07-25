@@ -11,7 +11,7 @@ minio:
   ##
   mcImage:
     repository: quay.io/minio/mc
-    tag: RELEASE.2024-07-16T23-46-41Z
+    tag: RELEASE.2024-07-22T20-02-49Z
     pullPolicy: IfNotPresent
 
   ## minio mode, i.e. standalone or distributed or gateway.
