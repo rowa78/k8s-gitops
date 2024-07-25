@@ -5,7 +5,7 @@ metadata:
     rwcloud.org/backup.type: auto
     rwcloud.org/namespace: minio
   name: minio-auto-schedule
-  namespace: minio  
+  namespace: velero  
 spec:
   schedule: 17 3 * * *
   skipImmediately: false
