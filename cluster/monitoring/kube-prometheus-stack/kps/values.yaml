@@ -1,7 +1,7 @@
 kube-prometheus-stack:  
   crds:
     enabled: false
-  fullnameOverride: kps
+  fullnameOverride: prometheus
   alertmanager:
     externalUrl: https://alertmanager.rwcloud.org
     fullnameOverride: alertmanager
