@@ -3,7 +3,7 @@ kind: Schedule
 metadata:
   labels:
     rwcloud.org/backup.type: auto
-    rwcloud.org/namespace: eve
+    rwcloud.org/namespace: minio
   name: minio-auto-schedule
   namespace: minio  
 spec:
