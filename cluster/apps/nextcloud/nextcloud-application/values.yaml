@@ -88,9 +88,9 @@ nextcloud:
       usernameKey: username
       passwordKey: password
       tokenKey: token
-      #smtpUsernameKey: smtp-username
-      #smtpPasswordKey: smtp-password
-      #smtpHostKey: smtp-host
+      smtpUsernameKey: smtp-username
+      smtpPasswordKey: smtp-password
+      smtpHostKey: smtp-host
     update: 0
     # If web server is not binding default port, you can define it
     containerPort: 80
@@ -98,8 +98,8 @@ nextcloud:
     persistence:
       subPath:
     mail:
-      enabled: false
-      fromAddress: user
+      enabled: true
+      fromAddress: nextcloud@ronnywalter.de
       domain: domain.com
       smtp:
         host: domain.com
