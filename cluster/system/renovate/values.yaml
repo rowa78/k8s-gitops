@@ -12,12 +12,7 @@ renovate:
         "pre-commit": {
           "enabled": true
         },
-        "packageRules": [
-          {
-            "paths": ["cluster/**"],
-            "enabled": true
-          }
-        ]
+        "packageRules": [{"matchFileNames": ["cluster/**"], "enabled": true}]
       }
   existingSecret: renovate
   nodeSelector: 
