@@ -6,6 +6,8 @@ metadata:
     k8up.io/backupcommand: sh -c 'pg_dump --clean eve'
     k8up.io/file-extension: .sql
     tailscale.com/expose: "true"
+  labels:
+    tailscale.com/expose: "true"
 spec:
   imageName: r0wa/postgresql:15.4-14
   instances: 1
