@@ -60,9 +60,9 @@ cloudnative-pg:
     # https://cloudnative-pg.io/documentation/current/operator_conf/#available-options
     # for all the available options.
     data: 
-      INHERITED_ANNOTATIONS: k8up.io/backup, k8up.io/backupcommand, k8up.io/file-extension
+      INHERITED_ANNOTATIONS: k8up.io/backup, k8up.io/backupcommand, k8up.io/file-extension, tailscale.com/expose
     # INHERITED_ANNOTATIONS: categories
-      INHERITED_LABELS: tailscale.com/expose
+      #INHERITED_LABELS: tailscale.com/expose
     # WATCH_NAMESPACE: namespace-a,namespace-b
 
   # -- Additinal arguments to be added to the operator's args list.
