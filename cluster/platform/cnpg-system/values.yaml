@@ -143,6 +143,11 @@ cloudnative-pg:
       create: true
       # -- Label value that ConfigMaps should have to be loaded as dashboards.
       sidecarLabelValue: "1"
+      annotations: 
+        "helm.sh/hook": pre-install
+        "helm.sh/hook-weight": "-1"
+        "helm.sh/hook-delete-policy": before-hook-creation
+
 
   # Default monitoring queries
   monitoringQueriesConfigMap:
