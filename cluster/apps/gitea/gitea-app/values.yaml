@@ -270,7 +270,7 @@ gitea:
     accessModes:
       - ReadWriteOnce
     labels: {}
-    storageClass: openebs-zfs
+    storageClass: longhorn
     subPath:
     volumeName: ""
     annotations:
