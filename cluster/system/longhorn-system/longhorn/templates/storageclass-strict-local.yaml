@@ -9,3 +9,7 @@ volumeBindingMode: WaitForFirstConsumer
 parameters:
   numberOfReplicas: "1"
   dataLocality: "strict-local"
+  fromBackup: ""
+  fsType: "ext4"  
+  unmapMarkSnapChainRemoved: "ignored"
+  disableRevisionCounter: "true"
