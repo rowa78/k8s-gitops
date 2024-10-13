@@ -39,15 +39,15 @@ spec:
 
   storage:
     size: 20Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: longhorn-strict-local
   walStorage:
     size: 5Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: longhorn-strict-local
 
   backup:
     barmanObjectStore:
-      endpointURL: "http://minio.minio.svc.cluster.local:9000"      
-      destinationPath: "s3://rwcloud-postgresql/"      
+      endpointURL: "https://rwcloud-postgres.fsn1.your-objectstorage.com"      
+      destinationPath: "s3://cnpg/"       
       s3Credentials:
         accessKeyId:
           name: s3-creds
