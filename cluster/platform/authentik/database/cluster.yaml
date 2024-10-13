@@ -26,7 +26,7 @@ spec:
 
   backup:
     barmanObjectStore:
-      endpointURL: "rwcloud-postgres.fsn1.your-objectstorage.com"      
+      endpointURL: "https://rwcloud-postgres.fsn1.your-objectstorage.com"      
       destinationPath: "s3://rwcloud-postgres/"      
       s3Credentials:
         accessKeyId:
