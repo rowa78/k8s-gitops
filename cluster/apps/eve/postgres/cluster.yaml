@@ -12,7 +12,7 @@ spec:
 
   affinity:
     enablePodAntiAffinity: true #default value
-    topologyKey: kubernetes.io/zone #defaul value
+    topologyKey: topology.kubernetes.io/zone #defaul value
     podAntiAffinityType: required #default value
     nodeSelector: 
       workload.type: db
@@ -46,7 +46,7 @@ spec:
 
   storage:
     size: 250Gi
-    storageClass: longhorn-strict-local
+    storageClass: longhorn-local-db
 
   backup:
     barmanObjectStore:
