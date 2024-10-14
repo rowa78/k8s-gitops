@@ -10,6 +10,12 @@ spec:
   imageName: r0wa/postgresql:15.4-14
   instances: 1
 
+  affinity:
+    enablePodAntiAffinity: true #default value
+    topologyKey: kubernetes.io/zone #defaul value
+    podAntiAffinityType: required #default value
+    nodeSelector: workload.type=db
+
   resources:
     requests:
       memory: "6Gi"
