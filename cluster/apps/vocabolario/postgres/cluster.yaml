@@ -40,9 +40,6 @@ spec:
   storage:
     size: 20Gi
     storageClass: longhorn-strict-local
-  walStorage:
-    size: 5Gi
-    storageClass: longhorn-strict-local
 
   backup:
     barmanObjectStore:
