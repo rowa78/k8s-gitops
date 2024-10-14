@@ -7,7 +7,7 @@ spec:
 
   affinity:
     enablePodAntiAffinity: true #default value
-    topologyKey: kubernetes.io/zone #defaul value
+    topologyKey: topology.kubernetes.io/zone #defaul value
     podAntiAffinityType: required #default value
     nodeSelector: 
       workload.type: db
