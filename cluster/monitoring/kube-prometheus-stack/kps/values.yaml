@@ -79,7 +79,7 @@ kube-prometheus-stack:
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: longhorn-misc
+            storageClassName: longhorn-single
             resources:
               requests:
                 storage: 1Gi
@@ -116,7 +116,7 @@ kube-prometheus-stack:
     persistence:
       enabled: true
       type: sts
-      storageClassName: longhorn-misc
+      storageClassName: longhorn-single
       size: 1Gi
     ingress:
       enabled: true
@@ -262,7 +262,7 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
-            storageClassName: longhorn-misc
+            storageClassName: longhorn-single
             resources:
               requests:
                 storage: 50Gi     
@@ -560,7 +560,7 @@ prometheus-pushgateway:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "longhorn-misc"
+    storageClass: "longhorn"
 
     ## Subdirectory of pushgateway data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
