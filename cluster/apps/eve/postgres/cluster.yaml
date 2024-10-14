@@ -8,7 +8,7 @@ metadata:
     tailscale.com/expose: "true"
 spec:
   imageName: r0wa/postgresql:15.4-14
-  instances: 1
+  instances: 2
 
   affinity:
     enablePodAntiAffinity: true #default value
