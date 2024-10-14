@@ -10,6 +10,14 @@ spec:
   imageName: r0wa/postgresql:15.4-14
   instances: 2
 
+  affinity:
+    enablePodAntiAffinity: true #default value
+    topologyKey: kubernetes.io/zone #defaul value
+    podAntiAffinityType: required #default value
+    nodeSelector: 
+      workload.type: db
+
+
   resources:
     requests:
       memory: "6Gi"
@@ -39,7 +47,7 @@ spec:
 
   storage:
     size: 20Gi
-    storageClass: longhorn-strict-local
+    storageClass: longhorn-local-db
 
   backup:
     barmanObjectStore:
