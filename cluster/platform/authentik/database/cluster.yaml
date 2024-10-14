@@ -5,6 +5,13 @@ metadata:
 spec:
   instances: 1
 
+  affinity:
+    enablePodAntiAffinity: true #default value
+    topologyKey: kubernetes.io/zone #defaul value
+    podAntiAffinityType: required #default value
+    nodeSelector: 
+      workload.type: db
+
   bootstrap:
     initdb:
       database: authentik
@@ -22,7 +29,7 @@ spec:
 
   storage:
     size: 10Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: longhorn-local-db
 
   backup:
     barmanObjectStore:
@@ -36,9 +43,9 @@ spec:
           name: s3-creds
           key: aws_secret_access_key
       wal:
-        compression: gzip        
+        compression: bzip2        
       data:
-        compression: gzip                
+        compression: bzip2
         jobs: 1
     retentionPolicy: "14d"
 
