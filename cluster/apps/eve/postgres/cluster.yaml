@@ -10,32 +10,32 @@ spec:
   imageName: r0wa/postgresql:15.4-14
   instances: 2
 
+#  affinity:
+#    enablePodAntiAffinity: true #default value
+#    topologyKey: topology.kubernetes.io/zone #defaul value
+#    podAntiAffinityType: required #default value
+#    nodeSelector: 
+#      workload.type: db
   affinity:
-    enablePodAntiAffinity: true #default value
-    topologyKey: topology.kubernetes.io/zone #defaul value
-    podAntiAffinityType: required #default value
-    nodeSelector: 
-      workload.type: db
-  
-  additionalPodAntiAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchExpressions:
-            - key: cnpg.io/cluster
-              operator: In
-              values:
-                - evedb
-        topologyKey: kubernetes.io/hostname  # Sicherstellen, dass die Pods auf unterschiedlichen Nodes laufen
-    preferredDuringSchedulingIgnoredDuringExecution:
-      - weight: 100
-        podAffinityTerm:
-          labelSelector:
+    additionalPodAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
             matchExpressions:
               - key: cnpg.io/cluster
                 operator: In
                 values:
                   - evedb
-          topologyKey: topology.kubernetes.io/zone   # Bevorzugte Zonenverteilung
+          topologyKey: kubernetes.io/hostname  # Sicherstellen, dass die Pods auf unterschiedlichen Nodes laufen
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: cnpg.io/cluster
+                  operator: In
+                  values:
+                    - evedb
+            topologyKey: topology.kubernetes.io/zone   # Bevorzugte Zonenverteilung
 
   resources:
     requests:
