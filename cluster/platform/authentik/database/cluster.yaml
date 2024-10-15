@@ -6,11 +6,25 @@ spec:
   instances: 2
 
   affinity:
-    enablePodAntiAffinity: true #default value
-    topologyKey: topology.kubernetes.io/zone #defaul value
-    podAntiAffinityType: required #default value
-    nodeSelector: 
-      workload.type: db
+    additionalPodAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: cnpg.io/cluster
+                operator: In
+                values:
+                  - authentik
+          topologyKey: kubernetes.io/hostname  # Sicherstellen, dass die Pods auf unterschiedlichen Nodes laufen
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: cnpg.io/cluster
+                  operator: In
+                  values:
+                    - authentik
+            topologyKey: topology.kubernetes.io/zone   # Bevorzugte Zonenverteilung
 
   bootstrap:
     initdb:
