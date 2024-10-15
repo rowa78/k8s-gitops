@@ -55,9 +55,9 @@ spec:
       pg_stat_statements.track: all
       hypopg.use_real_oids: 'true'
      
-  replicationSlots:
-    highAvailability:
-      enabled: true
+#  replicationSlots:
+#    highAvailability:
+#      enabled: true
 
   monitoring:
     enablePodMonitor: true
