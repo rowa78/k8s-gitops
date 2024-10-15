@@ -19,15 +19,23 @@ spec:
   
   additionalPodAntiAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
-      - podAffinityTerm:
+      - labelSelector:
+          matchExpressions:
+            - key: cnpg.io/cluster
+              operator: In
+              values:
+                - evedb
+        topologyKey: kubernetes.io/hostname  # Sicherstellen, dass die Pods auf unterschiedlichen Nodes laufen
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
           labelSelector:
             matchExpressions:
-              - key: postgresql
+              - key: cnpg.io/cluster
                 operator: In
                 values:
                   - evedb
-          topologyKey: kubernetes.io/hostname
-        weight: 100
+          topologyKey: topology.kubernetes.io/zone   # Bevorzugte Zonenverteilung
 
   resources:
     requests:
