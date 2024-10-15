@@ -16,6 +16,18 @@ spec:
     podAntiAffinityType: required #default value
     nodeSelector: 
       workload.type: db
+  
+  additionalPodAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: postgresql
+                operator: In
+                values:
+                  - evedb
+          topologyKey: kubernetes.io/hostname
+        weight: 100
 
   resources:
     requests:
