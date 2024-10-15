@@ -56,7 +56,7 @@ longhorn:
     # -- Replica count of the default Longhorn StorageClass.
     defaultClassReplicaCount: 2
     # -- Data locality of the default Longhorn StorageClass. (Options: "disabled", "best-effort")
-    defaultDataLocality: disabled
+    defaultDataLocality: best-effort
     # -- Reclaim policy that provides instructions for handling of a volume after its claim is released. (Options: "Retain", "Delete")
     reclaimPolicy: Delete
     # -- Setting that allows you to enable live migration of a Longhorn volume from one node to another.
@@ -93,7 +93,7 @@ longhorn:
       # -- Setting that allows you to enable the node selector for the default Longhorn StorageClass.
       enable: true
       # -- Node selector for the default Longhorn StorageClass. Longhorn uses only nodes with the specified tags for storing volume data. (Examples: "storage,fast")
-      selector: "misc"
+      selector: ""
     # -- Setting that allows you to enable automatic snapshot removal during filesystem trim for a Longhorn StorageClass. (Options: "ignored", "enabled", "disabled")
     removeSnapshotsDuringFilesystemTrim: ignored
 
