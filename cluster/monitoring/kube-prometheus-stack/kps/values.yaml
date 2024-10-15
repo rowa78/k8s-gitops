@@ -79,7 +79,7 @@ kube-prometheus-stack:
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: longhorn-single
+            storageClassName: longhorn
             resources:
               requests:
                 storage: 1Gi
@@ -116,7 +116,7 @@ kube-prometheus-stack:
     persistence:
       enabled: true
       type: sts
-      storageClassName: longhorn-single
+      storageClassName: longhorn
       size: 1Gi
     ingress:
       enabled: true
@@ -262,7 +262,7 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
-            storageClassName: longhorn-single
+            storageClassName: longhorn
             resources:
               requests:
                 storage: 50Gi     

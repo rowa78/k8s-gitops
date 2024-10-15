@@ -10,7 +10,7 @@ spec:
     enableMetricsPlugin: true
     storage:
       size: 10G
-      storageClassName: longhorn-single
+      storageClassName: longhorn
     podSecurityContext:
       fsGroup: 185
       runAsGroup: 185
