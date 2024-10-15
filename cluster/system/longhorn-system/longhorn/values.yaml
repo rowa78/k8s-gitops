@@ -91,7 +91,7 @@ longhorn:
       selector: ""
     defaultNodeSelector:
       # -- Setting that allows you to enable the node selector for the default Longhorn StorageClass.
-      enable: true
+      enable: false
       # -- Node selector for the default Longhorn StorageClass. Longhorn uses only nodes with the specified tags for storing volume data. (Examples: "storage,fast")
       selector: ""
     # -- Setting that allows you to enable automatic snapshot removal during filesystem trim for a Longhorn StorageClass. (Options: "ignored", "enabled", "disabled")
