@@ -3,28 +3,7 @@ kind: Cluster
 metadata:
   name: authentik
 spec:
-  instances: 2
-
-  affinity:
-    additionalPodAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-              - key: cnpg.io/cluster
-                operator: In
-                values:
-                  - authentik
-          topologyKey: kubernetes.io/hostname  # Sicherstellen, dass die Pods auf unterschiedlichen Nodes laufen
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 100
-          podAffinityTerm:
-            labelSelector:
-              matchExpressions:
-                - key: cnpg.io/cluster
-                  operator: In
-                  values:
-                    - authentik
-            topologyKey: topology.kubernetes.io/zone   # Bevorzugte Zonenverteilung
+  instances: 1
 
   bootstrap:
     initdb:
@@ -43,7 +22,7 @@ spec:
 
   storage:
     size: 10Gi
-    storageClass: longhorn-local-db
+    storageClass: openebs-zfs-postgres
 
   backup:
     barmanObjectStore:
