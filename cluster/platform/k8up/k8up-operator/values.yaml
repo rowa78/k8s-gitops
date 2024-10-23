@@ -73,6 +73,8 @@ k8up:
         secretKeyRef:
           name: repo-password
           key: PASSWORD
+    - name: BACKUP_PROMURL
+      value: http://kps-prometheus-pushgateway.monitoring.svc.cluster.local:9091
 
     backupImage:
       # -- The backup runner image repository.
