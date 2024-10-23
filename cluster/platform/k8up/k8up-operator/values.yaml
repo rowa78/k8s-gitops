@@ -175,7 +175,7 @@ k8up:
       namespace: ""
       # -- Add labels to the Grafana Dashboard object
       additionalLabels: 
-        grafana_dashboard: 1
+        grafana_dashboard: "1"
 
   rbac:
     # -- Create cluster roles and rolebinding.
