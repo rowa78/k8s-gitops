@@ -174,7 +174,8 @@ k8up:
       # -- If the object should be installed in a different namespace than operator
       namespace: ""
       # -- Add labels to the Grafana Dashboard object
-      additionalLabels: {}
+      additionalLabels: 
+        grafana_dashboard: 1
 
   rbac:
     # -- Create cluster roles and rolebinding.
