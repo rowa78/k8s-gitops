@@ -6,13 +6,13 @@ spec:
   backup:
     podSecurityContext:
       runAsUser: 0
-    schedule: '20 1 * * *'
+    schedule: '30 1 * * *'
     failedJobsHistoryLimit: 2
     successfulJobsHistoryLimit: 2
   check:
-    schedule: '20 5 * * *'
+    schedule: '30 5 * * *'
   prune:
-    schedule: '20 5 * * *'
+    schedule: '30 5 * * *'
     retention:
       keepLast: 5
-      keepDaily: 14
+      keepDaily: 7
