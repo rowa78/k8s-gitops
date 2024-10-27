@@ -1,7 +1,7 @@
 apiVersion: k8up.io/v1
 kind: Schedule
 metadata:
-  name: jenkins
+  name: k8up-schedule
 spec:
   backup:
     schedule: '10 1 * * *'
