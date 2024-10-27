@@ -3,7 +3,9 @@ kind: Schedule
 metadata:
   name: jenkins
 spec:
-  backup:
+  backup:  
+    podSecurityContext:
+      runAsUser: 1000 
     schedule: '0 1 * * *'
     failedJobsHistoryLimit: 2
     successfulJobsHistoryLimit: 2

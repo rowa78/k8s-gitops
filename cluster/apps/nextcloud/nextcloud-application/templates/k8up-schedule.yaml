@@ -4,15 +4,15 @@ metadata:
   name: k8up-schedule
 spec:
   backup:
-    podSecurityContext:
-      runAsUser: 1000 
-    schedule: '10 1 * * *'
+#    podSecurityContext:
+#      runAsUser: 1000 
+    schedule: '20 1 * * *'
     failedJobsHistoryLimit: 2
     successfulJobsHistoryLimit: 2
   check:
-    schedule: '10 5 * * *'
+    schedule: '20 5 * * *'
   prune:
-    schedule: '10 5 * * *'
+    schedule: '20 5 * * *'
     retention:
       keepLast: 5
       keepDaily: 14
