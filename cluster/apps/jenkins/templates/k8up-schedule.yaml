@@ -1,0 +1,20 @@
+apiVersion: k8up.io/v1
+kind: Schedule
+metadata:
+  name: jenkins
+spec:
+  backup:
+    schedule: '0 1 * * *'
+    failedJobsHistoryLimit: 2
+    successfulJobsHistoryLimit: 2
+    # optional
+    promURL: http://kps-prometheus-pushgateway.monitoring.svc.cluster.local:9091
+  check:
+    schedule: '0 5 * * *'
+    # optional
+    promURL: http://kps-prometheus-pushgateway.monitoring.svc.cluster.local:9091
+  prune:
+    schedule: '0 5 * * *'
+    retention:
+      keepLast: 5
+      keepDaily: 14
