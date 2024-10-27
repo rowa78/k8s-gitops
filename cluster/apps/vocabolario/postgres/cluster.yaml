@@ -5,6 +5,7 @@ metadata:
   annotations:
     k8up.io/backupcommand: sh -c 'pg_dump --clean vocabolariodb'
     k8up.io/file-extension: .sql
+    k8up.io/backup: 'false'
     tailscale.com/expose: "true"
 spec:
   imageName: r0wa/postgresql:15.4-14
