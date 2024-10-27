@@ -475,7 +475,8 @@ redis:
       size: 8Gi
       ## @param master.persistence.annotations Additional custom annotations for the PVC
       ##
-      annotations: {}
+      annotations: 
+        k8up.io/backup: 'false'
       ## @param master.persistence.labels Additional custom labels for the PVC
       ##
       labels: 
