@@ -368,6 +368,9 @@ nextcloud:
   redis:
     enabled: true
     architecture: standalone
+    persistence:
+      annotations:
+        k8up.io/backup: false
     auth:
       enabled: true
       password: 'changeme'
