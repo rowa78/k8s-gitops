@@ -371,7 +371,7 @@ nextcloud:
     master:
       persistence:
         annotations:
-          k8up.io/backup: false
+          k8up.io/backup: 'false'
     auth:
       enabled: true
       password: 'changeme'
