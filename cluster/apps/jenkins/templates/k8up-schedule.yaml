@@ -1,11 +1,11 @@
 apiVersion: k8up.io/v1
 kind: Schedule
 metadata:
-  name: jenkins
+  name: k8up-schedule
 spec:
   backup:  
     podSecurityContext:
-      runAsUser: 1000 
+      runAsUser: 0 
     schedule: '0 1 * * *'
     failedJobsHistoryLimit: 2
     successfulJobsHistoryLimit: 2
