@@ -279,7 +279,7 @@ argo-cd:
       dex.config: |
         connectors:
         - config:
-            issuer: https://authentik.rwcloud.org/application/o/argocd/
+            issuer: https://auth.rwcloud.org
             clientID: $argocd-auth:client-id
             clientSecret: $argocd-auth:client-secret
             insecureEnableGroups: true
@@ -287,7 +287,8 @@ argo-cd:
               - openid
               - profile
               - email
-          name: authentik
+              - groups
+          name: authelia
           type: oidc
           id: authentik
           
