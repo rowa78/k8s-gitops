@@ -245,9 +245,9 @@ kube-prometheus-stack:
         use_refresh_token: true
             # Optionally map user groups to Grafana roles
         role_attribute_path: contains(groups, 'plattform-admins') && 'Admin' || contains(groups, 'plattform-admins') && 'Editor' || 'Viewer'
-        login_attribute_path = preferred_username
-        groups_attribute_path = groups
-        name_attribute_path = name
+        login_attribute_path: preferred_username
+        groups_attribute_path: groups
+        name_attribute_path: name
     ldap:
       enabled: false      
     envFromSecret: sealed-secrets-rwcloud
