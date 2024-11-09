@@ -220,7 +220,7 @@ kube-prometheus-stack:
 #          datasource: Prometheus
     grafana.ini:
       auth:
-        signout_redirect_url: "https://authentik.rwcloud.org/application/o/grafana/end-session/"
+        #signout_redirect_url: "https://authentik.rwcloud.org/application/o/grafana/end-session/"
         oauth_auto_login: true
       analytics:
         check_for_updates: false
