@@ -54,9 +54,12 @@ ingress:
   annotations: 
     cert-manager.io/cluster-issuer: letsencrypt-production
     nginx.ingress.kubernetes.io/affinity: cookie
-    hajimari.io/enable: "true"
-    hajimari.io/group: eve-dev
-    hajimari.io/icon: database
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: "Eve-PGHero"
+    gethomepage.dev/group: Eve
+    gethomepage.dev/icon: https://github.com/db524d95-e323-455b-8079-71031dc896bb
+    gethomepage.dev/name: PGHero
+    gethomepage.dev/pod-selector: ""
     nginx.ingress.kubernetes.io/auth-method: GET
     nginx.ingress.kubernetes.io/auth-url: https://auth.rwcloud.org/api/verify
     nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
