@@ -172,6 +172,7 @@ k10:
   eula:
     accept: true #true value if EULA accepted
     company: rwcloud.org
+    email: kasten-k10@rwcloud.org
 
   license: "" #base64 encoded string provided by Kasten
 
