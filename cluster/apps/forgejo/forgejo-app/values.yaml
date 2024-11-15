@@ -464,7 +464,17 @@ forgejo:
     #       name: gitea-app-ini-plaintext
 
     ## @param gitea.additionalConfigFromEnvs Additional configuration sources from environment variables
-    additionalConfigFromEnvs: []
+    additionalConfigFromEnvs:
+      - name: FORGEJO__DATABASE__PASSWD
+        valueFrom:
+          secretKeyRef:
+            name: forgejo-app
+            key: password
+      - name: FORGEJO__DATABASE__USER
+        valueFrom:
+          secretKeyRef:
+            name: forgejo-app
+            key: username
 
     ## @param gitea.podAnnotations Annotations for the Forgejo pod
     podAnnotations: {}
