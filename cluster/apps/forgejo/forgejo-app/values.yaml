@@ -468,12 +468,12 @@ forgejo:
       - name: FORGEJO__DATABASE__PASSWD
         valueFrom:
           secretKeyRef:
-            name: forgejo-app
+            name: forgejodb-app
             key: password
       - name: FORGEJO__DATABASE__USER
         valueFrom:
           secretKeyRef:
-            name: forgejo-app
+            name: forgejodb-app
             key: username
 
     ## @param gitea.podAnnotations Annotations for the Forgejo pod
