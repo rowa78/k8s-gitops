@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: plattform
+  project: platform
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
