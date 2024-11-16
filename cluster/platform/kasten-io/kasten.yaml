@@ -12,7 +12,7 @@ spec:
     targetRevision: main
     path: cluster/platform/kasten-io/k10
     helm:
-      releaseName: k10
+      releaseName: kasten-io
   destination:
     name: in-cluster
     namespace: kasten-io
