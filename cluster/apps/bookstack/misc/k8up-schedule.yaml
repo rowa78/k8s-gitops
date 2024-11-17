@@ -1,0 +1,18 @@
+apiVersion: k8up.io/v1
+kind: Schedule
+metadata:
+  name: k8up-schedule
+spec:
+  backup:
+    podSecurityContext:
+      runAsUser: 0 
+    schedule: '10 2 * * *'
+    failedJobsHistoryLimit: 1
+    successfulJobsHistoryLimit: 1
+  check:
+    schedule: '10 5 * * *'
+  prune:
+    schedule: '10 6 * * *'
+    retention:
+      keepLast: 5
+      keepDaily: 14
