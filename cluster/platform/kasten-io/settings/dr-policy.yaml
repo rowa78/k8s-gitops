@@ -9,7 +9,7 @@ spec:
     backupParameters:
       filters: {}
       profile:
-        name: c2-profile
+        name: s3-profile
         namespace: kasten-io
   createdBy: k10-admin
   frequency: '@daily'
