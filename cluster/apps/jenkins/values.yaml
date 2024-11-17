@@ -358,17 +358,17 @@ jenkins:
         #     name: "Jenkins Admin"
         #     password: "${chart-admin-password}"    
         oic:
-          automanualconfigure: auto
-          wellKnownOpenIDConfigurationUrl: https://auth.rwcloud.org/.well-known/openid-configuration
-          clientId: ${jenkins-oauth-client-id}
-          clientSecret: ${jenkins-oauth-client-secret}
-          tokenAuthMethod: client_secret_basic
-          scopes: openid profile email groups
-          userNameField: preferred_username
-          groupsFieldName: groups
-          fullNameFieldName: name
-          emailFieldName: email
-          pkceEnabled: true    
+          clientId: "${jenkins-oauth-client-id}"
+          clientSecret: "${jenkins-oauth-client-secret}"
+          pkceEnabled: true
+          emailFieldName: "email"
+          fullNameFieldName: "name"
+          groupsFieldName: "groups"
+          userNameField: "preferred_username"
+          serverConfiguration:
+            wellKnownOpenIDConfigurationUrl: "https://auth.rwcloud.org/.well-known/openid-configuration"
+          sendScopesInTokenRequest: true
+
       # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
       authorizationStrategy: |-
         loggedInUsersCanDoAnything:
