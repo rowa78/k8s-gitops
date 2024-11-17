@@ -57,6 +57,6 @@ ingress-nginx:
       enabled: true
       # -- Is this the default ingressClass for the cluster
       default: true
-#  tcp:
-#    30100: "minecraft/minecraft-minecraft:25565"    
-#    2222: "gitea/gitea-ssh:2222"
+  tcp:
+    30100: "minecraft/minecraft-minecraft:25565"    
+    2222: "forgejo/forgejo-app-ssh:2222"
