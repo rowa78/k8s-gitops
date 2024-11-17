@@ -266,6 +266,7 @@ jenkins:
       - cloudbees-disk-usage-simple
       - oic-auth
       - dark-theme
+      - solarized-theme
 
     # Enable to initialize the Jenkins controller only once on initial installation.
     # Without this, whenever the controller gets restarted (Evicted, etc.) it will fetch plugin updates which has the potential to cause breakage.
@@ -349,10 +350,6 @@ jenkins:
           creationOfLegacyTokenEnabled: false
           tokenGenerationOnCreationEnabled: false
           usageStatisticsEnabled: true
-      appearance:
-        themeManager:
-          disableUserThemes: true
-          theme: "darkSystem"
       # Ignored if securityRealm is defined in controller.JCasC.configScripts
       securityRealm: |-
         # local:
