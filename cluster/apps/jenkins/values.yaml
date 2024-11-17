@@ -302,11 +302,11 @@ jenkins:
     # When using existingSecret no need to specify the keyName under additionalExistingSecrets.
     existingSecret: 
 
-    additionalExistingSecrets: []
-    #  - name: secret-name-1
-    #    keyName: username
-    #  - name: secret-name-1
-    #    keyName: password
+    additionalExistingSecrets:
+    - name: jenkins-oauth
+      keyName: client-id
+    - name: jenkins-oauth
+      keyName: client-secret
 
     additionalSecrets: []
     #  - name: nameOfSecret
