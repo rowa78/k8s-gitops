@@ -300,7 +300,7 @@ jenkins:
     # and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc')
     # existingSecret existing secret "secret-credentials" and a key inside it named "github-username" should be used in Jcasc as ${github-username}
     # When using existingSecret no need to specify the keyName under additionalExistingSecrets.
-    existingSecret:
+    existingSecret: jenkins-oauth
 
     additionalExistingSecrets: []
     #  - name: secret-name-1
