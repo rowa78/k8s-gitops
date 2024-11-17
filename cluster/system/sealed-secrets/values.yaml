@@ -509,27 +509,207 @@ sealed-secrets:
     ##
     maxUnavailable: ""
 
-prometheusRule:
-  enabled: true
-  rules:
-    - alert: SealedSecretsUnsealErrorHigh
-      annotations:
-        summary: Sealed Secrets Unseal Error High
-        runbook_url: https://github.com/bitnami-labs/sealed-secrets
-        description: |
-          High number of errors during unsealing Sealed Secrets in {{ $labels.namespace }}
-      expr: >-
-        sum by (reason, namespace) (rate(sealed_secrets_controller_unseal_errors_total{}[5m])) > 0
-      labels:
-        severity: warning
-    - alert: UnsyncedSealedSecrets
-      for: 5m
-      annotations:
-        summary: Unsynced Sealed Secrets in {{ $labels.namespace }}
-        runbook_url: https://github.com/bitnami-labs/sealed-secrets
-        description: |
-          There are unsynced sealed secrets in {{ $labels.namespace }}
-      expr: >-
-        count by (namespace, name) (sealed_secrets_controller_condition_info{condition="Synced"} != 1) > 0
-      labels:
-        severity: warning
+  prometheusRule:
+    enabled: true
+    rules:
+      - alert: SealedSecretsUnsealErrorHigh
+        annotations:
+          summary: Sealed Secrets Unseal Error High
+          runbook_url: https://github.com/bitnami-labs/sealed-secrets
+          description: |
+            High number of errors during unsealing Sealed Secrets in {{ $labels.namespace }}
+        expr: >-
+          sum by (reason, namespace) (rate(sealed_secrets_controller_unseal_errors_total{}[5m])) > 0
+        labels:
+          severity: warning
+      - alert: UnsyncedSealedSecrets
+        for: 5m
+        annotations:
+          summary: Unsynced Sealed Secrets in {{ $labels.namespace }}
+          runbook_url: https://github.com/bitnami-labs/sealed-secrets
+          description: |
+            There are unsynced sealed secrets in {{ $labels.namespace }}
+        expr: >-
+          count by (namespace, name) (sealed_secrets_controller_condition_info{condition="Synced"} != 1) > 0
+        labels:
+          severity: warning
+
+
+sealed-secrets-web:
+  # -- The number of pods to run
+  replicaCount: 1
+
+  # -- Max number of old replicasets to retain
+  revisionHistoryLimit: 10
+
+  # -- If set to true, the application has only the permission to view sealed secrets in the current namespace
+  includeLocalNamespaceOnly: false
+
+  # -- If set to true secrets cannot be read from this tool, only seal new ones
+  disableLoadSecrets: false
+
+  # -- Define you custom initial secret file
+  initialSecretFile:
+
+  # -- The context the application is running on. (for example, if it is served via a reverse proxy)
+  webContext:
+
+  sealedSecrets:
+    # -- Namespace of the sealed secrets service
+    namespace: sealed-secrets
+    # -- Name of the sealed secrets service
+    serviceName: sealed-secrets
+    # -- URL sealed secrets certificate (required if sealed secrets is not reachable with in cluster service)
+    #    Validation api will be disabled when cert URL is used.
+    certURL: ""
+
+  image:
+    # --  Repository to use
+    repository: ghcr.io/bakito/sealed-secrets-web
+    # -- Overrides the image tag (default is the chart appVersion)
+    tag:
+    # -- Image pull policy
+    pullPolicy: IfNotPresent
+    # -- Additional command args
+
+  # -- Secrets with credentials to pull images from a private registry. Registry secret names as an array.
+  imagePullSecrets: []
+
+  # -- Additional volumeMounts to the image updater main container
+  volumeMounts: []
+
+  # -- Additional volumes to the image updater pod
+  volumes: []
+
+  # -- String to partially override "argo-rollouts.fullname" template
+  nameOverride: ""
+
+  # -- String to fully override "argo-rollouts.fullname" template
+  fullnameOverride: ""
+
+  rbac:
+    # -- Specifies whether rbac should be created
+    create: true
+
+  serviceAccount:
+    # -- Specifies whether a service account should be created
+    create: true
+    # -- The name of the service account to use.
+    name: sealed-secrets-web
+    # -- Automatically mount the service account token
+    automountServiceAccountToken: true
+
+  service:
+    # -- Sets the type of the Service
+    type: ClusterIP
+    # -- Service port
+    port: 80
+    # -- Service annotations
+    annotations: {}
+
+  ingress:
+    # -- Enable ingress support
+    enabled: true
+
+    # -- Ingress class name
+    className: "nginx"
+
+    # -- Ingress annotations
+    annotations: 
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      nginx.ingress.kubernetes.io/auth-method: GET
+      nginx.ingress.kubernetes.io/auth-url: https://auth.rwcloud.org/api/verify
+      nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
+      nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+      nginx.ingress.kubernetes.io/auth-snippet: |
+        proxy_set_header X-Forwarded-Method $request_method; 
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Sealed Secrets Web
+      gethomepage.dev/group: System
+      gethomepage.dev/icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/sealed-secrets/img/sealed-secrets-stack-110x117.png
+      gethomepage.dev/name: Sealed Secrets Web
+      gethomepage.dev/app: Sealed Secrets Web
+      gethomepage.dev/pod-selector: ""
+
+    # -- Ingress labels
+    labels: {}
+
+    # -- Ingress hosts
+    hosts:
+      - paths:
+          - path: /
+            pathType: Prefix
+        host: sealed-secrets.rwcloud.org
+
+    # -- set this to true and leave tls an empty array to use the default TLS certificate (works at least in openshift)
+    defaultTls: false
+
+    # -- Ingress tls
+    tls: 
+    - hosts:
+      - sealed-secrets.rwcloud.org
+    #   - another-example.internal
+      secretName: sealed-secrets-web-tls
+
+  # -- Resource limits and requests for the pods.
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+  deployment:
+    # -- Readiness Probes
+    readinessProbe:
+      failureThreshold: 3
+      # periodSeconds: 5
+      # successThreshold: 1
+      # timeoutSeconds: 10
+      # initialDelaySeconds: 30
+      httpGet:
+        path: /_health
+        port: http
+
+    # -- Liveness Probes
+    livenessProbe:
+      failureThreshold: 3
+      # periodSeconds: 10
+      # successThreshold: 1
+      # timeoutSeconds: 10
+      # initialDelaySeconds: 15
+      httpGet:
+        path: /_health
+        port: http
+
+    # -- Hardening security
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
+      privileged: false
+      runAsGroup: 1000
+      runAsUser: 1001
+
+    # -- Default process arguments are used, while additional can be added too
+    args:
+      defaultArgsEnabled: true
+      # additionalArgs:
+      # - --disable-load-secrets
+      # - --format=yaml
+
+    # -- Using environment variables
+    # env:
+    #   sealedSecretsControllerNamespace: sealed-secrets
+    #   sealedSecretsControllerName: sealed-secrets
+
+  # -- [Node selector]
+  nodeSelector: {}
+
+  # -- [Tolerations] for use with node taints
+  tolerations: []
+
+  # -- Assign custom [affinity] rules to the deployment
+  affinity: {}
