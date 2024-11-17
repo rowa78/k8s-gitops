@@ -59,4 +59,4 @@ ingress-nginx:
       default: true
   tcp:
     30100: "minecraft/minecraft-minecraft:25565"    
-    2222: "forgejo/forgejo-app-ssh:2222"
+    2222: "forgejo/forgejo-app-ssh:22"
