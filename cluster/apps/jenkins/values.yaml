@@ -265,6 +265,7 @@ jenkins:
       - kubernetes-cli
       - cloudbees-disk-usage-simple
       - oic-auth
+      - dark-theme
 
     # Enable to initialize the Jenkins controller only once on initial installation.
     # Without this, whenever the controller gets restarted (Evicted, etc.) it will fetch plugin updates which has the potential to cause breakage.
