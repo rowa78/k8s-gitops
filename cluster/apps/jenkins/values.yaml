@@ -350,13 +350,28 @@ jenkins:
           usageStatisticsEnabled: true
       # Ignored if securityRealm is defined in controller.JCasC.configScripts
       securityRealm: |-
-        local:
-          allowsSignup: false
-          enableCaptcha: false
-          users:
-          - id: "${chart-admin-username}"
-            name: "Jenkins Admin"
-            password: "${chart-admin-password}"    
+        # local:
+        #   allowsSignup: false
+        #   enableCaptcha: false
+        #   users:
+        #   - id: "${chart-admin-username}"
+        #     name: "Jenkins Admin"
+        #     password: "${chart-admin-password}"    
+        oic:
+          allowedTokenExpirationClockSkewSeconds: 0
+          clientId: "${jenkins-oauth-client-id}"
+          clientSecret: "${jenkins-oauth-client-secret}"
+          disableSslVerification: false
+          emailFieldName: "email"
+          fullNameFieldName: "name"
+          groupsFieldName: "groups"
+          logoutFromOpenidProvider: false
+          pkceEnabled: true
+          serverConfiguration:
+            wellKnown:
+              scopesOverride: "openid profile email groups"
+              wellKnownOpenIDConfigurationUrl: "https://auth.rwcloud.org/.well-known/openid-configuration"
+          userNameField: "preferred_username"
         # oic:
         #   clientId: "${jenkins-oauth-client-id}"
         #   clientSecret: "${jenkins-oauth-client-secret}"
