@@ -366,7 +366,7 @@ jenkins:
           groupsFieldName: "groups"
           userNameField: "preferred_username"
           serverConfiguration:
-            wellKnownOpenIDConfigurationUrl: "https://auth.rwcloud.org/.well-known/openid-configuration"
+                wellKnownOpenidConfigurationUrl: "https://auth.rwcloud.org/.well-known/openid-configuration"
           sendScopesInTokenRequest: true
 
       # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
