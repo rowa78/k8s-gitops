@@ -350,13 +350,13 @@ jenkins:
           usageStatisticsEnabled: true
       # Ignored if securityRealm is defined in controller.JCasC.configScripts
       securityRealm: |-
-        local:
-          allowsSignup: false
-          enableCaptcha: false
-          users:
-          - id: "${chart-admin-username}"
-            name: "Jenkins Admin"
-            password: "${chart-admin-password}"    
+        # local:
+        #   allowsSignup: false
+        #   enableCaptcha: false
+        #   users:
+        #   - id: "${chart-admin-username}"
+        #     name: "Jenkins Admin"
+        #     password: "${chart-admin-password}"    
         oic:
           automanualconfigure: auto
           wellKnownOpenIDConfigurationUrl: https://auth.rwcloud.org/.well-known/openid-configuration
