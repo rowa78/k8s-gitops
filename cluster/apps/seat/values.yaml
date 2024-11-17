@@ -43,8 +43,7 @@ mariadb:
       ## @param primary.persistence.accessModes MariaDB primary persistent volume access Modes
       ##
       annotations:
-        annotations: 
-          k8up.io/backup: "false"
+        k8up.io/backup: "false"
 
       accessModes:
         - ReadWriteOnce
