@@ -23,7 +23,7 @@ jenkins:
     # Used for label app.kubernetes.io/component
     componentName: "jenkins-controller"
     image: "jenkins/jenkins"
-    tag: "2.440.1-jdk17"
+    tag: "2.479.1-jdk17"
     tagLabel: jdk17
     imagePullPolicy: "Always"
     imagePullSecretName:
