@@ -350,24 +350,24 @@ jenkins:
           usageStatisticsEnabled: true
       # Ignored if securityRealm is defined in controller.JCasC.configScripts
       securityRealm: |-
-        # local:
-        #   allowsSignup: false
-        #   enableCaptcha: false
-        #   users:
-        #   - id: "${chart-admin-username}"
-        #     name: "Jenkins Admin"
-        #     password: "${chart-admin-password}"    
-        oic:
-          clientId: "${jenkins-oauth-client-id}"
-          clientSecret: "${jenkins-oauth-client-secret}"
-          pkceEnabled: true
-          emailFieldName: "email"
-          fullNameFieldName: "name"
-          groupsFieldName: "groups"
-          userNameField: "preferred_username"
-          serverConfiguration:
-                wellKnownOpenidConfigurationUrl: "https://auth.rwcloud.org/.well-known/openid-configuration"
-          sendScopesInTokenRequest: true
+        local:
+          allowsSignup: false
+          enableCaptcha: false
+          users:
+          - id: "${chart-admin-username}"
+            name: "Jenkins Admin"
+            password: "${chart-admin-password}"    
+        # oic:
+        #   clientId: "${jenkins-oauth-client-id}"
+        #   clientSecret: "${jenkins-oauth-client-secret}"
+        #   pkceEnabled: true
+        #   emailFieldName: "email"
+        #   fullNameFieldName: "name"
+        #   groupsFieldName: "groups"
+        #   userNameField: "preferred_username"
+        #   serverConfiguration:
+        #         wellKnownOpenidConfigurationUrl: "https://auth.rwcloud.org/.well-known/openid-configuration"
+        #   sendScopesInTokenRequest: true
 
       # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
       authorizationStrategy: |-
