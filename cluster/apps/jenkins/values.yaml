@@ -360,8 +360,8 @@ jenkins:
         oic:
           automanualconfigure: auto
           wellKnownOpenIDConfigurationUrl: https://auth.rwcloud.org/.well-known/openid-configuration
-          clientId: ${jenkins-oauth-clientId}
-          clientSecret: ${jenkins-oauth-clientSecret}
+          clientId: ${jenkins-oauth-client-id}
+          clientSecret: ${jenkins-oauth-client-secret}
           tokenAuthMethod: client_secret_basic
           scopes: openid profile email groups
           userNameField: preferred_username
