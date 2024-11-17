@@ -42,6 +42,10 @@ mariadb:
       enabled: true
       ## @param primary.persistence.accessModes MariaDB primary persistent volume access Modes
       ##
+      annotations:
+        annotations: 
+          k8up.io/backup: "false"
+
       accessModes:
         - ReadWriteOnce
       ## @param primary.persistence.size MariaDB primary persistent volume size
