@@ -348,6 +348,10 @@ jenkins:
           creationOfLegacyTokenEnabled: false
           tokenGenerationOnCreationEnabled: false
           usageStatisticsEnabled: true
+      appearance:
+        themeManager:
+          disableUserThemes: true
+          theme: "darkSystem"
       # Ignored if securityRealm is defined in controller.JCasC.configScripts
       securityRealm: |-
         # local:
