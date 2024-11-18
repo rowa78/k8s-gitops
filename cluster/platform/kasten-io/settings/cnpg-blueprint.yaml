@@ -23,22 +23,9 @@ actions:
           export PGPASSWORD='{{ index .Phases.pgDump.Secrets.pgSecret.Data "password" | toString }}'
           export DBNAME='{{ index .Phases.pgDump.Secrets.pgSecret.Data "dbname" | toString }}'
           export HOST='{{ index .Phases.pgDump.Secrets.pgSecret.Data "host" | toString }}'
-          mkdir -p backup
-          echo "Dumping database $DBNAME" && pg_dump --clean -j4 -Fd -U $PGUSER -h $HOST $DBNAME -f /backup-volume/ && ls -l /backup-volume/
-          echo "Uploading backup " && tar cvf - -C /backup-volume/ . | kando -v debug location push --profile '{{ toJson .Profile }}' --path "backup.tar" --output-name "kopiaOutput" -
-          echo "Cleaning backup-dir " && rm -v /backup-volume/*
+          echo "Dumping database $DBNAME" && pg_dump --clean -Fc -b -v -U $PGUSER -h $HOST $DBNAME | kando -v debug location push --profile '{{ toJson .Profile }}' --path "backup.dmp" --output-name "kopiaOutput" -
         image: ghcr.io/kanisterio/postgres-kanister-tools:0.106.0
         namespace: '{{ .Object.metadata.namespace }}'
-        podOverride:
-          containers:
-            - name: container
-              volumeMounts:
-                - name: backup-volume
-                  mountPath: /backup-volume
-          volumes:
-            - name: backup-volume
-              emptyDir:
-                sizeLimit: 50Gi
       func: KubeTask
       name: pgDump
       objects:
@@ -68,7 +55,7 @@ actions:
           kopia_snap='{{ .ArtifactsIn.pgBackup.KopiaSnapshot }}'
           echo "Pulling kopia-snapshot: $kopia_snap"          
           for i in {1..60}; do pg_isready && echo "Database available." && break || echo "Waiting for database..."; sleep 1; done
-          kando location pull --profile '{{ toJson .Profile }}' --path "backup.dump" --kopia-snapshot "${kopia_snap}" - | pg_restore -Fc -U $PGUSER -h $HOST -d "$DBNAME" 
+          kando location pull --profile '{{ toJson .Profile }}' --path "backup.dmp" --kopia-snapshot "${kopia_snap}" - | pg_restore -Fc -U $PGUSER -h $HOST -d "$DBNAME" 
         image: ghcr.io/kanisterio/postgres-kanister-tools:0.106.0
         namespace: '{{ .Object.metadata.namespace }}'
       func: KubeTask
@@ -94,7 +81,7 @@ actions:
             - pipefail
             - -c
             - |
-              kopiaPath="backup.dump"
+              kopiaPath="backup.dmp"
               kopia_snap='{{ .ArtifactsIn.pgBackup.KopiaSnapshot }}'
               kando location delete --profile '{{ toJson .Profile }}' --path ${kopiaPath} --kopia-snapshot "${kopia_snap}"
 ---
