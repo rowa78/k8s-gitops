@@ -1,0 +1,20 @@
+apiVersion: config.kio.kasten.io/v1alpha1
+kind: Profile
+metadata:
+  name: s3-hetzner-profile  
+spec:
+  locationSpec:
+    type: ObjectStore
+    objectStore:
+      endpoint: https://fsn1.your-objectstorage.com
+      name: rwcloud-k10
+      objectStoreType: S3
+      pathType: Directory
+    credential:
+      secretType: AwsAccessKey
+      secret:
+        apiVersion: v1
+        kind: secret
+        name: s3-secret
+        namespace: kasten-io
+  type: Location

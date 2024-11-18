@@ -1,0 +1,29 @@
+kind: PolicyPreset
+apiVersion: config.kio.kasten.io/v1alpha1
+metadata:
+  name: daily   
+spec:
+  backup:
+    frequency: "@daily"
+    backupWindow:
+      start:
+        hour: 0
+        minute: 0
+      end:
+        hour: 5
+        minute: 0
+    enableStaggering: true
+    retention:
+      daily: 7
+      weekly: 4
+      monthly: 12
+      yearly: 7
+    profile:
+      name: s3-hetzner-profile
+      namespace: kasten-io
+  export:
+    profile:
+      name: s3-hetzner-profile
+      namespace: kasten-io
+    exportData:
+      enabled: true
