@@ -9,7 +9,6 @@ spec:
       endpoint: https://fsn1.your-objectstorage.com
       name: rwcloud-k10
       objectStoreType: S3
-      pathType: Directory
     credential:
       secretType: AwsAccessKey
       secret:
