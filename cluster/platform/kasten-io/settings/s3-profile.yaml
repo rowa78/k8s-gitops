@@ -7,7 +7,7 @@ spec:
     type: ObjectStore
     objectStore:
       endpoint: https://fsn1.your-objectstorage.com
-      name: rwcloud-k10
+      name: rwcloud-kasten-k10
       objectStoreType: S3
     credential:
       secretType: AwsAccessKey
