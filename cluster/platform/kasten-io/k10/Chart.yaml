@@ -1,7 +1,0 @@
-apiVersion: v2
-name: kasten-k10
-version: 0.0.0
-dependencies:
-- name: k10
-  version: 7.0.13
-  repository: https://charts.kasten.io/
