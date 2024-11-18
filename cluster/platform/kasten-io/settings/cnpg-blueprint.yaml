@@ -23,7 +23,9 @@ actions:
           export PGPASSWORD='{{ index .Phases.pgDump.Secrets.pgSecret.Data "password" | toString }}'
           export DBNAME='{{ index .Phases.pgDump.Secrets.pgSecret.Data "dbname" | toString }}'
           export HOST='{{ index .Phases.pgDump.Secrets.pgSecret.Data "host" | toString }}'
-          echo "Dumping database $DBNAME" && pg_dump --clean -Fc -b -v -U $PGUSER -h $HOST $DBNAME | kando -v debug location push --profile '{{ toJson .Profile }}' --path "backup.dmp" --output-name "kopiaOutput" -
+          backup_file_path="backup.sql"
+          #echo "Dumping database $DBNAME" && pg_dump --clean -Fc -b -v -U $PGUSER -h $HOST $DBNAME | kando -v debug location push --profile '{{ toJson .Profile }}' --path "backup.dmp" --output-name "kopiaOutput" -
+          pg_dump --clean -U $PGUSER -h $HOST $DBNAME | kando location push --profile '{{ toJson .Profile }}' --path "${backup_file_path}" --output-name "kopiaOutput" -
         image: ghcr.io/kanisterio/postgres-kanister-tools:0.106.0
         namespace: '{{ .Object.metadata.namespace }}'
       func: KubeTask
