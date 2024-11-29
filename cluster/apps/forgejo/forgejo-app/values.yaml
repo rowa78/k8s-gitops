@@ -438,7 +438,7 @@ forgejo:
     # Either specify inline `key` and `secret` or refer to them via `existingSecret`
     ## @param gitea.oauth OAuth configuration
     oauth:
-      - name: 'authelia'
+      - name: 'keycloak'
         provider: openidConnect
       #  key:
       #   secret:
