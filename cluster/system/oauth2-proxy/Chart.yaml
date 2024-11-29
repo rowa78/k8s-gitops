@@ -1,0 +1,7 @@
+name: oauth2-proxy
+apiVersion: v2
+version: 1.0.0
+dependencies:
+  - name: oauth2-proxy
+    version: "6.1.0"
+    repository: oci://registry-1.docker.io/bitnamicharts

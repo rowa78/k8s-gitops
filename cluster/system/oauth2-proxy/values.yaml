@@ -1,0 +1,216 @@
+oauth2-proxy:
+  # Copyright Broadcom, Inc. All Rights Reserved.
+  # SPDX-License-Identifier: APACHE-2.0
+
+  ## Configure the ingress resource that allows you to access the OAuth2 Proxy installation
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
+  ##
+  ingress:
+    ## @param ingress.enabled Enable ingress record generation for OAuth2 Proxy
+    ##
+    enabled: true
+    ## @param ingress.pathType Ingress path type
+    ##
+    pathType: ImplementationSpecific
+    ## @param ingress.apiVersion Force Ingress API version (automatically detected if not set)
+    ##
+    apiVersion: ""
+    ## @param ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
+    ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
+    ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
+    ##
+    ingressClassName: "nginx"
+    ## @param ingress.hostname Default host for the ingress record
+    ##
+    hostname: oauth2-proxy.rwcloud.org
+    ## @param ingress.path Default path for the ingress record
+    ## NOTE: You may need to set this to '/*' in order to use this with ALB ingress controllers
+    ##    
+    annotations: 
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    ## @param ingress.tls Enable TLS configuration for the host defined at `ingress.hostname` parameter
+    ## TLS certificates will be retrieved from a TLS secret with name: `{{- printf "%s-tls" .Values.ingress.hostname }}`
+    ## You can:
+    ##   - Rely on cert-manager to create it by setting the corresponding annotations
+    ##   - Rely on Helm to create self-signed certificates by setting `ingress.tls=true` and `ingress.certManager=false`
+    ##
+    tls: true
+    
+    selfSigned: false
+    ## @param ingress.secrets Custom TLS certificates as secrets
+    ## NOTE: 'key' and 'certificate' are expected in PEM format
+    ## NOTE: 'name' should line up with a 'secretName' set further up
+    ## If it is not set and you're using cert-manager, this is unneeded, as it will create a secret for you with valid certificates
+    ## If it is not set and you're NOT using cert-manager either, self-signed certificates will be created valid for 365 days
+    ## It is also possible to create and manage the certificates outside of this helm chart
+    ## Please see README.md for more information
+    ## e.g:
+    ## secrets:
+    ##   - name: %%COMPONENT_NAME%%.local-tls
+    ##     key: |-
+    ##       -----BEGIN RSA PRIVATE KEY-----
+    ##       ...
+    ##       -----END RSA PRIVATE KEY-----
+    ##     certificate: |-
+    ##       -----BEGIN CERTIFICATE-----
+    ##       ...
+    ##       -----END CERTIFICATE-----
+    ##
+    secrets: []
+    ## @param ingress.existingSecretName If you're providing your own certificate and want to manage the secret yourself
+    ##
+    existingSecretName: ""
+    ## @param ingress.extraRules Additional rules to be covered with this ingress record
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-rules
+    ## e.g:
+    ## extraRules:
+    ## - host: example.local
+    ##     http:
+    ##       path: /
+    ##       backend:
+    ##         service:
+    ##           name: example-svc
+    ##           port:
+    ##             name: http
+    ##
+    extraRules: []
+  ## @section OAuth2 Proxy Image parameters
+  ##
+
+  ## Bitnami OAuth2 Proxy image
+  ## ref: https://hub.docker.com/r/bitnami/redis/tags/
+  ## @param image.registry [default: REGISTRY_NAME] OAuth2 Proxy image registry
+  ## @param image.repository [default: REPOSITORY_NAME/oauth2-proxy] OAuth2 Proxy image repository
+  ## @skip image.tag OAuth2 Proxy image tag (immutable tags are recommended)
+  ## @param image.digest OAuth2 Proxy image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
+  ## @param image.pullPolicy OAuth2 Proxy image pull policy
+  ## @param image.pullSecrets OAuth2 Proxy image pull secrets
+  ##
+  image:
+    registry: docker.io
+    repository: bitnami/oauth2-proxy
+    tag: 7.7.1-debian-12-r2
+    digest: ""
+    ## Specify a imagePullPolicy
+    ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
+    ##
+    pullPolicy: IfNotPresent
+    ## Optionally specify an array of imagePullSecrets
+    ## Secrets must be manually created in the namespace
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+    ## e.g:
+    ## pullSecrets:
+    ##   - myRegistryKeySecretName
+    ##
+    pullSecrets: []
+  ## @section OAuth2 Proxy configuration parameters
+  ##
+
+  ## Configuration section
+  ##
+  configuration:
+    ## @param configuration.clientID OAuth client ID
+    ##
+    clientID: "XXXXXXX"
+    ## @param configuration.clientSecret OAuth client secret
+    ##
+    clientSecret: "XXXXXXXX"
+    ## Create a new secret with the following command openssl rand -base64 32 | head -c 32 | base64
+    ## Use an existing secret for OAuth2 credentials (see secret.yaml for required fields)
+    ##
+    ## @param configuration.cookieSecret OAuth cookie secret
+    ##
+    cookieSecret: "XXXXXXXXXXXXXXXX"
+    ## @param configuration.existingSecret Secret with the client ID, secret and cookie secret
+    ##
+    existingSecret: ""
+    ## e.g:
+    ## google:
+    ##   adminEmail: xxxx
+    ##   serviceAccountJson: xxxx
+    ##   existingSecret: google-secret
+    ## Alternatively, use an existing secret (see secret-google.yaml for required fields)
+    ##
+    ## @param configuration.google.enabled Enable Google service account
+    ## @param configuration.google.useApplicationDefaultCredentials Use the application-default credentials (i.e. Workload Identity on GKE) instead of providing a service account JSON
+    ## @param configuration.google.adminEmail Google admin email
+    ## @param configuration.google.groups Restrict logins to members of these google groups
+    ## @param configuration.google.serviceAccountJson Google Service account JSON
+    ## @param configuration.google.existingSecret Existing secret containing Google Service Account
+    ##
+    google:
+      enabled: false
+      useApplicationDefaultCredentials: false
+      adminEmail: ""
+      groups: []
+      serviceAccountJson: ""
+      existingSecret: ""
+    ## Custom configuration file: oauth2_proxy.cfg
+    ## content: |
+    ##   pass_basic_auth = false
+    ##   pass_access_token = true
+    ##
+    ## @param configuration.content [string] Default configuration
+    ##
+    content: |
+      email_domains = [ "*" ]
+      upstreams = [ "file:///dev/null" ]
+    ## @param configuration.existingConfigmap Configmap with the OAuth2 Proxy configuration
+    ##
+    existingConfigmap: ""
+    ## Authorize individual email addresses
+    ## @param configuration.authenticatedEmailsFile.enabled Enable authenticated emails file
+    ## @param configuration.authenticatedEmailsFile.content Restricted access list (one email per line)
+    ## @param configuration.authenticatedEmailsFile.existingSecret Secret with the authenticated emails file
+    ##
+    authenticatedEmailsFile:
+      enabled: false
+      ## One email per line
+      ## e.g:
+      ## content: |-
+      ##   name1@domain
+      ##   name2@domain
+      ## If you override the config with restricted_access it will configure a user list within this chart what takes care of the configmap
+      ##
+      content: ""
+      existingSecret: ""
+    ## @param configuration.oidcIssuerUrl OpenID Connect issuer URL
+    oidcIssuerUrl: ""
+    ## @param configuration.redirectUrl OAuth Redirect URL
+    redirectUrl: ""
+    ## @param configuration.whiteList Allowed domains for redirection after authentication. Prefix domain with a . or a *. to allow subdomains
+    whiteList: ""
+  ## @section OAuth2 Proxy deployment parameters
+  ##
+
+  ## @section Redis&reg; sub-chart parameters
+  ##
+  redis:
+    ## @param redis.enabled Deploy Redis&reg; sub-chart
+    ##
+    enabled: true
+    ## @param redis.architecture Redis&reg; architecture
+    ##
+    architecture: "standalone"
+    master:
+      ## @param redis.master.service.port Redis&reg; (without Sentinel) service port
+      ##
+      service:
+        port: 6379
+    replica:
+      ## @param redis.replica.replicaCount Number of Redis&reg; replicas
+      ##
+      replicaCount: 1
+    auth:
+      ## @param redis.auth.enabled Enable Redis&reg; authentication
+      ##
+      enabled: true
+      ## @param redis.auth.existingSecret Secret with Redis&reg; credentials
+      ##
+      existingSecret: ""
+      ## @param redis.auth.existingSecretPasswordKey Key inside the existing secret with Redis&reg; credentials
+      ##
+      existingSecretPasswordKey: ""
+      ## @param redis.auth.sentinel Enable authentication in the Sentinel nodes
+      ##
+      sentinel: true
