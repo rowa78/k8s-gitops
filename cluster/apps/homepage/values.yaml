@@ -43,11 +43,8 @@ homepage:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
-        nginx.ingress.kubernetes.io/auth-response-headers: Authorization
-        nginx.ingress.kubernetes.io/auth-signin: https://$host/oauth2/start?rd=$escaped_request_uri
-        nginx.ingress.kubernetes.io/auth-url: https://$host/oauth2/auth
-        nginx.ingress.kubernetes.io/configuration-snippet: |
-          auth_request_set $name_upstream_1 $upstream_cookie_name_1;
+        nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.rwcloud.org/oauth2/start
+        nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.oauth2-proxy.svc.cluster.local/oauth2/auth
 
         # This should be the in-cluster DNS name for the authentik outpost service
         # as when the external URL is specified here, nginx will overwrite some crucial headers
