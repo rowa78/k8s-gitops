@@ -43,12 +43,12 @@ homepage:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
-        nginx.ingress.kubernetes.io/auth-method: GET
-        nginx.ingress.kubernetes.io/auth-url: https://auth.rwcloud.org/api/verify
-        nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
-        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-        nginx.ingress.kubernetes.io/auth-snippet: |
-          proxy_set_header X-Forwarded-Method $request_method;        
+        nginx.ingress.kubernetes.io/auth-response-headers: Authorization
+        nginx.ingress.kubernetes.io/auth-signin: https://$host/oauth2/start?rd=$escaped_request_uri
+        nginx.ingress.kubernetes.io/auth-url: https://$host/oauth2/auth
+        nginx.ingress.kubernetes.io/configuration-snippet: |
+          auth_request_set $name_upstream_1 $upstream_cookie_name_1;
+
         # This should be the in-cluster DNS name for the authentik outpost service
         # as when the external URL is specified here, nginx will overwrite some crucial headers
         #nginx.ingress.kubernetes.io/auth-url: |-
