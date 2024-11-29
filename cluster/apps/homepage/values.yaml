@@ -43,7 +43,7 @@ homepage:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
-        nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.rwcloud.org/oauth2/start
+        nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.rwcloud.org/oauth2/start?rd=$escaped_request_uri
         nginx.ingress.kubernetes.io/auth-url: https://oauth2-proxy.rwcloud.org/oauth2/auth
 
         # This should be the in-cluster DNS name for the authentik outpost service
