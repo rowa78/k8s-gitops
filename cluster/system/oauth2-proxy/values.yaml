@@ -35,7 +35,7 @@ oauth2-proxy:
       email_domains=["*"]
       # Upstream config
       cookie_domains=["rwcloud.org"]
-      cookie_secure=false
+      cookie_secure=true
       scope="openid"      
       whitelist_domains=[".rwcloud.org"]      
     # Custom configuration file: oauth2_proxy.cfg
