@@ -32,6 +32,7 @@ oauth2-proxy:
       redirect_url="https://oauth2-proxy.prwcloud.org/oauth2/callback"
       oidc_issuer_url="https://auth.rwcloud.org/realms/rwcloud"
       code_challenge_method="S256"
+      email_domains=["*"]
       # Upstream config
       cookie_domains=["rwcloud.org"]
       cookie_secure=false
