@@ -542,14 +542,13 @@ forgejo:
 
       ## @param gitea.config.openid Configuration for authentication with OpenID (disabled by default)
       openid:
-        ENABLE_OPENID_SIGNIN: true
-        ENABLE_OPENID_SIGNUP: true
+        ENABLE_OPENID_SIGNIN: false
+        ENABLE_OPENID_SIGNUP: false
         WHITELISTED_URIS: auth.rwcloud.org
 
       ## @param gitea.config.oauth2_client OAuth2 client settings
       oauth2_client: 
-        OPENID_CONNECT_SCOPES: profile email roles
-        GROUP_ADMIN_CLAIM: gitea_admins
+        OPENID_CONNECT_SCOPES: profile email roles        
         ENABLE_AUTO_REGISTRATION: true
 
       ## @param gitea.config.service Configuration for miscellaneous Forgejo services
