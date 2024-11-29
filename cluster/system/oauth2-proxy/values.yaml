@@ -29,7 +29,7 @@ oauth2-proxy:
       # Provider config
       provider="keycloak-oidc"
       provider_display_name="Keycloak"
-      redirect_url="https://oauth2-proxy.prwcloud.org/oauth2/callback"
+      redirect_url="https://oauth2-proxy.rwcloud.org/oauth2/callback"
       oidc_issuer_url="https://auth.rwcloud.org/realms/rwcloud"
       code_challenge_method="S256"
       email_domains=["*"]
