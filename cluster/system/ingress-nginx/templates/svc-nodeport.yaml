@@ -4,9 +4,6 @@ metadata:
   name: ingress-nginx-nodeports  
   namespace: ingress-nginx
 spec:
-  ipFamilies:
-  - IPv4
-  - IPv6
   ipFamilyPolicy: PreferDualStack
   ports:
   - appProtocol: http
