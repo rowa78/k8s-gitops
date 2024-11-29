@@ -123,7 +123,7 @@ oauth2-proxy:
     cookieSecret: "XXXXXXXXXXXXXXXX"
     ## @param configuration.existingSecret Secret with the client ID, secret and cookie secret
     ##
-    existingSecret: ""
+    existingSecret: "keycloak-oauth2-proxy"
     ## e.g:
     ## google:
     ##   adminEmail: xxxx
@@ -175,9 +175,9 @@ oauth2-proxy:
       content: ""
       existingSecret: ""
     ## @param configuration.oidcIssuerUrl OpenID Connect issuer URL
-    oidcIssuerUrl: ""
+    oidcIssuerUrl: "https://auth.rwcloud.org/realms/rwcloud"
     ## @param configuration.redirectUrl OAuth Redirect URL
-    redirectUrl: ""
+    redirectUrl: "https://oauth2-proxy.rwcloud.org/oauth2/callback"
     ## @param configuration.whiteList Allowed domains for redirection after authentication. Prefix domain with a . or a *. to allow subdomains
     whiteList: ""
   ## @section OAuth2 Proxy deployment parameters
