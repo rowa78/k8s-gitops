@@ -548,7 +548,7 @@ forgejo:
 
       ## @param gitea.config.oauth2_client OAuth2 client settings
       oauth2_client: 
-        OPENID_CONNECT_SCOPES: profile email groups
+        OPENID_CONNECT_SCOPES: profile email roles
         ENABLE_AUTO_REGISTRATION: true
 
       ## @param gitea.config.service Configuration for miscellaneous Forgejo services
