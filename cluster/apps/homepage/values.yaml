@@ -43,8 +43,8 @@ homepage:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
-        nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
-        nginx.ingress.kubernetes.io/proxy-buffers-number: "8"
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "32k"
+        nginx.ingress.kubernetes.io/proxy-buffers-number: "8 32k"
         nginx.ingress.kubernetes.io/proxy-buffering: "on"
         nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.rwcloud.org/oauth2/start?rd=$escaped_request_uri
         nginx.ingress.kubernetes.io/auth-url: https://oauth2-proxy.rwcloud.org/oauth2/auth
