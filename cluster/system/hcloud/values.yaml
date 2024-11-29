@@ -45,6 +45,19 @@ hcloud-cloud-controller-manager:
         secretKeyRef:
           name: hcloud
           key: token
+    
+    ROBOT_USER:
+      valueFrom:
+        secretKeyRef:
+          name: hcloud
+          key: robot-user
+          optional: true
+    ROBOT_PASSWORD:
+      valueFrom:
+        secretKeyRef:
+          name: hcloud
+          key: robot-password
+          optional: true
 
   image:
     repository: docker.io/hetznercloud/hcloud-cloud-controller-manager
