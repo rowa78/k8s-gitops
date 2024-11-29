@@ -103,7 +103,7 @@ hcloud-cloud-controller-manager:
 
   robot:
     # Set to true to enable support for Robot (Dedicated) servers.
-    enabled: false
+    enabled: true
 
   podLabels: {}
 
