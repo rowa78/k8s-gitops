@@ -443,7 +443,7 @@ forgejo:
       #  key:
       #   secret:
         existingSecret: forgejo-oauth-secret
-        autoDiscoverUrl: https://auth.rwcloud.org/.well-known/openid-configuration
+        autoDiscoverUrl: https://auth.rwcloud.org/realms/rwcloud/.well-known/openid-configuration
       # - name: 'OAuth 1'
       #   provider:
       #   key:
