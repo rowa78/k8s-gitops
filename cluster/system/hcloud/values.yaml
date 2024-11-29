@@ -5,7 +5,7 @@ hcloud-cloud-controller-manager:
   # --cluster-cidr
   # --leader-elect
   args:
-    cloud-provider: hcloud
+    cloud-provider: external
     allow-untagged-cloud: ""
 
     # Read issue #395 to understand how changes to this value affect you.
