@@ -37,6 +37,7 @@ oauth2-proxy:
       cookie_domains=["rwcloud.org"]
       cookie_secure=false
       scope="openid"
+      oidc_extra_audience=["account"]
       #whitelist_domains=[".rwcloud.org"]      
     # Custom configuration file: oauth2_proxy.cfg
     # configFile: |-
