@@ -7,7 +7,7 @@ spec:
   ipFamilies:
   - IPv4
   - IPv6
-  ipFamilyPolicy: DualStack
+  ipFamilyPolicy: PreferDualStack
   ports:
   - appProtocol: http
     name: http
