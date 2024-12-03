@@ -22,9 +22,9 @@ spec:
 #    initdb:
 #      database: vocabolariodb
 #      owner: vocabolario 
-  bootstrap:
-    recovery:
-      source: vocabolariodb
+  # bootstrap:
+  #   recovery:
+  #     source: vocabolariodb
 
   postgresql:
     parameters:        
@@ -48,41 +48,41 @@ spec:
     size: 5Gi
     storageClass: nfs-client
 
-  # backup:
-  #   barmanObjectStore:
-  #     endpointURL: "https://fsn1.your-objectstorage.com"      
-  #     destinationPath: "s3://rwcloud-postgres/"         
-  #     s3Credentials:
-  #       accessKeyId:
-  #         name: s3-creds
-  #         key: aws_access_key_id
-  #       secretAccessKey:
-  #         name: s3-creds
-  #         key: aws_secret_access_key
-  #     wal:
-  #       compression: bzip2        
-  #     data:
-  #       compression: bzip2                
-  #       jobs: 1
-  #   retentionPolicy: "5d"
+  backup:
+    barmanObjectStore:
+      endpointURL: "https://fsn1.your-objectstorage.com"      
+      destinationPath: "s3://rwcloud-postgres/"         
+      s3Credentials:
+        accessKeyId:
+          name: s3-creds
+          key: aws_access_key_id
+        secretAccessKey:
+          name: s3-creds
+          key: aws_secret_access_key
+      wal:
+        compression: bzip2        
+      data:
+        compression: bzip2                
+        jobs: 1
+    retentionPolicy: "5d"
 
-  externalClusters:
-    - name: vocabolariodb
-      barmanObjectStore:
-        endpointURL: "https://fsn1.your-objectstorage.com"      
-        destinationPath: "s3://rwcloud-postgres"         
-        s3Credentials:
-          accessKeyId:
-            name: s3-creds
-            key: aws_access_key_id
-          secretAccessKey:
-            name: s3-creds
-            key: aws_secret_access_key
-        wal:
-          compression: bzip2        
-        data:
-          compression: bzip2                
-          jobs: 1
+  # externalClusters:
+  #   - name: vocabolariodb
+  #     barmanObjectStore:
+  #       endpointURL: "https://fsn1.your-objectstorage.com"      
+  #       destinationPath: "s3://rwcloud-postgres"         
+  #       s3Credentials:
+  #         accessKeyId:
+  #           name: s3-creds
+  #           key: aws_access_key_id
+  #         secretAccessKey:
+  #           name: s3-creds
+  #           key: aws_secret_access_key
+  #       wal:
+  #         compression: bzip2        
+  #       data:
+  #         compression: bzip2                
+  #         jobs: 1
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
