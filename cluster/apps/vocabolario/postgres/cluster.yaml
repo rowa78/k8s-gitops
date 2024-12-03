@@ -18,10 +18,10 @@ spec:
     limits:
       memory: "6Gi"
       cpu: "6"
-#  bootstrap:
-#    initdb:
-#      database: vocabolariodb
-#      owner: vocabolario 
+  bootstrap:
+    initdb:
+      database: vocabolariodb
+      owner: vocabolario 
   # bootstrap:
   #   recovery:
   #     source: vocabolariodb
@@ -48,23 +48,23 @@ spec:
     size: 5Gi
     storageClass: nfs-client
 
-  backup:
-    barmanObjectStore:
-      endpointURL: "https://fsn1.your-objectstorage.com"      
-      destinationPath: "s3://rwcloud-postgres/"         
-      s3Credentials:
-        accessKeyId:
-          name: s3-creds
-          key: aws_access_key_id
-        secretAccessKey:
-          name: s3-creds
-          key: aws_secret_access_key
-      wal:
-        compression: bzip2        
-      data:
-        compression: bzip2                
-        jobs: 1
-    retentionPolicy: "5d"
+  # backup:
+  #   barmanObjectStore:
+  #     endpointURL: "https://fsn1.your-objectstorage.com"      
+  #     destinationPath: "s3://rwcloud-postgres/"         
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: s3-creds
+  #         key: aws_access_key_id
+  #       secretAccessKey:
+  #         name: s3-creds
+  #         key: aws_secret_access_key
+  #     wal:
+  #       compression: bzip2        
+  #     data:
+  #       compression: bzip2                
+  #       jobs: 1
+  #   retentionPolicy: "5d"
 
   # externalClusters:
   #   - name: vocabolariodb
