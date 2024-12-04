@@ -27,6 +27,7 @@ metadata:
   name: pve-ingress
   namespace: ingress-nginx
   annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS" # "HTTPS" falls das Ziel HTTPS verwendet
 spec:
   rules:
@@ -40,3 +41,7 @@ spec:
             name: pve
             port:
               number: 8006
+    tls:
+    - secretName: pve-tls
+      hosts:
+        - pve.rwcloud.org

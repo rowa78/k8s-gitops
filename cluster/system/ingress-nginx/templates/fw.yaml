@@ -27,6 +27,7 @@ metadata:
   name: fw-ingress
   namespace: ingress-nginx
   annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS" # "HTTP" falls das Ziel HTTP verwendet
 spec:
   rules:
@@ -40,3 +41,7 @@ spec:
             name: fw
             port:
               number: 8443
+    tls:
+    - secretName: fw-tls
+      hosts:
+        - fw.rwcloud.org
