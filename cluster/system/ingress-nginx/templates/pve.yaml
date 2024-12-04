@@ -41,7 +41,7 @@ spec:
             name: pve
             port:
               number: 8006
-    tls:
-    - secretName: pve-tls
-      hosts:
-        - pve.rwcloud.org
+  tls:
+  - hosts:
+    - pve.rwcloud.org
+    secretName: pve-tls-secret

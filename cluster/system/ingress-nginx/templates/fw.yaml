@@ -41,7 +41,7 @@ spec:
             name: fw
             port:
               number: 8443
-    tls:
-    - secretName: fw-tls
-      hosts:
-        - fw.rwcloud.org
+  tls:
+  - hosts:
+    - fw.rwcloud.org
+    secretName: fw-tls-secret
