@@ -330,7 +330,7 @@ forgejo:
     accessModes:
       - ReadWriteOnce
     labels: {}
-    storageClass: openebs-zfs
+    storageClass: nfs-client
     subPath:
     volumeName: ''
     annotations:
