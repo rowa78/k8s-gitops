@@ -41,10 +41,10 @@ spec:
 
   storage:
     size: 200Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: nfs-client
   walStorage:
     size: 150Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: nfs-client
 
   backup:
     barmanObjectStore:
