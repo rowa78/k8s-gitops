@@ -107,14 +107,14 @@ homepage:
       - System:
         - Proxmox:
             icon: proxmox.svg
-            href: "https://pve.ronnywalter.de"
+            href: "https://pve.rwcloud.org"
             description: Proxmox
-            siteMonitor: "https://pve.ronnywalter.de"
+            siteMonitor: "https://pve.rwcloud.org"
         - Opnsense:
             icon: opnsense.svg
-            href: "https://fw.ronnywalter.de"
+            href: "https://fw.rwcloud.org"
             description: Opnsense
-            siteMonitor: "https://fw.ronnywalter.de"
+            siteMonitor: "https://fw.rwcloud.org"
       - Storage:
         - Diskstation:
             icon: synology-dsm.svg
