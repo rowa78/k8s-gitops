@@ -109,12 +109,10 @@ homepage:
             icon: proxmox.svg
             href: "https://pve.rwcloud.org"
             description: Proxmox
-            siteMonitor: "https://pve.rwcloud.org"
         - Opnsense:
             icon: opnsense.svg
             href: "https://fw.rwcloud.org"
             description: Opnsense
-            siteMonitor: "https://fw.rwcloud.org"
       - Storage:
         - Diskstation:
             icon: synology-dsm.svg
