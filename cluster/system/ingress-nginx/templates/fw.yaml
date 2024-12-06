@@ -29,6 +29,8 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS" # "HTTP" falls das Ziel HTTP verwendet
+    nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.rwcloud.org/oauth2/start?rd=$scheme://$host$request_uri
+    nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.oauth2-proxy.svc.cluster.local/oauth2/auth
 spec:
   rules:
   - host: fw.rwcloud.org
