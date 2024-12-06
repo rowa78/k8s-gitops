@@ -124,7 +124,7 @@ pgadmin4:
       gethomepage.dev/enabled: "true"
       gethomepage.dev/description: PGAdmin4
       gethomepage.dev/group: Apps
-      gethomepage.dev/icon: pgadmin4.svg
+      gethomepage.dev/icon: pgadmin.svg
       gethomepage.dev/name: PGAdmin4
       gethomepage.dev/app: PGAdmin4
       gethomepage.dev/pod-selector: ""
