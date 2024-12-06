@@ -1,6 +1,8 @@
 pgadmin4:
   # Default values for pgAdmin4.
-
+  env:
+    email: mail@ronnywalter.de
+    
   replicaCount: 1
 
   ## pgAdmin4 container image
@@ -172,15 +174,7 @@ pgadmin4:
   envVarsFromSecrets: []
     # - array-of
     # - secret-names
-
-  ## Additional environment variables
-  envVarsExtra: 
-    - name: PGADMIN_DEFAULT_EMAIL
-      valueFrom:
-        secretKeyRef:
-          name: pgadmin
-          key: username
-    
+  
     # - name: POSTGRES_USERNAME
     #   valueFrom:
     #     secretKeyRef:
