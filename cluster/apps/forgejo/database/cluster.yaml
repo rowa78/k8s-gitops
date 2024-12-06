@@ -7,7 +7,7 @@ metadata:
     k8up.io/file-extension: .sql
     k8up.io/backup: 'false'
 spec:
-  instances: 1
+  instances: 3
 
   bootstrap:
     initdb:
@@ -30,8 +30,8 @@ spec:
 
   backup:
     barmanObjectStore:
-      endpointURL: "https://fsn1.your-objectstorage.com"      
-      destinationPath: "s3://rwcloud-postgres/"     
+      endpointURL: "http://minio.minio.svc.cluster.local:9000"      
+      destinationPath: "s3://rwcloud-postgres/"    
       s3Credentials:
         accessKeyId:
           name: s3-creds
