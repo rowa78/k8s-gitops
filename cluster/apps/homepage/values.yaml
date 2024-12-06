@@ -104,6 +104,17 @@ homepage:
             showLabel: true
 
     services: 
+      - System:
+        - Proxmox:
+          icon: proxmox.svg
+          href: "https://pve.ronnywalter.de"
+          description: Proxmox
+          siteMonitor: "https://pve.ronnywalter.de"
+        - Opnsense:
+          icon: opnsense.svg
+          href: "https://fw.ronnywalter.de"
+          description: Opnsense
+          siteMonitor: "https://fw.ronnywalter.de"
       - Storage:
         - Diskstation:
             icon: synology-dsm.svg
