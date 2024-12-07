@@ -5,7 +5,7 @@ nfs-subdir-external-provisioner:
     repository: k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner
     tag: v4.0.2
   nfs:
-    server: 10.10.0.0
+    server: 10.10.0.1
     path: /mnt/nfs-share
   storageClass:
     create: true
