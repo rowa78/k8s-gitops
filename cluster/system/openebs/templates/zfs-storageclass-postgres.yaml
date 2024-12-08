@@ -3,7 +3,7 @@ kind: StorageClass
 metadata:
   name: openebs-zfs-postgres
 parameters:
-  recordsize: "32k"
+  recordsize: "16k"
   compression: "lz4"
   primarycache: "metadata"
   dedup: "off"
