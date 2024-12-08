@@ -7,7 +7,7 @@ metadata:
     k8up.io/file-extension: .sql
     k8up.io/backup: 'false'
 spec:
-  instances: 3
+  instances: 1
 
   bootstrap:
     initdb:
@@ -23,10 +23,10 @@ spec:
 
   storage:
     size: 10Gi
-    storageClass: nfs-client
+    storageClass: openebs-zfs-postgres
   walStorage:
     size: 2Gi
-    storageClass: nfs-client
+    storageClass: openebs-zfs-postgres
 
   backup:
     barmanObjectStore:
