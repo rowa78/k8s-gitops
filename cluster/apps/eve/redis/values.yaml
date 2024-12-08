@@ -20,7 +20,7 @@ redis:
     ##   - myRegistryKeySecretName
     ##
     imagePullSecrets: []
-    storageClass: "nfs-client"
+    storageClass: "openebs-zfs"
     redis:
       password: ""
 
