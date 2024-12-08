@@ -468,12 +468,12 @@ forgejo:
       - name: FORGEJO__DATABASE__PASSWD
         valueFrom:
           secretKeyRef:
-            name: forgejodb
+            name: forgejodb-app
             key: password
       - name: FORGEJO__DATABASE__USER
         valueFrom:
           secretKeyRef:
-            name: forgejodb
+            name: forgejodb-app
             key: username
 
     ## @param gitea.podAnnotations Annotations for the Forgejo pod
@@ -522,8 +522,8 @@ forgejo:
       ## @param gitea.config.database Database configuration (only necessary with an [externally managed DB](https://code.forgejo.org/forgejo-helm/forgejo-helm#external-database)).
       database: 
         DB_TYPE: postgres
-        HOST: 10.10.0.1:5432
-        NAME: forgejo
+        HOST: forgejodb-rw:5432
+        NAME: forgejodb
 
       ## @param gitea.config.indexer Settings for what content is indexed and how
       indexer: {}
