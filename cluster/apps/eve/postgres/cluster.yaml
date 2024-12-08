@@ -29,7 +29,7 @@ spec:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
       hypopg.use_real_oids: 'true'
-      shared_buffers: "4GB"
+      shared_buffers: "4096MB"
      
   replicationSlots:
     highAvailability:
