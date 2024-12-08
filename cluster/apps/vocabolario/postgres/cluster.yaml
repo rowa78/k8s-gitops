@@ -13,11 +13,11 @@ spec:
 
   resources:
     requests:
-      memory: "6Gi"
-      cpu: "2"
+      memory: "2Gi"
+      cpu: "500"
     limits:
       memory: "6Gi"
-      cpu: "6"
+      cpu: "4000"
   bootstrap:
     initdb:
       database: vocabolariodb
@@ -43,10 +43,10 @@ spec:
 
   storage:
     size: 20Gi
-    storageClass: nfs-client
+    storageClass: openebs-zfs-postgres
   walStorage:
     size: 5Gi
-    storageClass: nfs-client
+    storageClass: openebs-zfs-postgres
 
   backup:
     barmanObjectStore:
