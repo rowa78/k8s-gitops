@@ -79,7 +79,7 @@ kube-prometheus-stack:
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: nfs-client
+            storageClassName: openebs-zfs
             resources:
               requests:
                 storage: 1Gi
@@ -116,7 +116,7 @@ kube-prometheus-stack:
     persistence:
       enabled: true
       type: sts
-      storageClassName: nfs-client
+      storageClassName: openebs-zfs
       size: 1Gi
     ingress:
       enabled: true
@@ -265,7 +265,7 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
-            storageClassName: nfs-client
+            storageClassName: openebs-zfs
             resources:
               requests:
                 storage: 50Gi     
@@ -339,20 +339,20 @@ kube-prometheus-stack:
     fullnameOverride: kube-state-metrics
   kubeEtcd:
     enabled: false
-    endpoints: ["10.0.1.2"]
+    endpoints: ["10.1.1.2"]
     service:
       port: 2381
       targetPort: 2381
   kubeProxy:
     enabled: false
-    endpoints: ["10.0.1.2"]
+    endpoints: ["10.1.1.2"]
     service:
       enabled: true
       port: 10249
       targetPort: 10249
   kubeScheduler:
     enabled: false
-    endpoints: ["10.0.1.2"]
+    endpoints: ["10.1.1.2"]
     service:
       enabled: true
       port: 10259
@@ -362,7 +362,7 @@ kube-prometheus-stack:
       https: true
   kubeControllerManager:
     enabled: false
-    endpoints: ["10.0.1.2"]
+    endpoints: ["10.1.1.2"]
     service:
       enabled: true
       port: 10257
@@ -563,7 +563,7 @@ prometheus-pushgateway:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "nfs-client"
+    storageClass: "openebs-zfs"
 
     ## Subdirectory of pushgateway data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
