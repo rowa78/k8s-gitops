@@ -9,15 +9,15 @@ metadata:
     k8up.io/backup: 'false'
 
 spec:
-  imageName: r0wa/postgresql:15.4-14
-  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.6-11
+  instances: 1
 
   resources:
     requests:
-      memory: "6Gi"
+      memory: "16Gi"
       cpu: "2"
     limits:
-      memory: "6Gi"
+      memory: "24Gi"
       cpu: "4"
   bootstrap:
     initdb:
@@ -29,6 +29,7 @@ spec:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
       hypopg.use_real_oids: 'true'
+      shared_buffers: "4GB"
      
   replicationSlots:
     highAvailability:
@@ -41,10 +42,10 @@ spec:
 
   storage:
     size: 200Gi
-    storageClass: nfs-client
+    storageClass: openebs-zfs-postgres
   walStorage:
     size: 150Gi
-    storageClass: nfs-client
+    storageClass: openebs-zfs-postgres
 
   backup:
     barmanObjectStore:
