@@ -17,7 +17,7 @@ spec:
       cpu: "500m"
     limits:
       memory: "6Gi"
-      cpu: "4000m"
+      cpu: "4"
   bootstrap:
     initdb:
       database: vocabolariodb
