@@ -1,7 +1,7 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: nfs-client
+  name: openebs-zfs
   annotations:
     storageclass.beta.kubernetes.io/is-default-class: "true"
     storageclass.kubernetes.io/is-default-class: "true"
