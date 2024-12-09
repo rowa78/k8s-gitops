@@ -12,7 +12,8 @@ spec:
     client-secret: AgDQTwscUi2uiyLFd+T7HaMiDnu6/kBZu0WWx2+14wT4etQy1BLWnZhTjEgbLAUs+iA5r3V5PNFm36A9Urd6uh4j4Prhu5OrsT6aGRNXTrKS+DGDy5NUwrgxe/YUdxJgBHBgKB5WHBIekeqJbho0YzRXV6OCm+O7JIaM+oUacMsaxl7k5J+lEq5eb5VwR/G/5CpON7WJ5xW1hqXI/JEpG5VWbFdemWPFVP9vcVMi+1PQM56AY4HCuHXh4sHX1gR55q8tPUhflKhL9FpvQrfmcxkXzfiraAHuKz2VE2SS6j6l1eSu1rcvLQ7bW1IvcW0kDcLLQGfYSTdgm6Xurby+mX0nGORaMD0DfUcDUXBz7496CletbgAtTQlcCZ+9UCgWIkdozCxINeaQVkiSZEo6i4spGNw94V+vMUG2xaYZZlJtG060dINZZ9xO3LtPpLA7LB0QgXGhfmjwfOCYybmaE/N7MgL4sEQnZfWDUA/4Yosl3XixWuVxaowhqhDQYpQByEbHgZmbw4S86BzbCk6mn/k+9OFK8UH5dD+np3swXelcEEit6rQCXhmoWMs2Ni5aL1ZDPiL4Z2h8cHn5SH/kbNw5uE3YOVK3+XUq8DIs82EqEr5n7IGLgjBRNp3bOyMNH7Xtn/TNvl83MpJFjUMi0QoqtzYae06lOnJwqSpKQ6VF/5OnNDzG5NM4u56x1cz8Kj1VzQhpaOu5wR0NuHsvhCsR8wziKY/lusUjsePpssSnVg==
   template:
     metadata:
-      creationTimestamp: null
+      labels:
+        app.kubernetes.io/part-of: argocd
       name: argocd-auth
       namespace: argocd
     type: Opaque
