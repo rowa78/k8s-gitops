@@ -288,9 +288,9 @@ argo-cd:
               - profile
               - email
               - groups
-          name: authelia
+          name: keycloak
           type: oidc
-          id: authentik
+          id: keycloak
           
       resource.exclusions: |
         - apiGroups:
