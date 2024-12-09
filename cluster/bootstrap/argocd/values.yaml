@@ -279,7 +279,7 @@ argo-cd:
       dex.config: |
         connectors:
         - config:
-            issuer: https://auth.rwcloud.org
+            issuer: https://auth.rwcloud.org/realms/rwcloud
             clientID: $argocd-auth:client-id
             clientSecret: $argocd-auth:client-secret
             insecureEnableGroups: true
