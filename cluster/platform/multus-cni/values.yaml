@@ -85,7 +85,7 @@ rke2-multus:
   config:
     cni_conf:
       confDir: /var/lib/rancher/k3s/agent/etc/cni/net.d
-      binDir: /var/lib/rancher/k3s/data/cni/
+      binDir: /var/lib/rancher/k3s/data/current/bin
       #namespaceIsolation: false
       #globalNamespaces: default,foo,bar
       #skipMultusBinaryCopy: false
