@@ -233,14 +233,14 @@ kube-prometheus-stack:
         enabled: true
         allow_sign_up: true
         auto_login: true
-        name: authelia
+        name: keycloak
 #        comes from secret; see envFromSecret
 #        client_id: 
 #        client_secret: 
         scopes: openid profile email groups
-        auth_url: https://auth.rwcloud.org/api/oidc/authorization
-        token_url: https://auth.rwcloud.org/api/oidc/token
-        api_url: https://auth.rwcloud.org/api/oidc/userinfo
+        auth_url: https://auth.rwcloud.org/realms/rwcloud/protocol/openid-connect/auth
+        token_url: https://auth.rwcloud.org/realms/rwcloud/protocol/openid-connect/token
+        api_url: https://auth.rwcloud.org/realms/rwcloud/protocol/openid-connect/userinfo
         use_pkce: true
         use_refresh_token: true
             # Optionally map user groups to Grafana roles
