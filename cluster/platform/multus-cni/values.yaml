@@ -113,7 +113,7 @@ multus-cni:
   ## @param hostCNIBinDir CNI binary dir in the host machine to mount
   ## ref: https://github.com/bitnami/containers/tree/main/bitnami/multus-cni#configuration
   ##
-  hostCNIBinDir: /opt/cni/bin
+  hostCNIBinDir: /var/lib/rancher/k3s/data/current/bin
   ## @param hostCNINetDir CNI net.d dir in the host machine to mount
   ## ref: https://github.com/bitnami/containers/tree/main/bitnami/multus-cni#configuration
   ##
