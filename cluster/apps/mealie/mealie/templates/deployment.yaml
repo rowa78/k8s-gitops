@@ -93,6 +93,10 @@ spec:
                 name: oauth-creds
                 key: client-secret
                 optional: false
+          - name: OIDC_USER_GROUP
+            value: "Mealie-Users"
+          - name: OIDC_ADMIN_GROUP
+            value: "Mealie-admins"
           - name: ALLOW_SIGNUP
             value: "false"
           - name: PUID
