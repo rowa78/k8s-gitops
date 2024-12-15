@@ -6,6 +6,7 @@ metadata:
     k8up.io/backupcommand: sh -c 'pg_dump --clean forgejodb'
     k8up.io/file-extension: .sql
     k8up.io/backup: 'false'
+    tailscale.com/expose: "true"
 spec:
   instances: 1
 
