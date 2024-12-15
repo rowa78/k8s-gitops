@@ -99,6 +99,12 @@ spec:
             value: "Mealie-admins"
           - name: OIDC_AUTO_REDIRECT
             value: "true"
+          - name: OPENAI_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: openai-token
+                key: token
+                optional: false
           - name: ALLOW_SIGNUP
             value: "false"
           - name: PUID
