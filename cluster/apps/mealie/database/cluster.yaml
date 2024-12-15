@@ -23,12 +23,12 @@ spec:
 
   storage:
     size: 10Gi
-    storageClass: nfs-client
+    storageClass: openebs-zfs-postgres
 
   backup:
     barmanObjectStore:
-      endpointURL: "https://fsn1.your-objectstorage.com"      
-      destinationPath: "s3://rwcloud-postgres/"     
+      endpointURL: "http://minio.minio.svc.cluster.local:9000"      
+      destinationPath: "s3://rwcloud-postgres/"      
       s3Credentials:
         accessKeyId:
           name: s3-creds
