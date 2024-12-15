@@ -115,11 +115,7 @@ homepage:
             href: "https://ds.ronnywalter.de"
             description: Synology DSM
             siteMonitor: "https://ds.ronnywalter.de"
-            widget:
-                type: diskstation
-                url: http://192.168.0.3:5000
-                username: '{{HOMEPAGE_VAR_DISKSTATION_USER}}'
-                password: '{{HOMEPAGE_VAR_DISKSTATION_PASSWORD}}'
+
     kubernetes:
       # change mode to 'cluster' to use RBAC service account
       mode: cluster
