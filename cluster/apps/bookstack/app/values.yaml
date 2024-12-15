@@ -141,7 +141,7 @@ ingress:
 
 persistence:
   enabled: true
-  storageClass: "nfs-client"
+  storageClass: "openebs-zfs"
   size: 30Gi
   ## NOTE: When existingClaim is set the rest of persistence parameters are ignored
   existingClaim: ""
@@ -318,7 +318,7 @@ mariadb:
       ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
       ##   GKE, AWS & OpenStack)
       ##
-      storageClass: "nfs-client"
+      storageClass: "openebs-zfs"
       ## @param primary.persistence.labels Labels for the PVC
       ##
       labels: {}
