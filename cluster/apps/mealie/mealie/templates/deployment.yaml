@@ -97,6 +97,8 @@ spec:
             value: "Mealie-Users"
           - name: OIDC_ADMIN_GROUP
             value: "Mealie-admins"
+          - name: OIDC_AUTO_REDIRECT
+            value: "true"
           - name: ALLOW_SIGNUP
             value: "false"
           - name: PUID
