@@ -105,14 +105,10 @@ homepage:
 
     services: 
       - System:
-        - Proxmox:
-            icon: proxmox.svg
-            href: "https://pve.rwcloud.org"
-            description: Proxmox
-        - Opnsense:
-            icon: opnsense.svg
-            href: "https://fw.rwcloud.org"
-            description: Opnsense
+        - Keycloak:
+            icon: keycloak.svg
+            href: "https://auth.rwcloud.org/admin/rwcloud/console/"
+            description: Keycloak
       - Storage:
         - Diskstation:
             icon: synology-dsm.svg
