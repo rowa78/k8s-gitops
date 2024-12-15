@@ -71,36 +71,28 @@ spec:
             value: mealiedb
           - name: TZ
             value: Europe/Berlin        
-          - name: LDAP_AUTH_ENABLED
+          - name: OIDC_AUTH_ENABLED
             value: "true"
-          - name: LDAP_SERVER_URL
+          - name: "OIDC_PROVIDER_NAME"
+            value: "keycloak"
+          - name: "OIDC_CONFIGURATION_URL"
             valueFrom:
               secretKeyRef:
-                name: ldap-secret
-                key: LDAP_URL
+                name: oauth-creds
+                key: config-url
                 optional: false
-          - name: LDAP_BASE_DN
+          - name: "OIDC_CLIENT_ID"
             valueFrom:
               secretKeyRef:
-                name: ldap-secret
-                key: LDAP_BASE_DN
+                name: oauth-creds
+                key: client-id
                 optional: false
-          - name: LDAP_QUERY_BIND
+          - name: "OIDC_CLIENT_SECRET"
             valueFrom:
               secretKeyRef:
-                name: ldap-secret
-                key: LDAP_QUERY_USER
+                name: oauth-creds
+                key: client-secret
                 optional: false
-          - name: LDAP_QUERY_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: ldap-secret
-                key: LDAP_PASSWORD
-                optional: false
-          - name: LDAP_NAME_ATTRIBUTE
-            value: cn
-          - name: LDAP_ADMIN_FILTER
-            value: "cn=Mealie-admins,ou=groups,dc=rwcloud,dc=org"
           - name: ALLOW_SIGNUP
             value: "false"
           - name: PUID
