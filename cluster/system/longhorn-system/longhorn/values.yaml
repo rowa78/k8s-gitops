@@ -17,7 +17,7 @@ longhorn:
     snapshotterReplicaCount: 1
         
   persistence:
-    defaultClassReplicaCount: 1
+    defaultClassReplicaCount: 2
     defaultFsType: ext4
     defaultClass: true
     defaultDataLocality: best-effort
@@ -25,7 +25,7 @@ longhorn:
   defaultSettings:    
     defaultDataPath: /mnt/longhorn
     #createDefaultDiskLabeledNodes: "true"
-    defaultReplicaCount: 1
+    defaultReplicaCount: 2
     defaultDataLocality: best-effort
     nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
     replicaAutoBalance: best-effort
