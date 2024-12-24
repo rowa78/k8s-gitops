@@ -206,6 +206,8 @@ kube-prometheus-stack:
           url: https://grafana.com/api/dashboards/12937/revisions/4/download
         rabbitmq:
           url: https://grafana.com/api/dashboards/10991/revisions/12/download
+        external-dns:
+          url: https://grafana.com/api/dashboards/15038/revisions/3/download
         # blocky:
         #   url: https://grafana.com/api/dashboards/13768/revisions/3/download
         #   datasource: Prometheus
