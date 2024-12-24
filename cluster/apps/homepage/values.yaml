@@ -24,17 +24,17 @@ homepage:
       maxSurge: 25%
       maxUnavailable: 25%
 
-  env:
-    - name: HOMEPAGE_VAR_DISKSTATION_USER      
-      valueFrom:
-        secretKeyRef:
-          name: widget-secrets
-          key: DISKSTATION_USER
-    - name: HOMEPAGE_VAR_DISKSTATION_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: widget-secrets
-          key: DISKSTATION_PASSWORD
+  # env:
+  #   - name: HOMEPAGE_VAR_DISKSTATION_USER      
+  #     valueFrom:
+  #       secretKeyRef:
+  #         name: widget-secrets
+  #         key: DISKSTATION_USER
+  #   - name: HOMEPAGE_VAR_DISKSTATION_PASSWORD
+  #     valueFrom:
+  #       secretKeyRef:
+  #         name: widget-secrets
+  #         key: DISKSTATION_PASSWORD
     
 
   # Enable the ingress to expose Homepage to the network.
@@ -109,6 +109,7 @@ homepage:
             icon: keycloak.svg
             href: "https://auth.rwcloud.org/admin/rwcloud/console/"
             description: Keycloak
+            siteMonitor: "https://auth.rwcloud.org"
       - Storage:
         - Diskstation:
             icon: synology-dsm.svg
