@@ -330,7 +330,7 @@ forgejo:
     accessModes:
       - ReadWriteOnce
     labels: {}
-    storageClass: openebs-zfs
+    storageClass: longhorn
     subPath:
     volumeName: ''
     annotations:
