@@ -8,7 +8,11 @@ metadata:
     k8up.io/backup: 'false'
     tailscale.com/expose: "true"
 spec:
-  instances: 1
+  instances: 2
+
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: topology.kubernetes.io/zone
 
   bootstrap:
     initdb:
@@ -24,15 +28,15 @@ spec:
 
   storage:
     size: 10Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: longhorn-local
   walStorage:
     size: 2Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: longhorn-local
 
   backup:
     barmanObjectStore:
-      endpointURL: "http://minio.minio.svc.cluster.local:9000"      
-      destinationPath: "s3://rwcloud-postgres/"    
+      endpointURL: "https://hel1.your-objectstorage.com"      
+      destinationPath: "s3://rwcloud-postgresql/"    
       s3Credentials:
         accessKeyId:
           name: s3-creds
