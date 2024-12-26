@@ -282,7 +282,7 @@ kube-prometheus-stack:
       additionalScrapeConfigs:
         - job_name: haproxy
           static_configs:
-            - targets: ['http://10.10.0.1:8405']  
+            - targets: ['10.10.0.1:8405']  
         # - job_name: node
         #   static_configs:
         #   - targets: ['diskstation.tailscale.svc.cluster.local:9100']
