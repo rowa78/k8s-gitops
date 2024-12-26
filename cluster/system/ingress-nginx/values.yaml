@@ -18,6 +18,9 @@ ingress-nginx:
       nodePorts:
         http: 32080
         https: 32443
+        tcp:
+          2222:32222       
+          30100:30100   
         # 2222-tcp: 32222
         # 30100-tcp: 32100
     config:
