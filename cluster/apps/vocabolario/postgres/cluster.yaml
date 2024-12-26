@@ -8,8 +8,12 @@ metadata:
     k8up.io/backup: 'false'
     tailscale.com/expose: "true"
 spec:
-  imageName: r0wa/postgresql:15.4-14
-  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.6-25
+  instances: 2
+
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: topology.kubernetes.io/zone
 
   resources:
     requests:
@@ -43,10 +47,10 @@ spec:
 
   storage:
     size: 20Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: longhorn-local
   walStorage:
     size: 5Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: longhorn-local
 
   backup:
     barmanObjectStore:
