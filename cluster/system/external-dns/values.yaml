@@ -21,17 +21,17 @@ external-dns:
   ## @section Common parameters
   ##
 
-#  extraEnvVars:
-#    - name: TARGET_URL
-#      valueFrom:
-#        secretKeyRef:
-#          name: external-dns-secrets
-#          key: endpoint
+   extraEnvVars:
+   - name: TARGET_URL
+     valueFrom:
+       secretKeyRef:
+         name: external-dns-secrets
+         key: endpoint
 
 
-#  extraArgs: 
-#    default-targets:
-#    - $(TARGET_URL)
+ extraArgs: 
+   default-targets:
+   - $(TARGET_URL)
 
   ## @section external-dns parameters
   ##
