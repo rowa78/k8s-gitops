@@ -9,6 +9,7 @@ metadata:
     tailscale.com/expose: "true"
 spec:
   instances: 2
+  image: ghcr.io/cloudnative-pg/postgresql:16.6-25
 
   affinity:
     enablePodAntiAffinity: true
