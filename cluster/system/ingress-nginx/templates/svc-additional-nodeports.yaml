@@ -16,7 +16,7 @@ spec:
     nodePort: 30100
     port: 30100
     protocol: TCP
-    targetPort: 301000
+    targetPort: 30100
   selector:
     app.kubernetes.io/component: controller
     app.kubernetes.io/instance: ingress-nginx
