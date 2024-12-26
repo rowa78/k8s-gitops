@@ -54,8 +54,8 @@ spec:
 
   backup:
     barmanObjectStore:
-      endpointURL: "http://minio.minio.svc.cluster.local:9000"      
-      destinationPath: "s3://rwcloud-postgres/"         
+      endpointURL: "https://hel1.your-objectstorage.com"      
+      destinationPath: "s3://rwcloud-postgresql/"        
       s3Credentials:
         accessKeyId:
           name: s3-creds
