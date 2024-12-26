@@ -9,11 +9,7 @@ metadata:
     tailscale.com/expose: "true"
 spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:16.6-25
-  instances: 2
-
-  affinity:
-    enablePodAntiAffinity: true
-    topologyKey: topology.kubernetes.io/zone
+  instances: 1
 
   resources:
     requests:
@@ -54,8 +50,8 @@ spec:
 
   backup:
     barmanObjectStore:
-      endpointURL: "https://hel1.your-objectstorage.com"      
-      destinationPath: "s3://rwcloud-postgresql/"        
+      endpointURL: "http://minio.minio.svc.cluster.local:9000"      
+      destinationPath: "s3://rwcloud-postgres/"       
       s3Credentials:
         accessKeyId:
           name: s3-creds
