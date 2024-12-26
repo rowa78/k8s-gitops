@@ -29,7 +29,7 @@ spec:
 
   storage:
     size: 10Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: longhorn-local
 
   backup:
     barmanObjectStore:

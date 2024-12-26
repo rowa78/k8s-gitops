@@ -4,13 +4,13 @@ metadata:
   name: eve
 spec:
   deploymentPlan:
-    size: 1
+    size: 2
     persistenceEnabled: true
     messageMigration: true
     enableMetricsPlugin: true
     storage:
       size: 10G
-      storageClassName: openebs-zfs
+      storageClassName: longhorn-local
     podSecurityContext:
       fsGroup: 185
       runAsGroup: 185
