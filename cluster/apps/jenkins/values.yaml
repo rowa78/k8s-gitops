@@ -722,7 +722,7 @@ jenkins:
 
       # Set this path to jenkinsUriPrefix above or use annotations to rewrite path
       # -- Ingress path
-      path:
+      path: "/"
 
       # configures the hostname e.g. jenkins.example.com
       # -- Ingress hostname
