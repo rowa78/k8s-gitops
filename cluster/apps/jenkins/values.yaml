@@ -413,7 +413,15 @@ jenkins:
     installLatestSpecifiedPlugins: false
 
     # -- List of plugins to install in addition to those listed in controller.installPlugins
-    additionalPlugins: []
+    additionalPlugins: 
+      - prometheus
+      - gitea
+      - gradle
+      - kubernetes-cli
+      - cloudbees-disk-usage-simple
+      - oic-auth
+      - dark-theme
+      - solarized-theme
 
     # Without this; whenever the controller gets restarted (Evicted, etc.) it will fetch plugin updates that have the potential to cause breakage.
     # Note that for this to work, `persistence.enabled` needs to be set to `true`
@@ -527,13 +535,28 @@ jenkins:
       # Ignored if securityRealm is defined in controller.JCasC.configScripts
       # -- Jenkins Config as Code Security Realm-section
       securityRealm: |-
-        local:
-          allowsSignup: false
-          enableCaptcha: false
-          users:
-          - id: "${chart-admin-username}"
-            name: "Jenkins Admin"
-            password: "${chart-admin-password}"
+        # local:
+        #   allowsSignup: false
+        #   enableCaptcha: false
+        #   users:
+        #   - id: "${chart-admin-username}"
+        #     name: "Jenkins Admin"
+        #     password: "${chart-admin-password}"
+        oic:
+          allowedTokenExpirationClockSkewSeconds: 0
+          clientId: "${jenkins-oauth-client-id}"
+          clientSecret: "${jenkins-oauth-client-secret}"
+          disableSslVerification: false
+          emailFieldName: "email"
+          fullNameFieldName: "name"
+          groupsFieldName: "groups"
+          logoutFromOpenidProvider: false
+          pkceEnabled: true
+          serverConfiguration:
+            wellKnown:
+              scopesOverride: "openid profile email groups"
+              wellKnownOpenIDConfigurationUrl: "https://auth.rwcloud.org/.well-known/openid-configuration"
+          userNameField: "preferred_username"
 
       # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
       # -- Jenkins Config as Code Authorization Strategy-section
