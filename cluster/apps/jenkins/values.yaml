@@ -416,7 +416,7 @@ jenkins:
     additionalPlugins: 
       - prometheus
       - gitea
-      - gradle
+      #- gradle
       - kubernetes-cli
       - cloudbees-disk-usage-simple
       - oic-auth
@@ -471,7 +471,11 @@ jenkins:
     existingSecret:
 
     # -- List of additional existing secrets to mount
-    additionalExistingSecrets: []
+    additionalExistingSecrets:        
+    - name: jenkins-oauth
+      keyName: client-id
+    - name: jenkins-oauth
+      keyName: client-secret
     # ref: https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets
     # additionalExistingSecrets:
     #  - name: secret-name-1
