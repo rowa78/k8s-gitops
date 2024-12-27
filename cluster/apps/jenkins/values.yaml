@@ -559,7 +559,7 @@ jenkins:
           serverConfiguration:
             wellKnown:
               scopesOverride: "openid profile email groups"
-              wellKnownOpenIDConfigurationUrl: "https://auth.rwcloud.org/.well-known/openid-configuration"
+              wellKnownOpenIDConfigurationUrl: "https://auth.rwcloud.org/realms/rwcloud/.well-known/openid-configuration"
           userNameField: "preferred_username"
 
       # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
