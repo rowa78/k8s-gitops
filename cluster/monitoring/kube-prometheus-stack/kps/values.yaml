@@ -207,6 +207,8 @@ kube-prometheus-stack:
           url: https://grafana.com/api/dashboards/15038/revisions/3/download
         haproxy:
           url: https://grafana.com/api/dashboards/12693/revisions/8/download
+        jenkins:
+          url: https://grafana.com/api/dashboards/9964/revisions/1/download
         # blocky:
         #   url: https://grafana.com/api/dashboards/13768/revisions/3/download
         #   datasource: Prometheus
