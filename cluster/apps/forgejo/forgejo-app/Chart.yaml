@@ -3,5 +3,5 @@ name: forgejo
 version: 9.4.0
 dependencies:
   - name: forgejo
-    version: 10.1.0
+    version: 10.1.2
     repository: oci://code.forgejo.org/forgejo-helm
