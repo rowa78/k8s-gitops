@@ -1,7 +1,5 @@
 cert-manager:
   installCRDs: true
-  webhook:
-    enabled: true
   extraArgs:
   - --dns01-recursive-nameservers=1.1.1.1:53
   - --dns01-recursive-nameservers-only
