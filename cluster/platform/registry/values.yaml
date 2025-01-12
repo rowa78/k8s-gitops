@@ -126,9 +126,9 @@ docker-registry-ui:
 
     ingress:
       # Enable the ingress for the user interface.
-      enabled: false
+      enabled: true
       # Fully qualified domain name of a network host.
-      host: null
+      host: registry.rwcloud.org
       # Path is matched against the path of an incoming request.
       path: /
       # Determines the interpretation of the Path matching, must be Prefix to serve assets.
@@ -136,9 +136,19 @@ docker-registry-ui:
       # The name of an IngressClass cluster resource.
       ingressClassName: nginx
       # TLS configuration
-      tls: []
+      tls: 
+        - hosts:
+          - registry.rwcloud.org
+          secretName: registry-tls
       # Annotations to apply to the user interface ingress.
-      annotations: {}
+      annotations: 
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/description: Registry
+        gethomepage.dev/group: Apps
+        gethomepage.dev/icon: docker.png
+        gethomepage.dev/name: Registry
+        gethomepage.dev/pod-selector: ""
       # If you want a custom path, you can try this example:
       # path: /ui(/|$)(.*)
       # annotations:
@@ -183,7 +193,7 @@ docker-registry-ui:
         # Full path for htpasswd file. Note that filename should match the secret key.
         htpasswdPath: /etc/docker/registry/auth/htpasswd
         # htpasswd secret name volume to mount.
-        secretName: ''
+        secretName: 'htpasswd'
 
     service:
       # Type of service: `LoadBalancer`, `ClusterIP` or `NodePort`. If using `NodePort` service
@@ -204,7 +214,7 @@ docker-registry-ui:
       # Enable the ingress for the registry server.
       enabled: false
       # Fully qualified domain name of a network host.
-      host: null
+      host: registry.rwcloud.org
       # Path is matched against the path of an incoming request.
       path: /v2/
       # Determines the interpretation of the Path matching, must be Prefix to serve assets.
