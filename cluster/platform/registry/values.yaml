@@ -24,7 +24,7 @@ docker-registry-ui:
     # Remove the menu that show the dialogs to add, remove and change the endpoint of your docker registry.
     singleRegistry: true
     # By default, the UI will check on every requests if your registry is secured or not (you will see `401` responses in your console). Set to `true` if your registry uses Basic Authentication and divide by two the number of call to your registry.
-    registrySecured: false
+    registrySecured: true
 
     # Show number of tags per images on catalog page. This will produce + nb images requests, not recommended on large registries.
     showCatalogNbTags: false
@@ -40,7 +40,7 @@ docker-registry-ui:
     # Allow delete of images
     deleteImages: true
     # Show content digest in docker tag list.
-    showContentDigest: false
+    showContentDigest: true
     # Set the default order for the taglist page, could be `num-asc;alpha-asc`, `num-desc;alpha-asc`, `num-asc;alpha-desc`, `num-desc;alpha-desc`, `alpha-asc;num-asc`, `alpha-asc;num-desc`, `alpha-desc;num-asc` or `alpha-desc;num-desc`.
     taglistOrder: alpha-asc;num-desc
     # Set the number of tags to display in one page.
@@ -62,7 +62,7 @@ docker-registry-ui:
     # This needs to update your registry configuration with : `Access-Control-Allow-Headers: ['Authorization', 'Accept', 'Cache-Control']`
     useControlCacheHeader: false
     # Use root or nginx user inside the container, when this is false the target port must be greater or equal to 1024.
-    runAsRoot: true
+    runAsRoot: false
 
     # Select the default theme to apply, values can be `auto`, `dark` and `light`
     defaultTheme: "dark"
@@ -90,7 +90,7 @@ docker-registry-ui:
       footerNeutralText: ""
 
     # The name and tag of the docker image of the interface
-    image: joxit/docker-registry-ui:2.5.2
+    image: joxit/docker-registry-ui:2.5.7
     # Override default image pull secrets
     imagePullSecrets: "-"
     # Override default pull policy
@@ -116,7 +116,7 @@ docker-registry-ui:
       # Ports that will be exposed on the service
       port: 80
       # The port to listhen on the container. If under 1024, the user must be root
-      targetPort: 80
+      targetPort: 8080
       # If using a `NodePort` service type, you must specify the desired `nodePort` for each exposed port.
       nodePort: null
       # Annotations to apply to the user interface service.
@@ -136,18 +136,18 @@ docker-registry-ui:
       # The name of an IngressClass cluster resource.
       ingressClassName: nginx
       # TLS configuration
-      tls: 
-        - hosts:
-          - registry.rwcloud.org
-          secretName: registry-tls
+      tls:
+      - secretName: registry-tls
+        hosts:
+        - registry.rwcloud.org
       # Annotations to apply to the user interface ingress.
       annotations: 
         cert-manager.io/cluster-issuer: letsencrypt-production
         gethomepage.dev/enabled: "true"
-        gethomepage.dev/description: Registry
+        gethomepage.dev/description: Docker Registry
         gethomepage.dev/group: Apps
         gethomepage.dev/icon: docker.png
-        gethomepage.dev/name: Registry
+        gethomepage.dev/name: Docker Registry
         gethomepage.dev/pod-selector: ""
       # If you want a custom path, you can try this example:
       # path: /ui(/|$)(.*)
@@ -158,14 +158,15 @@ docker-registry-ui:
   registry:
     # Enable the registry server.
     enabled: true
+    runAsRoot: true
     # The name and tag of the docker registry server image
-    image: registry:2.8.2
+    image: registry:2.8.3
     # Override default image pull secrets
     imagePullSecrets: "-"
     # Override default pull policy
     imagePullPolicy: "-"
     # Configuration for the data directory.  When null it will create an emptyDir.
-    dataVolume:
+    dataVolume: 
       persistentVolumeClaim:
         claimName: registry-data
     # The resource settings for registry server pod.
@@ -214,7 +215,7 @@ docker-registry-ui:
       # Enable the ingress for the registry server.
       enabled: false
       # Fully qualified domain name of a network host.
-      host: registry.rwcloud.org
+      host: null
       # Path is matched against the path of an incoming request.
       path: /v2/
       # Determines the interpretation of the Path matching, must be Prefix to serve assets.
