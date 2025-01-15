@@ -94,7 +94,7 @@ spec:
           readinessProbe: null
           livenessProbe: null
           volumeMounts:
-            - name: shared-data
+            - name: app
               mountPath: /var/www/html
 
 
