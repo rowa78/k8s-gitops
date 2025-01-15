@@ -99,13 +99,11 @@ spec:
         - name: web-nginx
           env:
             - name: APP_UPSTREAM
-              value: localhost
+              value: 127.0.0.1
             - name: APP_WEB_ROOT
               value: "/var/www/html"
             - name: APP_BASE
               value: ""
-            - name: RESOLVER
-              value: kube-dns.kube-system.svc.cluster.local
           image: "{{ .Values.image.webrepository }}:{{ .Values.image.tag }}"
           name: web-nginx
           readinessProbe:
