@@ -58,15 +58,9 @@ spec:
               port: http
           volumeMounts:
             - name: app
-              mountPath: /var/www/html/
-            - name: cache
-              mountPath: /var/www/html/tt-rss/cache
+              mountPath: /var/www/html/tt-rss
 
       volumes:
         - name: app
-          emptyDir:
-            sizeLimit: 1G
-        - name: cache
           persistentVolumeClaim:
-            claimName: ttrss-cache
-
+            claimName: ttrss
