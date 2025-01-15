@@ -1,0 +1,66 @@
+# Default values for tt-rss.
+
+database:
+  ## possible values: [mysql, psql]
+  type: "mysql"
+
+  ## Database host
+  host: ""
+
+  ## Database user
+  user: ""
+
+  ## Database name
+  name: ""
+
+  ## Database password
+  password: ""
+
+  ## Database port
+  port: "3306"
+
+ttrss:
+  ## Full URL of your tt-rss installation
+  selfUrl: "3306"
+
+  ## Operate in single user mode
+  singleUser: "true"
+
+## should be 1 for the moment
+replicaCount: 1
+
+## Main ttrss Docker image
+image:
+  repository: blacs30/tt-rss-docker
+  tag: latest
+  pullPolicy: Always
+
+nameOverride: ""
+fullnameOverride: ""
+
+## persistence for feed icons, custom htaccess and config.php
+persistence:
+  accessMode: ReadWriteOnce
+  size: 500Mi
+
+## http exposure
+service:
+  type: NodePort
+  port: 80
+
+securityContext:
+  ## the data file's owner group
+  supplementalGroups: [5000]
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  path: /
+  hosts:
+    - chart-example.local
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
