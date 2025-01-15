@@ -50,15 +50,40 @@ spec:
             - name: fastcgi
               protocol: TCP
               containerPort: 9000
+          readinessProbe:
+            initialDelaySeconds: 10
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - ls /var/www/html/tt-rss/.app_is_ready
           livenessProbe:
-            periodSeconds: 300
-            initialDelaySeconds: 30
-            httpGet:
-              path: /
-              port: http
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - netstat -npl | grep :9000
           volumeMounts:
             - name: app
               mountPath: /var/www/html
+        - name: updater:
+          - name: TTRSS_DB_NAME
+            value: {{ .Values.db.name }}
+          - name: TTRSS_DB_HOST
+            value: localhost
+          - name: TTRSS_DB_PASS
+            value: {{ .Values.db.password }}
+          - name: TTRSS_DB_USER
+            value: {{ .Values.db.user }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          command:
+            - /opt/tt-rss/updater.sh
+          readinessProbe: null
+          livenessProbe: null
+          volumeMounts:
+            - name: shared-data
+              mountPath: /var/www/html
+
 
       volumes:
         - name: app
