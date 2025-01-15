@@ -70,5 +70,3 @@ spec:
           persistentVolumeClaim:
             claimName: ttrss-cache
 
-
-    {{- end }}
