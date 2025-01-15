@@ -96,6 +96,36 @@ spec:
           volumeMounts:
             - name: app
               mountPath: /var/www/html
+        - name: web-nginx
+          env:
+            - name: APP_UPSTREAM
+              value: localhost
+            - name: APP_WEB_ROOT
+              value: "/var/www/html"
+            - name: APP_BASE
+              value: ""
+            - name: RESOLVER
+              value: kube-dns.kube-system.svc.cluster.local
+          image: "{{ .Values.image.web-repository }}:{{ .Values.image.tag }}"
+          name: web-nginx
+          readinessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - curl -fsO http://localhost/index.php
+          livenessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - curl -fsO http://localhost/index.php
+          volumeMounts:
+            - name: app
+              mountPath: /var/www/html
+          ports:
+            - containerPort: 80
+              protocol: TCP
 
 
       volumes:
