@@ -104,8 +104,8 @@ spec:
               value: "/var/www/html"
             - name: APP_BASE
               value: ""
-            - name: RESOLVER
-              value: core-dns.kube-system.svc.cluster.local
+#            - name: RESOLVER
+#              value: core-dns.kube-system.svc.cluster.local
           image: "{{ .Values.image.webrepository }}:{{ .Values.image.tag }}"
           name: web-nginx
           readinessProbe:
