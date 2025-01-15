@@ -27,23 +27,32 @@ spec:
           - name: MODE
             value: app 
           - name: DB_TYPE
-            value: "{{ .Values.database.type }}"
+            value: "postgres"
           - name: DB_HOST
-            value: "{{ .Values.database.host }}"
+            valueFrom:
+              secretKeyRef:
+                name: ttrssdb-app
+                key: host
           - name: DB_USER
             valueFrom:
               secretKeyRef:
-                name: {{ include "tt-rss.fullname" . }}
-                key: db-user
+                name: ttrssdb-app
+                key: user
           - name: DB_NAME
-            value: "{{ .Values.database.name }}"
+            valueFrom:
+              secretKeyRef:
+                name: ttrssdb-app
+                key: dbname
           - name: DB_PASS
             valueFrom:
               secretKeyRef:
-                name: {{ include "tt-rss.fullname" . }}
-                key: db-password
+                name: ttrssdb-app
+                key: password
           - name: DB_PORT
-            value: "{{ .Values.database.port }}"
+            valueFrom:
+              secretKeyRef:
+                name: ttrssdb-app
+                key: port
           - name: SELF_URL_PATH
             value: "{{ .Values.ttrss.selfUkl }}"
           - name: SINGLE_USER_MODE
@@ -69,23 +78,32 @@ spec:
           - name: MODE
             value: updater
           - name: DB_TYPE
-            value: "{{ .Values.database.type }}"
+            value: "postgres"
           - name: DB_HOST
-            value: "{{ .Values.database.host }}"
+            valueFrom:
+              secretKeyRef:
+                name: ttrssdb-app
+                key: host
           - name: DB_USER
             valueFrom:
               secretKeyRef:
-                name: {{ include "tt-rss.fullname" . }}
-                key: db-user
+                name: ttrssdb-app
+                key: user
           - name: DB_NAME
-            value: "{{ .Values.database.name }}"
+            valueFrom:
+              secretKeyRef:
+                name: ttrssdb-app
+                key: dbname
           - name: DB_PASS
             valueFrom:
               secretKeyRef:
-                name: {{ include "tt-rss.fullname" . }}
-                key: db-password
+                name: ttrssdb-app
+                key: password
           - name: DB_PORT
-            value: "{{ .Values.database.port }}"
+            valueFrom:
+              secretKeyRef:
+                name: ttrssdb-app
+                key: port
           - name: SELF_URL_PATH
             value: "{{ .Values.ttrss.selfUkl }}"
           - name: SINGLE_USER_MODE

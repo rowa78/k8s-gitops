@@ -8,6 +8,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
+  storageClassName: {{ .Values.persistence.storageClass }}
   accessModes:
     - {{ .Values.persistence.accessMode | quote }}
   resources:

@@ -1,24 +1,4 @@
 # Default values for tt-rss.
-
-database:
-  ## possible values: [mysql, psql]
-  type: "mysql"
-
-  ## Database host
-  host: ""
-
-  ## Database user
-  user: ""
-
-  ## Database name
-  name: ""
-
-  ## Database password
-  password: ""
-
-  ## Database port
-  port: "3306"
-
 ttrss:
   ## Full URL of your tt-rss installation
   selfUrl: "3306"
@@ -40,12 +20,13 @@ fullnameOverride: ""
 
 ## persistence for feed icons, custom htaccess and config.php
 persistence:
+  storageClass: openebs-zfs
   accessMode: ReadWriteOnce
   size: 500Mi
 
 ## http exposure
 service:
-  type: NodePort
+  type: ClusterIP
   port: 80
 
 securityContext:
