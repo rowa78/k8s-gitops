@@ -12,7 +12,7 @@ replicaCount: 1
 ## Main ttrss Docker image
 image:
   repository: cthulhoo/ttrss-fpm-pgsql-static
-  web-repository: cthulhoo/ttrss-web-nginx
+  webrepository: cthulhoo/ttrss-web-nginx
   tag: a071edaa
   pullPolicy: Always
 

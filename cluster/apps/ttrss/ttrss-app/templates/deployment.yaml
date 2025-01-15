@@ -106,7 +106,7 @@ spec:
               value: ""
             - name: RESOLVER
               value: kube-dns.kube-system.svc.cluster.local
-          image: "{{ .Values.image.web-repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.webrepository }}:{{ .Values.image.tag }}"
           name: web-nginx
           readinessProbe:
             exec:
