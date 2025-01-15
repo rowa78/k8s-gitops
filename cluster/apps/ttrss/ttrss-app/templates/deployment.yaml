@@ -58,9 +58,8 @@ spec:
               port: http
           volumeMounts:
             - name: app
-              mountPath: /var/www/html/tt-rss
+              mountPath: /var/www/html
 
       volumes:
         - name: app
-          persistentVolumeClaim:
-            claimName: ttrss
+          emptyDir: {}
