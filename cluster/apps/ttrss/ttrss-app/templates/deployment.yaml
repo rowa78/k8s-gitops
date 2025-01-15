@@ -24,43 +24,32 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-          - name: MODE
-            value: app 
-          - name: DB_TYPE
-            value: "postgres"
-          - name: DB_HOST
+          - name: TTRSS_DB_HOST
             valueFrom:
               secretKeyRef:
                 name: ttrssdb-app
                 key: host
-          - name: DB_USER
+          - name: TTRSS_DB_USER
             valueFrom:
               secretKeyRef:
                 name: ttrssdb-app
                 key: user
-          - name: DB_NAME
+          - name: TTRSS_DB_NAME
             valueFrom:
               secretKeyRef:
                 name: ttrssdb-app
                 key: dbname
-          - name: DB_PASS
+          - name: TTRSS_DB_PASS
             valueFrom:
               secretKeyRef:
                 name: ttrssdb-app
                 key: password
-          - name: DB_PORT
-            valueFrom:
-              secretKeyRef:
-                name: ttrssdb-app
-                key: port
-          - name: SELF_URL_PATH
+          - name: TTRSS_SELF_URL_PATH
             value: "{{ .Values.ttrss.selfUkl }}"
-          - name: SINGLE_USER_MODE
-            value: "{{ .Values.ttrss.singleUser }}"
           ports:
-            - name: http
-              containerPort: 8080
+            - name: fastcgi
               protocol: TCP
+              containerPort: 9000
           livenessProbe:
             periodSeconds: 300
             initialDelaySeconds: 30
@@ -68,56 +57,18 @@ spec:
               path: /
               port: http
           volumeMounts:
-          - mountPath: "/data"
-            name: "tt-rss-data"
-
-        - name: tt-rss-updater
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-          - name: MODE
-            value: updater
-          - name: DB_TYPE
-            value: "postgres"
-          - name: DB_HOST
-            valueFrom:
-              secretKeyRef:
-                name: ttrssdb-app
-                key: host
-          - name: DB_USER
-            valueFrom:
-              secretKeyRef:
-                name: ttrssdb-app
-                key: user
-          - name: DB_NAME
-            valueFrom:
-              secretKeyRef:
-                name: ttrssdb-app
-                key: dbname
-          - name: DB_PASS
-            valueFrom:
-              secretKeyRef:
-                name: ttrssdb-app
-                key: password
-          - name: DB_PORT
-            valueFrom:
-              secretKeyRef:
-                name: ttrssdb-app
-                key: port
-          - name: SELF_URL_PATH
-            value: "{{ .Values.ttrss.selfUkl }}"
-          - name: SINGLE_USER_MODE
-            value: "{{ .Values.ttrss.singleUser }}"
-          volumeMounts:
-          - mountPath: "/data"
-            name: "tt-rss-data"
+            - name: app
+              mountPath: /var/www/html/
+            - name: cache
+              mountPath: /var/www/html/tt-rss/cache
 
       volumes:
-      - name: "tt-rss-data"
-        persistentVolumeClaim:
-          claimName: {{ include "tt-rss.fullname" . }}
+        - name: app
+          emptyDir:
+            sizeLimit: 1G
+        - name: cache
+          persistentVolumeClaim:
+            claimName: ttrss-cache
 
-    {{- if .Values.securityContext }}
-      securityContext:
-{{ toYaml .Values.securityContext | indent 8 }}
+
     {{- end }}

@@ -11,8 +11,8 @@ replicaCount: 1
 
 ## Main ttrss Docker image
 image:
-  repository: blacs30/tt-rss-docker
-  tag: latest
+  repository: cthulhoo/ttrss-fpm-pgsql-static
+  tag: a071edaa
   pullPolicy: Always
 
 nameOverride: ""
