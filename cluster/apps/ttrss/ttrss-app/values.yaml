@@ -35,14 +35,19 @@ securityContext:
   supplementalGroups: [5000]
 
 ingress:
-  enabled: false
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  enabled: true
+  annotations: 
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Tiny Tiny RSS
+    gethomepage.dev/group: Apps
+    gethomepage.dev/icon: tinytinyrss.png
+    gethomepage.dev/name: Tiny Tiny RSS
+    gethomepage.dev/app: Tiny Tiny RSS  
   path: /
   hosts:
-    - chart-example.local
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+    - rss.rwcloud.org
+  tls: 
+    - secretName: rss-tls
+      hosts:
+      - rss.rwcloud.org
