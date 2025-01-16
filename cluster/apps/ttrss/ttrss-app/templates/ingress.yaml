@@ -33,7 +33,7 @@ spec:
           - path: {{ $ingressPath }}
             backend:
               service:
-                name: {{ include "tt-rss.fullname" . }}
+                name: {{ $fullName }}
                 port:
                   number: 80
             pathType: Prefix
