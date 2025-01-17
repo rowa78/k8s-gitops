@@ -17,10 +17,10 @@ miniflux:
           key: uri
     # -- Set to `1` to create an admin user from environment variables.
     CREATE_ADMIN: "1"
-    # -- Admin user login, it's used only if `CREATE_ADMIN` is enabled.
-    ADMIN_USERNAME: admin
-    # -- Admin user password, it's used only if `CREATE_ADMIN` is enabled.
-    ADMIN_PASSWORD: changeme
+
+  envFrom: 
+  - secretRef:
+      name: miniflux-secrets
 
   ingress:
     # -- Enable and configure ingress settings for the chart under this key.
