@@ -46,6 +46,18 @@ spec:
                 key: password
           - name: TTRSS_SELF_URL_PATH
             value: "{{ .Values.ttrss.selfUkl }}"
+          - name: AUTO_CREATE_USER
+            valueFrom:
+              secretKeyRef:
+                name: ttrssdb-app
+                key: user
+          - name: AUTO_CREATE_USER_PASS
+            valueFrom:
+              secretKeyRef:
+                name: ttrssdb-app
+                key: password
+          - name: AUTO_CREATE_USER_ACCESS_LEVEL
+            value: 10
           ports:
             - name: fastcgi
               protocol: TCP
