@@ -28,7 +28,7 @@ persistence:
 ## http exposure
 service:
   type: ClusterIP
-  port: 80
+  port: 8080
 
 securityContext:
   ## the data file's owner group
