@@ -56,7 +56,7 @@ miniflux:
       enabled: true
       # -- List of networks allowed to access the `/metrics` endpoint (comma-separated values).
       #    [[ref]](https://miniflux.app/docs/configuration.html#metrics-allowed-networks)
-      allowedNetworks: 0.0.0.0/8
+      allowedNetworks: 10.42.0.0/8
       # -- Configures the endpoints for the serviceMonitor.
       # @default -- See [values.yaml](./values.yaml)
       endpoints:
