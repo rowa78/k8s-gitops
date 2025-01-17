@@ -26,15 +26,23 @@ miniflux:
     # -- Enable and configure ingress settings for the chart under this key.
     # @default -- See [values.yaml](./values.yaml)
     main:
-      enabled: false
-      # hosts:
-      #   - host: chart-example.local
-      #     paths:
-      #       - path: /
-      # tls:
-      #   - secretName: chart-example.local-tls
-      #     hosts:
-      #       - chart-example.local
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/description: Miniflux
+        gethomepage.dev/group: Apps
+        gethomepage.dev/icon: miniflux.png
+        gethomepage.dev/name: Miniflux RSS
+        gethomepage.dev/app: Miniflux RSS
+      hosts:
+        - host: rss.rwcloud.org
+          paths:
+            - path: /
+      tls:
+        - secretName: rss-tls
+          hosts:
+            - rss.rwcloud.org
 
   # -- Enable and configure postgresql database subchart under this key.
   #    For more options see [postgresql chart documentation](https://github.com/bitnami/charts/tree/main/bitnami/postgresql)
