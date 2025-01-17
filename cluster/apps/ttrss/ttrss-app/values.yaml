@@ -28,7 +28,7 @@ persistence:
 ## http exposure
 service:
   type: ClusterIP
-  port: 8080
+  port: 80
 
 securityContext:
   ## the data file's owner group
@@ -44,7 +44,7 @@ ingress:
     gethomepage.dev/icon: tinytinyrss.png
     gethomepage.dev/name: Tiny Tiny RSS
     gethomepage.dev/app: Tiny Tiny RSS  
-  path: /
+  path: /tt-rss
   hosts:
     - rss.rwcloud.org
   tls: 

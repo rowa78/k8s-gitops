@@ -35,7 +35,7 @@ spec:
               service:
                 name: {{ $fullName }}
                 port:
-                  number: 8080
+                  number: 80
             pathType: Prefix
   {{- end }}
 {{- end }}
