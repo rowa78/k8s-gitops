@@ -1,0 +1,56 @@
+miniflux:
+  #
+  # IMPORTANT NOTE
+  #
+  # This chart inherits from our common library chart. You can check the default values/options here:
+  # https://github.com/bjw-s/helm-charts/blob/a081de5/charts/library/common/values.yaml
+  #
+
+  # -- environment variables. [[ref]](https://miniflux.app/docs/configuration.html)
+  # @default -- See [values.yaml](./values.yaml)
+  env:
+    # -- Postgresql connection parameters. Will be generated if Postgresql subchart is enabled. [[ref]](https://miniflux.app/docs/configuration.html#database-url)
+    DATABASE_URL: ""
+    # -- Set to `1` to create an admin user from environment variables.
+    CREATE_ADMIN: "1"
+    # -- Admin user login, it's used only if `CREATE_ADMIN` is enabled.
+    ADMIN_USERNAME: admin
+    # -- Admin user password, it's used only if `CREATE_ADMIN` is enabled.
+    ADMIN_PASSWORD: changeme
+
+  ingress:
+    # -- Enable and configure ingress settings for the chart under this key.
+    # @default -- See [values.yaml](./values.yaml)
+    main:
+      enabled: false
+      # hosts:
+      #   - host: chart-example.local
+      #     paths:
+      #       - path: /
+      # tls:
+      #   - secretName: chart-example.local-tls
+      #     hosts:
+      #       - chart-example.local
+
+  # -- Enable and configure postgresql database subchart under this key.
+  #    For more options see [postgresql chart documentation](https://github.com/bitnami/charts/tree/main/bitnami/postgresql)
+  # @default -- Enabled (See [values.yaml](./values.yaml) for more details)
+  postgresql:
+    enabled: false    
+
+  serviceMonitor:
+    main:
+      # -- Enables or disables the serviceMonitor.
+      enabled: true
+      # -- List of networks allowed to access the `/metrics` endpoint (comma-separated values).
+      #    [[ref]](https://miniflux.app/docs/configuration.html#metrics-allowed-networks)
+      allowedNetworks: 0.0.0.0/8
+      # -- Configures the endpoints for the serviceMonitor.
+      # @default -- See [values.yaml](./values.yaml)
+      endpoints:
+        - port: http
+          scheme: http
+          path: /metrics
+          interval: 1m
+          scrapeTimeout: 10s
+

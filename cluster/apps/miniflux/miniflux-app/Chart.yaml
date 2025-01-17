@@ -1,0 +1,7 @@
+apiVersion: v2
+name: miniflux
+version: 1.0.0
+dependencies:
+  - name: miniflux
+    version: 0.9.1
+    repository: oci://ghcr.io/gabe565/charts

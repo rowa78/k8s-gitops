@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ttrss-postgres
+  name: miniflux-postgres
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -11,15 +11,15 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/ttrss/postgres
+    path: cluster/apps/miniflux/postgres
   destination:
     name: in-cluster
-    namespace: ttrss     
+    namespace: miniflux     
   # syncPolicy:
   #   automated:
   #     prune: true
   #     selfHeal: true 
----
+# ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
 # metadata:
@@ -44,7 +44,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ttrss-app
+  name: miniflux-app
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -53,10 +53,10 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/ttrss/ttrss-app
+    path: cluster/apps/miniflux/miniflux-app
   destination:
     name: in-cluster
-    namespace: ttrss
+    namespace: miniflux
   syncPolicy:
     automated:
       prune: false

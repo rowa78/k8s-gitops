@@ -1,30 +1,30 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: ttrssdb
+  name: minifluxdb
   annotations:
-    k8up.io/backupcommand: sh -c 'pg_dump --clean ttrssdb'
+    k8up.io/backupcommand: sh -c 'pg_dump --clean minifluxdb'
     k8up.io/file-extension: .sql
     k8up.io/backup: 'false'
     tailscale.com/expose: "true"
 spec:
-  imageName: 'ghcr.io/cloudnative-pg/postgresql:16.6-25'
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.6-25
   instances: 1
 
   resources:
     requests:
-      memory: "2Gi"
-      cpu: "500m"
+      memory: "1Gi"
+      cpu: "200m"
     limits:
-      memory: "6Gi"
-      cpu: "4"
+      memory: "2Gi"
+      cpu: "2"
   bootstrap:
     initdb:
-      database: ttrssdb
-      owner: ttrss 
+      database: minifluxdb
+      owner: miniflux 
   # bootstrap:
   #   recovery:
-  #     source: vocabolariodb
+  #     source: minifluxdb
 
   postgresql:
     parameters:        
@@ -67,7 +67,7 @@ spec:
     retentionPolicy: "5d"
 
   # externalClusters:
-  #   - name: vocabolariodb
+  #   - name: minifluxdb
   #     barmanObjectStore:
   #       endpointURL: "https://fsn1.your-objectstorage.com"      
   #       destinationPath: "s3://rwcloud-postgres"         
@@ -87,9 +87,9 @@ spec:
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
-  name: ttrssdb-backup
+  name: minifluxdb-backup
 spec:
   schedule: "0 0 0 * * *"
   backupOwnerReference: self
   cluster:
-    name: ttrssdb
+    name: minifluxdb
