@@ -57,7 +57,7 @@ spec:
                 name: ttrssdb-app
                 key: password
           - name: AUTO_CREATE_USER_ACCESS_LEVEL
-            value: 10
+            value: "10"
           ports:
             - name: fastcgi
               protocol: TCP
