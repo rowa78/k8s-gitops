@@ -12,8 +12,9 @@ open-webui:
       gpu:
         enabled: false  
       models:
-        - llama2
-        - mistral
+        pull:
+          - llama2
+          - mistral
 
     persistentVolume:
       enabled: true
