@@ -4,21 +4,20 @@ open-webui:
 
   ollama:
     # -- Automatically install Ollama Helm chart from https://otwld.github.io/ollama-helm/. Use [Helm Values](https://github.com/otwld/ollama-helm/#helm-values) to configure
-    enabled: false
+    enabled: true
     # -- If enabling embedded Ollama, update fullnameOverride to your desired Ollama name value, or else it will use the default ollama.name value from the Ollama chart
     fullnameOverride: "open-webui-ollama"
     # -- Example Ollama configuration with nvidia GPU enabled, automatically downloading a model, and deploying a PVC for model persistence
-    # ollama:
-    #   gpu:
-    #     enabled: true
-    #     type: 'nvidia'
-    #     number: 1
-    #   models:
-    #     - llama3
-    # runtimeClassName: nvidia
-    # persistentVolume:
-    #   enabled: true
-    #   volumeName: "example-pre-existing-pv-created-by-smb-csi"
+    ollama:
+      gpu:
+        enabled: false        
+      models:
+        - llama3    
+    persistentVolume:
+      enabled: true
+      storageClass: openebs-zfs
+      size: 50Gi
+      
 
   pipelines:
     # -- Automatically install Pipelines chart to extend Open WebUI functionality using Pipelines: https://github.com/open-webui/pipelines
