@@ -11,8 +11,6 @@ open-webui:
     ollama:
       gpu:
         enabled: false        
-      models:
-        - llama3    
     persistentVolume:
       enabled: true
       storageClass: openebs-zfs
