@@ -10,7 +10,11 @@ open-webui:
     # -- Example Ollama configuration with nvidia GPU enabled, automatically downloading a model, and deploying a PVC for model persistence
     ollama:
       gpu:
-        enabled: false        
+        enabled: false  
+      models:
+        - llama2
+        - mistral
+
     persistentVolume:
       enabled: true
       storageClass: openebs-zfs
