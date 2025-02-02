@@ -304,14 +304,14 @@ nextcloud:
     # Extra mounts for the pods. Example shown is for connecting a legacy NFS volume
     # to NextCloud pods in Kubernetes. This can then be configured in External Storage
     extraVolumes:
-    #  - name: nfs
-    #    nfs:
-    #      server: "10.0.0.1"
-    #      path: "/nextcloud_data"
-    #      readOnly: false
+    - secret:
+        defaultMode: 420
+        name: oidc
+      name: nextcloud-oidc
     extraVolumeMounts:
-    #  - name: nfs
-    #    mountPath: "/legacy_data"
+    - mountPath: /var/www/html/config/oidc.config.php
+      name: nextcloud-oidc
+      subPath: oidc.config.php
 
     # Set securityContext parameters for the nextcloud CONTAINER only (will not affect nginx container).
     # For example, you may need to define runAsNonRoot directive
