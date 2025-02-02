@@ -304,9 +304,8 @@ nextcloud:
     # Extra mounts for the pods. Example shown is for connecting a legacy NFS volume
     # to NextCloud pods in Kubernetes. This can then be configured in External Storage
     extraVolumes:
-    - secret:
-        defaultMode: 420
-        name: oidc
+    - secret:        
+        secretName: oidc
       name: nextcloud-oidc
     extraVolumeMounts:
     - mountPath: /var/www/html/config/oidc.config.php
