@@ -25,42 +25,40 @@ nextcloud:
   ##
   ingress:
     enabled: true
-    # className: nginx
-    annotations:
-      nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
-      nginx.ingress.kubernetes.io/proxy-body-size: 4G
-      kubernetes.io/tls-acme: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-production
-      # Keep this in sync with the README.md:
-      nginx.ingress.kubernetes.io/server-snippet: |-
-        server_tokens off;
-        proxy_hide_header X-Powered-By;
-        rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
-        rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
-        rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
-        rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
-        location = /.well-known/carddav {
-          return 301 $scheme://$host/remote.php/dav;
-        }
-        location = /.well-known/caldav {
-          return 301 $scheme://$host/remote.php/dav;
-        }
-        location = /robots.txt {
-          allow all;
-          log_not_found off;
-          access_log off;
-        }
-        location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
-          deny all;
-        }
-        location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
-          deny all;
-        }
+    className: nginx
+    annotations: 
+    nginx.ingress.kubernetes.io/proxy-body-size: 4G
+    #kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    # Keep this in sync with the README.md:
+    #  nginx.ingress.kubernetes.io/server-snippet: |-
+    #    server_tokens off;
+    #    proxy_hide_header X-Powered-By;
+    #    rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
+    #    rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
+    #    rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+    #    rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+    #    location = /.well-known/carddav {
+    #      return 301 $scheme://$host/remote.php/dav;
+    #    }
+    #    location = /.well-known/caldav {
+    #      return 301 $scheme://$host/remote.php/dav;
+    #    }
+    #    location = /robots.txt {
+    #      allow all;
+    #      log_not_found off;
+    #      access_log off;
+    #    }
+    #    location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+    #      deny all;
+    #    }
+    #    location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+    #      deny all;
+    #    }
     tls:
       - secretName: nextcloud-tls
         hosts:
-          - cloud.rwcloud.org
+          - nextcloud.rwcloud.org
     labels: {}
     path: /
     pathType: Prefix
@@ -77,7 +75,7 @@ nextcloud:
     protocol: https
 
   nextcloud:
-    host: cloud.rwcloud.org
+    host: nextcloud.rwcloud.org
     username: admin
     password: changeme
     ## Use an existing secret
@@ -101,8 +99,10 @@ nextcloud:
     trustedDomains: []
     ## SMTP configuration
     mail:
-      enabled: true
-      fromAddress: nextcloud@ronnywalter.de
+      enabled: false
+      # the user we send email as
+      fromAddress: user
+      # the domain we send email from
       domain: domain.com
       smtp:
         host: domain.com
@@ -190,8 +190,6 @@ nextcloud:
     defaultConfigs:
       # To protect /var/www/html/config
       .htaccess: true
-      # Redis default configuration
-      redis.config.php: true
       # Apache configuration for rewrite urls
       apache-pretty-urls.config.php: true
       # Define APCu as local cache
@@ -217,7 +215,28 @@ nextcloud:
 
     # Extra config files created in /var/www/html/config/
     # ref: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/config_sample_php_parameters.html#multiple-config-php-file
-    configs: {}
+    configs:
+      maintenance.config.php: |-
+        <?php
+        $CONFIG = array (
+          'maintenance_window_start' => 1,
+        );
+      telephone.config.php: |-
+        <?php
+        $CONFIG = array (
+          'default_phone_region' => 'DE'
+        );    
+      proxy.config.php: |-
+        <?php
+        $CONFIG = array (
+          'trusted_proxies' => array(
+            0 => '127.0.0.1',
+            1 => '10.0.0.0/8',
+          ),
+          'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+          'overwriteprotocol' => 'https',
+          'overwrite.cli.url' => 'https://nextcloud.rwcloud.org'
+        );
     # For example, to enable image and text file previews:
     #  previews.config.php: |-
     #    <?php
@@ -304,10 +323,10 @@ nextcloud:
 
     # Set securityContext parameters for the entire pod. For example, you may need to define runAsNonRoot directive
     podSecurityContext: {}
-    #   runAsUser: 33
-    #   runAsGroup: 33
-    #   runAsNonRoot: true
-    #   readOnlyRootFilesystem: false
+      # runAsUser: 33
+      # runAsGroup: 33
+      # runAsNonRoot: true
+      #readOnlyRootFilesystem: false
 
     # Settings for the MariaDB init container
     mariaDbInitContainer:
@@ -434,10 +453,10 @@ nextcloud:
     ##
     primary:
       persistence:
-        enabled: true
+        enabled: false
         # Use an existing Persistent Volume Claim (must be created ahead of time)
-        # existingClaim: ""
-        storageClass: "openebs-zfs"
+        existingClaim: ""
+        storageClass: ""
         accessMode: ReadWriteOnce
         size: 8Gi
 
@@ -483,12 +502,12 @@ nextcloud:
       enabled: true
       password: 'changeme'
       # name of an existing secret with Redis® credentials (instead of auth.password), must be created ahead of time
-      existingSecret: ""
+      existingSecret: "nextcloud-admin-secret"
       # Password key to be retrieved from existing secret
-      existingSecretPasswordKey: ""
+      existingSecretPasswordKey: "password"
     # Since Redis is used for caching only, you might want to use a storageClass with different reclaim policy and backup settings
     global:
-      storageClass: ""
+      storageClass: "openebs-zfs"
     master:
       persistence:
         enabled: true
@@ -754,7 +773,7 @@ nextcloud:
   ## Prometheus Exporter / Metrics
   ##
   metrics:
-    enabled: false
+    enabled: true
 
     replicaCount: 1
     # Optional: becomes NEXTCLOUD_SERVER env var in the nextcloud-exporter container.
@@ -776,7 +795,7 @@ nextcloud:
 
     image:
       repository: xperimental/nextcloud-exporter
-      tag: 0.7.0
+      tag: 0.6.2
       pullPolicy: IfNotPresent
       # pullSecrets:
       #   - myRegistrKeySecretName
@@ -831,7 +850,7 @@ nextcloud:
     serviceMonitor:
       ## @param metrics.serviceMonitor.enabled Create ServiceMonitor Resource for scraping metrics using PrometheusOperator
       ##
-      enabled: false
+      enabled: true
 
       ## @param metrics.serviceMonitor.namespace Namespace in which Prometheus is running
       ##
