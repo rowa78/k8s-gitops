@@ -1,0 +1,59 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: nextclouddb
+  annotations:
+    k8up.io/backupcommand: sh -c 'pg_dump --clean nextclouddb'
+    k8up.io/file-extension: .sql
+spec:
+  instances: 1
+
+  bootstrap:
+    initdb:
+      database: nextclouddb
+      owner: nextcloud
+
+#  postgresql:
+#    parameters:
+      
+  replicationSlots:
+    highAvailability:
+      enabled: true
+      
+  monitoring:
+    enablePodMonitor: true
+
+  storage:
+    size: 10Gi
+    storageClass: openebs-zfs-postgres
+  walStorage:
+    size: 5Gi
+    storageClass: openebs-zfs-postgres
+
+  backup:
+    barmanObjectStore:
+      endpointURL: "http://minio.minio.svc.cluster.local:9000"      
+      destinationPath: "s3://rwcloud-postgresql/" 
+      s3Credentials:
+        accessKeyId:
+          name: s3-creds
+          key: aws_access_key_id
+        secretAccessKey:
+          name: s3-creds
+          key: aws_secret_access_key
+      wal:
+        compression: gzip        
+      data:
+        compression: gzip                
+        jobs: 2
+    retentionPolicy: "14d"
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: nextcloud-backup
+spec:
+  schedule: "0 0 1 * * *"
+  backupOwnerReference: self
+  cluster:
+    name: nextclouddb
