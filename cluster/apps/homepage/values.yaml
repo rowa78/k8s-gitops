@@ -110,7 +110,6 @@ homepage:
             href: "https://auth.rwcloud.org/admin/rwcloud/console/"
             description: Keycloak
             siteMonitor: "https://auth.rwcloud.org"
-      - Storage:
         - Diskstation:
             icon: synology-dsm.svg
             href: "https://ds.ronnywalter.de"
