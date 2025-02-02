@@ -60,7 +60,7 @@ nextcloud:
     tls:
       - secretName: nextcloud-tls
         hosts:
-          - nextcloud.rwcloud.org
+          - cloud.rwcloud.org
     labels: {}
     path: /
     pathType: Prefix
@@ -77,7 +77,7 @@ nextcloud:
     protocol: https
 
   nextcloud:
-    host: nextcloud.rwcloud.org
+    host: cloud.rwcloud.org
     username: admin
     password: changeme
     ## Use an existing secret
@@ -151,7 +151,7 @@ nextcloud:
           ),
           'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
           'overwriteprotocol' => 'https',
-          'overwrite.cli.url' => 'https://nextcloud.rwcloud.org'
+          'overwrite.cli.url' => 'https://cloud.rwcloud.org'
         );
 
     # For example, to use S3 as primary storage
