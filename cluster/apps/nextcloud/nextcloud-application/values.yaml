@@ -38,6 +38,10 @@ nextcloud:
       location = /.well-known/caldav {
         return 301 $scheme://$host/remote.php/dav;
       }
+      rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
+      rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
+      rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+      rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
     #  server_tokens off;
     #    proxy_hide_header X-Powered-By;
     #    rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
