@@ -99,11 +99,11 @@ nextcloud:
     trustedDomains: []
     ## SMTP configuration
     mail:
-      enabled: false
+      enabled: true
       # the user we send email as
-      fromAddress: user
+      fromAddress: nextcloud
       # the domain we send email from
-      domain: domain.com
+      domain: rwcloud.org
       smtp:
         host: domain.com
         secure: ssl
