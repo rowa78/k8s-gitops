@@ -225,7 +225,12 @@ nextcloud:
         <?php
         $CONFIG = array (
           'default_phone_region' => 'DE'
-        );    
+        );
+      social-login.config.php: |-
+        <?php
+        $CONFIG = array (
+          'social_login_auto_redirect' => true
+        );
       proxy.config.php: |-
         <?php
         $CONFIG = array (
@@ -303,14 +308,14 @@ nextcloud:
 
     # Extra mounts for the pods. Example shown is for connecting a legacy NFS volume
     # to NextCloud pods in Kubernetes. This can then be configured in External Storage
-    extraVolumes:
-    - secret:        
-        secretName: oidc
-      name: nextcloud-oidc
-    extraVolumeMounts:
-    - mountPath: /var/www/html/config/oidc.config.php
-      name: nextcloud-oidc
-      subPath: oidc.config.php
+    extraVolumes: {}
+    #- secret:        
+    #    secretName: oidc
+    #  name: nextcloud-oidc
+    extraVolumeMounts: {}
+    #- mountPath: /var/www/html/config/oidc.config.php
+    #  name: nextcloud-oidc
+    #  subPath: oidc.config.php
 
     # Set securityContext parameters for the nextcloud CONTAINER only (will not affect nginx container).
     # For example, you may need to define runAsNonRoot directive
