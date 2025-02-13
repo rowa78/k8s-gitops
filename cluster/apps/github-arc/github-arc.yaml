@@ -24,7 +24,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: github-arc-app
+  name: github-arc-runner
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
