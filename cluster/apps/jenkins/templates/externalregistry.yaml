@@ -1,0 +1,16 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: externalregistry
+  namespace: jenkins
+spec:
+  encryptedData:
+    .dockerconfigjson: AgA1mTVhtwgVZ8iB/wzKSQ2UXJtAYPPOBb3gRpjM28n2xnsWWqW7nsJzYRrWFatsA8eqgXkkdiYQ5x6CEcMALE82YwWMl67x9uY0sCFWJicVzcwwzjj5GPmXTTadAf2CCae3dvydPP6UFvYRVNq8apxW8OcKKYoZ7XeZvV7XJTfjQAxXyslluEa3RObPLiW4RJEiShDfIjx/eWzSB46Qc40Imkzrry3rqVaEkw9bbROV+zqCsDAXZR9ddGMtkQUKr7e0Is++wrCiNj/tK3WIM3/81Unkk2iSIzOB6icXAjz9SjT1QJDruWIsUEDYGAyZ/HgoKDzlbOvcSwKK3/dQOlH780r3+7ZPGuGMNpAU7TZDdK5jYn/dREbonmXoxsghRKAMuvHc0BEj/w8OnBJJZb6H3wGSZHUUiHPz7ngZ3OHULzh24SBdmZmiv2D2ihL8/mImCJeSXv6NZfZSysxf0Z76W0T+HL3ufdeNeOD7XWHcqRTMg7H6ydwCJMnVfEWUsA/j3GVWQrgdXjPdcIZEpYGKl0iKHyU5ul38GxYMheSfFrgrP8AfI308vmu1avqgxFtcMh7OkdISFRClaCZjgmh/zfbY/SY0MUkvMFrIOe847vaIMGB0AeqPCThJXX3VH5W5qitsmnuLlqlKjTB26U41AlAfuOO0wIAquOlRybp+4kPcN/tC9bJd0+JrGEumTP4U/NjoZaADPelK6M7OI2peMgycdGZaIGccwgb35LK9wC33EcYq35IWLooGxe/VsdEYid+fkg3fleeIp4Kx7uxnZYfUTpppi0wuMg6J9XwXz/r3pexw
+  template:
+    metadata:
+      creationTimestamp: null
+      name: externalregistry
+      namespace: jenkins
+    type: kubernetes.io/dockerconfigjson
