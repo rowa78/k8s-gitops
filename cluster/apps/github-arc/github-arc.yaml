@@ -40,8 +40,8 @@ spec:
     name: in-cluster
     namespace: github-arc
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    # automated:
+    #   prune: true
+    #   selfHeal: true
     syncOptions:
       - ServerSideApply=true
