@@ -249,7 +249,7 @@ open-webui:
           name: openid-config
           key: OPENID_PROVIDER_URL
     - name: ENABLE_LOGIN_FORM
-      values: "false"
+      value: "false"
     # - name: OLLAMA_DEBUG
     #   value: "1"
 
