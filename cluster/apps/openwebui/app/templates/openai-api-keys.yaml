@@ -1,9 +1,16 @@
+---
 apiVersion: bitnami.com/v1alpha1
 kind: SealedSecret
 metadata:
+  creationTimestamp: null
   name: openai-api-keys
-  namespace: open-webui
-  annotations: {}
+  namespace: openwebui
 spec:
-  encryptedData: 
-    api-keys: AgBvYHtGbTj/ZAMvVT3+/OIgwQYe7oYPVzHbPvUYwGxMApWWExqxavmfNB1fUVrSwwcOZEj16gxkMV0QjOm6jgW75RmzQB6X5R6PxCSiu9jSaOACFUu7tyfZEtr4v+WGdfpQ15lKd3UT8ALiaTR4XyuG74p8MOTrPZWU5aMRuGgvVB5rb6FhSSXJOhABc1X6wwTm0xm24A2r55UgKN92q1tf+14jqE40JVaGNDutUMPSdksZ5poh9VSBXht/0ovs5VGGpX9c5EVjr3hnR8+JyN9yLVmqHBYJppVp14Hsb8k1HnmfCbUlBbrE7mEB38EIG2SCBhNMcVSSmdu1BJUKfbY5e628s/xKCPW2k57W6vWtzs+0HEGDfC52OHS+1rDtOLn5+OKwebYk6BMYaOMdofFGYOFkzKSWflJRW859GNK1z4P4ye/EGc2zAJJbITkPEZmo699/CLCIVL2bSQ6mKPWOqvaQj+wpIktvc49/+1ezCf+dc7Z1+oc5ViB6/fN2zmcXVbyVfs3rUuOrOXwnCWLXRyFn3zEfkO/LBU+/g8dUbMd58ZumvutsBixcSZEomEoFxVxjXOJcnXjPlbMwuUkYqxvuOCROmqxeNMGE6laAImI6m8LwckMhdBsn5Wl3MgGtp7caPVGQU4PGQI8Aq7wOrrz2zI9xfkliuc1OxrEnwmbGN/i1bxu5Nms1BDDyphOZVRz22SxQuaLuaiT4/KCH9A5Ghpnky9mCw2vYx32p4hpojd08iMpIKcRsHrTheLlrw6RD11tH9w==
+  encryptedData:
+    api-keys: AgCB/PQ8S+Oz0Fte6k6+i7+t78hx8HSQl5MHwxjKlMVUGs2om68ZA+GSSW6HLOcWh29+jr/C6hProFwD4T8QHuXybh0YkWJ8aYI8CU3NJlTYkWD28htu00mnHWRqqBkz2msFOh/ZirmUQyhF5J3klzoFY1bzBYMdyO90wd/O6mB7h58FA/kXpr1J8MVLSNEhWKLZOdswQExywe31lhncwc++wtZkoNQ6J5HPGBEHmC/ATxC8WGcnn8CM4sp4Hqafp6ggRplCIn7eqSyjqGHRKNwYnSHl+TdwOyJgoKbswhspuFOSP2fNrZQhXYYn+GhbkySUFVvzsg99Bvmfy6sZ81RM/KK+2A4MZp/aeyIDku3yecofgTm5GxEZAp/lu+gKU4oSk2Vt2z5MmDHhTx+83N19aXlJE6kKla1ABLTA2ob+rmW3Hlt3Lp+x8gphvBB1GR+98jfApNK8q7oVEeGHiWqkxU6eDa7d8Hy/wRyTirbQUtC00+TgZgv649d2MTDw86Jim47IhXtrKvCi3I3lspVcGE2k03MMggna6TAKQFkon2ssjDt/WmukutjCAzCts1EeuIX/UjsWW93ahiUlTN3xo3BRBQS7q0Wt+qJIhy9QVbWOPfXdsiUsiQiEAEblOB/syKPFzin+/wc8OCzp0RTVLzQJLxUjEuutiTGj8m+OfBNixHCZMIhVscqLaHRVkI95IfmQTDElV/QalSIf0Ve9b+BFhmbLJSv0BkT5+hY0UB76J4DHbk4BBluWL1BWh7x0O1fK5r7R5g==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: openai-api-keys
+      namespace: openwebui
+    type: Opaque
