@@ -248,6 +248,8 @@ open-webui:
         secretKeyRef:
           name: openid-config
           key: OPENID_PROVIDER_URL
+    - name: WEBUI_AUTH
+      values: "false"
     # - name: OLLAMA_DEBUG
     #   value: "1"
 
