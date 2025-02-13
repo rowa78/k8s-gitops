@@ -149,7 +149,7 @@ gha-runner-scale-set:
 
   ## githubConfigSecret is the k8s secrets to use when auth with GitHub API.
   ## You can choose to use GitHub App or a PAT token
-  githubConfigSecret: github-secret
+  # githubConfigSecret: 
     ### GitHub Apps Configuration
     ## NOTE: IDs MUST be strings, use quotes
     #github_app_id: ""
@@ -165,7 +165,7 @@ gha-runner-scale-set:
   ##   > kubectl create secret generic pre-defined-secret --namespace=my_namespace --from-literal=github_token='ghp_your_pat'
   ##   For a pre-defined secret using GitHub App, the secret needs to be created like this:
   ##   > kubectl create secret generic pre-defined-secret --namespace=my_namespace --from-literal=github_app_id=123456 --from-literal=github_app_installation_id=654321 --from-literal=github_app_private_key='-----BEGIN CERTIFICATE-----*******'
-  # githubConfigSecret: pre-defined-secret
+  githubConfigSecret: github-secret
 
   ## proxy can be used to define proxy settings that will be used by the
   ## controller, the listener and the runner of this scale set.
