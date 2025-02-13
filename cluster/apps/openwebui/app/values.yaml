@@ -223,6 +223,31 @@ open-webui:
         secretKeyRef:
           name: openai-api-keys
           key: api-keys
+    - name: ENABLE_OAUTH_SIGNUP
+      valueFrom:
+        secretKeyRef:
+          name: openid-config
+          key: ENABLE_OAUTH_SIGNUP
+    - name: OAUTH_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: openid-config
+          key: OAUTH_CLIENT_ID
+    - name: OAUTH_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: openid-config
+          key: OAUTH_CLIENT_SECRET
+    - name: OAUTH_PROVIDER_NAME
+      valueFrom:
+        secretKeyRef:
+          name: openid-config
+          key: OAUTH_PROVIDER_NAME
+    - name: OPENID_PROVIDER_URL
+      valueFrom:
+        secretKeyRef:
+          name: openid-config
+          key: OPENID_PROVIDER_URL
     # - name: OLLAMA_DEBUG
     #   value: "1"
 
