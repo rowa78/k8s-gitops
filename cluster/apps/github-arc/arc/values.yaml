@@ -345,7 +345,7 @@ gha-runner-scale-set:
   ## Note: if your controller is installed to only watch a single namespace, you have to pass these values explicitly.
   controllerServiceAccount:
     namespace: github-arc
-    name: github-arc-gha-rs-controller
+    name: github-arc-app-gha-rs-controller
 
 
     
