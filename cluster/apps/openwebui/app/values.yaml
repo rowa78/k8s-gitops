@@ -167,9 +167,9 @@ open-webui:
       gethomepage.dev/enabled: "true"
       gethomepage.dev/description: Open-WebUI
       gethomepage.dev/group: Apps
-      gethomepage.dev/icon: openwebui.png
+      gethomepage.dev/icon: https://raw.githubusercontent.com/open-webui/open-webui/main/backend/open_webui/static/logo.png
       gethomepage.dev/name: Open-WebUI
-      gethomepage.dev/app: Open-WebUI  
+      gethomepage.dev/app: openwebui-app
     host: "ai.rwcloud.org"
     additionalHosts: []
     tls: true
