@@ -217,7 +217,7 @@ open-webui:
   extraEnvVars:
     # -- Default API key value for Pipelines. Should be updated in a production deployment, or be changed to the required API key if not using Pipelines
     - name: OPENAI_API_BASE_URLS
-      value: https://api.groq.com/openai/v1
+      value: https://openrouter.ai/api/v1
     - name: OPENAI_API_KEYS
       valueFrom:
         secretKeyRef:
