@@ -546,7 +546,7 @@ sealed-secrets-web:
   includeLocalNamespaceOnly: false
 
   # -- If set to true secrets cannot be read from this tool, only seal new ones
-  disableLoadSecrets: false
+  disableLoadSecrets: true
 
   # -- Define you custom initial secret file
   initialSecretFile:
