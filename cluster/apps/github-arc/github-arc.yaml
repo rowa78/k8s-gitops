@@ -24,7 +24,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: github-arc-runner
+  name: github-arc-runner-vocabolario
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -33,9 +33,9 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/github-arc/runner-set
+    path: cluster/apps/github-arc/runner-set-vocabolario
     helm: 
-      releaseName: arc-runner-set
+      releaseName: arc-runner-set-vocabolario
   destination:
     name: in-cluster
     namespace: github-arc
