@@ -17,7 +17,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: acme-sh
-            image: neilpang/acme.sh:3.0.7
+            image: neilpang/acme.sh:3.1.0
             command: ["/bin/sh"]
             args: ["-c", "touch /acme.sh/mydomain/mydomain.conf && acme.sh --deploy --domain mydomain --deploy-hook synology_dsm"]
             envFrom:
