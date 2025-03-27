@@ -1,6 +1,6 @@
 {
     "dependencyDashboard": true,
-    "enabledManagers": ["helm", "helmfile", "kubernetes"],
+    "enabledManagers": ["helmfile", "kubernetes"],
 
     "helm": {
         "fileMatch": ["(^|/)Chart\\.yaml$"]
