@@ -11,15 +11,15 @@
     },
 
     "regexManagers": [
-        {
-          "fileMatch": ["(^|/)Chart\\.yaml$"],
-          "matchStrings": [
-            "^[ ]{0,2}-[ ]{0,2}name:[ ]*(?<depName>\\S+)[\\s\\S]*?[ ]{0,2}version:[ ]*(?<currentValue>\\S+)"
-          ],
-          "depNameTemplate": "{{depName}}",
-          "datasourceTemplate": "helm"
-        }
-      ],
+    {
+        "fileMatch": ["(^|/)Chart\\.yaml$"],
+        "matchStrings": [
+        "name:[ ]*(?<depName>\\S+)[\\s\\S]*?version:[ ]*(?<currentValue>\\S+)"
+        ],
+        "depNameTemplate": "{{depName}}",
+        "datasourceTemplate": "helm"
+    }
+    ],
     
       "packageRules": [
         {
