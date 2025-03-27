@@ -18,9 +18,8 @@
     "packageRules": [
         {
           "matchManagers": ["helmv3"],
-          "matchPackagePatterns": [".*"],  
-          "separateMinor": true,           
-          "separatePatch": true           
+          "matchPackagePatterns": [".*"],   
+          "separateUpdates": true          
         }
       ]
 
