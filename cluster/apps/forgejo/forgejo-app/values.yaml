@@ -647,66 +647,6 @@ forgejo:
       ## @param gitea.config.other Uncategorized configuration options
       other: {}
 
-    ## @section LivenessProbe
-    #
-    ## @param gitea.livenessProbe.enabled Enable liveness probe
-    ## @param gitea.livenessProbe.tcpSocket.port Port to probe for liveness
-    ## @param gitea.livenessProbe.initialDelaySeconds Initial delay before liveness probe is initiated
-    ## @param gitea.livenessProbe.timeoutSeconds Timeout for liveness probe
-    ## @param gitea.livenessProbe.periodSeconds Period for liveness probe
-    ## @param gitea.livenessProbe.successThreshold Success threshold for liveness probe
-    ## @param gitea.livenessProbe.failureThreshold Failure threshold for liveness probe
-    # Modify the liveness probe for your needs or completely disable it by commenting out.
-    livenessProbe:
-      enabled: true
-      tcpSocket:
-        port: http
-      initialDelaySeconds: 200
-      timeoutSeconds: 1
-      periodSeconds: 10
-      successThreshold: 1
-      failureThreshold: 10
-
-    ## @section ReadinessProbe
-    #
-    ## @param gitea.readinessProbe.enabled Enable readiness probe
-    ## @param gitea.readinessProbe.tcpSocket.port Port to probe for readiness
-    ## @param gitea.readinessProbe.initialDelaySeconds Initial delay before readiness probe is initiated
-    ## @param gitea.readinessProbe.timeoutSeconds Timeout for readiness probe
-    ## @param gitea.readinessProbe.periodSeconds Period for readiness probe
-    ## @param gitea.readinessProbe.successThreshold Success threshold for readiness probe
-    ## @param gitea.readinessProbe.failureThreshold Failure threshold for readiness probe
-    # Modify the readiness probe for your needs or completely disable it by commenting out.
-    readinessProbe:
-      enabled: true
-      tcpSocket:
-        port: http
-      initialDelaySeconds: 5
-      timeoutSeconds: 1
-      periodSeconds: 10
-      successThreshold: 1
-      failureThreshold: 3
-
-    # # Uncomment the startup probe to enable and modify it for your needs.
-    ## @section StartupProbe
-    #
-    ## @param gitea.startupProbe.enabled Enable startup probe
-    ## @param gitea.startupProbe.tcpSocket.port Port to probe for startup
-    ## @param gitea.startupProbe.initialDelaySeconds Initial delay before startup probe is initiated
-    ## @param gitea.startupProbe.timeoutSeconds Timeout for startup probe
-    ## @param gitea.startupProbe.periodSeconds Period for startup probe
-    ## @param gitea.startupProbe.successThreshold Success threshold for startup probe
-    ## @param gitea.startupProbe.failureThreshold Failure threshold for startup probe
-    startupProbe:
-      enabled: false
-      tcpSocket:
-        port: http
-      initialDelaySeconds: 60
-      timeoutSeconds: 1
-      periodSeconds: 10
-      successThreshold: 1
-      failureThreshold: 10
-
   ## @section Redis&reg; Cluster
   ## @descriptionStart
   ## Redis&reg; Cluster is loaded as a dependency from [Bitnami](https://github.com/bitnami/charts/tree/master/bitnami/redis-cluster) if enabled in the values.
