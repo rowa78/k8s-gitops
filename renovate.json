@@ -1,31 +1,26 @@
 {
     "dependencyDashboard": true,
-    "enabledManagers": ["helmfile", "kubernetes"],
 
+    "enabledManagers": ["helmfile", "kubernetes", "helmv3"],
+
+    "helmv3": {
+      "fileMatch": ["(^|/)Chart\\.yaml$"]
+    },
+  
     "kubernetes": {
-        "fileMatch": ["^cluster/.*\\.yaml$"]
+      "fileMatch": ["^cluster/.*\\.yaml$"]
     },
-
+  
     "helmfile": {
-        "fileMatch": ["^cluster/.*\\.yaml$"]
+      "fileMatch": ["^cluster/.*\\.yaml$"]
     },
+  
+    "packageRules": [
+      {
+        "matchManagers": ["helmv3"],
+        "groupName": "Helm Chart Updates",
+        "groupSlug": "helm-charts"
+      }
+    ]
 
-    "regexManagers": [
-    {
-        "fileMatch": ["(^|/)Chart\\.yaml$"],
-        "matchStrings": [
-        "name:[ ]*(?<depName>\\S+)[\\s\\S]*?version:[ ]*(?<currentValue>\\S+)"
-        ],
-        "depNameTemplate": "{{depName}}",
-        "datasourceTemplate": "helm"
-    }
-    ],
-    
-      "packageRules": [
-        {
-          "matchManagers": ["regex"],
-          "groupName": "Helm Chart Updates",
-          "groupSlug": "helm-charts"
-        }
-      ]
   }
