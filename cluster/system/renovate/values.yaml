@@ -6,32 +6,7 @@ renovate:
       {
         "platform": "github",
         "repositories": ["rowa78/k8s-gitops"],
-        "printConfig": false,
-        "dependencyDashboard": true,
-        "dependencyDashboardTitle": "Renovate Dashboard",
-        
-        "enabledManagers": ["helmfile", "kubernetes"],
-
-        "kubernetes": {
-          "fileMatch": ["^cluster/.*\\.yaml$"]
-        },
-
-        "helmfile": {
-          "fileMatch": ["^cluster/.*\\.yaml$"]
-        },
-
-        "pre-commit": {
-          "enabled": true
-        },
-
-        "packageRules": [
-          {
-            "matchManagers": ["kubernetes", "helmfile"],
-            "groupName": "Kubernetes Manifests",
-            "groupSlug": "k8s-manifests",
-            "enabled": true
-          }
-        ]
+        "printConfig": false       
       }
   existingSecret: renovate
   nodeSelector: 

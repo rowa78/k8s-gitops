@@ -1,0 +1,12 @@
+{
+    "platform": "github",
+    "repositories": ["rowa78/k8s-gitops"],
+    "dependencyDashboard": true,
+    "enabledManagers": ["helmfile", "kubernetes"],
+    "kubernetes": {
+      "fileMatch": ["^cluster/.*\\.yaml$"]
+    },
+    "helmfile": {
+      "fileMatch": ["^cluster/.*\\.yaml$"]
+    }
+  }
