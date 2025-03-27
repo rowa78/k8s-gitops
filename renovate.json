@@ -17,11 +17,11 @@
   
     "packageRules": [
         {
-        "matchManagers": ["helmv3"],
-        "matchPackagePatterns": [".*"], 
-        "separateMinorPatch": true,   
-        "separateMajor": true         
+          "matchManagers": ["helmv3"],
+          "matchPackagePatterns": [".*"],  
+          "separateMinor": true,           
+          "separatePatch": true           
         }
-    ]
+      ]
 
   }
