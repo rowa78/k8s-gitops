@@ -9,10 +9,29 @@ renovate:
         "printConfig": false,
         "dependencyDashboard": true,
         "dependencyDashboardTitle": "Renovate Dashboard",
+        
+        "enabledManagers": ["helmfile", "kubernetes"],
+
+        "kubernetes": {
+          "fileMatch": ["^cluster/.*\\.yaml$"]
+        },
+
+        "helmfile": {
+          "fileMatch": ["^cluster/.*\\.yaml$"]
+        },
+
         "pre-commit": {
           "enabled": true
         },
-        "packageRules": [{"matchFileNames": ["cluster/**"], "enabled": true}]
+
+        "packageRules": [
+          {
+            "matchManagers": ["kubernetes", "helmfile"],
+            "groupName": "Kubernetes Manifests",
+            "groupSlug": "k8s-manifests",
+            "enabled": true
+          }
+        ]
       }
   existingSecret: renovate
   nodeSelector: 
