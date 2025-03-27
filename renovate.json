@@ -1,43 +1,48 @@
 {
-    "dependencyDashboard": true,
-
-    "enabledManagers": ["helmfile", "kubernetes", "helmv3"],
-
-    "helmv3": {
-      "fileMatch": ["(^|/)Chart\\.yaml$"]
+  "dependencyDashboard": true,
+  "enabledManagers": [
+    "helmfile",
+    "kubernetes",
+    "helmv3"
+  ],
+  "helmv3": {
+    "fileMatch": [
+      "(^|/)Chart\\.yaml$"
+    ]
+  },
+  "kubernetes": {
+    "fileMatch": [
+      "^cluster/.*\\.yaml$"
+    ]
+  },
+  "helmfile": {
+    "fileMatch": [
+      "^cluster/.*\\.yaml$"
+    ]
+  },
+  "packageRules": [
+    {
+      "matchManagers": [
+        "helmv3",
+        "helmfile"
+      ],
+      "groupName": null,
+      "group": {
+        "enabled": false
+      }
     },
-  
-    "kubernetes": {
-      "fileMatch": ["^cluster/.*\\.yaml$"]
-    },
-  
-    "helmfile": {
-      "fileMatch": ["^cluster/.*\\.yaml$"]
-    },
-  
-    "packageRules": [
-        {
-          "matchManagers": [
-            "helmv3",
-            "helmfile"
-          ],
-          "groupName": null,
-          "group": {
-            "enabled": false
-          }
-        },
-        {
-            "matchManagers": [
-            "helmv3",
-            "helmfile"
-            ],
-            "matchUpdateTypes": [
-            "patch"
-            ],
-            "automerge": true,
-            "automergeType": "branch",
-            "automergeComment": "Auto-Merge für Patch-Version"
-        }
-        ],
-        "recreateClosed": true
-  }
+    {
+      "matchManagers": [
+        "helmv3",
+        "helmfile"
+      ],
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "automerge": true,
+      "automergeType": "branch",
+      "automergeComment": "Auto-Merge für Patch-Version"
+    }
+  ],
+  "recreateWhen": "always"
+}
