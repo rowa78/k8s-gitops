@@ -3,5 +3,5 @@ name: jenkins
 version: 1.0.0
 dependencies:
   - name: jenkins
-    version: 5.8.1
+    version: 5.8.27
     repository: https://charts.jenkins.io
