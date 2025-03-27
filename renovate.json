@@ -25,7 +25,19 @@
           "group": {
             "enabled": false
           }
+        },
+        {
+            "matchManagers": [
+            "helmv3",
+            "helmfile"
+            ],
+            "matchUpdateTypes": [
+            "patch"
+            ],
+            "automerge": true,
+            "automergeType": "branch",
+            "automergeComment": "Auto-Merge für Patch-Version"
         }
-      ]
+        ]
 
   }
