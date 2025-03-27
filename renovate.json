@@ -38,6 +38,6 @@
             "automergeType": "branch",
             "automergeComment": "Auto-Merge für Patch-Version"
         }
-        ]
-
+        ],
+        "recreateClosed": true
   }
