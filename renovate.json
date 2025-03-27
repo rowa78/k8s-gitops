@@ -14,11 +14,22 @@
         "fileMatch": ["^cluster/.*\\.yaml$"]
     },
 
-    "packageRules": [
+    "regexManagers": [
         {
-        "matchManagers": ["helm"],
-        "groupName": "Helm Chart Updates",
-        "groupSlug": "helm-charts"
+          "fileMatch": ["(^|/)Chart\\.yaml$"],
+          "matchStrings": [
+            "^[ ]{0,2}-[ ]{0,2}name:[ ]*(?<depName>\\S+)[\\s\\S]*?[ ]{0,2}version:[ ]*(?<currentValue>\\S+)"
+          ],
+          "depNameTemplate": "{{depName}}",
+          "datasourceTemplate": "helm"
         }
-    ]
+      ],
+    
+      "packageRules": [
+        {
+          "matchManagers": ["regex"],
+          "groupName": "Helm Chart Updates",
+          "groupSlug": "helm-charts"
+        }
+      ]
   }
