@@ -16,11 +16,12 @@
     },
   
     "packageRules": [
-      {
+        {
         "matchManagers": ["helmv3"],
-        "groupName": "Helm Chart Updates",
-        "groupSlug": "helm-charts"
-      }
+        "matchPackagePatterns": [".*"], 
+        "separateMinorPatch": true,   
+        "separateMajor": true         
+        }
     ]
 
   }
