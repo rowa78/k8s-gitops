@@ -17,9 +17,14 @@
   
     "packageRules": [
         {
-          "matchManagers": ["helmv3"],
-          "matchPackagePatterns": [".*"],   
-          "separateUpdates": true          
+          "matchManagers": [
+            "helmv3",
+            "helmfile"
+          ],
+          "groupName": null,
+          "group": {
+            "enabled": false
+          }
         }
       ]
 
