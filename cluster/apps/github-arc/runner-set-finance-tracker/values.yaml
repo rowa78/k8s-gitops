@@ -1,0 +1,13 @@
+gha-runner-scale-set:
+  ## githubConfigUrl is the GitHub url for where you want to configure runners
+  ## ex: https://github.com/myorg/myrepo or https://github.com/myorg
+  githubConfigUrl: "https://github.com/rowa78/finance-tracker"
+
+  githubConfigSecret: github
+
+  controllerServiceAccount:
+    namespace: github-arc
+    name: github-arc-app-gha-rs-controller
+
+
+    

@@ -70,3 +70,28 @@ spec:
     #   selfHeal: true
     syncOptions:
       - ServerSideApply=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: github-arc-runner-finance-tracker
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/apps/github-arc/runner-finance-tracker
+    helm: 
+      releaseName: arc-runner-finance-tracker
+  destination:
+    name: in-cluster
+    namespace: github-arc
+  syncPolicy:
+    # automated:
+    #   prune: true
+    #   selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
