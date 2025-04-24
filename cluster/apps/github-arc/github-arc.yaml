@@ -83,7 +83,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/github-arc/runner-finance-tracker
+    path: cluster/apps/github-arc/runner-set-finance-tracker
     helm: 
       releaseName: arc-runner-finance-tracker
   destination:
