@@ -74,7 +74,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: github-arc-runner-finance-tracker
+  name: github-arc-runner-set-finance-tracker
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -85,7 +85,7 @@ spec:
     targetRevision: main
     path: cluster/apps/github-arc/runner-set-finance-tracker
     helm: 
-      releaseName: arc-runner-finance-tracker
+      releaseName: arc-runner-set-finance-tracker
   destination:
     name: in-cluster
     namespace: github-arc
