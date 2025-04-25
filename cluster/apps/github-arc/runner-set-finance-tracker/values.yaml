@@ -32,6 +32,9 @@ gha-runner-scale-set:
           env:
           - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
             value: "false"  ## To allow jobs without a job container to run, set ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER to false on your runner container. This instructs the runner to disable this check.
+        - name: kaniko
+          image: gcr.io/kaniko-project/executor:v1.20.0-debug
+          entrypoint: ""
       volumes:
         - name: work
           ephemeral:
