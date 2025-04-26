@@ -466,7 +466,7 @@ jenkins:
     # and must start and end with an alphanumeric character (e.g. 'my-name', or '123-abc')
     # existingSecret existing secret "secret-credentials" and a key inside it named "github-username" should be used in JCasC as ${github-username}
     # When using existingSecret no need to specify the keyName under additionalExistingSecrets.
-    existingSecret:
+    existingSecret: secret-credentials
 
     # -- List of additional existing secrets to mount
     additionalExistingSecrets: []
@@ -536,10 +536,9 @@ jenkins:
         oic:
           allowedTokenExpirationClockSkewSeconds: 0
           clientId: "jenkins"
-          clientSecret: "{AQAAABAAAAAwjPr1X6eBS2Q5r2CYGrfkoDtG4nIuhrSWbC3M+LuNSXe291enPgZaj89hjGCwOxK8HDHnL1zy/vmAYUQ79Idi9g==}"
+          clientSecret: "${secret-credentials-openid-client-secret}"
           disableSslVerification: false
-          emailFieldName: "email"
-          escapeHatchSecret: "{AQAAABAAAABAR1QbNv47+dZ/0Jz3ZN/b4n2GLXFo5UpkzJA180BTyq0eZtp7jSHUCKCLS7S7mYpTxSaBHK/CMaiUJjGT7KEUgqTwkrXGkeUU6OOMzeATbX0=}"
+          emailFieldName: "email"          
           groupIdStrategy: "caseSensitive"
           logoutFromOpenidProvider: false
           serverConfiguration:
@@ -549,6 +548,7 @@ jenkins:
           userIdStrategy: "caseSensitive"
           userNameField: "preferred_username"
 
+#escapeHatchSecret: "{AQAAABAAAABAR1QbNv47+dZ/0Jz3ZN/b4n2GLXFo5UpkzJA180BTyq0eZtp7jSHUCKCLS7S7mYpTxSaBHK/CMaiUJjGT7KEUgqTwkrXGkeUU6OOMzeATbX0=}"
       # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
       # -- Jenkins Config as Code Authorization Strategy-section
       authorizationStrategy: |-
