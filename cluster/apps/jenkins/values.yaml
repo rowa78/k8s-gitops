@@ -421,6 +421,7 @@ jenkins:
       - oic-auth
       - github
       - gradle
+      - github-checks
 
     # Without this; whenever the controller gets restarted (Evicted, etc.) it will fetch plugin updates that have the potential to cause breakage.
     # Note that for this to work, `persistence.enabled` needs to be set to `true`
@@ -728,7 +729,6 @@ jenkins:
         gethomepage.dev/group: Apps
         gethomepage.dev/icon: jenkins.png
         gethomepage.dev/name: Jenkins
-        gethomepage.dev/app: jenkins  
         # kubernetes.io/ingress.class: nginx
         # kubernetes.io/tls-acme: "true"
       # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
