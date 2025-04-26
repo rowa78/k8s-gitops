@@ -540,6 +540,21 @@ jenkins:
           - id: "${chart-admin-username}"
             name: "Jenkins Admin"
             password: "${chart-admin-password}"
+        oic:
+          allowedTokenExpirationClockSkewSeconds: 0
+          clientId: "jenkins"
+          clientSecret: "{AQAAABAAAAAwjPr1X6eBS2Q5r2CYGrfkoDtG4nIuhrSWbC3M+LuNSXe291enPgZaj89hjGCwOxK8HDHnL1zy/vmAYUQ79Idi9g==}"
+          disableSslVerification: false
+          emailFieldName: "email"
+          escapeHatchSecret: "{AQAAABAAAABAR1QbNv47+dZ/0Jz3ZN/b4n2GLXFo5UpkzJA180BTyq0eZtp7jSHUCKCLS7S7mYpTxSaBHK/CMaiUJjGT7KEUgqTwkrXGkeUU6OOMzeATbX0=}"
+          groupIdStrategy: "caseSensitive"
+          logoutFromOpenidProvider: false
+          serverConfiguration:
+            wellKnown:
+              scopesOverride: "openid profile email"
+              wellKnownOpenIDConfigurationUrl: "https://auth.rwcloud.org/realms/rwcloud/.well-known/openid-configuration"
+          userIdStrategy: "caseSensitive"
+          userNameField: "preferred_username"
 
       # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
       # -- Jenkins Config as Code Authorization Strategy-section
