@@ -418,7 +418,7 @@ jenkins:
 
     # -- List of plugins to install in addition to those listed in controller.installPlugins
     additionalPlugins: 
-      - keycloak
+      - oic-auth
       - github
 
     # Without this; whenever the controller gets restarted (Evicted, etc.) it will fetch plugin updates that have the potential to cause breakage.
