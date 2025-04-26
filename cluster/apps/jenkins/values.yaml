@@ -533,13 +533,6 @@ jenkins:
       # Ignored if securityRealm is defined in controller.JCasC.configScripts
       # -- Jenkins Config as Code Security Realm-section
       securityRealm: |-
-        local:
-          allowsSignup: false
-          enableCaptcha: false
-          users:
-          - id: "${chart-admin-username}"
-            name: "Jenkins Admin"
-            password: "${chart-admin-password}"
         oic:
           allowedTokenExpirationClockSkewSeconds: 0
           clientId: "jenkins"
