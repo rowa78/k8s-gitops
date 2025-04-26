@@ -420,6 +420,7 @@ jenkins:
     additionalPlugins: 
       - oic-auth
       - github
+      - gradle
 
     # Without this; whenever the controller gets restarted (Evicted, etc.) it will fetch plugin updates that have the potential to cause breakage.
     # Note that for this to work, `persistence.enabled` needs to be set to `true`
