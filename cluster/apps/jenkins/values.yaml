@@ -689,7 +689,7 @@ jenkins:
 
     ingress:
       # -- Enables ingress
-      enabled: false
+      enabled: true
 
       # Override for the default paths that map requests to the backend
       # -- Override for the default Ingress paths
@@ -710,7 +710,14 @@ jenkins:
       # -- Ingress labels
       labels: {}
       # -- Ingress annotations
-      annotations: {}
+      annotations: 
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/description: Jenkins
+        gethomepage.dev/group: Apps
+        gethomepage.dev/icon: jenkins.png
+        gethomepage.dev/name: Jenkins
+        gethomepage.dev/app: jenkins  
         # kubernetes.io/ingress.class: nginx
         # kubernetes.io/tls-acme: "true"
       # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
@@ -723,14 +730,14 @@ jenkins:
 
       # configures the hostname e.g. jenkins.example.com
       # -- Ingress hostname
-      hostName:
+      hostName: jenkins.rwcloud.org
       # -- Hostname to serve assets from
       resourceRootUrl:
       # -- Ingress TLS configuration
-      tls: []
-      # - secretName: jenkins.cluster.local
-      #   hosts:
-      #     - jenkins.cluster.local
+      tls: 
+      - secretName: jenkins-tls
+        hosts:
+          - jenkins.rwcloud.org
 
     # often you want to have your controller all locked down and private,
     # but you still want to get webhooks from your SCM
@@ -1257,7 +1264,7 @@ jenkins:
     # If undefined (the default) or set to null, no storageClassName spec is
     #   set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS & OpenStack)
     # -- Storage class for the PVC
-    storageClass:
+    storageClass: openebs-zfs
     # -- Annotations for the PVC
     annotations: {}
     # -- Labels for the PVC
@@ -1265,7 +1272,7 @@ jenkins:
     # -- The PVC access mode
     accessMode: "ReadWriteOnce"
     # -- The size of the PVC
-    size: "8Gi"
+    size: "20Gi"
 
     # ref: https://kubernetes.io/docs/concepts/storage/volume-pvc-datasource/
     # -- Existing data source to clone PVC from
