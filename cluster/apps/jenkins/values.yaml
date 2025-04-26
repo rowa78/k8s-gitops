@@ -536,7 +536,7 @@ jenkins:
         oic:
           allowedTokenExpirationClockSkewSeconds: 0
           clientId: "jenkins"
-          clientSecret: "${secret-credentials-openid-client-secret}"
+          clientSecret: "${openid-client-secret}"
           disableSslVerification: false
           emailFieldName: "email"          
           groupIdStrategy: "caseSensitive"
