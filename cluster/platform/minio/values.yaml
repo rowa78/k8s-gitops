@@ -226,10 +226,10 @@ minio:
     ## Add new policies as explained here https://docs.min.io/docs/minio-multi-user-quickstart-guide.html
     ## NOTE: this will fail if LDAP is enabled in your MinIO deployment
     ## make sure to disable this if you are using LDAP.
-    - accessKey: minio
-      existingSecret: minio-users
-      existingSecretKey: password
-      policy: readwrite      
+    #- accessKey: minio
+    #  existingSecret: minio-users
+    #  existingSecretKey: password
+    #  policy: readwrite      
     # Or you can refer to specific secret
     #- accessKey: externalSecret
     #  existingSecret: my-secret
