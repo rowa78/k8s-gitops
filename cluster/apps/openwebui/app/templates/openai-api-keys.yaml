@@ -1,16 +1,6 @@
----
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
 metadata:
-  creationTimestamp: null
   name: openai-api-keys
-  namespace: openwebui
 spec:
-  encryptedData:
-    api-keys: AgCJlHWtO0TZpU9ofPuvwbqu7eUjIAkcDmjeWUmLTAIS4afqz6vGh3ip8ivDf8IjunvEub3ciqeGKVty3NuBlZVvkPf8swnZ+9EjM7PvKvZxTSIJzU5BAO0J8FX9HWk0P9FugD3XxXvZAVkjKuVoG7Yi8uVZf/C76SPeXCHhW7pYLvwC2Qm77Pk/ybRekwleAF82bOaEXkrCx51WGqqJaJNAxUKbiifmy6NeyTZ1akytndMH1GXp4WU7wkZjYVMS8J11azseKF0454EhU/1uM89ppTl3In4ORDcwp++A97Fwf+P8SLvM8cJEqyjsvk9PqHd8/dBWafqC2/i5NKh1ZXKfy06jDVkIy6UW6/nJQ2jBjhqxzBTbCuOTtBN9cD+/DWPisFX23QJAAHBOFD/1NPvmGHrucn6kPwlZao18xFiD3YtRTB6GM33w+8mLT54X4qKxL983LX/eUzcnS/rBG12OakqUuTn1KtsEPGeJbRzYcfzBVOE2asVXXVFfZJCKBGWVucDq9/gSBIIvaAA4x6BsTdctM9gD9Zld0CX9aUJf2hPvpUuXkHR4/GIHUKJsNsf9erAc0oGAe5zR3JqVyFLlMc38XQIrV3mQuyCzuWZaRXr0gsZF1erPfdcerI0OBop2LnAJXYGiKuE+4a18j57XcdK3UHSKlBL+lA4QYcpyOnouVKq0ZdFL6NVF1DKvDh9r2RY6To3tkHHS9WLJ+974qT8xS+irx13iWgGt2RV+/j/43RcegVFgZWwfKH1tXpQ7q4394hJqQztIX/16mQCDaguHAsaTRw4e
-  template:
-    metadata:
-      creationTimestamp: null
-      name: openai-api-keys
-      namespace: openwebui
-    type: Opaque
+  itemPath: "vaults/k8s/items/openwebui#openai-api-keys"
