@@ -84,3 +84,6 @@ affinity: {}
 persistence:
   storageClass: openebs-zfs
   size: 10Gi
+
+certificates:
+  secretName: mailu-certificates

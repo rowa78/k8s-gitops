@@ -66,3 +66,6 @@ spec:
         - name: vmail
           persistentVolumeClaim:
             claimName: {{ include "dovecot.fullname" . }}-vmail
+        - name: certificates
+          secret:
+            secretName: {{ .Values.certificates.secretName }}
