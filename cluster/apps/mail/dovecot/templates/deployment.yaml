@@ -50,6 +50,8 @@ spec:
           volumeMounts:
             - name: vmail
               mountPath: /vmail
+            - name: certificates
+              mountPath: /certs
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
