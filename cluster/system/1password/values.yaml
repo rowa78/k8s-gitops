@@ -269,9 +269,6 @@ connect:
     # How often the 1Password Operator will poll for secrets updates.
     pollingInterval: 600
 
-    # The 1Password Operator version to pull
-    version: "1.9.0"
-
     # Node selector stanza for the Operator pod
     # See: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
     nodeSelector: {}
