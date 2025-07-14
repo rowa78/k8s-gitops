@@ -6,6 +6,6 @@ metadata:
     {{- include "dovecot.labels" . | nindent 4 }}
 data:
   {{- $files := .Files }}
-  {{- range $path, $_ := .Files.Glob "files/conf.d/" }}
+  {{- range $path, $_ := .Files.Glob "files/conf.d/*" }}
   {{ base $path }}: {{ $files.Get $path | quote }}
-  {{- end }} 
+  {{- end }}
