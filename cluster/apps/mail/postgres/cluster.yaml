@@ -22,7 +22,7 @@ spec:
     initdb:
       database: mailserverdb
       owner: mailserver 
-      postInitApplicationSQL:
+      postInitTemplateSQL:
         - configMapRef:
             name: mail-schema
             key: schema.sql
