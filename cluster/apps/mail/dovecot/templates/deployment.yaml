@@ -52,7 +52,10 @@ spec:
               mountPath: /vmail
             - name: certificates
               mountPath: /certs
-            - name: dovecot-config
+            - name: dovecot-config-main
+              mountPath: /etc/dovecot/dovecot.conf
+              subPath: dovecot.conf
+            - name: dovecot-config-additional
               mountPath: /etc/dovecot/conf.d/
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -73,6 +76,9 @@ spec:
         - name: certificates
           secret:
             secretName: {{ .Values.certificates.secretName }}
-        - name: dovecot-config
+        - name: dovecot-config-main
           configMap:
-            name: {{ include "dovecot.fullname" . }}
+            name: {{ include "dovecot.fullname" . }}-main
+        - name: dovecot-config-additional
+          configMap:
+            name: {{ include "dovecot.fullname" . }}-additional
