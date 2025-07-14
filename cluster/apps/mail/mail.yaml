@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mailu
+  name: mailserver
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/mail/mailu
+    path: cluster/apps/mail/mailserver
   destination:
     name: in-cluster
     namespace: mail
