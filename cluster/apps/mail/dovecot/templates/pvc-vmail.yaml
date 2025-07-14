@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
-name: {{ include "dovecot.fullname" . }}-vmail
+metadata:
+  name: {{ include "dovecot.fullname" . }}-vmail
   labels:
     {{- include "dovecot.labels" . | nindent 4 }}
 spec:
