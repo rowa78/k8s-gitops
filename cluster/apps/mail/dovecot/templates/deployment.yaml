@@ -55,6 +55,9 @@ spec:
             - name: dovecot-config-main
               mountPath: /etc/dovecot/dovecot.conf
               subPath: dovecot.conf
+            - name: dovecot-config-sql
+              mountPath: /etc/dovecot/dovecot-sql.conf.ext
+              subPath: dovecot-sql.conf.ext
             - name: dovecot-config-additional
               mountPath: /etc/dovecot/conf.d/
       {{- with .Values.nodeSelector }}
@@ -82,3 +85,6 @@ spec:
         - name: dovecot-config-additional
           configMap:
             name: {{ include "dovecot.fullname" . }}-additional
+        - name: dovecot-config-sql
+          configMap:
+            name: {{ include "dovecot.fullname" . }}-sql
