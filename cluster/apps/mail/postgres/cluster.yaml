@@ -22,6 +22,10 @@ spec:
     initdb:
       database: mailserverdb
       owner: mailserver 
+      postInitApplicationSQL:
+        - configMapRef:
+            name: mail-schema
+            key: schema.sql
   # bootstrap:
   #   recovery:
   #     source: vocabolariodb
