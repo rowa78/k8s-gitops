@@ -524,10 +524,8 @@ haproxy:
       timeout client 60s
       timeout connect 60s
       timeout server 60s
-      option tcplog
     frontend fe_imaps
       bind :993
-      log-format "%ci:%cp [%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq"
       default_backend be_imaps
     backend be_imaps
       option tcp-check
@@ -643,3 +641,4 @@ haproxy:
   ## Ref: https://kubernetes.io/docs/tutorials/services/connect-applications-service/#accessing-the-service
   ##
   enableServiceLinks: true
+
