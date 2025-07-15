@@ -528,7 +528,7 @@ haproxy:
       bind :997
       default_backend be_imaps
     backend be_imaps
-      server dovecot mailserver-dovecot:993 check
+      server dovecot mailserver-dovecot:997 check
   ## @param containerPorts [array] List of container ports to enable in the haproxy container
   ##
   containerPorts:
