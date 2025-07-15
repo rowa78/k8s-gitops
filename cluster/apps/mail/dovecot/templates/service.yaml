@@ -10,6 +10,7 @@ spec:
   ipFamilies:
   - IPv4
   - IPv6
+  sessionAffinity: ClientIP
   ports:
     - port: 993
       targetPort: imaps
