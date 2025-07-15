@@ -530,7 +530,7 @@ haproxy:
     backend be_imaps
       option tcp-check
       tcp-check connect port 993
-      server dovecot mailserver-dovecot:993 check inter 10s fall 2 rise 1 send-proxy
+      server dovecot mailserver-dovecot:993 check inter 10s fall 2 rise 1 send-proxy-v2
   ## @param containerPorts [array] List of container ports to enable in the haproxy container
   ##
   containerPorts:
