@@ -524,13 +524,15 @@ haproxy:
       timeout client 60s
       timeout connect 60s
       timeout server 60s
+      option tcplog
     frontend fe_imaps
       bind :993
+      log-format "%ci:%cp [%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq"
       default_backend be_imaps
     backend be_imaps
       option tcp-check
       tcp-check connect port 993
-      server dovecot mailserver-dovecot:993 check inter 10s fall 2 rise 1
+      server dovecot mailserver-dovecot:993 check inter 10s fall 2 rise 1 send-proxy-v2
   ## @param containerPorts [array] List of container ports to enable in the haproxy container
   ##
   containerPorts:
@@ -641,4 +643,3 @@ haproxy:
   ## Ref: https://kubernetes.io/docs/tutorials/services/connect-applications-service/#accessing-the-service
   ##
   enableServiceLinks: true
-
