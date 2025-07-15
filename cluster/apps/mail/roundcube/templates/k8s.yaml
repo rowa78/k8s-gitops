@@ -125,7 +125,7 @@ spec:
               name: roundcubemail-shared-secret
               key: DES_KEY
         - name: ROUNDCUBEMAIL_DEFAULT_HOST
-          value: tls://mail.example.org
+          value: tls://imap.rwcloud.org
         - name: ROUNDCUBEMAIL_SMTP_SERVER
           value: tls://mail.example.org
         - name: ROUNDCUBEMAIL_SKIN
