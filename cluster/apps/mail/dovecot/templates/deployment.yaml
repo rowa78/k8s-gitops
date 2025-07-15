@@ -53,7 +53,6 @@ spec:
               secretKeyRef:
                 name: {{ .Values.database.secretName }}
                 key: password
-                    - name: DB_PASSWORD
           - name: DB_NAME
             valueFrom:
               secretKeyRef:
