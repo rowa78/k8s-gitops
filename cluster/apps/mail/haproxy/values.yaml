@@ -526,10 +526,11 @@ haproxy:
       timeout server 60s
     frontend fe_imaps
       bind :993
+      option tcplog
       default_backend be_imaps
     backend be_imaps
       mode tcp
-      option tcplog
+
       option tcp-check
       tcp-check connect port 993
       server dovecot mailserver-dovecot:993 check inter 10s fall 2 rise 1 send-proxy
