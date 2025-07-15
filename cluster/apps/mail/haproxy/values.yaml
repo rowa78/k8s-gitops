@@ -85,14 +85,14 @@ haproxy:
   service:
     ## @param service.type haproxy service type
     ##
-    type: LoadBalancer
+    type: ClusterIP
     ## @param service.ports [array] List of haproxy service ports
     ##
     ports:
-      - name: http
+      - name: imaps
         protocol: TCP
-        port: 80
-        targetPort: http
+        port: 993
+        targetPort: imaps
     ## @param service.clusterIP haproxy service Cluster IP
     ## e.g.:
     ## clusterIP: None
@@ -532,9 +532,9 @@ haproxy:
   ## @param containerPorts [array] List of container ports to enable in the haproxy container
   ##
   containerPorts:
-    - name: http
-      containerPort: 8080
-      hostPort: 8080
+    - name: imaps
+      containerPort: 993
+      hostPort: 993
   ## @param existingConfigmap configmap with HAProxy configuration
   ##
   existingConfigmap: ""
