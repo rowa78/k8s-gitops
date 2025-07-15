@@ -125,7 +125,9 @@ spec:
               name: roundcubemail-shared-secret
               key: DES_KEY
         - name: ROUNDCUBEMAIL_DEFAULT_HOST
-          value: ssl://imap.rwcloud.org:993
+          value: ssl://imap.rwcloud.org
+        - name: ROUNDCUBEMAIL_DEFAULT_PORT
+          value: 993
         - name: ROUNDCUBEMAIL_SMTP_SERVER
           value: tls://mail.example.org
         - name: ROUNDCUBEMAIL_SKIN
