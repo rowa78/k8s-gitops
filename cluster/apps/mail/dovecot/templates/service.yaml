@@ -6,11 +6,8 @@ metadata:
     {{- include "dovecot.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
-  ipFamilyPolicy: PreferDualStack  # oder RequireDualStack
-  ipFamilies:
-  - IPv4
-  - IPv6
-  sessionAffinity: ClientIP
+  ipFamilyPolicy: SingleStack
+  ipFamilies: [IPv4]
   ports:
     - port: 993
       targetPort: imaps
