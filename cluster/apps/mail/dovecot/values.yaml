@@ -88,3 +88,6 @@ persistence:
 
 certificates:
   secretName: mailu-certificates
+
+database:
+  secretName: mailserverdb-app
