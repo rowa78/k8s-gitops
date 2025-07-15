@@ -7,9 +7,9 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
+    - port: 997
+      targetPort: imaps
       protocol: TCP
-      name: http
+      name: imaps
   selector:
     {{- include "dovecot.selectorLabels" . | nindent 4 }}
