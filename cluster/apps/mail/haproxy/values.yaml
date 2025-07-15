@@ -567,7 +567,7 @@ haproxy:
     ## StrategyType
     ## Can be set to RollingUpdate or OnDelete
     ##
-    type: RollingUpdate
+    type: OnDelete
   ## @param priorityClassName haproxy pods' priorityClassName
   ##
   priorityClassName: ""
