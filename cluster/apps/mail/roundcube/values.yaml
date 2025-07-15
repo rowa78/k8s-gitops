@@ -156,7 +156,7 @@ roundcube:
   ## IMAP settings
   imap:
     ## Hostname or IP address of your IMAP server
-    host: imap.gmail.com
+    host: imap.rwcloud.org
 
     ## IMAP port. Default ports depending on encryption setting:
     ##   143 - none, STARTTLS
