@@ -127,7 +127,7 @@ spec:
         - name: ROUNDCUBEMAIL_DEFAULT_HOST
           value: ssl://imap.rwcloud.org
         - name: ROUNDCUBEMAIL_DEFAULT_PORT
-          value: 993
+          value: "993"
         - name: ROUNDCUBEMAIL_SMTP_SERVER
           value: tls://mail.example.org
         - name: ROUNDCUBEMAIL_SKIN
