@@ -524,11 +524,11 @@ haproxy:
       timeout client 60s
       timeout connect 60s
       timeout server 60s
-    frontend fe_main
+    frontend fe_imaps
       bind :8080
-      default_backend be_main
-    backend be_main
-      server web1 10.0.0.1:8080 check
+      default_backend be_imaps
+    backend be_imaps
+      server dovecot mailserver-dovecot:993 check
   ## @param containerPorts [array] List of container ports to enable in the haproxy container
   ##
   containerPorts:
