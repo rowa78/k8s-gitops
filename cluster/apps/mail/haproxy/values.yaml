@@ -538,8 +538,7 @@ haproxy:
   ##
   containerPorts:
     - name: imaps
-      containerPort: 993
-      hostPort: 993
+      containerPort: 993      
   ## @param existingConfigmap configmap with HAProxy configuration
   ##
   existingConfigmap: ""
