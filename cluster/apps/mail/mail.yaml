@@ -44,7 +44,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mailserver-dovecot
+  name: mailserver-haproxy
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -53,7 +53,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/mail/dovecot
+    path: cluster/apps/mail/haproxy
   destination:
     name: in-cluster
     namespace: mail
