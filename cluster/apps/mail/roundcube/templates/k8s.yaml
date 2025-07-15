@@ -96,7 +96,7 @@ spec:
       - name: roundcubemail
         image: roundcube/roundcubemail:latest-fpm-alpine
         imagePullPolicy: ""
-        env: &env
+        env: 
         - name: ROUNDCUBEMAIL_DB_TYPE
           value: pgsql
         - name: ROUNDCUBEMAIL_DB_HOST
@@ -240,6 +240,41 @@ spec:
             - name: roundcubemail
               image: roundcube/roundcubemail:latest-fpm-alpine
               imagePullPolicy: ""
-              env: *env
+              env: 
+              - name: ROUNDCUBEMAIL_DB_TYPE
+                value: pgsql
+              - name: ROUNDCUBEMAIL_DB_HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: mailserverdb-app
+                    key: host
+              - name: ROUNDCUBEMAIL_DB_NAME
+                valueFrom:
+                  secretKeyRef:
+                    name: mailserverdb-app
+                    key: dbname
+              - name: ROUNDCUBEMAIL_DB_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: mailserverdb-app
+                    key: username
+              - name: ROUNDCUBEMAIL_DB_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: mailserverdb-app
+                    key: password
+              - name: ROUNDCUBEMAIL_DES_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: roundcubemail-shared-secret
+                    key: DES_KEY
+              - name: ROUNDCUBEMAIL_DEFAULT_HOST
+                value: tls://mail.example.org
+              - name: ROUNDCUBEMAIL_SMTP_SERVER
+                value: tls://mail.example.org
+              - name: ROUNDCUBEMAIL_SKIN
+                value: elastic
+              - name: ROUNDCUBEMAIL_PLUGINS
+                value: archive,zipdownload,newmail_notifier
               args:
                 - bin/cleandb.sh
