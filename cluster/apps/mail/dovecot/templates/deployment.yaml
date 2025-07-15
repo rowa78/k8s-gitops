@@ -35,7 +35,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: imaps
-              containerPort: 997
+              containerPort: 993
               protocol: TCP
           env:
           - name: DB_HOST
