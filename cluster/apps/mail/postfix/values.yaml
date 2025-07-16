@@ -17,10 +17,16 @@ service:
   port: 25
   
 persistence:
-  enabled: true
-  storageClass: "openebs-zfs"
-  accessMode: ReadWriteOnce
-  size: 10Gi
+  data:
+    enabled: true
+    storageClass: "openebs-zfs"
+    accessMode: ReadWriteOnce
+    size: 10Gi
+  spool:
+    enabled: true
+    storageClass: "openebs-zfs"
+    accessMode: ReadWriteOnce
+    size: 5Gi
 
 resources:
   limits:
@@ -47,6 +53,13 @@ initContainers:
       - |
         chown -R 100:101 /var/lib/postfix
         chmod 700 /var/lib/postfix
+        # Set restrictive permissions on all files
+        find /var/lib/postfix -type f -exec chmod 600 {} \;
+        
+        # Set permissions for spool directory
+        chown -R 100:101 /var/spool/postfix
+        chmod 700 /var/spool/postfix
+        find /var/spool/postfix -type f -exec chmod 600 {} \;
 
 # Probe configuration
 probes:

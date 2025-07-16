@@ -1,8 +1,8 @@
-{{- if .Values.persistence.enabled }}
+{{- if .Values.persistence.data.enabled }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "postfix.fullname" . }}
+  name: {{ include "postfix.fullname" . }}-data
   labels:
     {{- include "postfix.labels" . | nindent 4 }}
   annotations:
@@ -11,15 +11,41 @@ metadata:
     "pv.beta.kubernetes.io/mode": "0700"
 spec:
   accessModes:
-    - {{ .Values.persistence.accessMode | quote }}
-  {{- if .Values.persistence.storageClass }}
-  {{- if (eq "-" .Values.persistence.storageClass) }}
+    - {{ .Values.persistence.data.accessMode | quote }}
+  {{- if .Values.persistence.data.storageClass }}
+  {{- if (eq "-" .Values.persistence.data.storageClass) }}
   storageClassName: ""
   {{- else }}
-  storageClassName: "{{ .Values.persistence.storageClass }}"
+  storageClassName: "{{ .Values.persistence.data.storageClass }}"
   {{- end }}
   {{- end }}
   resources:
     requests:
-      storage: {{ .Values.persistence.size | quote }}
+      storage: {{ .Values.persistence.data.size | quote }}
+{{- end }}
+---
+{{- if .Values.persistence.spool.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "postfix.fullname" . }}-spool
+  labels:
+    {{- include "postfix.labels" . | nindent 4 }}
+  annotations:
+    "pv.beta.kubernetes.io/gid": "101"
+    "pv.beta.kubernetes.io/uid": "100"
+    "pv.beta.kubernetes.io/mode": "0700"
+spec:
+  accessModes:
+    - {{ .Values.persistence.spool.accessMode | quote }}
+  {{- if .Values.persistence.spool.storageClass }}
+  {{- if (eq "-" .Values.persistence.spool.storageClass) }}
+  storageClassName: ""
+  {{- else }}
+  storageClassName: "{{ .Values.persistence.spool.storageClass }}"
+  {{- end }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.spool.size | quote }}
 {{- end }}

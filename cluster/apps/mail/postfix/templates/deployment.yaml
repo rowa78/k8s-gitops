@@ -34,6 +34,8 @@ spec:
           volumeMounts:
             - name: postfix-data
               mountPath: /var/lib/postfix
+            - name: postfix-spool
+              mountPath: /var/spool/postfix
             {{- if .Files.Glob "files/*" }}
             - name: postfix-custom-config
               mountPath: /etc/postfix/custom
@@ -50,6 +52,8 @@ spec:
           volumeMounts:
             - name: postfix-data
               mountPath: /var/lib/postfix
+            - name: postfix-spool
+              mountPath: /var/spool/postfix
             {{- if or .Values.certificates.createSecret .Values.certificates.secretName }}
             - name: postfix-certs
               mountPath: /certs
@@ -114,7 +118,10 @@ spec:
       volumes:
         - name: postfix-data
           persistentVolumeClaim:
-            claimName: {{ include "postfix.fullname" . }}
+            claimName: {{ include "postfix.fullname" . }}-data
+        - name: postfix-spool
+          persistentVolumeClaim:
+            claimName: {{ include "postfix.fullname" . }}-spool
         {{- if or .Values.certificates.createSecret .Values.certificates.secretName }}
         - name: postfix-certs
           secret:

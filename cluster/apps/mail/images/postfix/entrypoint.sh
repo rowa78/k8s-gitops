@@ -25,6 +25,8 @@ fi
 
 echo "non default settings: "
 postconf -n
+echo "**********************"
 
 postfix check
+echo "Starting ....."
 exec /usr/sbin/postfix start-fg
