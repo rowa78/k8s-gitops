@@ -1,0 +1,131 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "postfix.fullname" . }}
+  labels:
+    {{- include "postfix.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "postfix.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "postfix.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: smtp
+              containerPort: 25
+              protocol: TCP
+          volumeMounts:
+            - name: postfix-data
+              mountPath: /var/lib/postfix
+            {{- if or .Values.certificates.createSecret .Values.certificates.secretName }}
+            - name: postfix-certs
+              mountPath: /certs
+              readOnly: true
+            {{- end }}
+            {{- if .Files.Glob "files/*" }}
+            - name: postfix-custom-config
+              mountPath: /etc/postfix/custom
+              readOnly: true
+            {{- end }}
+            {{- if .Values.additionalSecrets.createSecret }}
+            - name: postfix-additional-secrets
+              mountPath: /etc/postfix/custom/secrets
+              readOnly: true
+            {{- end }}
+            {{- range .Values.additionalSecrets.existingSecrets }}
+            - name: postfix-existing-secret-{{ .name | replace "." "-" }}
+              mountPath: /etc/postfix/custom/{{ .name | replace "." "-" }}
+              readOnly: true
+            {{- end }}
+          {{- if .Values.probes.readiness.enabled }}
+          readinessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - "postfix status && echo 'QUIT' | nc localhost 25"
+            initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.readiness.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.readiness.timeoutSeconds }}
+            successThreshold: {{ .Values.probes.readiness.successThreshold }}
+            failureThreshold: {{ .Values.probes.readiness.failureThreshold }}
+          {{- end }}
+          {{- if .Values.probes.liveness.enabled }}
+          livenessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - "postfix status && echo 'QUIT' | nc localhost 25"
+            initialDelaySeconds: {{ .Values.probes.liveness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.liveness.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.liveness.timeoutSeconds }}
+            successThreshold: {{ .Values.probes.liveness.successThreshold }}
+            failureThreshold: {{ .Values.probes.liveness.failureThreshold }}
+          {{- end }}
+          {{- if .Values.probes.startup.enabled }}
+          startupProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - "postfix status && echo 'QUIT' | nc localhost 25"
+            initialDelaySeconds: {{ .Values.probes.startup.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.startup.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.startup.timeoutSeconds }}
+            successThreshold: {{ .Values.probes.startup.successThreshold }}
+            failureThreshold: {{ .Values.probes.startup.failureThreshold }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: postfix-data
+          persistentVolumeClaim:
+            claimName: {{ include "postfix.fullname" . }}
+        {{- if or .Values.certificates.createSecret .Values.certificates.secretName }}
+        - name: postfix-certs
+          secret:
+            secretName: {{ if .Values.certificates.secretName }}{{ .Values.certificates.secretName }}{{ else }}{{ include "postfix.fullname" . }}-certs{{ end }}
+        {{- end }}
+        {{- if .Files.Glob "files/*" }}
+        - name: postfix-custom-config
+          configMap:
+            name: {{ include "postfix.fullname" . }}-config
+        {{- end }}
+        {{- if .Values.additionalSecrets.createSecret }}
+        - name: postfix-additional-secrets
+          secret:
+            secretName: {{ include "postfix.fullname" . }}-additional
+        {{- end }}
+        {{- range .Values.additionalSecrets.existingSecrets }}
+        - name: postfix-existing-secret-{{ .name | replace "." "-" }}
+          secret:
+            secretName: {{ .name }}
+            {{- if .items }}
+            items:
+              {{- range .items }}
+              - key: {{ .key }}
+                path: {{ .path }}
+              {{- end }}
+            {{- end }}
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
