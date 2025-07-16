@@ -37,7 +37,7 @@ securityContext:
 # Init container to fix permissions
 initContainers:
   fixPermissions:
-    enabled: true
+    enabled: false
     image: busybox
     tag: latest
     command:
