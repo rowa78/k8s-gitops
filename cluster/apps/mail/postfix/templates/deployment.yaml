@@ -15,6 +15,10 @@ spec:
     metadata:
       labels:
         {{- include "postfix.selectorLabels" . | nindent 8 }}
+      annotations:
+        {{- if .Files.Glob "files/*" }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- end }}
     spec:
       {{- with .Values.image.pullSecrets }}
       imagePullSecrets:

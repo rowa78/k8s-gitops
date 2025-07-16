@@ -94,7 +94,7 @@ postfix:
 # Certificate configuration
 certificates:
   # Name of the existing secret containing the certificates
-  secretName: ""
+  secretName: "mailserver-tls"
   # If true, the chart will create a secret from the provided certificate data
   createSecret: false
   # Certificate data to be included in the secret (only used if createSecret is true)

@@ -2,3 +2,18 @@ myhostname = mail.rwcloud.org
 mydomain = rwcloud.org
 
 maillog_file = /dev/stdout
+
+# ssl
+# Let's Encrypt certificate file
+smtpd_tls_cert_file = /certs/tls.cert
+ Let's Encrypt key file
+smtpd_tls_key_file  = /certs/tls.key
+
+###############################################################################
+# Incoming TLS
+###############################################################################
+
+# Sender MAY use TLS but we also accept unencrypted connections.
+smtpd_tls_security_level = may
+smtpd_tls_loglevel = 1
+smtpd_tls_session_cache_database = lmdb:${data_directory}/smtpd_scache
