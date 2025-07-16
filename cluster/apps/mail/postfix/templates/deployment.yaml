@@ -26,7 +26,8 @@ spec:
       initContainers:
         - name: fix-permissions
           image: {{ .Values.initContainers.fixPermissions.image }}:{{ .Values.initContainers.fixPermissions.tag }}
-          command: {{ .Values.initContainers.fixPermissions.command }}
+          command:
+            {{- toYaml .Values.initContainers.fixPermissions.command | nindent 12 }}
           securityContext:
             runAsUser: 0
             runAsGroup: 0
