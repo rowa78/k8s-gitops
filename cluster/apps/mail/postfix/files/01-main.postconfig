@@ -1,2 +1,4 @@
 myhostname = mail.rwcloud.org
 mydomain = rwcloud.org
+
+maillog_file = /dev/stderr
