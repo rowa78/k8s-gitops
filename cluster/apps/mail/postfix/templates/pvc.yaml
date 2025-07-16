@@ -5,10 +5,6 @@ metadata:
   name: {{ include "postfix.fullname" . }}-data
   labels:
     {{- include "postfix.labels" . | nindent 4 }}
-  annotations:
-    "pv.beta.kubernetes.io/gid": "101"
-    "pv.beta.kubernetes.io/uid": "100"
-    "pv.beta.kubernetes.io/mode": "0700"
 spec:
   accessModes:
     - {{ .Values.persistence.data.accessMode | quote }}
@@ -31,10 +27,6 @@ metadata:
   name: {{ include "postfix.fullname" . }}-spool
   labels:
     {{- include "postfix.labels" . | nindent 4 }}
-  annotations:
-    "pv.beta.kubernetes.io/gid": "101"
-    "pv.beta.kubernetes.io/uid": "100"
-    "pv.beta.kubernetes.io/mode": "0700"
 spec:
   accessModes:
     - {{ .Values.persistence.spool.accessMode | quote }}

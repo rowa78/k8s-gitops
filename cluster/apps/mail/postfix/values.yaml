@@ -56,10 +56,11 @@ initContainers:
         # Set restrictive permissions on all files
         find /var/lib/postfix -type f -exec chmod 600 {} \;
         
-        # Set permissions for spool directory
-        chown -R 100:101 /var/spool/postfix
-        chmod 700 /var/spool/postfix
-        find /var/spool/postfix -type f -exec chmod 600 {} \;
+        # Set permissions for spool directory - owned by root
+        chown -R 0:0 /var/spool/postfix
+        chmod 755 /var/spool/postfix
+        find /var/spool/postfix -type d -exec chmod 755 {} \;
+        find /var/spool/postfix -type f -exec chmod 644 {} \;
 
 # Probe configuration
 probes:
