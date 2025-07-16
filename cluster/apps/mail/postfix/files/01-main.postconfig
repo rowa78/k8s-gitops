@@ -1,7 +1,6 @@
 myhostname = mail.rwcloud.org
 mydomain = rwcloud.org
 
-maillog_file_prefixes = /dev
-maillog_file = /dev/stderr
+maillog_file = /dev/stdout
 debug_peer_level = 5
 debug_peer_list = 0.0.0.0/0
