@@ -5,6 +5,9 @@ image:
   # Specify a tag to override the appVersion from Chart.yaml
   tag: ""
   pullPolicy: IfNotPresent
+  # Specify image pull secrets
+  pullSecrets: 
+    - name: externalregistry
 
 nameOverride: ""
 fullnameOverride: ""
@@ -15,9 +18,9 @@ service:
   
 persistence:
   enabled: true
-  storageClass: ""
+  storageClass: "openebs-zfs"
   accessMode: ReadWriteOnce
-  size: 1Gi
+  size: 10Gi
 
 resources:
   limits:

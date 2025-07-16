@@ -26,6 +26,7 @@ The following table lists the configurable parameters of the Postfix chart and t
 | `image.repository`       | Image repository        | `registry.rwcloud.org/postfix` |
 | `image.tag`              | Image tag (overrides Chart.appVersion if set) | `""` (uses Chart.appVersion) |
 | `image.pullPolicy`       | Image pull policy       | `IfNotPresent` |
+| `image.pullSecrets`      | List of image pull secrets | `[]` |
 | `service.type`           | Service type            | `ClusterIP`    |
 | `service.port`           | Service port            | `25`           |
 | `persistence.enabled`    | Enable persistence      | `true`         |
