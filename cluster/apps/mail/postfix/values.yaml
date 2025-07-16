@@ -4,7 +4,7 @@ image:
   repository: registry.rwcloud.org/postfix
   # Specify a tag to override the appVersion from Chart.yaml
   tag: ""
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Specify image pull secrets
   pullSecrets: 
     - name: externalregistry
@@ -47,8 +47,6 @@ initContainers:
       - |
         chown -R 100:101 /var/lib/postfix
         chmod 700 /var/lib/postfix
-        # Set restrictive permissions on all files
-        find /var/lib/postfix -type f -exec chmod 600 {} \;
 
 # Probe configuration
 probes:
