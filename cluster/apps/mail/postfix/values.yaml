@@ -39,12 +39,12 @@ resources:
 # Security context
 securityContext:
   # Pod security context - this sets the volume ownership
-  fsGroup: 101
+ # fsGroup: 101
 
 # Init container to fix permissions
 initContainers:
   fixPermissions:
-    enabled: true
+    enabled: false
     image: busybox
     tag: latest
     command:
