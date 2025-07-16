@@ -158,12 +158,12 @@ roundcube:
     enabled: true
     useTLS: true
     ingressClassName: "nginx"
-    host: "roundcube.rwcloud.org"
+    host: "mail.rwcloud.org"
     path: "/"
     pathType: "Prefix"
     class: "nginx"
     tls:
-      secretName: "roundcube-tls"
+      secretName: "mailserver-tls"
     additionalLabels: {}
     additionalAnnotations: 
       cert-manager.io/cluster-issuer: letsencrypt-production

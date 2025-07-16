@@ -87,7 +87,7 @@ persistence:
   size: 10Gi
 
 certificates:
-  secretName: mailu-certificates
+  secretName: mailserver-tls
 
 database:
   secretName: mailserverdb-app
