@@ -23,5 +23,8 @@ if [ -d /etc/postfix/custom ]; then
     done
 fi
 
+echo "non default settings: "
+postconf -n
+
 postfix check
 exec /usr/sbin/postfix start-fg
