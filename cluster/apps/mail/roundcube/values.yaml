@@ -25,7 +25,7 @@ roundcube:
   # OnePassword configuration
   onePassword:
     enabled: true
-    itemPath: "vaults/k8s/items/mail#roundcubemail-shared-secret"
+    itemPath: "vaults/k8s/items/mail#roundcubemail"
 
   # RBAC configuration
   rbac:

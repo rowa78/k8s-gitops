@@ -81,16 +81,28 @@ spec:
         - name: ROUNDCUBEMAIL_DES_KEY
           valueFrom:
             secretKeyRef:
-              name: {{ include "roundcube.fullname" . }}-shared-secret
+              name: {{ include "roundcube.fullname" . }}
               key: DES_KEY
         - name: ROUNDCUBEMAIL_DEFAULT_HOST
-          value: {{ printf "%s://%s" (eq .Values.roundcube.imap.encryption "ssltls" | ternary "ssl" (eq .Values.roundcube.imap.encryption "starttls" | ternary "tls" "")) .Values.roundcube.imap.host }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "roundcube.fullname" . }}
+              key: DEFAULT_HOST
         - name: ROUNDCUBEMAIL_DEFAULT_PORT
-          value: {{ .Values.roundcube.imap.port | default "993" | quote }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "roundcube.fullname" . }}
+              key: DEFAULT_PORT
         - name: ROUNDCUBEMAIL_SMTP_SERVER
-          value: {{ printf "%s://%s" (eq .Values.roundcube.smtp.encryption "ssltls" | ternary "ssl" (eq .Values.roundcube.smtp.encryption "starttls" | ternary "tls" "")) .Values.roundcube.smtp.host }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "roundcube.fullname" . }}
+              key: ROUNDCUBEMAIL_SMTP_SERVER
         - name: ROUNDCUBEMAIL_SMTP_PORT
-          value: {{ .Values.roundcube.smtp.port | default "465" | quote }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "roundcube.fullname" . }}
+              key: ROUNDCUBEMAIL_SMTP_PORT
         - name: ROUNDCUBEMAIL_SKIN
           value: {{ .Values.roundcube.config.defaultSkin | default "elastic" }}
         - name: ROUNDCUBEMAIL_PLUGINS
