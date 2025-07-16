@@ -148,7 +148,7 @@ roundcube:
 
   # Service configuration
   service:
-    port: 80
+    port: 8000
     additionalLabels: {}
     additionalAnnotations: {}
     ipFamilyPolicy: "PreferDualStack"
