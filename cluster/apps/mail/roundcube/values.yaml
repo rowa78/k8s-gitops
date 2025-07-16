@@ -8,7 +8,7 @@ nameOverride: ""
 
 roundcube:
   # Docker image configuration
-  image: "roundcube/roundcubemail:1.6.11-fpm-nonroot"
+  image: "roundcube/roundcubemail:1.6.11-apache-nonroot"
   imagePullPolicy: IfNotPresent
 
   # Persistence configuration
@@ -142,10 +142,6 @@ roundcube:
     additionalVolumeMounts: []
     additionalVolumes: []
     additionalEnv: []
-    containers:
-      nginx:
-        image: "nginx:alpine"
-        imagePullPolicy: "IfNotPresent"
 
   # Service configuration
   service:
