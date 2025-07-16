@@ -4,9 +4,7 @@ mydomain = rwcloud.org
 maillog_file = /dev/stdout
 
 # ssl
-# Let's Encrypt certificate file
 smtpd_tls_cert_file = /certs/tls.cert
- Let's Encrypt key file
 smtpd_tls_key_file  = /certs/tls.key
 
 ###############################################################################
