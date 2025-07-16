@@ -2,7 +2,7 @@
 # entrypoint.sh
 
 # Verarbeite alle Files in /etc/postfix/custom
-if [ -d /etc/postfix/custom ]; then
+if [ -d /custom-config ]; then
     for file in /custom-config/*; do
         [ ! -f "$file" ] && continue
         
