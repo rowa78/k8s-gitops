@@ -57,17 +57,17 @@ spec:
             {{- end }}
             {{- if .Files.Glob "files/*" }}
             - name: postfix-custom-config
-              mountPath: /etc/postfix/custom
+              mountPath: /custom-config
               readOnly: true
             {{- end }}
             {{- if .Values.additionalSecrets.createSecret }}
             - name: postfix-additional-secrets
-              mountPath: /etc/postfix/custom/secrets
+              mountPath: /custom-config
               readOnly: true
             {{- end }}
             {{- range .Values.additionalSecrets.existingSecrets }}
             - name: postfix-existing-secret-{{ .name | replace "." "-" }}
-              mountPath: /etc/postfix/custom/{{ .name | replace "." "-" }}
+              mountPath: /custom-config/{{ .name | replace "." "-" }}
               readOnly: true
             {{- end }}
           {{- if .Values.probes.readiness.enabled }}
