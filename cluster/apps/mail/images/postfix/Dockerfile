@@ -2,7 +2,7 @@ FROM alpine:latest
 
 # You might not need the pigeonhole (sieve) plugin or the rspamd package
 RUN apk update && \
-    apk add postfix postfix-pgsql && \
+    apk add postfix postfix-pgsql gettext && \
     mkdir /custom-config && \
     chown postfix:postfix /var/lib/postfix && \
     rm -rf /var/cache/apk/* 
