@@ -3,6 +3,5 @@ mydomain = rwcloud.org
 
 maillog_file_prefixes = /dev
 maillog_file = /dev/stderr
-debug_peer_level = 4
+debug_peer_level = 5
 debug_peer_list = 0.0.0.0/0
-verbose = yes
