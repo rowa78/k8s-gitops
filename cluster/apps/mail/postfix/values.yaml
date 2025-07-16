@@ -32,12 +32,7 @@ resources:
 
 # Security context
 securityContext:
-  # Run as postfix user
-  runAsUser: 100
-  runAsGroup: 101
   fsGroup: 101
-  # Add mail group as supplemental group
-  supplementalGroups: [12]
 
 # Probe configuration
 probes:
