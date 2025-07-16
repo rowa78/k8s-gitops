@@ -167,7 +167,7 @@ roundcube:
       secretName: "roundcube-tls"
     additionalLabels: {}
     additionalAnnotations: 
-      cert-manager.io/cluster-issuer: letsencrypt-prod
+      cert-manager.io/cluster-issuer: letsencrypt-production
 
   # PodDisruptionBudget configuration
   pdb:
