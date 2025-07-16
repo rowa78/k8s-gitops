@@ -123,7 +123,7 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
         ports:
-        - containerPort: 9000
+        - containerPort: 8000
         {{- with .Values.roundcube.deployment.resources }}
         resources:
           {{- toYaml . | nindent 10 }}

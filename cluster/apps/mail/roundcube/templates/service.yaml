@@ -12,9 +12,9 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 80
+  - port: 8000
     protocol: TCP
-    targetPort: 80
+    targetPort: 8000
   selector:
     {{- include "roundcube.selectorLabels" . | nindent 4 }}
     service: {{ include "roundcube.fullname" . }}
