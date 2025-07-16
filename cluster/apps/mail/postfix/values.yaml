@@ -30,6 +30,15 @@ resources:
     cpu: 100m
     memory: 128Mi
 
+# Security context
+securityContext:
+  # Run as postfix user
+  runAsUser: 100
+  runAsGroup: 101
+  fsGroup: 101
+  # Add mail group as supplemental group
+  supplementalGroups: [12]
+
 # Probe configuration
 probes:
   liveness:

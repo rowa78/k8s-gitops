@@ -34,6 +34,10 @@ The following table lists the configurable parameters of the Postfix chart and t
 | `persistence.accessMode` | Access mode             | `ReadWriteOnce`|
 | `persistence.size`       | Storage size            | `1Gi`          |
 | `resources`              | CPU/Memory resource requests/limits | `{}` |
+| `securityContext.runAsUser` | User ID to run the container | `100` (postfix) |
+| `securityContext.runAsGroup` | Group ID to run the container | `101` (postfix) |
+| `securityContext.fsGroup` | File system group ID for volumes | `101` (postfix) |
+| `securityContext.supplementalGroups` | Additional groups for the container | `[12]` (mail) |
 | `nodeSelector`           | Node labels for pod assignment | `{}`    |
 | `tolerations`            | Tolerations for pod assignment | `[]`    |
 | `affinity`               | Affinity for pod assignment | `{}`       |
