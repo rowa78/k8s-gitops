@@ -87,12 +87,12 @@ spec:
           valueFrom:
             secretKeyRef:
               name: {{ include "roundcube.fullname" . }}
-              key: DEFAULT_HOST
+              key: ROUNDCUBEMAIL_DEFAULT_HOST
         - name: ROUNDCUBEMAIL_DEFAULT_PORT
           valueFrom:
             secretKeyRef:
               name: {{ include "roundcube.fullname" . }}
-              key: DEFAULT_PORT
+              key: ROUNDCUBEMAIL_DEFAULT_PORT
         - name: ROUNDCUBEMAIL_SMTP_SERVER
           valueFrom:
             secretKeyRef:
