@@ -33,7 +33,7 @@ spec:
         pathType: {{ .Values.roundcube.ingress.pathType | default "Prefix" }}
         backend:
           service:
-            name: {{ include "roundcube.fullname" . }}-nginx
+            name: {{ include "roundcube.fullname" . }}
             port:
-              number: {{ .Values.roundcube.service.port | default 8080 }}
+              number: {{ .Values.roundcube.service.port | default 80 }}
 {{- end }}
