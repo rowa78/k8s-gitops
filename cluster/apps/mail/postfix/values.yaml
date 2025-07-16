@@ -34,6 +34,21 @@ resources:
 securityContext:
   fsGroup: 101
 
+# Init container to fix permissions
+initContainers:
+  fixPermissions:
+    enabled: true
+    image: busybox
+    tag: latest
+    command:
+      - sh
+      - -c
+      - |
+        chown -R 100:101 /var/lib/postfix
+        chmod 700 /var/lib/postfix
+        chmod 700 /etc/postfix/custom
+        find /etc/postfix/custom -type f -exec chmod 600 {} \;
+
 # Probe configuration
 probes:
   liveness:

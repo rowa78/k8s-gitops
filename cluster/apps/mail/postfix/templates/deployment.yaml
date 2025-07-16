@@ -22,6 +22,22 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.initContainers.fixPermissions.enabled }}
+      initContainers:
+        - name: fix-permissions
+          image: {{ .Values.initContainers.fixPermissions.image }}:{{ .Values.initContainers.fixPermissions.tag }}
+          command: {{ .Values.initContainers.fixPermissions.command }}
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+          volumeMounts:
+            - name: postfix-data
+              mountPath: /var/lib/postfix
+            {{- if .Files.Glob "files/*" }}
+            - name: postfix-custom-config
+              mountPath: /etc/postfix/custom
+            {{- end }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
