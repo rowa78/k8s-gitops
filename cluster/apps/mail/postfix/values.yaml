@@ -33,6 +33,7 @@ resources:
 # Security context
 securityContext:
   fsGroup: 101
+  fsUser: 100
 
 # Init container to fix permissions
 initContainers:
