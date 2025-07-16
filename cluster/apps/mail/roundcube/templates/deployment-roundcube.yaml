@@ -125,8 +125,6 @@ spec:
         volumeMounts:
         - mountPath: /var/www/html
           name: www-data
-        - mountPath: /tmp/roundcube-temp
-          name: temp-data
         {{- with .Values.roundcube.deployment.additionalVolumeMounts }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -135,9 +133,6 @@ spec:
       - name: www-data
         persistentVolumeClaim:
           claimName: {{ include "roundcube.fullname" . }}-www-pvc
-      - name: temp-data
-        persistentVolumeClaim:
-          claimName: {{ include "roundcube.fullname" . }}-temp-pvc
       {{- with .Values.roundcube.deployment.additionalVolumes }}
       {{- toYaml . | nindent 6 }}
       {{- end }}
