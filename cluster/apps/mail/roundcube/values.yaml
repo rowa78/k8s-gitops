@@ -16,8 +16,6 @@ roundcube:
     storageClassName: "openebs-zfs"
     www:
       size: "200Mi"
-    temp:
-      size: "2Gi"
 
   # CronJob configuration
   cronjob:
@@ -142,6 +140,11 @@ roundcube:
     additionalVolumeMounts: []
     additionalVolumes: []
     additionalEnv: []
+    securityContext:
+      enabled: true
+      fsGroup: 33
+      runAsUser: 33
+      runAsGroup: 33
 
   # Service configuration
   service:

@@ -16,6 +16,12 @@ spec:
             {{- include "roundcube.selectorLabels" . | nindent 12 }}
         spec:
           restartPolicy: OnFailure
+          {{- if .Values.roundcube.deployment.securityContext.enabled }}
+          securityContext:
+            fsGroup: {{ .Values.roundcube.deployment.securityContext.fsGroup }}
+            runAsUser: {{ .Values.roundcube.deployment.securityContext.runAsUser }}
+            runAsGroup: {{ .Values.roundcube.deployment.securityContext.runAsGroup }}
+          {{- end }}
           containers:
             - name: {{ include "roundcube.fullname" . }}
               image: {{ .Values.roundcube.image | default "roundcube/roundcubemail:latest-fpm-alpine" }}
