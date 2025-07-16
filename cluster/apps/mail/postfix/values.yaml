@@ -47,8 +47,6 @@ initContainers:
       - |
         chown -R 100:101 /var/lib/postfix
         chmod 700 /var/lib/postfix
-        chmod 700 /custom-config
-        find /custom-config -type f -exec chmod 600 {} \;
 
 # Probe configuration
 probes:
