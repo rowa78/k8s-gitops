@@ -3,7 +3,7 @@
 
 # Verarbeite alle Files in /etc/postfix/custom
 if [ -d /etc/postfix/custom ]; then
-    for file in /etc/postfix/custom/*; do
+    for file in /custom-config/*; do
         [ ! -f "$file" ] && continue
         
         filename=$(basename "$file")
