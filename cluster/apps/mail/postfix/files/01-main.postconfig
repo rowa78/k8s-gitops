@@ -15,3 +15,8 @@ smtpd_tls_key_file  = /certs/tls.key
 smtpd_tls_security_level = may
 smtpd_tls_loglevel = 1
 smtpd_tls_session_cache_database = lmdb:${data_directory}/smtpd_scache
+
+# domains, users, mailboxes
+virtual_mailbox_domains=pgsql:/etc/postfix/pgsql-virtual-mailbox-domains.cf
+virtual_alias_maps=pgsql:/etc/postfix/pgsql-virtual-alias-maps.cf
+virtual_mailbox_maps=pgsql:/etc/postfix/pgsql-virtual-mailbox-maps.cf

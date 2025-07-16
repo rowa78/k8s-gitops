@@ -124,3 +124,6 @@ additionalSecrets:
   data: {}
     # username: myusername
     # password: mypassword
+
+database:
+  secretName: mailserverdb-app

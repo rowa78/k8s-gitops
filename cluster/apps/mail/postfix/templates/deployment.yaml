@@ -55,6 +55,27 @@ spec:
             - name: smtp
               containerPort: 25
               protocol: TCP
+          env:
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.database.secretName }}
+                key: host
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.database.secretName }}
+                key: user
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.database.secretName }}
+                key: password
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.database.secretName }}
+                key: dbname
           volumeMounts:
             - name: postfix-data
               mountPath: /var/lib/postfix
