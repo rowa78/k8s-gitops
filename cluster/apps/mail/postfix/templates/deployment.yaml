@@ -43,11 +43,6 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["/bin/sh", "-c"]
-          args:
-            - |
-              umask 077
-              exec /entrypoint.sh
           ports:
             - name: smtp
               containerPort: 25
@@ -81,7 +76,7 @@ spec:
               command:
               - /bin/sh
               - -c
-              - "postfix status && echo 'QUIT' | nc localhost 25"
+              - "postfix status"
             initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }}
             periodSeconds: {{ .Values.probes.readiness.periodSeconds }}
             timeoutSeconds: {{ .Values.probes.readiness.timeoutSeconds }}
@@ -94,7 +89,7 @@ spec:
               command:
               - /bin/sh
               - -c
-              - "postfix status && echo 'QUIT' | nc localhost 25"
+              - "postfix status"
             initialDelaySeconds: {{ .Values.probes.liveness.initialDelaySeconds }}
             periodSeconds: {{ .Values.probes.liveness.periodSeconds }}
             timeoutSeconds: {{ .Values.probes.liveness.timeoutSeconds }}
@@ -107,7 +102,7 @@ spec:
               command:
               - /bin/sh
               - -c
-              - "postfix status && echo 'QUIT' | nc localhost 25"
+              - "postfix status"
             initialDelaySeconds: {{ .Values.probes.startup.initialDelaySeconds }}
             periodSeconds: {{ .Values.probes.startup.periodSeconds }}
             timeoutSeconds: {{ .Values.probes.startup.timeoutSeconds }}
