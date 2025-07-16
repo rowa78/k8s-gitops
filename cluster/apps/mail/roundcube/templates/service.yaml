@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "roundcube.fullname" . }}
+  labels:
+    {{- include "roundcube.labels" . | nindent 4 }}
+    service: {{ include "roundcube.fullname" . }}
+  {{- with .Values.roundcube.service.additionalAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: ClusterIP
+  ports:
+  - port: 9000
+    protocol: TCP
+  selector:
+    {{- include "roundcube.selectorLabels" . | nindent 4 }}
+    service: {{ include "roundcube.fullname" . }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "roundcube.fullname" . }}-nginx
+  labels:
+    {{- include "roundcube.labels" . | nindent 4 }}
+    service: {{ include "roundcube.fullname" . }}-nginx
+  {{- with .Values.roundcube.service.additionalAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  ports:
+  - name: http
+    port: {{ .Values.roundcube.service.port | default 8080 }}
+    targetPort: 80
+  selector:
+    {{- include "roundcube.selectorLabels" . | nindent 4 }}
+    service: {{ include "roundcube.fullname" . }}-nginx
+  {{- if .Values.roundcube.service.ipFamilyPolicy }}
+  ipFamilyPolicy: {{ .Values.roundcube.service.ipFamilyPolicy }}
+  {{- end }}

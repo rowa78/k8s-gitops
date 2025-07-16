@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "roundcube.fullname" . }}-www-pvc
+  labels:
+    {{- include "roundcube.labels" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.roundcube.persistence.storageClassName | default "openebs-zfs" }}
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.roundcube.persistence.www.size | default "200Mi" }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "roundcube.fullname" . }}-temp-pvc
+  labels:
+    {{- include "roundcube.labels" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.roundcube.persistence.storageClassName | default "openebs-zfs" }}
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.roundcube.persistence.temp.size | default "2Gi" }}

@@ -1,417 +1,196 @@
-roundcube:
-  ## Roundcube Docker image
-  image: roundcube/roundcubemail:{{ .Chart.AppVersion }}-fpm-alpine
+# Default values for Roundcube Helm chart
 
-  ## ImagePullPolicy for Roundcube Docker image
+# Full name override (leave empty to use release name)
+fullnameOverride: ""
+
+# Name override
+nameOverride: ""
+
+roundcube:
+  # Docker image configuration
+  image: "roundcube/roundcubemail:2.8.3-fpm-alpine"
   imagePullPolicy: IfNotPresent
 
-  ## RBAC Role Based Access Control for resources
+  # Persistence configuration
+  persistence:
+    storageClassName: "openebs-zfs"
+    www:
+      size: "200Mi"
+    temp:
+      size: "2Gi"
+
+  # CronJob configuration
+  cronjob:
+    schedule: "@daily"
+    concurrencyPolicy: "Replace"
+
+  # OnePassword configuration
+  onePassword:
+    enabled: true
+    itemPath: "vaults/k8s/items/mail#roundcubemail-shared-secret"
+
+  # RBAC configuration
   rbac:
-    # Specifies whether RBAC resources should be created
     create: false
     rules: []
-    ## Enable RBAC rules
-      #  - apiGroups:
-      #    - myApiGroups
-      #    resourceNames:
-      #    - myResourceNames
-      #    resources:
-      #    - myResources
-      #    verbs:
-      #    - use
 
-  ## Service Account for Deployment
+  # ServiceAccount configuration
   serviceAccount:
-    # Specifies whether ServiceAccount resource should be created
     create: false
-    # The name of the ServiceAccount to use.
-    # If not set and create is true, a name is generated using a template
     name: ""
     additionalLabels: {}
     additionalAnnotations: {}
 
-  ## Roundcube Core Configuration
+  # Core configuration
   config:
+    # DES Key for session encryption (will be generated randomly if not set)
+    desKey: ""
 
-    ## DES Key for session encryption.
-    ## Will be generated randomly if not set.
-    desKey:
+    # User interface language and skin
+    defaultLanguage: "en_US"
+    defaultSkin: "elastic"
 
-    ## User interface default language.
-    defaultLanguage: en_US
-
-    ## Allow for custom skin installation
-    skins:
-      classic:
-        enabled: false
-        composerPackage:
-          name: roundcube/classic
-          version: 1.6.0
-
-      larry:
-        enabled: false
-        composerPackage:
-          name: roundcube/larry
-          version: 1.6.1
-
-      ## custom skin example
-      #custom:
-      #  enabled: true
-      #  composerPackage:
-      #    name: custom (defaults to roundcube/{{ skin name }})
-      #    version: 1.0 (defaults to rounddube version)
-
-    ## User interface default skin.
-    defaultSkin: elastic
-
-    ## Plugin configuration
+    # Plugins configuration
     plugins:
-
-      ## https://github.com/roundcube/roundcubemail/blob/master/plugins/managesieve/config.inc.php.dist
+      archive:
+        enabled: true
+      zipdownload:
+        enabled: true
+      newmail_notifier:
+        enabled: true
       managesieve:
         enabled: false
         config:
           host: "%h:4190"
           useTls: true
+    
+    # Install plugins on startup (true/false)
+    # installPlugins: false
 
-      ## Context menu plugin: Adds context menus with common tasks to various parts of Roundcube
-      ## https://packagist.org/packages/johndoh/contextmenu
-      ## Example for a dynamically installed plugin (via composer)
-      contextmenu:
+    # Maximum allowed upload file size
+    uploadMaxFilesize: "25M"
 
-        ## Enabled installing and loading the plugin.
-        enabled: false
+    # Spell checking
+    # spellcheckUri: ""  # Fully qualified URL to a Google XML spell check API
+    # aspellDicts: ""    # List of aspell dictionaries to install (comma-separated, e.g. "de,fr,pl")
 
-        ## composer package information
-        composerPackage:
-          name: "johndoh/contextmenu"
-          version: "3.3"
+    # Request path with reverse proxy
+    # requestPath: "/"  # Specify request path with reverse proxy
 
-    ## Maximum allowed upload file size (e.g., for attachmentes).
-    ## Do not forget to adjust ingress accordingly, e.g., by adding the following annotation:
-    ##   nginx.ingress.kubernetes.io/proxy-body-size: 25m
-    uploadMaxFilesize: 25M
-
-    ## Custom Roundcube configuration parameters
+    # Custom Roundcube configuration
     customRoundcubeConfig: |
-      /*
-      * Custom Roundcube Configuration values
-      * Check https://github.com/roundcube/roundcubemail/wiki/Configuration for available options.
-      */
-
       // $config['skin_logo'] = "";
       // $config['support_url'] = "https://roundcube.net/";
 
-    ## Custom configuration for PHP interpreter
+    # Custom PHP configuration
     customPhpConfig: |
-      ## Configure custom memory limit for PHP
       # memory_limit=128M
 
-    ## Custom configuration for PHP-FPM
-    ## Comment lines with semicolumn (;) in this file
-    ## don't use pound (#) to comment lines
+    # Custom PHP-FPM configuration
     customPhpFpmConfig: |
       ;pm.max_children=200
       ;pm.status_path=/status
 
-  ## Configure database creation/usage
-  database:
-    ## Which database source should be used
-    ## Supported values:
-    ##   * external:         Do not create a database, but use an existing external database. See `externalDatabase` for further configuration.
-    ##   * zalando-postgres: Request a database to be created by Zalando Postgres operator (https://github.com/zalando/postgres-operator, operator needs to be preinstalled)
-    source: external
-
-    ## Number of database cluster instances to be launched
-    ## (only applicable for source=zalando-postgres)
-    instances: 2
-
-    ## Size of the volume to be created for the database
-    volumeSize: 5Gi
-
-    ## Name of the StorageClass to be used for the volume
-    storageClassName:
-
-  ## Configuration for an external database (not deployed within this chart)
-  ## When working with a NetworkPolicy, add an egress rule to networkPolicy.egress.additionalRules to allow access to the database.
+  # Database configuration - using external database only
   externalDatabase:
-    ## Type of the external database. supported: mysql, pgsql, sqlite
-    type: pgsql
+    type: "pgsql"
+    secretName: "mailserverdb-app"
+    secretKeys:
+      host: "host"
+      name: "dbname"
+      user: "username"
+      password: "password"
 
-    ## Hostname of the external database server
-    host:
-
-    ## Port number of the external database server
-    port: 5432
-
-    ## Database name
-    name: roundcube
-
-    ## Username for the external database server
-    user: postgres
-
-    ## Password for the external database server
-    password: postgres
-
-  ## IMAP settings
+  # IMAP settings
   imap:
-    ## Hostname or IP address of your IMAP server
-    host: imap.rwcloud.org
-
-    ## IMAP port. Default ports depending on encryption setting:
-    ##   143 - none, STARTTLS
-    ##   993 - SSL/TLS (recommended)
+    host: "imap.rwcloud.org"
     port: 993
+    encryption: "ssltls"  # none, starttls, ssltls
+    # usernameDomain: ""  # Automatically add this domain to user names for login
 
-    ## Transport encryption. Please change port accordingly. Allowed values:
-    ##   none     - no encryption
-    ##   starttls - use STARTTLS
-    ##   ssltls   - use SSL/TLS (recommended)
-    encryption: ssltls
-
-
-  ## SMTP settings
+  # SMTP settings
   smtp:
-    ## Hostname or IP address of your SMTP server
-    host: smtp.gmail.com
-
-    ## SMTP port. Default ports depending on encryption setting:
-    ##    25 - none
-    ##   465 - SSL/TLS
-    ##   587 - STARTTLS (recommended)
+    host: "mail.example.org"
     port: 465
-
-    ## Transport encryption. Please change port accordingly. Allowed values:
-    ##   none     - no encryption
-    ##   starttls - use STARTTLS
-    ##   ssltls   - use SSL/TLS (recommended)
-    encryption: ssltls
-
-    ## SMTP username (use "%u" tp use IMAP username)
+    encryption: "ssltls"  # none, starttls, ssltls
     username: "%u"
-
-    ## SMTP password (use "%p" tp use IMAP password)
     password: "%p"
 
-
-  ## Additional configuration for the ConfigMap resource
+  # ConfigMap configuration
   configMap:
-    ## Additional labels for the ConfigMap resource
     additionalLabels: {}
-
-    ## Additional annotations for the ConfigMap resource
     additionalAnnotations: {}
 
-
-  ## Additional configuration for the Secret resource
+  # Secret configuration
   secret:
-    ## Additional labels for the Secret resource
     additionalLabels: {}
-
-    ## Additional annotations for the Secret resource
     additionalAnnotations: {}
 
-
-  ## Additional configuration for the Deployment resource
+  # Deployment configuration
   deployment:
-    ## Number of instances of Roundcube to be started
-    replicas: 2
-
-    ## Deployment strategy (see https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/deployment-v1/#DeploymentSpec)
+    replicas: 1
     strategy:
-      ## Deployment strategy type
-      type: RollingUpdate
-
-    ## Roundcube container's HTTP port
+      type: "Recreate"
     port: 80
-
-    ## Define additional ImagePullSecrets.
-    imagePullSecrets:
-      ## You can refer to existing ImagePullSecrets as follows:
-      # - name: my-custom-secret
-
-    ## Additional labels for the Deployment resource
+    imagePullSecrets: []
     additionalLabels: {}
-
-    ## Additional labels for the Pod resource
     additionalPodLabels: {}
-
-    ## Additional annotations for the Deployment resource
     additionalAnnotations: {}
-
-    ## Additional annotations for the Pod resource
     additionalPodAnnotations: {}
-
-    ## Pod affinity rule preset (see https://docs.bitnami.com/tutorials/assign-pod-nodes-helm-affinity-rules/)
-    podAffinityPreset: ""
-
-    ## Pod anti affinity rule preset (see https://docs.bitnami.com/tutorials/assign-pod-nodes-helm-affinity-rules/)
-    podAntiAffinityPreset: hard
-
-    ## Custom affinity rules (overrides podAffinityPreset and podAntiAffinityPreset)
-    affinity: {}
-
-    ## Configure resource allocation and limits
-    # resources:
-    #   requests:
-    #     memory: "256Mi"
-    #     cpu: "1000m"
-    #   limits:
-    #     memory: "256Mi"
-    #     cpu: "1000m"
-
-    ## Allow defining custom actions to be executed before deploying main container (e.g.: to prepare database)
+    resources: {}
     initContainers: []
-    #  - name: init
-    #    image: alpine:3
-    #    command: [sh, -c]
-    #    args:
-    #      - echo "Hello, world!" > /mnt/extra-storage/test
-    #    volumeMounts:
-    #      - name: extra-storage
-    #        mountPath: /mnt/extra-storage
-
-    ## Additional volume mounts for the Deployment resource
     additionalVolumeMounts: []
-    #  - name: extra-storage
-    #    mountPath: /mnt/extra-storage
-
-    ## Additional volumes for the Deployment resource
     additionalVolumes: []
-    #  - name: extra-storage
-    #    emptyDir: {}
-
-    ## Additional environment variables for the Deployment resource
     additionalEnv: []
-    #  - name: MY_ENV_VAR
-    #    value: value
-
     containers:
       nginx:
-        image: nginx:1.25.4
-        imagePullPolicy: IfNotPresent
+        image: "nginx:alpine"
+        imagePullPolicy: "IfNotPresent"
 
-
-  ## Additional configuration for the Service resource
+  # Service configuration
   service:
-    ## Service port for HTTP
-    port: 80
-
-
-    ## Additional labels for the Service resource
+    port: 8080
     additionalLabels: {}
-
-    ## Additional annotations for the Service resource
     additionalAnnotations: {}
+    ipFamilyPolicy: "PreferDualStack"
 
-    ## https://kubernetes.io/docs/concepts/services-networking/dual-stack/
-    ipFamilyPolicy: PreferDualStack
-
-
-  ## Ingress resource configuration
+  # Ingress configuration
   ingress:
-    ## Enable Ingress resource
     enabled: true
-    ## Whether deploy https or plain http ingress
     useTLS: true
-
-    ingressClassName:
-    host:
+    ingressClassName: "nginx"
+    host: "roundcube.rwcloud.org"
     path: "/"
-    pathType: ImplementationSpecific
-    class: nginx
-    
-
-    ## TLS settings
+    pathType: "Prefix"
+    class: "nginx"
     tls:
-      includeAcmeAnnotation: true
-
-      ## Configure secret name, e.g., to re-use an existing secret
-      secretName:
-
-    ## Additional labels for the Ingress resource
+      secretName: "roundcube-tls"
     additionalLabels: {}
+    additionalAnnotations: 
+      cert-manager.io/cluster-issuer: letsencrypt-prod
 
-    ## Additional annotations for the Ingress resource
-    additionalAnnotations: {}
-
-
-  ## PodDisruptionBudget configuration
+  # PodDisruptionBudget configuration
   pdb:
-    ## Enable PodDisruptionBudget
     enabled: true
-
     minAvailable: 1
     maxUnavailable: ""
-
-
-    ## Additional labels for the PodDisruptionBudget resource
     additionalLabels: {}
-
-    ## Additional annotations for the PodDisruptionBudget resource
     additionalAnnotations: {}
 
-
-  ## NetworkPolicy configuration
-  ## A NetworkPolicy can prevent unauthorized access to remote hosts on network level.
-  ## By default, if enabled, the NetworkPolicy allows to connect to any IP with the IMAP and SMTP ports configured above.
-  ## This also applies for the managesieve plugin, if enabled.
-  ## More information on network policies: https://kubernetes.io/docs/concepts/services-networking/network-policies/
+  # NetworkPolicy configuration
   networkPolicy:
-
-    ## Create a NetworkPolicy resource
     enabled: false
-
-    ## Egress policies for Roundcube environment
     egress:
-      ## IMAP related Egress policies
       imap:
-
-        ## Explicitely configure allowed peers for the IMAP connection.
-        ## See https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#networkpolicypeer-v1-networking-k8s-io for all possible options.
         peers:
           - ipBlock:
-              cidr: 0.0.0.0/0
-
-
-      ## SMTP related Egress policies
+              cidr: "0.0.0.0/0"
       smtp:
-
-        ## Explicitely configure allowed peers for the SMTP connection.
-        ## See https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#networkpolicypeer-v1-networking-k8s-io for all possible options.
         peers:
           - ipBlock:
-              cidr: 0.0.0.0/0
-
-
-      ## managesieve related Egress policies
+              cidr: "0.0.0.0/0"
       managesieve:
-
-        ## Explicitely configure allowed peers for the managesieve connection. Will only be used if managesieve plugin is enabled.
-        ## See https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#networkpolicypeer-v1-networking-k8s-io for all possible options.
         peers:
           - ipBlock:
-              cidr: 0.0.0.0/0
-
-
-      ## Add additional, custom egress rules.
-      ## See https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#networkpolicyegressrule-v1-networking-k8s-io.
+              cidr: "0.0.0.0/0"
       additionalRules: []
-      ## Example rule for a zalando postgres cluster called "shared-postgres" in namespace "postgres"
-      #  - to:
-      #    - namespaceSelector:
-      #        matchLabels:
-      #          kubernetes.io/metadata.name: postgres
-      #    - podSelector:
-      #        matchLabels:
-      #          cluster-name: shared-postgres
-      #    ports:
-      #      - port: 5432
-      #        protocol: TCP
-
-
-    ## Additional labels for the NetworkPolicy
-    additionalLabels: {}
-
-    ## Additional annotations for the NetworkPolicy
-    additionalAnnotations: {}

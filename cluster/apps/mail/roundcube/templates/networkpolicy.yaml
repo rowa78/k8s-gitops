@@ -1,0 +1,47 @@
+{{- if .Values.roundcube.networkPolicy.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "roundcube.fullname" . }}
+  labels:
+    {{- include "roundcube.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "roundcube.selectorLabels" . | nindent 6 }}
+  policyTypes:
+    - Egress
+  egress:
+    # Allow IMAP connections
+    - to:
+      {{- with .Values.roundcube.networkPolicy.egress.imap.peers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      ports:
+        - port: {{ .Values.roundcube.imap.port }}
+          protocol: TCP
+
+    # Allow SMTP connections
+    - to:
+      {{- with .Values.roundcube.networkPolicy.egress.smtp.peers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      ports:
+        - port: {{ .Values.roundcube.smtp.port }}
+          protocol: TCP
+
+    {{- if index .Values.roundcube.config.plugins "managesieve" "enabled" }}
+    # Allow managesieve connections
+    - to:
+      {{- with .Values.roundcube.networkPolicy.egress.managesieve.peers }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      ports:
+        - port: 4190
+          protocol: TCP
+    {{- end }}
+
+    {{- with .Values.roundcube.networkPolicy.egress.additionalRules }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+{{- end }}

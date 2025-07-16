@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "roundcube.fullname" . }}-nginx
+  labels:
+    {{- include "roundcube.labels" . | nindent 4 }}
+    service: {{ include "roundcube.fullname" . }}-nginx
+  {{- with .Values.roundcube.deployment.additionalAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.roundcube.deployment.replicas | default 1 }}
+  selector:
+    matchLabels:
+      {{- include "roundcube.selectorLabels" . | nindent 6 }}
+      service: {{ include "roundcube.fullname" . }}-nginx
+  strategy:
+    type: {{ .Values.roundcube.deployment.strategy.type | default "Recreate" }}
+  template:
+    metadata:
+      labels:
+        {{- include "roundcube.selectorLabels" . | nindent 8 }}
+        service: {{ include "roundcube.fullname" . }}-nginx
+        {{- with .Values.roundcube.deployment.additionalPodLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- with .Values.roundcube.deployment.additionalPodAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with .Values.roundcube.deployment.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: {{ include "roundcube.fullname" . }}-nginx
+        image: {{ .Values.roundcube.deployment.containers.nginx.image | default "nginx:alpine" }}
+        imagePullPolicy: {{ .Values.roundcube.deployment.containers.nginx.imagePullPolicy | default "IfNotPresent" }}
+        env:
+        - name: NGINX_HOST
+          value: localhost
+        - name: NGINX_PHP_CGI
+          value: {{ include "roundcube.fullname" . }}:9000
+        ports:
+        - containerPort: 80
+        {{- with .Values.roundcube.deployment.resources }}
+        resources:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        volumeMounts:
+        - name: www-data
+          mountPath: /var/www/html
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d/default.conf
+          subPath: default.conf
+        {{- with .Values.roundcube.deployment.additionalVolumeMounts }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      restartPolicy: Always
+      volumes:
+      - name: www-data
+        persistentVolumeClaim:
+          claimName: {{ include "roundcube.fullname" . }}-www-pvc
+      - name: nginx-config
+        configMap:
+          name: {{ include "roundcube.fullname" . }}-nginx-config
+      {{- with .Values.roundcube.deployment.additionalVolumes }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}

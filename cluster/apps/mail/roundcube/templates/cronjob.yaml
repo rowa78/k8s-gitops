@@ -1,0 +1,88 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "roundcube.fullname" . }}-cleandb
+  labels:
+    {{- include "roundcube.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.roundcube.cronjob.schedule | default "@daily" | quote }}
+  concurrencyPolicy: {{ .Values.roundcube.cronjob.concurrencyPolicy | default "Replace" }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: {{ include "roundcube.fullname" . }}-cleandb
+          labels:
+            {{- include "roundcube.selectorLabels" . | nindent 12 }}
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: {{ include "roundcube.fullname" . }}
+              image: {{ .Values.roundcube.image | default "roundcube/roundcubemail:latest-fpm-alpine" }}
+              imagePullPolicy: {{ .Values.roundcube.imagePullPolicy | default "IfNotPresent" }}
+              env: 
+              - name: ROUNDCUBEMAIL_DB_TYPE
+                value: {{ .Values.roundcube.externalDatabase.type | default "pgsql" }}
+              - name: ROUNDCUBEMAIL_DB_HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .Values.roundcube.externalDatabase.secretName }}
+                    key: {{ .Values.roundcube.externalDatabase.secretKeys.host }}
+              - name: ROUNDCUBEMAIL_DB_NAME
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .Values.roundcube.externalDatabase.secretName }}
+                    key: {{ .Values.roundcube.externalDatabase.secretKeys.name }}
+              - name: ROUNDCUBEMAIL_DB_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .Values.roundcube.externalDatabase.secretName }}
+                    key: {{ .Values.roundcube.externalDatabase.secretKeys.user }}
+              - name: ROUNDCUBEMAIL_DB_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .Values.roundcube.externalDatabase.secretName }}
+                    key: {{ .Values.roundcube.externalDatabase.secretKeys.password }}
+              - name: ROUNDCUBEMAIL_DES_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ include "roundcube.fullname" . }}-shared-secret
+                    key: DES_KEY
+              - name: ROUNDCUBEMAIL_DEFAULT_HOST
+                value: {{ printf "%s://%s" (eq .Values.roundcube.imap.encryption "ssltls" | ternary "ssl" (eq .Values.roundcube.imap.encryption "starttls" | ternary "tls" "")) .Values.roundcube.imap.host }}
+              - name: ROUNDCUBEMAIL_DEFAULT_PORT
+                value: {{ .Values.roundcube.imap.port | default "993" | quote }}
+              - name: ROUNDCUBEMAIL_SMTP_SERVER
+                value: {{ printf "%s://%s" (eq .Values.roundcube.smtp.encryption "ssltls" | ternary "ssl" (eq .Values.roundcube.smtp.encryption "starttls" | ternary "tls" "")) .Values.roundcube.smtp.host }}
+              - name: ROUNDCUBEMAIL_SMTP_PORT
+                value: {{ .Values.roundcube.smtp.port | default "465" | quote }}
+              - name: ROUNDCUBEMAIL_SKIN
+                value: {{ .Values.roundcube.config.defaultSkin | default "elastic" }}
+              - name: ROUNDCUBEMAIL_PLUGINS
+                value: {{ include "roundcube.enabledPlugins" . }}
+              {{- if .Values.roundcube.config.uploadMaxFilesize }}
+              - name: ROUNDCUBEMAIL_UPLOAD_MAX_FILESIZE
+                value: {{ .Values.roundcube.config.uploadMaxFilesize | quote }}
+              {{- end }}
+              {{- if .Values.roundcube.imap.usernameDomain }}
+              - name: ROUNDCUBEMAIL_USERNAME_DOMAIN
+                value: {{ .Values.roundcube.imap.usernameDomain | quote }}
+              {{- end }}
+              {{- if .Values.roundcube.config.requestPath }}
+              - name: ROUNDCUBEMAIL_REQUEST_PATH
+                value: {{ .Values.roundcube.config.requestPath | quote }}
+              {{- end }}
+              {{- if .Values.roundcube.config.installPlugins }}
+              - name: ROUNDCUBEMAIL_INSTALL_PLUGINS
+                value: {{ .Values.roundcube.config.installPlugins | quote }}
+              {{- end }}
+              {{- if .Values.roundcube.config.spellcheckUri }}
+              - name: ROUNDCUBEMAIL_SPELLCHECK_URI
+                value: {{ .Values.roundcube.config.spellcheckUri | quote }}
+              {{- end }}
+              {{- if .Values.roundcube.config.aspellDicts }}
+              - name: ROUNDCUBEMAIL_ASPELL_DICTS
+                value: {{ .Values.roundcube.config.aspellDicts | quote }}
+              {{- end }}
+              args:
+                - bin/cleandb.sh
