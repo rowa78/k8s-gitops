@@ -20,3 +20,6 @@ smtpd_tls_session_cache_database = lmdb:${data_directory}/smtpd_scache
 virtual_mailbox_domains=pgsql:/etc/postfix/pgsql-virtual-mailbox-domains.cf
 virtual_alias_maps=pgsql:/etc/postfix/pgsql-virtual-alias-maps.cf
 virtual_mailbox_maps=pgsql:/etc/postfix/pgsql-virtual-mailbox-maps.cf
+
+# deliver to dovecot
+virtual_transport = lmtp:[mailserver-dovecot]:24

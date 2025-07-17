@@ -13,5 +13,9 @@ spec:
       targetPort: imaps
       protocol: TCP
       name: imaps
+    - port: 24
+      targetPort: lmtp
+      protocol: TCP
+      name: lmtp
   selector:
     {{- include "dovecot.selectorLabels" . | nindent 4 }}

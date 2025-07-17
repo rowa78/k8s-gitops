@@ -37,6 +37,9 @@ spec:
             - name: imaps
               containerPort: 993
               protocol: TCP
+            - name: lmtp
+              containerPort: 24
+              protocol: TCP
           env:
           - name: DB_HOST
             valueFrom:
