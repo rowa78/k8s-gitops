@@ -28,3 +28,10 @@ virtual_mailbox_maps=pgsql:/etc/postfix/pgsql-virtual-mailbox-maps.cf
 
 # deliver to dovecot
 virtual_transport=lmtp:mailserver-dovecot.mail.svc.cluster.local:24
+
+
+
+# restrictions
+smtpd_recipient_restrictions = 
+    permit_sasl_authenticated,
+    reject_unauth_destination
