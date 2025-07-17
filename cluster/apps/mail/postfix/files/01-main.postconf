@@ -36,7 +36,7 @@ smtpd_sasl_path = inet:mailserver-dovecot.mail.svc.cluster.local:10025
 smtpd_sasl_security_options = noanonymous
 
 # Passwörter nur über TLS!
-#smtpd_tls_auth_only = yes
+smtpd_tls_auth_only = yes
 
 # restrictions
 smtpd_recipient_restrictions = 
