@@ -17,5 +17,9 @@ spec:
       targetPort: lmtp
       protocol: TCP
       name: lmtp
+    - port: 10025
+      targetPort: auth
+      protocol: TCP
+      name: auth
   selector:
     {{- include "dovecot.selectorLabels" . | nindent 4 }}

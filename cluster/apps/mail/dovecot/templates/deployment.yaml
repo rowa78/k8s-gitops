@@ -40,6 +40,9 @@ spec:
             - name: lmtp
               containerPort: 24
               protocol: TCP
+            - name: auth
+              containerPort: 10025
+              protocol: TCP
           env:
           - name: DB_HOST
             valueFrom:
