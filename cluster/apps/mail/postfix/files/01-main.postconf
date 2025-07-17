@@ -29,7 +29,14 @@ virtual_mailbox_maps=pgsql:/etc/postfix/pgsql-virtual-mailbox-maps.cf
 # deliver to dovecot
 virtual_transport=lmtp:mailserver-dovecot.mail.svc.cluster.local:24
 
+# auth
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = inet:mailserver-dovecot.mail.svc.cluster.local:10025
+smtpd_sasl_security_options = noanonymous
 
+# Passwörter nur über TLS!
+#smtpd_tls_auth_only = yes
 
 # restrictions
 smtpd_recipient_restrictions = 
