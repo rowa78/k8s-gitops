@@ -6,6 +6,8 @@ if [ -d /custom-config ]; then
     for file in /custom-config/*; do
         [ ! -f "$file" ] && continue
         filename=$(basename "$file")
+
+        echo "processing: $filename"
         
         case "$filename" in
             _postconf_|*.postconf)
