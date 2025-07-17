@@ -22,4 +22,4 @@ virtual_alias_maps=pgsql:/etc/postfix/pgsql-virtual-alias-maps.cf
 virtual_mailbox_maps=pgsql:/etc/postfix/pgsql-virtual-mailbox-maps.cf
 
 # deliver to dovecot
-virtual_transport = lmtp:[mailserver-dovecot]:24
+virtual_transport=lmtp:[mailserver-dovecot]:24
