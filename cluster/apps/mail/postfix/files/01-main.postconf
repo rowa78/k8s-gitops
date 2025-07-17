@@ -14,7 +14,12 @@ smtpd_tls_key_file  = /certs/tls.key
 # Sender MAY use TLS but we also accept unencrypted connections.
 smtpd_tls_security_level = may
 smtpd_tls_loglevel = 1
-smtpd_tls_session_cache_database = lmdb:${data_directory}/smtpd_scache
+smtpd_tls_session_cache_database = lmdb:/var/lib/postfix/smtpd_scache
+
+# Keine lokalen aliases bei virtual domains
+alias_maps = 
+alias_database = 
+local_recipient_maps = 
 
 # domains, users, mailboxes
 virtual_mailbox_domains=pgsql:/etc/postfix/pgsql-virtual-mailbox-domains.cf
