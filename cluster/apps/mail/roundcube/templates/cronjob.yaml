@@ -52,7 +52,7 @@ spec:
               - name: ROUNDCUBEMAIL_DES_KEY
                 valueFrom:
                   secretKeyRef:
-                    name: {{ include "roundcube.fullname" . }}-shared-secret
+                    name: mailserver-roundcube
                     key: DES_KEY
               - name: ROUNDCUBEMAIL_DEFAULT_HOST
                 value: {{ printf "%s://%s" (eq .Values.roundcube.imap.encryption "ssltls" | ternary "ssl" (eq .Values.roundcube.imap.encryption "starttls" | ternary "tls" "")) .Values.roundcube.imap.host }}
