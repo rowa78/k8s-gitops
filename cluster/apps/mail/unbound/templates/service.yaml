@@ -6,6 +6,7 @@ metadata:
     {{- include "unbound.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
+  clusterIP: 10.43.0.11
   ports:
     - port: {{ .Values.service.port }}
       targetPort: dns
