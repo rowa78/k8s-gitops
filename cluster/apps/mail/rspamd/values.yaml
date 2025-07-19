@@ -109,8 +109,7 @@ unbound:
           name: "svc.cluster.local" 
           forward-addr: 10.43.0.10
       forward-zone:
-          name: "."
-          forward-first: yes
+          name: "mail.svc.cluster.local" 
           forward-addr: 10.43.0.10
 
 # Network policy
