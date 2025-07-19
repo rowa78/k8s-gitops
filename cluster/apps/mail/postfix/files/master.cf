@@ -11,9 +11,9 @@
 # ==========================================================================
 #smtp      inet  n       -       n       -       -       smtpd
 smtp      inet  n       -       n       -       1       postscreen
-#smtpd     pass  -       -       n       -       -       smtpd
-#dnsblog   unix  -       -       n       -       0       dnsblog
-#tlsproxy  unix  -       -       n       -       0       tlsproxy
+smtpd     pass  -       -       n       -       -       smtpd
+dnsblog   unix  -       -       n       -       0       dnsblog
+tlsproxy  unix  -       -       n       -       0       tlsproxy
 # Choose one: enable submission for loopback clients only, or for any client.
 #127.0.0.1:submission inet n -   n       -       -       smtpd
 #submission inet n       -       n       -       -       smtpd
