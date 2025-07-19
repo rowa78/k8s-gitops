@@ -8,7 +8,7 @@ smtpd_tls_cert_file = /certs/tls.crt
 smtpd_tls_key_file  = /certs/tls.key
 
 # PROXY-Protokoll aktivieren
-postscreen_upstream_proxy_protocol = haproxy
+postscreen_upstream_proxy_protocol = 116.202.157.242 2a01:4f8:10b:3c5b::2 
 
 ###############################################################################
 # Incoming TLS
