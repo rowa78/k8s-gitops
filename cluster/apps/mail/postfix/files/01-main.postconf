@@ -7,7 +7,8 @@ maillog_file = /dev/stdout
 smtpd_tls_cert_file = /certs/tls.crt
 smtpd_tls_key_file  = /certs/tls.key
 
-smtpd_upstream_proxy_protocol = haproxy
+# PROXY-Protokoll aktivieren
+postscreen_upstream_proxy_protocol = haproxy
 
 ###############################################################################
 # Incoming TLS
