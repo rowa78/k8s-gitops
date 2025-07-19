@@ -10,14 +10,16 @@ data:
       {{- range $key, $value := .Values.config.server }}
       {{ $key }}: {{ $value }}
       {{- end }}    
-    forward-zone:
-      name: "cluster.local"
-      forward-addr: 10.43.0.10  # Standard kube-dns ClusterIP
-    
-    forward-zone:
-      name: "svc.cluster.local"
-      forward-addr: 10.43.0.10
-    
-    forward-zone:
-      name: "default.svc.cluster.local"
-      forward-addr: 10.43.0.10
+      forward-zone:
+          name: "cluster.local"
+          forward-addr: 10.43.0.10
+          
+      forward-zone:
+          name: "svc.cluster.local" 
+          forward-addr: 10.43.0.10
+          
+      # Zusätzlich: Alle Single-Label Namen weiterleiten
+      forward-zone:
+          name: "."
+          forward-first: yes
+          forward-addr: 10.43.0.10  # Erst CoreDNS fragen
