@@ -4,8 +4,6 @@ metadata:
   name: {{ include "unbound.fullname" . }}
   labels:
     {{- include "unbound.labels" . | nindent 4 }}
-  annotations:
-    checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
@@ -15,10 +13,11 @@ spec:
       {{- include "unbound.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- end }}
       labels:
         {{- include "unbound.selectorLabels" . | nindent 8 }}
     spec:
