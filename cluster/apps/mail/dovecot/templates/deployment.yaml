@@ -24,6 +24,10 @@ spec:
       dnsConfig:
         nameservers:
         - "10.43.0.11"
+        searches:
+        - "mail.svc.cluster.local"
+        - "svc.cluster.local" 
+        - "cluster.local"
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
