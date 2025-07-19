@@ -82,22 +82,21 @@ unbound:
         verbosity: 1
         interface: 0.0.0.0
         port: 53
-        do-ip4: true
-        do-ip6: true
-        do-udp: true
-        do-tcp: true
-        access-control:
-          - 10.0.0.8/24: allow
-        hide-identity: true
-        hide-version: true
+        do-ip4: yes
+        do-ip6: yes
+        do-udp: yes
+        do-tcp: yes
+        access-control: 10.0.0.0/24 allow
+        hide-identity: yes
+        hide-version: yes
         logfile: "/dev/stdout"
-        log-queries: true
+        log-queries: yes
         root-hints: "/etc/unbound/root.hints"
         auto-trust-anchor-file: "/var/lib/unbound/root.key"
-        aggressive-nsec: false
-        log-servfail: true
-        harden-glue: true
-        harden-dnssec-stripped: true
+        aggressive-nsec: no
+        log-servfail: yes
+        harden-glue: yes
+        harden-dnssec-stripped: yes
 
 # Network policy
 networkPolicy:
