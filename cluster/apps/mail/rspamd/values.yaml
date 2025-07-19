@@ -90,31 +90,11 @@ unbound:
         do-ip6: yes
         do-udp: yes
         do-tcp: yes
-        access-control: 0.0.0.0/0 allow
+        access-control: 10.0.0.8/24 allow
         hide-identity: yes
         hide-version: yes
         logfile: /dev/stdout
-        log-queries: yes      
-        private-domain: "cluster.local."
-        harden-below-nxdomain: yes
-        # Add all DNS blocklists below
-        private-domain: "dnsbl.manitu.net."
-        private-domain: "surbl.org."
-        private-domain: "spamhaus.org."
-        private-domain: "spameatingmonkey.net."
-        private-domain: "dnswl.org."
-        
-        domain-insecure: "cluster.local"
-        domain-insecure: "svc.cluster.local"
-      forward-zone:
-          name: "cluster.local"
-          forward-addr: 10.43.0.10
-      forward-zone:
-          name: "svc.cluster.local" 
-          forward-addr: 10.43.0.10
-      forward-zone:
-          name: "mail.svc.cluster.local" 
-          forward-addr: 10.43.0.10
+        log-queries: yes              
 
 # Network policy
 networkPolicy:
