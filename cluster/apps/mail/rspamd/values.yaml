@@ -36,9 +36,21 @@ persistence:
 
 # Custom configuration files to be mounted in /custom-config/
 config:
-  # Example:
-  # local.d/worker-normal.inc: |
-  #   bind_socket = "0.0.0.0:11333";
+  classifier-bayes.conf: |
+    servers = "mailserver-redis-headless.mail.svc.cluster.local.";
+    backend = "redis";
+  redis.conf: |
+    read_servers = "mailserver-redis-headless.mail.svc.cluster.local.";
+    write_servers = "mailserver-redis-headless.mail.svc.cluster.local.";
+  worker-normal.inc: |
+    bind_socket = "0.0.0.0:11333";
+  worker-proxy.inc: |
+    milter = yes; # Enable milter mode
+    timeout = 120s; # Needed for Milter usually
+    upstream "local" {
+      default = yes; # Self-scan upstreams are always default
+      self_scan = yes; # Enable self-scan
+    }
 
 # Certificates to be mounted in /certs
 certificates:
