@@ -20,14 +20,6 @@ spec:
       labels:
         {{- include "dovecot.selectorLabels" . | nindent 8 }}
     spec:
-      dnsPolicy: "None"
-      dnsConfig:
-        nameservers:
-        - "10.43.0.11"
-        searches:
-        - "mail.svc.cluster.local"
-        - "svc.cluster.local" 
-        - "cluster.local"
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
