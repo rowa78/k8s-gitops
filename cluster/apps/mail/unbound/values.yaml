@@ -37,7 +37,7 @@ resources:
     memory: 128Mi
 
 persistence:
-  enabled: true
+  enabled: false
   storageClass: "openebs-zfs"
   size: 1Gi
 
