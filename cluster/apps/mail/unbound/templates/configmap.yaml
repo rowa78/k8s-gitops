@@ -10,3 +10,7 @@ data:
       {{- range $key, $value := .Values.config.server }}
       {{ $key }}: {{ $value }}
       {{- end }}
+    forward-zone:
+      name: "."
+      # dns pod in k8s
+      forward-addr: 10.43.0.10@53
