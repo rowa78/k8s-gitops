@@ -2,7 +2,7 @@ FROM alpine:latest
 
 # You might not need the pigeonhole (sieve) plugin or the rspamd package
 RUN apk update && \
-    apk add unbound && \
+    apk add unbound bind-tools && \
     rm -rf /var/cache/apk/* 
 
     

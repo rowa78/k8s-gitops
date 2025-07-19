@@ -51,6 +51,10 @@ config:
       default = yes; # Self-scan upstreams are always default
       self_scan = yes; # Enable self-scan
     }
+  options.inc: |
+    dns {
+      nameserver = ["127.0.0.1:53:10"];
+    } 
 
 # Certificates to be mounted in /certs
 certificates:

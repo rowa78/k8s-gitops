@@ -24,14 +24,14 @@ spec:
       labels:
         {{- include "rspamd.selectorLabels" . | nindent 8 }}
     spec:
-      dnsConfig:
-        nameservers:
-          - 127.0.0.1
-        searches:
-          - "mail.svc.cluster.local"
-          - "svc.cluster.local" 
-          - "cluster.local"
-      dnsPolicy: None
+      # dnsConfig:
+      #   nameservers:
+      #     - 127.0.0.1
+      #   searches:
+      #     - "mail.svc.cluster.local"
+      #     - "svc.cluster.local" 
+      #     - "cluster.local"
+      # dnsPolicy: None
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
