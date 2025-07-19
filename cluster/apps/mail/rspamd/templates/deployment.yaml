@@ -96,7 +96,7 @@ spec:
               mountPath: /var/lib/rspamd
             {{- if .Values.config }}
             - name: config
-              mountPath: /custom-config
+              mountPath: /etc/rspamd/local.d
             {{- end }}
             {{- if .Values.certificates.enabled }}
             - name: certs
