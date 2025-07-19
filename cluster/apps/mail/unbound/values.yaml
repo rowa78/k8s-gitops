@@ -54,6 +54,9 @@ config:
     access-control: 0.0.0.0/0 allow
     hide-identity: "yes"
     hide-version: "yes"
+    logfile: /dev/stdout
+    log-queries: "yes"
+    
 
 nodeSelector: {}
 
