@@ -24,6 +24,13 @@ spec:
       labels:
         {{- include "rspamd.selectorLabels" . | nindent 8 }}
     spec:
+      dnsConfig:
+        nameservers:
+          - 127.0.0.1
+        options:
+          - name: ndots
+            value: '1'
+      dnsPolicy: None
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
