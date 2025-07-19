@@ -86,3 +86,11 @@ recipient_delimiter = +
 
 ### Keine Rückschlüsse auf benutzte Mailadressen zulassen
 disable_vrfy_command = yes
+
+
+# rspamd
+smtpd_milters = inet:mailserver-rspamd:11332
+non_smtpd_milters = inet:mailserver-rspamd:11332
+milter_protocol = 6
+milter_mail_macros =  i {mail_addr} {client_addr} {client_name} {auth_authen}
+milter_default_action = accept

@@ -15,19 +15,5 @@ spec:
       targetPort: worker
       protocol: TCP
       name: worker
-    - port: {{ .Values.service.metricsPort }}
-      targetPort: metrics
-      protocol: TCP
-      name: metrics
-    {{- if .Values.unbound.enabled }}
-    - port: {{ .Values.service.unboundPort }}
-      targetPort: dns
-      protocol: UDP
-      name: dns
-    - port: {{ .Values.service.unboundPort }}
-      targetPort: dns-tcp
-      protocol: TCP
-      name: dns-tcp
-    {{- end }}
   selector:
     {{- include "rspamd.selectorLabels" . | nindent 4 }}
