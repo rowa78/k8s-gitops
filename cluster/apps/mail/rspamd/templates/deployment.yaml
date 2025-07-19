@@ -127,7 +127,8 @@ spec:
           {{- if .Values.unbound.config }}
           volumeMounts:
             - name: unbound-config
-              mountPath: /opt/unbound/etc/unbound
+              mountPath: /opt/unbound/etc/unbound/unbound.conf
+              subPath: unbound.conf
           {{- end }}
         {{- end }}
       volumes:
