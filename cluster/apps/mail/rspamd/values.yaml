@@ -88,6 +88,7 @@ unbound:
         hide-identity: yes
         hide-version: yes
         log-queries: yes
+        logfile: "/dev/stdout"
         root-hints: "/etc/unbound/root.hints"
 # Network policy
 networkPolicy:
