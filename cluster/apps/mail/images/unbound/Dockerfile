@@ -9,8 +9,7 @@ RUN apk update && \
     adduser -S -D -H -h /var/lib/unbound -s /sbin/nologin -G unbound -g unbound unbound 2>/dev/null || true && \
     mkdir -p /etc/unbound /var/lib/unbound && \
     chown -R unbound:unbound /etc/unbound /var/lib/unbound && \
-    curl -o /etc/unbound/root.hints https://www.internic.net/domain/named.cache
-
+    curl -o /etc/unbound/root.hints https://www.internic.net/domain/named.cache 
 # Copy entrypoint script
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

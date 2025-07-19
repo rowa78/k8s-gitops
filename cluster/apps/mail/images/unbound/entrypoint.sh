@@ -31,5 +31,22 @@ fi
 # Set proper permissions
 chown -R unbound:unbound /etc/unbound /var/lib/unbound 2>/dev/null || true
 
+echo "Downloading root anchor file..."
+curl -o /var/lib/unbound/root.key https://www.internic.net/domain/named.cache || {
+  echo "Failed to download root anchor file, checking for existing file..."
+  if [ ! -f /var/lib/unbound/root.key ]; then
+    echo "No existing root anchor file found. Using fallback method..."
+    dig +nocomments . NS > /var/lib/unbound/root.key || {
+      echo "WARNING: Could not create root anchor file. DNS resolution may be affected."
+    }
+  else
+    echo "Using existing root anchor file."
+  fi
+}
+
+ls -l /var/lib/unbound
+ls -l /etc/unbound
+
+
 echo "Starting Unbound DNS server..."
 exec "$@"
