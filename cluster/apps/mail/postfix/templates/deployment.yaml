@@ -51,6 +51,14 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          dnsPolicy: "None"
+          dnsConfig:
+            nameservers:
+            - "10.43.0.11"
+            searches:
+            - "mail.svc.cluster.local"
+            - "svc.cluster.local" 
+            - "cluster.local"
           ports:
             - name: smtp
               containerPort: 25
