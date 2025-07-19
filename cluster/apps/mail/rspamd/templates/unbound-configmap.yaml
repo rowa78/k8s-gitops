@@ -1,4 +1,4 @@
-{{- if and .Values.unbound.enabled .Values.unbound.config }}
+{{- if .Values.unbound.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
