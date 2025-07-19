@@ -97,6 +97,16 @@ unbound:
         private-domain: "surbl.org."
         private-domain: "spamhaus.org."
         private-domain: "spameatingmonkey.net."
+      forward-zone:
+          name: "cluster.local"
+          forward-addr: 10.43.0.10
+      forward-zone:
+          name: "svc.cluster.local" 
+          forward-addr: 10.43.0.10
+      forward-zone:
+          name: "."
+          forward-first: yes
+          forward-addr: 10.43.0.10
 
 # Network policy
 networkPolicy:
