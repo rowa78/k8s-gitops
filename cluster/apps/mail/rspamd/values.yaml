@@ -92,11 +92,14 @@ unbound:
         logfile: /dev/stdout
         log-queries: yes      
         private-domain: "cluster.local."
+        harden-below-nxdomain: yes
         # Add all DNS blocklists below
         private-domain: "dnsbl.manitu.net."
         private-domain: "surbl.org."
         private-domain: "spamhaus.org."
         private-domain: "spameatingmonkey.net."
+        private-domain: "dnswl.org."
+        
         domain-insecure: "cluster.local"
         domain-insecure: "svc.cluster.local"
       forward-zone:
