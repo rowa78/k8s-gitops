@@ -8,7 +8,7 @@ metadata:
     k8up.io/backup: 'false'
     tailscale.com/expose: "true"
 spec:
-  imageName: 'r0wa/postgresql:15.4-14'
+  imageName: 'ghcr.io/cloudnative-pg/postgresql:17.5-202507280807-standard-bullseye'
   instances: 1
 
   resources:
