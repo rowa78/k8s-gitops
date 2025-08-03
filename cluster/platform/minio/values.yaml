@@ -231,10 +231,10 @@ minio:
     #  existingSecretKey: password
     #  policy: readwrite      
     # Or you can refer to specific secret
-    #- accessKey: externalSecret
-    #  existingSecret: my-secret
-    #  existingSecretKey: password
-    #  policy: readonly
+    - accessKey: minio
+      existingSecret: minio-users
+      existingSecretKey: password
+      policy: readwrite
 
 
   ## Additional Annotations for the Kubernetes Job makeUserJob
