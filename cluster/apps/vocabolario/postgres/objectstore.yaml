@@ -15,4 +15,4 @@ spec:
         key: aws_secret_access_key
     wal:
       compression: bzip2        
-    retentionPolicy: "5d"
+  retentionPolicy: "5d"
