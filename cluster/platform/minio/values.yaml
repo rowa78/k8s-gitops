@@ -73,6 +73,8 @@ minio:
     clusterIP: ~
     port: "9000"
     nodePort: 32000
+    annotations:
+      tailscale.com/expose: "true"
 
   ## Configure Ingress based on the documentation here: https://kubernetes.io/docs/concepts/services-networking/ingress/
   ##
