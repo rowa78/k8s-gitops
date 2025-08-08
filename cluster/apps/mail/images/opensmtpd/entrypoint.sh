@@ -9,8 +9,7 @@ if [ -d /custom-config ]; then
 
         echo "processing: $filename"
         echo "Copying config file: $filename"
-        envsubst < "$file" > "/etc/mail/$filename"
-        ;;        
+        envsubst < "$file" > "/etc/smtpd/$filename"   
     done
 fi
 
