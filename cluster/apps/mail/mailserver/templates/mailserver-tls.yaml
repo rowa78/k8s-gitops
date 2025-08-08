@@ -4,6 +4,7 @@ metadata:
   name: mailserver-tls  
 spec:
   dnsNames:
+  - terra.rwcloud.org
   - mail.rwcloud.org
   - imap.rwcloud.org
   - smtp.rwcloud.org
