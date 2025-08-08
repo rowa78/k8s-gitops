@@ -39,7 +39,7 @@ spec:
             - sh
             - -c
             - |
-              chown -R smtpd:smtpd /var/spool/smtpd
+              chmod 711 /var/spool/smtpd
           securityContext:
             runAsUser: 0
           volumeMounts:
