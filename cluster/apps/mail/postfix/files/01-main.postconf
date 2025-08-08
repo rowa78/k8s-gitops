@@ -1,6 +1,8 @@
 myhostname = mail.rwcloud.org
 mydomain = rwcloud.org
 
+inet_protocols = all
+
 maillog_file = /dev/stdout
 
 # ssl
