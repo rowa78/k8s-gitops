@@ -145,6 +145,7 @@ spec:
         - name: certs
           secret:
             secretName: {{ .Values.certificates.secretName }}
+            defaultMode: 0640
         {{- end }}
         {{- range .Values.additionalSecrets }}
         - name: {{ .name }}
