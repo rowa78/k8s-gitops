@@ -17,4 +17,7 @@ EXPOSE 587/tcp
 VOLUME [ "/var/spool/smtpd" ]
 WORKDIR /var/spool/smtpd
 
-CMD ["smtpd", "-dv"]
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+CMD ["/entrypoint.sh"]

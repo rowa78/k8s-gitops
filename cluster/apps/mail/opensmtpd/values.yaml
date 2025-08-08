@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: registry.rwcloud.org/opensmptpd
   tag: 7.7.0
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 imagePullSecrets:
   - name: externalregistry
@@ -61,3 +61,6 @@ additionalSecrets: []
   # - name: secret-name
   #   mountPath: /custom-config/secret-file
   #   subPath: secret-key
+
+database:
+  secretName: mailserverdb-app

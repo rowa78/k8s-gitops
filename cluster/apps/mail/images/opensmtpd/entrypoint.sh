@@ -8,26 +8,11 @@ if [ -d /custom-config ]; then
         filename=$(basename "$file")
 
         echo "processing: $filename"
-        
-        case "$filename" in
-            _postconf_|*.postconf)
-                echo "Appending postfix settings from $filename..."
-                echo "" >> /etc/postfix/main.cf
-                echo "# Custom settings from $filename" >> /etc/postfix/main.cf
-                envsubst < "$file" >> /etc/postfix/main.cf
-                ;;
-            *.cf)
-                echo "Copying config file: $filename"
-                envsubst < "$file" > "/etc/postfix/$filename"
-                ;;
-        esac
+        echo "Copying config file: $filename"
+        envsubst < "$file" > "/etc/mail/$filename"
+        ;;        
     done
 fi
 
-echo "non default settings: "
-postconf -n
-echo "**********************"
-
-postfix check
 echo "Starting ....."
-exec /usr/sbin/postfix start-fg
+exec smtpd -dv

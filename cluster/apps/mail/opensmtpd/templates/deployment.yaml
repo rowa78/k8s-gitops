@@ -51,9 +51,27 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            - name: UMASK
-              value: "077"  # Ensure new files have correct permissions
+          env:            
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.database.secretName }}
+                key: host
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.database.secretName }}
+                key: user
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.database.secretName }}
+                key: password
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.database.secretName }}
+                key: dbname
           ports:
             - name: smtp
               containerPort: 25
