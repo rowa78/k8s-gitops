@@ -67,4 +67,4 @@ ingress-nginx:
     30100: "minecraft/minecraft-minecraft:25565"    
     2222: "forgejo/forgejo-app-ssh:22"
     993: "mail/mailserver-dovecot:993::PROXY"
-    25: "mail/mailserver-postfix:25::PROXY"
+    25: "mail/mailserver-opensmtpd:25::PROXY"
