@@ -5,7 +5,10 @@ metadata:
   labels:
     {{- include "opensmtpd.labels" . | nindent 4 }}
 data:
-  {{- range $key, $value := .Values.config.files }}
-  {{ $key }}: |-
-    {{ $value | nindent 4 }}
+  {{- $files := .Files }}
+  {{- if .Files.Glob "files/*" }}
+  {{- range $path, $_ := .Files.Glob "files/*" }}
+  {{ base $path }}: |-
+    {{- $files.Get $path | nindent 4 }}
+  {{- end }}
   {{- end }}

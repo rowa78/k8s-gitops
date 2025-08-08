@@ -55,7 +55,7 @@ config:
 
 certificates:
   # Secret containing certificates to be mounted in /certs/
-  secretName: ""
+  secretName: "mailserver-tls"
 
 additionalSecrets: []
   # - name: secret-name
