@@ -86,7 +86,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mailserver-postfix
+  name: mailserver-opensmtpd
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -95,7 +95,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/mail/postfix
+    path: cluster/apps/mail/opensmtpd
   destination:
     name: in-cluster
     namespace: mail
