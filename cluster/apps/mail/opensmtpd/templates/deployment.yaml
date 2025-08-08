@@ -45,8 +45,6 @@ spec:
           volumeMounts:
             - name: spool
               mountPath: /var/spool/smtpd
-            - name: lib
-              mountPath: /var/lib/smtpd
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
