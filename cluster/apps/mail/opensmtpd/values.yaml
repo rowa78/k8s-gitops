@@ -57,9 +57,9 @@ certificates:
   # Secret containing certificates to be mounted in /certs/
   secretName: "mailserver-tls"
 
-additionalSecrets: []
-  # - name: secret-name
-  #   mountPath: /custom-config/secret-file
+additionalSecrets: 
+  - name: opensmtp-secrets
+    mountPath: /secrets
   #   subPath: secret-key
 
 database:
