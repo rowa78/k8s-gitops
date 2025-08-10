@@ -51,6 +51,9 @@ config:
     dns {
       nameserver = ["127.0.0.1:53:10"];
     }
+  milter_headers.conf: |
+    #  Enables x-spam, x-spamd-result, x-rspamd-server and x-rspamd-queue-id
+    extended_spam_headers = true;
     
 # Certificates to be mounted in /certs
 certificates:
