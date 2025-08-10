@@ -1,3 +1,5 @@
+compatibility_level=3.6
+
 myhostname = terra.rwcloud.org
 mydomain = rwcloud.org
 

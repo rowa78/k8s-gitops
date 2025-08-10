@@ -3,17 +3,16 @@
 
 # Verarbeite alle Files in /custom-config
 if [ -d /custom-config ]; then
+    rm -f /etc/postfix/main.cf
     for file in /custom-config/*; do
         [ ! -f "$file" ] && continue
         filename=$(basename "$file")
 
         echo "processing: $filename"
-        
         case "$filename" in
-            _postconf_|*.postconf)
-                echo "Appending postfix settings from $filename..."
-                echo "" >> /etc/postfix/main.cf
-                echo "# Custom settings from $filename" >> /etc/postfix/main.cf
+            *.postconf)
+                echo "Replacing postfix main.cf with $filename..."
+                # Simply replace the entire main.cf file - much simpler!
                 envsubst < "$file" >> /etc/postfix/main.cf
                 ;;
             *.cf)
