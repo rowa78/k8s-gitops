@@ -50,7 +50,8 @@ config:
   options.inc: |
     dns {
       nameserver = ["127.0.0.1:53:10"];
-    } 
+    }
+    extended_spam_headers = true; 
 
 # Certificates to be mounted in /certs
 certificates:
