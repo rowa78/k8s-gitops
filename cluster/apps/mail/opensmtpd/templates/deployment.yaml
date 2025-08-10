@@ -72,6 +72,8 @@ spec:
               secretKeyRef:
                 name: {{ .Values.database.secretName }}
                 key: dbname
+          - name: RSPAMD_HOST
+            value: mailserver-rspamd:11334
           ports:
             - name: smtp
               containerPort: 25
