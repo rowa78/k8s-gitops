@@ -41,7 +41,7 @@ config:
   worker-normal.inc: |
     bind_socket = "0.0.0.0:11333";
   worker-proxy.inc: |
-    milter = no; # Enable milter mode
+    milter = yes; # Enable milter mode
     timeout = 120s; # Needed for Milter usually
     upstream "local" {
       default = yes; # Self-scan upstreams are always default
@@ -51,8 +51,7 @@ config:
     dns {
       nameserver = ["127.0.0.1:53:10"];
     }
-    extended_spam_headers = true; 
-
+    
 # Certificates to be mounted in /certs
 certificates:
   enabled: false
