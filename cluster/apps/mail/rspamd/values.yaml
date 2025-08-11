@@ -39,7 +39,7 @@ config:
     read_servers = "mailserver-redis-headless.mail.svc.cluster.local.";
     write_servers = "mailserver-redis-headless.mail.svc.cluster.local.";
   worker-normal.inc: |
-    bind_socket = "0.0.0.0:11333";
+    bind_socket = "0.0.0.0:11332";
   worker-proxy.inc: |
     milter = yes; # Enable milter mode
     timeout = 120s; # Needed for Milter usually
