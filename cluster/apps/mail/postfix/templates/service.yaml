@@ -11,5 +11,8 @@ spec:
       targetPort: smtp
       protocol: TCP
       name: smtp
+    - targetPort: submission
+      protocol: TCP
+      name: submission
   selector:
     {{- include "postfix.selectorLabels" . | nindent 4 }}
