@@ -11,7 +11,8 @@ spec:
       targetPort: smtp
       protocol: TCP
       name: smtp
-    - targetPort: submission
+    - port: 587
+      targetPort: submission
       protocol: TCP
       name: submission
   selector:
