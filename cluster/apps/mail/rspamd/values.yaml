@@ -54,6 +54,9 @@ config:
   milter_headers.conf: |
     #  Enables x-spam, x-spamd-result, x-rspamd-server and x-rspamd-queue-id
     extended_spam_headers = true;
+  dkim_signing.conf: |
+    path = "/dkim-certs/$domain.$selector.key";
+    selector_map = "/dkim/dkim_selectors.map"
     
 # Certificates to be mounted in /certs
 certificates:

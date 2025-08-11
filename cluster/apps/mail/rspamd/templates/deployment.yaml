@@ -108,6 +108,10 @@ spec:
               mountPath: /custom-config/{{ .path }}
               subPath: {{ .path }}
             {{- end }}
+            - name: rspamd-dkim-secrets
+              mountPath: /dkim-certs
+            - name: rspamd-dkim-selectors
+              mountPath: /dkim
           {{- with .Values.env }}
           env:
             {{- toYaml . | nindent 12 }}
@@ -157,6 +161,12 @@ spec:
               - key: {{ .key }}
                 path: {{ .path }}
         {{- end }}
+        - name: rspamd-dkim-secrets
+          secret:
+            secretName: rspamd-dkim-secrets
+        - name: rspamd-dkim-selectors
+          secret:
+            secretName: rspamd-dkim-selectors
         {{- if and .Values.unbound.enabled .Values.unbound.config }}
         - name: unbound-config
           configMap:
