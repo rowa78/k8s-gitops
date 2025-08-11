@@ -108,8 +108,8 @@ roundcube:
 
   # SMTP settings
   smtp:
-    host: "mail.example.org"
-    port: 465
+    host: "terra.example.org"
+    port: 589
     encryption: "ssltls"  # none, starttls, ssltls
     username: "%u"
     password: "%p"

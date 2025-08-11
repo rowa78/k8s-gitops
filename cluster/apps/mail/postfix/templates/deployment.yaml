@@ -56,6 +56,10 @@ spec:
               containerPort: 25
               hostPort: 25
               protocol: TCP
+            - name: submission
+              containerPort: 587
+              hostPort: 587
+              protocol: TCP
           env:
           - name: DB_HOST
             valueFrom:
