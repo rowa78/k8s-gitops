@@ -12,8 +12,6 @@
 #smtp      inet  n       -       n       -       -       smtpd
 smtp      inet  n       -       n       -       1       postscreen
 smtpd     pass  -       -       n       -       -       smtpd
-  -o smtpd_milters=inet:mailserver-rspamd.mail.svc.cluster.local:11332
-  -o non_smtpd_milters=inet:mailserver-rspamd.mail.svc.cluster.local:11332
 dnsblog   unix  -       -       n       -       0       dnsblog
 tlsproxy  unix  -       -       n       -       0       tlsproxy
 # Choose one: enable submission for loopback clients only, or for any client.
@@ -29,8 +27,6 @@ submission inet n       -       y       -       -       smtpd
   -o smtpd_relay_restrictions=
   -o smtpd_recipient_restrictions=permit_sasl_authenticated,reject
   -o milter_macro_daemon_name=ORIGINATING
-  -o smtpd_milters=inet:mailserver-rspamd.mail.svc.cluster.local:11332
-  -o non_smtpd_milters=
 #628       inet  n       -       n       -       -       qmqpd
 pickup    unix  n       -       n       60      1       pickup
 cleanup   unix  n       -       n       -       0       cleanup

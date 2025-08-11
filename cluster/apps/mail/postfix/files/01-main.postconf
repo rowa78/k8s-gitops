@@ -100,8 +100,8 @@ debug_peer_level = 2
 debug_peer_list = all
 milter_debug = yes
 
-smtpd_milters = inet:mailserver-rspamd.mail.svc.cluster.local:11332
-non_smtpd_milters = inet:mailserver-rspamd.mail.svc.cluster.local:11332
+smtpd_milters = inet:10.43.254.213:11332
+non_smtpd_milters = inet:10.43.254.213:11332
 milter_protocol = 6
 milter_mail_macros =  i {mail_addr} {client_addr} {client_name} {auth_authen}
 milter_default_action = accept
