@@ -96,6 +96,10 @@ disable_vrfy_command = yes
 
 
 # rspamd
+debug_peer_level = 2
+debug_peer_list = all
+milter_debug = yes
+
 smtpd_milters = inet:mailserver-rspamd.mail.svc.cluster.local:11332
 non_smtpd_milters = inet:mailserver-rspamd.mail.svc.cluster.local:11332
 milter_protocol = 6
