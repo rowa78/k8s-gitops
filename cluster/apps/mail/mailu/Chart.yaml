@@ -1,8 +1,0 @@
-apiVersion: v2
-name: mailu
-description: A Helm chart for Kubernetes
-version: 0.0.0
-dependencies:
-  - name: mailu
-    version: 2.2.2
-    repository: https://mailu.github.io/helm-charts/

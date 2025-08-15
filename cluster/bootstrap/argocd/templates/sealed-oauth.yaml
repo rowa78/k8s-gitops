@@ -1,3 +1,4 @@
+{{- if .Values.sealedsecret }}
 apiVersion: onepassword.com/v1
 kind: OnePasswordItem
 metadata:
@@ -6,3 +7,4 @@ metadata:
     app.kubernetes.io/part-of: argocd
 spec:
   itemPath: "vaults/k8s/items/argocd#argocd-auth"
+{{- end }}

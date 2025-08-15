@@ -1,7 +1,0 @@
-apiVersion: v2
-name: forgejo
-version: 9.4.0
-dependencies:
-  - name: forgejo
-    version: 11.0.5
-    repository: oci://code.forgejo.org/forgejo-helm
