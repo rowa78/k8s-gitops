@@ -79,7 +79,7 @@ kube-prometheus-stack:
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: openebs-zfs
+            storageClassName: local-path
             resources:
               requests:
                 storage: 1Gi
@@ -113,7 +113,7 @@ kube-prometheus-stack:
     persistence:
       enabled: true
       type: sts
-      storageClassName: openebs-zfs
+      storageClassName: local-path
       size: 1Gi
     ingress:
       enabled: true
@@ -269,7 +269,7 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
-            storageClassName: openebs-zfs
+            storageClassName: local-path
             resources:
               requests:
                 storage: 50Gi     
@@ -566,7 +566,7 @@ prometheus-pushgateway:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "openebs-zfs"
+    storageClass: "local-path"
 
     ## Subdirectory of pushgateway data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
