@@ -1,0 +1,6 @@
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  name: openai-api-keys
+spec:
+  itemPath: "vaults/k8s/items/openwebui#openai-api-keys"
