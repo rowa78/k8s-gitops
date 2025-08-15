@@ -316,5 +316,5 @@ argo-cd:
     enabled: true
 
 externalsecret: true
-sealedsecret: false
+sealedsecret: true
 
