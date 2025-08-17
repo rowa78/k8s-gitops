@@ -21,7 +21,7 @@ service:
   type: ClusterIP
   port: 11334
   controllerPort: 11334
-  workerPort: 11332
+  workerPort: 11333
 
 resources: {}
 
