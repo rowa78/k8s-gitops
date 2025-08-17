@@ -1,0 +1,10 @@
+{{- if .Values.unbound.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "rspamd.fullname" . }}-unbound-config
+  labels:
+    {{- include "rspamd.labels" . | nindent 4 }}
+data:
+  {{- toYaml .Values.unbound.config | nindent 2 }}
+{{- end }}

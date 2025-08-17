@@ -1,0 +1,174 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "rspamd.fullname" . }}
+  labels:
+    {{- include "rspamd.labels" . | nindent 4 }}
+  {{- if .Values.config }}
+  annotations:
+    checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+    checksum/unbound-config: {{ include (print $.Template.BasePath "/unbound-configmap.yaml") . | sha256sum }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "rspamd.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/unbound-config: {{ include (print $.Template.BasePath "/unbound-configmap.yaml") . | sha256sum }}
+      {{- end }}
+      labels:
+        {{- include "rspamd.selectorLabels" . | nindent 8 }}
+    spec:
+      # dnsConfig:
+      #   nameservers:
+      #     - 127.0.0.1
+      #   searches:
+      #     - "mail.svc.cluster.local"
+      #     - "svc.cluster.local" 
+      #     - "cluster.local"
+      # dnsPolicy: None
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: init-permissions
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - sh
+            - -c
+            - |
+              chown -R _rspamd:_rspamd /var/lib/rspamd
+              chmod 750 /var/lib/rspamd
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/rspamd
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: controller
+              containerPort: {{ .Values.service.controllerPort }}
+              protocol: TCP
+            - name: worker
+              containerPort: {{ .Values.service.workerPort }}
+              protocol: TCP
+          livenessProbe:
+            exec:
+              command:
+                - rspamc
+                - stat
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - rspamc
+                - stat
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          startupProbe:
+            exec:
+              command:
+                - rspamc
+                - stat
+            failureThreshold: 30
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/rspamd
+            {{- if .Values.config }}
+            - name: config
+              mountPath: /etc/rspamd/local.d
+            {{- end }}
+            {{- if .Values.certificates.enabled }}
+            - name: certs
+              mountPath: /certs
+            {{- end }}
+            {{- range .Values.secrets }}
+            - name: {{ .name }}
+              mountPath: /custom-config/{{ .path }}
+              subPath: {{ .path }}
+            {{- end }}
+            - name: rspamd-dkim-secrets
+              mountPath: /dkim-certs
+            - name: rspamd-dkim-selectors
+              mountPath: /dkim
+          {{- with .Values.env }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        {{- if .Values.unbound.enabled }}
+        - name: unbound
+          image: "{{ .Values.unbound.image.repository }}:{{ .Values.unbound.image.tag }}"
+          imagePullPolicy: {{ .Values.unbound.image.pullPolicy }}
+          ports:
+            - name: dns
+              containerPort: 53
+              protocol: UDP
+            - name: dns-tcp
+              containerPort: 53
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.unbound.resources | nindent 12 }}
+          {{- if .Values.unbound.config }}
+          volumeMounts:
+            - name: unbound-config
+              mountPath: /etc/unbound/unbound.conf.d
+          {{- end }}
+        {{- end }}
+      volumes:
+        - name: data
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "rspamd.fullname" . }}-data
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+        {{- if .Values.config }}
+        - name: config
+          configMap:
+            name: {{ include "rspamd.fullname" . }}-config
+        {{- end }}
+        {{- if .Values.certificates.enabled }}
+        - name: certs
+          secret:
+            secretName: {{ .Values.certificates.secretName }}
+        {{- end }}
+        {{- range .Values.secrets }}
+        - name: {{ .name }}
+          secret:
+            secretName: {{ .name }}
+            items:
+              - key: {{ .key }}
+                path: {{ .path }}
+        {{- end }}
+        - name: rspamd-dkim-secrets
+          secret:
+            secretName: rspamd-dkim-secrets
+        - name: rspamd-dkim-selectors
+          secret:
+            secretName: rspamd-dkim-selectors
+        {{- if and .Values.unbound.enabled .Values.unbound.config }}
+        - name: unbound-config
+          configMap:
+            name: {{ include "rspamd.fullname" . }}-unbound-config
+        {{- end }}
