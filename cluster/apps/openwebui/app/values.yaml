@@ -18,7 +18,7 @@ open-webui:
 
     persistentVolume:
       enabled: true
-      storageClass: local-path
+      storageClass: openebs-zfs
       size: 10Gi
       
 
@@ -185,7 +185,7 @@ open-webui:
     # -- If using multiple replicas, you must update accessModes to ReadWriteMany
     accessModes:
       - ReadWriteOnce
-    storageClass: "local-path"
+    storageClass: "openebs-zfs"
     selector: {}
     annotations: {}
 
