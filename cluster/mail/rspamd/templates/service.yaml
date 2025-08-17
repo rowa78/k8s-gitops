@@ -11,7 +11,7 @@ spec:
       targetPort: controller
       protocol: TCP
       name: controller
-    - port: {{ .Values.service.workerPort }}
+    - port: 11333
       targetPort: worker
       protocol: TCP
       name: worker

@@ -67,7 +67,7 @@ spec:
               containerPort: {{ .Values.service.controllerPort }}
               protocol: TCP
             - name: worker
-              containerPort: {{ .Values.service.workerPort }}
+              containerPort: 11333
               protocol: TCP
           livenessProbe:
             exec:
