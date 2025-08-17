@@ -1,0 +1,15 @@
+{{- if .Values.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "opensmtpd.fullname" . }}-spool
+  labels:
+    {{- include "opensmtpd.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.spool.accessMode }}
+  storageClassName: {{ .Values.persistence.storageClass }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.spool.size }}
+{{- end }}

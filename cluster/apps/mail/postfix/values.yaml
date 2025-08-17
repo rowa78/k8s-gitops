@@ -1,0 +1,129 @@
+replicaCount: 1
+
+image:
+  repository: registry.rwcloud.org/postfix
+  # Specify a tag to override the appVersion from Chart.yaml
+  tag: ""
+  pullPolicy: Always
+  # Specify image pull secrets
+  pullSecrets: 
+    - name: externalregistry
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 25
+  
+persistence:
+  data:
+    enabled: true
+    storageClass: "openebs-zfs"
+    accessMode: ReadWriteOnce
+    size: 10Gi
+  spool:
+    enabled: true
+    storageClass: "openebs-zfs"
+    accessMode: ReadWriteOnce
+    size: 5Gi
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# Security context
+#securityContext:
+  # Pod security context - this sets the volume ownership
+ # fsGroup: 101
+
+# Init container to fix permissions
+initContainers:
+  fixPermissions:
+    enabled: true
+    image: busybox
+    tag: latest
+    command:
+      - sh
+      - -c
+      - |
+        chown -R 100:101 /var/lib/postfix
+        chmod 700 /var/lib/postfix
+        # Set restrictive permissions on all files
+        find /var/lib/postfix -type f -exec chmod 600 {} \;
+        
+# Probe configuration
+probes:
+  liveness:
+    enabled: true
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  readiness:
+    enabled: true
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  startup:
+    enabled: true
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 30
+    successThreshold: 1
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Postfix configuration
+postfix:
+  # Add any specific postfix configuration parameters here
+  config: {}
+
+# Certificate configuration
+certificates:
+  # Name of the existing secret containing the certificates
+  secretName: "mailserver-tls"
+  # If true, the chart will create a secret from the provided certificate data
+  createSecret: false
+  # Certificate data to be included in the secret (only used if createSecret is true)
+  data: {}
+    # tls.crt: |
+    #   -----BEGIN CERTIFICATE-----
+    #   ...
+    #   -----END CERTIFICATE-----
+    # tls.key: |
+    #   -----BEGIN PRIVATE KEY-----
+    #   ...
+    #   -----END PRIVATE KEY-----
+
+# Additional secrets to be mounted to /etc/postfix/custom/
+additionalSecrets:
+  # List of existing secrets to mount
+  existingSecrets: []
+    # - name: my-postfix-secret
+    #   items: # Optional, if not specified all keys from the secret will be mounted
+    #     - key: secret-key-1
+    #       path: filename-in-custom-dir-1
+    #     - key: secret-key-2
+    #       path: filename-in-custom-dir-2
+  # Create a new secret with the provided data
+  createSecret: false
+  # Secret data to be included in the created secret (only used if createSecret is true)
+  data: {}
+    # username: myusername
+    # password: mypassword
+
+database:
+  secretName: mailserverdb-app

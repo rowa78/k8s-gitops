@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "roundcube.fullname" . }}
+  labels:
+    {{- include "roundcube.labels" . | nindent 4 }}
+    service: {{ include "roundcube.fullname" . }}
+  {{- with .Values.roundcube.service.additionalAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    {{- include "roundcube.selectorLabels" . | nindent 4 }}
+    service: {{ include "roundcube.fullname" . }}
+

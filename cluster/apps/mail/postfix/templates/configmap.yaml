@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "postfix.fullname" . }}-config
+  labels:
+    {{- include "postfix.labels" . | nindent 4 }}
+data:
+  {{- $files := .Files }}
+  {{- if .Files.Glob "files/*" }}
+  {{- range $path, $_ := .Files.Glob "files/*" }}
+  {{ base $path }}: |-
+    {{- $files.Get $path | nindent 4 }}
+  {{- end }}
+  {{- end }}
