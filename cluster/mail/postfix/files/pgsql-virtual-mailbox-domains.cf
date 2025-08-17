@@ -1,5 +1,0 @@
-user = ${DB_USER}
-password = ${DB_PASSWORD}
-hosts = ${DB_HOST}
-dbname = ${DB_NAME}
-query = SELECT 1 FROM virtual_domains WHERE name='%s'

@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/mail/postgres
+    path: cluster/mail/apps/postgres
   destination:
     name: in-cluster
     namespace: mail
@@ -32,7 +32,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/mail/redis
+    path: cluster/mail/apps/redis
   destination:
     name: in-cluster
     namespace: mail
@@ -53,7 +53,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/mail/rspamd
+    path: cluster/mail/apps/rspamd
   destination:
     name: in-cluster
     namespace: mail
@@ -74,7 +74,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/mail/dovecot
+    path: cluster/mail/apps/dovecot
   destination:
     name: in-cluster
     namespace: mail
@@ -95,7 +95,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/mail/opensmtpd
+    path: cluster/mail/apps/opensmtpd
   destination:
     name: in-cluster
     namespace: mail
@@ -116,7 +116,7 @@ spec:
 #   source:
 #     repoURL: https://github.com/rowa78/k8s-gitops.git
 #     targetRevision: main
-#     path: cluster/apps/mail/postfix
+#     path: cluster/mail/apps/postfix
 #   destination:
 #     name: in-cluster
 #     namespace: mail
@@ -137,7 +137,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/mail/mailserver
+    path: cluster/mail/apps/mailserver
   destination:
     name: in-cluster
     namespace: mail
@@ -158,7 +158,7 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/apps/mail/roundcube
+    path: cluster/mail/apps/roundcube
   destination:
     name: in-cluster
     namespace: mail
