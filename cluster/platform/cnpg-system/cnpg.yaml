@@ -17,8 +17,8 @@ spec:
     name: in-cluster
     namespace: cnpg-system
   syncPolicy:
-    # automated:
-    #   prune: true
-    #   selfHeal: true
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - ServerSideApply=true
