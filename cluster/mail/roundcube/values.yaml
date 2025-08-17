@@ -101,7 +101,7 @@ roundcube:
 
   # IMAP settings
   imap:
-    host: "imap.rwcloud.org"
+    host: "terra.rwcloud.org"
     port: 993
     encryption: "ssltls"  # none, starttls, ssltls
     # usernameDomain: ""  # Automatically add this domain to user names for login
