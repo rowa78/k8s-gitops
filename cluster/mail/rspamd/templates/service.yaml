@@ -15,5 +15,9 @@ spec:
       targetPort: worker
       protocol: TCP
       name: worker
+    - port: 11332
+      targetPort: proxyworker
+      protocol: TCP
+      name: proxyworker
   selector:
     {{- include "rspamd.selectorLabels" . | nindent 4 }}

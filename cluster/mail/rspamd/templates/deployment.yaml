@@ -66,6 +66,9 @@ spec:
             - name: controller
               containerPort: {{ .Values.service.controllerPort }}
               protocol: TCP
+            - name: proxyworker
+              containerPort: 11332
+              protocol: TCP
             - name: worker
               containerPort: 11333
               protocol: TCP
