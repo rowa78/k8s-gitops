@@ -36,6 +36,7 @@ spec:
           ports:
             - name: imaps
               containerPort: 993
+              hostPort: 993
               protocol: TCP
             - name: lmtp
               containerPort: 24

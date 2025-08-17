@@ -101,14 +101,14 @@ roundcube:
 
   # IMAP settings
   imap:
-    host: "terra.rwcloud.org"
+    host: "imap.example.com"
     port: 993
     encryption: "ssltls"  # none, starttls, ssltls
     # usernameDomain: ""  # Automatically add this domain to user names for login
 
   # SMTP settings
   smtp:
-    host: "terra.example.org"
+    host: "smtp.example.com"
     port: 587
     encryption: "ssltls"  # none, starttls, ssltls
     username: "%u"
