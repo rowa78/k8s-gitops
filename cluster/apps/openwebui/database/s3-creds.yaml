@@ -1,0 +1,6 @@
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  name: s3-creds
+spec:
+  itemPath: "vaults/k8s/items/all#s3-database-secret"
