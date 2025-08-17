@@ -39,9 +39,10 @@ config:
     read_servers = "mail-redis-master.mail.svc.cluster.local.";
     write_servers = "mail-redis-master.mail.svc.cluster.local.";
   worker-normal.inc: |
-    bind_socket = "0.0.0.0:11333";
+    bind_socket = "*:11333";
   worker-proxy.inc: |
     milter = yes; # Enable milter mode
+    bind_socket = "*:11332"
     timeout = 120s; # Needed for Milter usually
     upstream "local" {
       default = yes; # Self-scan upstreams are always default
