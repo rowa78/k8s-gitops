@@ -33,11 +33,11 @@ persistence:
 # Custom configuration files to be mounted in /custom-config/
 config:
   classifier-bayes.conf: |
-    servers = "mailserver-redis-headless.mail.svc.cluster.local.";
+    servers = "mail-redis-master.mail.svc.cluster.local.";
     backend = "redis";
   redis.conf: |
-    read_servers = "mailserver-redis-headless.mail.svc.cluster.local.";
-    write_servers = "mailserver-redis-headless.mail.svc.cluster.local.";
+    read_servers = "mail-redis-master.mail.svc.cluster.local.";
+    write_servers = "mail-redis-master.mail.svc.cluster.local.";
   worker-normal.inc: |
     bind_socket = "0.0.0.0:11333";
   worker-proxy.inc: |
