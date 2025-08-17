@@ -6,7 +6,7 @@ metadata:
     {{- include "postfix.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
-  ipFamilyPolicy: PreferDualStack   # oder: RequireDualStack
+  ipFamilyPolicy: RequireDualStack   # oder: RequireDualStack
   ipFamilies: 
     - IPv6
     - IPv4
