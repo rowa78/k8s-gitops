@@ -9,6 +9,7 @@ projects:
   - name: system
   - name: monitoring
   - name: apps
+  - name: mail
 
 appsets:
   - name: bootstrap
@@ -27,5 +28,8 @@ appsets:
     wave: -3
   - name: apps
     project: apps
+    wave: 10
+  - name: mail
+    project: mail
     wave: 10
 
