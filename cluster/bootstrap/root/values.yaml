@@ -31,5 +31,6 @@ appsets:
     wave: 10
   - name: mail
     project: mail
+    namespace: mail
     wave: 10
 
