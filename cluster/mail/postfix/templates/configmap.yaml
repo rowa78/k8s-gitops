@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "opensmtpd.fullname" . }}
+  name: {{ include "postfix.fullname" . }}-config
   labels:
-    {{- include "opensmtpd.labels" . | nindent 4 }}
+    {{- include "postfix.labels" . | nindent 4 }}
 data:
   {{- $files := .Files }}
   {{- if .Files.Glob "files/*" }}
