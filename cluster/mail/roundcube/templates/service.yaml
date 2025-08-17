@@ -11,6 +11,10 @@ metadata:
   {{- end }}
 spec:
   type: ClusterIP
+  ipFamilyPolicy: PreferDualStack   # oder: RequireDualStack
+  ipFamilies: 
+    - IPv6
+    - IPv4
   ports:
   - port: 8000
     protocol: TCP

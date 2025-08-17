@@ -6,6 +6,10 @@ metadata:
     {{- include "rspamd.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
+  ipFamilyPolicy: PreferDualStack   # oder: RequireDualStack
+  ipFamilies: 
+    - IPv6
+    - IPv4
   ports:
     - port: {{ .Values.service.port }}
       targetPort: controller
