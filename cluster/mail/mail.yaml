@@ -7,7 +7,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: apps
+  project: mail
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
@@ -28,7 +28,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: apps
+  project: mail
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
@@ -49,7 +49,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: apps
+  project: mail
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
@@ -70,7 +70,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: apps
+  project: mail
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
@@ -91,7 +91,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: apps
+  project: mail
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
@@ -112,7 +112,7 @@ spec:
 #   finalizers:
 #     - resources-finalizer.argocd.argoproj.io
 # spec:
-#   project: apps
+#   project: mail
 #   source:
 #     repoURL: https://github.com/rowa78/k8s-gitops.git
 #     targetRevision: main
@@ -133,7 +133,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: apps
+  project: mail
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
@@ -154,7 +154,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: apps
+  project: mail
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
