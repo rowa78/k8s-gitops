@@ -172,20 +172,20 @@ argo-cd:
       enabled: true
       serviceMonitor:
         enabled: true
-  notifications:
-    argocdUrl: https://argocd.rwcloud.org
-    secret:
-      create: false
-    notifiers:
-      service.email: |
-        host: $email-host
-        port: 587
-        username: $email-username
-        password: $email-password
-        from: $email-username
-      service.grafana: |
-        apiUrl: http://grafana.observability/api
-        apiKey: $grafana-api-key
+  # notifications:
+  #   argocdUrl: https://argocd.rwcloud.org
+  #   secret:
+  #     create: false
+  #   notifiers:
+  #     service.email: |
+  #       host: $email-host
+  #       port: 587
+  #       username: $email-username
+  #       password: $email-password
+  #       from: $email-username
+  #     service.grafana: |
+  #       apiUrl: http://grafana.observability/api
+  #       apiKey: $grafana-api-key
     subscriptions:
       - recipients:
           - email:argocd@ronnywalter.de
