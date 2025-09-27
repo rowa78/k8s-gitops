@@ -1,10 +1,17 @@
 {{- if .Values.sealedsecret }}
-apiVersion: onepassword.com/v1
-kind: OnePasswordItem
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
 metadata:
   name: argocd-auth
-  labels:
-    app.kubernetes.io/part-of: argocd
+  namespace: argocd
 spec:
-  itemPath: "vaults/k8s/items/argocd#argocd-auth"
+  encryptedData:
+    client-id: AgBJ9/f5Y5gTZ59PW5nLkT9Dz0oCwEW2DTQiToS3jUDu5oaGxXw9AcK+2EPWrSm2ddUS7LEXPg/Kw/gz/3c/im3t8s8ng1G7a5nqqNwagetv8w+GfuqB4GrRUTkZvSJzVu+oH3soEkSfMJYMbgc5xHiyQCcRZ8oaVJTQolzmQ3Ki3GW+0yxgZZz8YodpRSnswyCJzjEam7zLI2J3gHDjHm6J/+D+NL10Ep1HOkMow+qO7WB8IvMKx9Fe6CEPjxUXurwKZQElfvFHNehONF7lHb/ZCYodcu2MtZ9gbFf9TGr8CVGk/Wn8egS6ycbI4zCj3TS8bGmXtWXaffZ4aRCbC3S2qUs2Mmx0hzAx/1Ri1heWJ42ddLd6tBqozbxVI5FuEzn8WNS8SeXsfZR2uJI+uA5wDkiGVTiuGRKucMyxn8mgEJspBTZQltZ2SLN/MkdJgXVE1MjWhTHphBrc6pm2RHOj0cA1OsNyi+6pAiQodCfe1aKIB7Db+9S+ZGkPkKmwkmsfFJ/B5bQcjtLggEZszhaN4HA73TeC+nDbrcsN+OK2sWmqoqgqiQQFZ5z2Z+e/vpvnpuvyfQ69uRK78OgpV/oxfaVzjnXVGAnF5/r4mdoOHgScowBTlMuaD7xBFVHfXbTVWZ1gMoh8/fLPz1oWrQ6l2wknJd/yJZOgGVH0kXeQQoh+XsK4ZFTbSWfSZT1jYTn40Vg0bOI=
+    client-secret: AgAeRl33TBlV+DL28JAVSdE9lo+lss4Sd/1bAmuGa4so2JjbAI+W9T0TFhHe8TqsTvhcZXYVDmQl5r+BoD/FdFiXAhij4jTFIqjD5l/8PwzG2RJq+lfxhCKgw5Xix4oDwooLsMGanx3HeSubT7OaevujI9LIR/F1HX0E9S56Up/pghkoXx0WMddjiyBI5hSdHBESQl4gq+ez94lOjoeDj5EMxjwp+VBldGqc7YQ/ulU8897KLH1Wc1nL8peWMQy5PyfdeEKEaCeoISgY2U5P8kI9kMgFxXyNpHzwIGM/rZy68bMkaitpZEw8cTjkvV2uK7STrRgPBdF58C3PWTJTXrL2N6BshT1YbU6IuUfzxNGv3+1G2B9N+amZcJyoPzyHGriH9GazmC9fWFzC95vFj60yCfaFE7AVoWVvzrbyCPcjKY3detQ4fsbk0AITghwHTXhgJQO1tJojT9Mj1so82JWAjAUqf3GVXWutnDYlyOj/6YKir1gAd28YiXQkdqSRHSlwKAEl62yTaD1AxnC/EvhfPm0ztwOzHY/zhajLphdT/CvtdyzeWrmY0PEMHaWeY8J6XyL8PWTZmqw2zbDi9v6NikKjtVKY/YLz7dvjhJgUqBE0EsK0mWnwekqv0RGoHsW6xeUztMsoTlHuQO/rJvW+Z2i0ACJGfzoyZnMV2cvk6wswYXsYPZdlsaf1WiBfx1qG7dJBkE3AeYlfvMN2M6IigFl4ziHWE3WHl5UTPScE1A==
+  template:
+    metadata:      
+      name: argocd-auth
+      namespace: argocd
+    type: Opaque
 {{- end }}
