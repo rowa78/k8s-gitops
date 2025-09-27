@@ -12,7 +12,6 @@ spec:
   template:
     metadata:
       annotations:
-        sealedsecrets.bitnami.com/cluster-wide: "true"
-      creationTimestamp: null
+        sealedsecrets.bitnami.com/cluster-wide: "true"      
       name: s3-creds
     type: Opaque
