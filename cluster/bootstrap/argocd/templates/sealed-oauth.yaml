@@ -13,5 +13,7 @@ spec:
     metadata:      
       name: argocd-auth
       namespace: argocd
+      labels:
+        app.kubernetes.io/part-of: argocd
     type: Opaque
 {{- end }}
