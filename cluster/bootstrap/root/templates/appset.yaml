@@ -26,7 +26,7 @@ spec:
         targetRevision: {{ $.Values.revision }}
         path: {{ `"{{path}}"` }}
       destination:
-        name: in-cluster
+        name: {{ default "in-cluster" $appset.cluster }}
         namespace: {{ default `"{{path.basename}}"` $appset.namespace }}
       syncPolicy:
         automated:

@@ -10,6 +10,7 @@ projects:
   - name: monitoring
   - name: apps
   - name: mail
+  - name: pi
 
 appsets:
   - name: bootstrap
@@ -33,4 +34,7 @@ appsets:
     project: mail
     namespace: mail
     wave: 10
-
+  - name: pi
+    project: pi    
+    cluster: pi
+    wave: 10
