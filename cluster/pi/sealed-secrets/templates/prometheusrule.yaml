@@ -1,0 +1,10 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: prom-rules
+spec:
+  {{- with .Values.prometheusRule.rules }}
+  groups:
+    - name: "sealed-secrets"
+      rules: {{ toYaml . | nindent 8 }}
+  {{- end }}
