@@ -28,11 +28,14 @@ external-dns:
          name: external-dns-secrets
          key: endpoint
 
-  extraArgs:
-    # the loadbalancer-ip
-    - --default-targets=$(TARGET_URL)
-    - --txt-new-format-only
-  
+  # extraArgs:
+  #   # the loadbalancer-ip
+  #   - --default-targets=10.18.41.8
+  #   - --txt-new-format-only
+  extraArgs: 
+    default-targets:
+    - $(TARGET_URL)
+    txt-new-format-only:
   ## @section external-dns parameters
   ##
 
