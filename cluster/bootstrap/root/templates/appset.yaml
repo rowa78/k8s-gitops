@@ -14,10 +14,10 @@ spec:
           - path: "cluster/{{ $appset.name }}/*"
   template:
     metadata:
-      name: {{ `"{{path.basename}}"` }}
+      name: {- if $appset.prefix }}{{ printf "%s-{{path.basename}}" $appset.prefix }}{{ else }}{{ `"{{path.basename}}"` }}{{ end }}
       annotations:
         argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-        argocd.argoproj.io/manifest-generate-paths: {{ `"{{path}}"` }}    
+        argocd.argoproj.io/manifest-generate-paths: {{ `"{{path}}"` }}   
         argocd.argoproj.io/sync-wave: {{ `"{{$appset.wave}}"` }}
     spec:
       project: {{ $appset.project }}

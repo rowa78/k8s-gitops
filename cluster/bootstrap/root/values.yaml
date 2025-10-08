@@ -35,6 +35,7 @@ appsets:
     namespace: mail
     wave: 10
   - name: pi
+    prefix: pi
     project: pi    
     cluster: pi
     wave: 10
