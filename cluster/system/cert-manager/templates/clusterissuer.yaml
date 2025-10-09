@@ -11,7 +11,7 @@ spec:
     - dns01:
         cloudflare:
           apiTokenSecretRef:
-            name: cloudflare-api-key-external-dns
+            name: cloudflare-api-key
             key: cloudflare_api_token
     # solvers:
     # - http01:
