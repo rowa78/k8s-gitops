@@ -269,8 +269,7 @@ external-dns:
 
       # -- Extra arguments to provide for the `webhook` container.
       args: 
-        default-targets:
-        - $(TARGET_URL)
+        - --default-targets=$(TARGET_URL)
       # -- Extra [volume mounts](https://kubernetes.io/docs/concepts/storage/volumes/) for the `webhook` container.
       extraVolumeMounts: []
       # -- [Resources](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) for the `webhook` container.
