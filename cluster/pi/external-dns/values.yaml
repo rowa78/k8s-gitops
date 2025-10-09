@@ -118,7 +118,17 @@ external-dns:
       drop: ["ALL"]
 
   # -- [Environment variables](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) for the `external-dns` container.
-  env: []
+  env: 
+  - name: CF_API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: external-dns-secrets
+        key: cloudflare_api_token
+  - name: TARGET_URL
+    valueFrom:
+      secretKeyRef:
+        name: external-dns-secrets
+        key: endpoint
 
   # -- [Liveness probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) configuration for the `external-dns` container.
   # @default -- See _values.yaml_
@@ -255,21 +265,11 @@ external-dns:
         # -- Image pull policy for the `webhook` container.
         pullPolicy: IfNotPresent
       # -- [Environment variables](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) for the `webhook` container.
-      env: 
-      - name: CF_API_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: external-dns-secrets
-            key: cloudflare_api_token
-      - name: TARGET_URL
-        valueFrom:
-          secretKeyRef:
-            name: external-dns-secrets
-            key: endpoint
+      env: []
 
       # -- Extra arguments to provide for the `webhook` container.
-      args: 
-        - --default-targets=$(TARGET_URL)
+      args: []
+      
       # -- Extra [volume mounts](https://kubernetes.io/docs/concepts/storage/volumes/) for the `webhook` container.
       extraVolumeMounts: []
       # -- [Resources](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) for the `webhook` container.
@@ -315,8 +315,9 @@ external-dns:
 
   # -- Extra arguments to provide to _ExternalDNS_.
   # An array or map can be used, with maps allowing for value overrides; maps also support slice values to use the same arg multiple times.
-  extraArgs: {}  # @schema type: [array, null, object]; item: string; uniqueItems: true
-
+  extraArgs:  # @schema type: [array, null, object]; item: string; uniqueItems: true
+    default-targets:
+      - $(TARGET_URL)
   secretConfiguration:
     # -- If `true`, create a `Secret` to store sensitive provider configuration (**DEPRECATED**).
     enabled: false
