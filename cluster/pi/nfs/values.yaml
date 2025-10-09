@@ -1,0 +1,4 @@
+nfs-subdir-external-provisioner: 
+  nfs:
+    server: 192.168.0.3
+    path: /volume1/k8s
