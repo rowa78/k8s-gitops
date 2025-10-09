@@ -255,22 +255,9 @@ external-dns:
         # -- Image pull policy for the `webhook` container.
         pullPolicy: IfNotPresent
       # -- [Environment variables](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) for the `webhook` container.
-      env: 
-      - name: CF_API_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: external-dns-secrets
-            key: cloudflare_api_token
-      - name: TARGET_URL
-        valueFrom:
-          secretKeyRef:
-            name: external-dns-secrets
-            key: endpoint
-
+      env: []
       # -- Extra arguments to provide for the `webhook` container.
-      args: 
-        default-targets:
-        - $(TARGET_URL)
+      args: []
       # -- Extra [volume mounts](https://kubernetes.io/docs/concepts/storage/volumes/) for the `webhook` container.
       extraVolumeMounts: []
       # -- [Resources](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) for the `webhook` container.
