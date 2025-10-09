@@ -25,11 +25,10 @@ longhorn:
   defaultSettings:    
     defaultDataPath: /storage/longhorn
     #createDefaultDiskLabeledNodes: "true"
-    defaultReplicaCount: 1
+    defaultReplicaCount: "2"
     defaultDataLocality: best-effort
     nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
-    replicaAutoBalance: best-effort
-    concurrentAutomaticEngineUpgradePerNodeLimit: 1
+    replicaAutoBalance: best-effort    
     storageOverProvisioningPercentage: "200"
     storageMinimalAvailablePercentage: "5"
 #    backupTarget: s3://longhorn@minio/
