@@ -36,6 +36,7 @@ external-dns:
     default-targets:
     - $(TARGET_URL)
     txt-new-format-only:
+    txt-owner-id: pi-cluster
   ## @section external-dns parameters
   ##
 
