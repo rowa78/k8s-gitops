@@ -30,8 +30,8 @@ longhorn:
     nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
     replicaAutoBalance: best-effort
     concurrentAutomaticEngineUpgradePerNodeLimit: 1
-    storageOverProvisioningPercentage: 200
-    storageMinimalAvailablePercentage: 5
+    storageOverProvisioningPercentage: "200"
+    storageMinimalAvailablePercentage: "5"
 #    backupTarget: s3://longhorn@minio/
 #    backupTargetCredentialSecret: longhorn-backup    
     deletingConfirmationFlag: "false"
