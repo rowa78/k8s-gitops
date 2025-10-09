@@ -2,6 +2,6 @@ name: sealed-secrets
 apiVersion: v2
 version: 1.0.0
 dependencies:
-  - name: sealed-secrets
+  - name: longhorn
     version: "2.17.7"
-    repository: https://bitnami-labs.github.io/sealed-secrets
+    repository: https://charts.longhorn.io
