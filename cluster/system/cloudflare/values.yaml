@@ -1,4 +1,4 @@
-cloudlflared:
+cloudflared:
   # -- This is for setting up the cloudflared tunnel secrets. For more information checkout: https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/do-more-with-tunnels/local-management/create-local-tunnel/
   tunnelSecrets:
     # -- This is for cloudflared tunnel certificate PEM file.
