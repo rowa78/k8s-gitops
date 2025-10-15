@@ -44,7 +44,7 @@ zigbee2mqtt:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
           - matchExpressions:
-            - key: feature.node.kubernetes.io/zigbee
+            - key: feature.node.kubernetes.io/usb-02_1cf1_0030.present
               operator: In
               values:
               - "true"
