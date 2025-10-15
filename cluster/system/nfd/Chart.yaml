@@ -2,6 +2,6 @@ name: sealed-secrets
 apiVersion: v2
 version: 1.0.0
 dependencies:
-  - name: nfd
-    version: "node-feature-discovery"
+  - name: node-feature-discovery
+    version: "0.18.1"
     repository: oci://registry.k8s.io/nfd/charts/node-feature-discovery
