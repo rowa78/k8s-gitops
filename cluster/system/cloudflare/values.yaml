@@ -37,7 +37,7 @@ cloudlflared:
 
   # -- Cloudflare ingress rules. More information can be found here: https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/configure-tunnels/local-management/configuration-file/#how-traffic-is-matched
   ingress:
-    - hostname: *.rwcloud.org # or "*.example.com" but you must define a CNAME record for "*" to your DNS
+    - hostname: "*.rwcloud.org" # or "*.example.com" but you must define a CNAME record for "*" to your DNS
       service: https://ingress-nginx-controller.ingress-nginx.svc.cluster.local:443
 
     - service: http_status:404
