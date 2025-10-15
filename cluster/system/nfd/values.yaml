@@ -81,17 +81,17 @@ node-feature-discovery:
       #      - "device"
       #      - "subsystem_vendor"
       #      - "subsystem_device"
-        usb:
-          deviceClassWhitelist:
-            - "02"
-            - "0e"
-            - "ef"
-            - "fe"
-            - "ff"
-          deviceLabelFields:
-            - "class"
-            - "vendor"
-            - "device"
+        # usb:
+        #   deviceClassWhitelist:
+        #     - "02"
+        #     - "0e"
+        #     - "ef"
+        #     - "fe"
+        #     - "ff"
+        #   deviceLabelFields:
+        #     - "class"
+        #     - "vendor"
+        #     - "device"
         custom:
           - name: "zigbee"
             labels:
