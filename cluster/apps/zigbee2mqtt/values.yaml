@@ -37,7 +37,8 @@ zigbee2mqtt:
     tolerations: {}
     # -- Select specific kube node, this will allow enforcing zigbee2mqtt running
     # only on the node with the USB adapter connected
-    nodeSelector: {}
+    nodeSelector: 
+      feature.node.kubernetes.io/zigbee=true
     # -- Node affinity for the pods
     affinity: {}
     # -- Lifecycle configuration for the container
