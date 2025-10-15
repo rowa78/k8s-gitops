@@ -6,6 +6,20 @@ home-assistant:
   # Required for use auto-discovery feature of Home Assistant
   hostNetwork: true
 
+  securityContext:
+    privileged: true
+
+  additionalVolumes:
+    - hostPath:
+        path: >-
+          /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2429022-if00
+        type: CharDevice
+      name: usb
+
+  additionalMounts:
+    - mountPath: /dev/ttyACM0
+      name: usb
+
   # Ingress settings
   ingress:
     # Enable ingress for home assistant
