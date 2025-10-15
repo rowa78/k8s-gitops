@@ -49,7 +49,15 @@ home-assistant:
   tolerations: []
 
   # Affinity settings for controlling pod scheduling
-  affinity: {}
+  affinity: 
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: feature.node.kubernetes.io/usb-02_1cf1_0030.present
+            operator: In
+            values:
+            - "true"
 
   # Set a priorityClassName on Home Assistant pods
   priorityClassName: ""
