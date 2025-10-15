@@ -81,27 +81,26 @@ node-feature-discovery:
       #      - "device"
       #      - "subsystem_vendor"
       #      - "subsystem_device"
-        # usb:
-        #   deviceClassWhitelist:
-        #     - "02"
-        #     - "0e"
-        #     - "ef"
-        #     - "fe"
-        #     - "ff"
-        #   deviceLabelFields:
-        #     - "class"
-        #     - "vendor"
-        #     - "device"
+        usb:
+          deviceClassWhitelist:
+            - "02"
+            - "0e"
+            - "ef"
+            - "fe"
+            - "ff"
+          deviceLabelFields:
+            - "class"
+            - "vendor"
+            - "device"
         custom:
-          - name: zigbee
+          - name: "zigbee"
             labels:
-              zigbee: "true"
+              "zigbee": "true"
             matchOn:
               - usbId:
-                  vendor:
-                    - "1cf1"
-                  device:
-                    - "0030"
+                  class: ["02"]
+                  vendor: ["1cf1"]
+                  device: ["0030"]
       #    # The following feature demonstrates the capabilities of the matchFeatures
       #    - name: "my custom rule"
       #      labels:
