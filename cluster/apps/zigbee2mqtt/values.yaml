@@ -215,18 +215,19 @@ zigbee2mqtt:
   # for examples.
   ingress:
     # -- When enabled a new Ingress will be created
-    enabled: false
+    enabled: true
     # -- The ingress class name for the ingress
-    ingressClassName: contour
+    ingressClassName: nginx
     # -- Additional labels for the ingres
     labels: {}
     # -- Ingress implementation specific (potentially) for most use cases Prefix should be ok
     pathType: Prefix
     # Additional annotations for the ingress. ExternalDNS, and CertManager are tipically integrated here
-    annotations: {}
+    annotations: 
+      cert-manager.io/cluster-issuer: letsencrypt-production
     # -- list of hosts that should be allowed for the zigbee2mqtt service
     hosts:
-      - host: chart-example.local
+      - host: zigbee.rwcloud.org
         paths:
           - path: /
             pathType: ImplementationSpecific
@@ -234,9 +235,9 @@ zigbee2mqtt:
             pathType: ImplementationSpecific
     # -- configuration for tls service (ig any)
     tls:
-      - secretName: some-tls-secret
+      - secretName: zigbee-tls-secret
         hosts:
-          - yourdomain.com
+          - zigbee.rwcloud.org
 
   # -- Extra Resources. Define some extra resources to be created, such as ExternalResource or Secrets, etc.
   extraResources: []
