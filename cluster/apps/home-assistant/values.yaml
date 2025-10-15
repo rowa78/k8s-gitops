@@ -20,10 +20,15 @@ home-assistant:
           /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2429022-if00
         type: CharDevice
       name: usb
+    - name: dbus-sock
+      hostPath:
+        path: /run/dbus/system_bus_socket
 
   additionalMounts:
     - mountPath: /dev/ttyACM0
       name: usb
+    - mountPath: /run/dbus/system_bus_socket
+      name: dbus-sock
 
   # Ingress settings
   ingress:
