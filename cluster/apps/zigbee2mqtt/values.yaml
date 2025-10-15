@@ -61,12 +61,14 @@ zigbee2mqtt:
       timeoutSeconds: 10
       periodSeconds: 30
     # -- Additional volumeMounts to the server main container
-    volumeMounts: []
-    #  - mountPath: /usr/local/bin/my-binary
-    #    name: custom-tools
-    #    subPath: my-binary
+    volumeMounts: 
+    - name: raspbee
+      mountPath: /dev/ttyACM0
     # -- Additional volumes to the server pod
-    volumes: []
+    volumes: 
+      - name: raspbee
+        hostPath:
+          path: /dev/ttyACM0
     #  - name: custom-tools
     #    emptyDir: {}
   zigbee2mqtt:
