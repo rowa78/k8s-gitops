@@ -8,19 +8,19 @@ ingress-nginx:
       enabled: true
       # -- Is this the default ingressClass for the cluster
       default: true
-    hostNetwork: true
+    hostNetwork: false
     dnsPolicy: ClusterFirstWithHostNet
     kind: DaemonSet
     service:
       enabled: false
-      type: NodePort
+      type: ClusterIP
       #loadBalancerIP: "10.0.1.200"
-      nodePorts:
-        http: 32080
-        https: 32443
-        tcp:
-          2222: 32222       
-          30100: 30100   
+      # nodePorts:
+      #   http: 32080
+      #   https: 32443
+      #   tcp:
+      #     2222: 32222       
+      #     30100: 30100   
         # 2222-tcp: 32222
         # 30100-tcp: 32100
     config:
