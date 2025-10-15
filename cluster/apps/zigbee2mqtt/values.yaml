@@ -9,7 +9,7 @@ zigbee2mqtt:
     # -- annotations for the pod template
     podAnnotations: {}
     storage:
-      enabled: false
+      enabled: true
       size: 1Gi
       # -- the name for the storage class to be used in the persistent volume claim
       storageClassName: longhorn
@@ -226,7 +226,7 @@ zigbee2mqtt:
   # for examples.
   ingress:
     # -- When enabled a new Ingress will be created
-    enabled: true
+    enabled: false
     # -- The ingress class name for the ingress
     ingressClassName: nginx
     # -- Additional labels for the ingres
