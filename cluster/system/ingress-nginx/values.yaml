@@ -36,7 +36,7 @@ ingress-nginx:
       compute-full-forwarded-for: "true"
       allow-snippet-annotations: "true"
     metrics:
-      enabled: true
+      enabled: false
       serviceMonitor:
         enabled: true
     extraArgs:
