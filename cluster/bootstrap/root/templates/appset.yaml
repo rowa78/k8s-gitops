@@ -29,8 +29,6 @@ spec:
         repoURL: {{ $.Values.repo }}
         targetRevision: {{ $.Values.revision }}
         path: {{ `"{{path}}"` }}
-        helm:
-          releaseName: {{ `"{{path.basename}}"` }}
       destination:
         name: {{ default "in-cluster" $appset.cluster }}
         namespace: {{ default `"{{path.basename}}"` $appset.namespace }}
