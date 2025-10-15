@@ -140,7 +140,7 @@ zigbee2mqtt:
       # -- Optional: disable LED of the adapter if supported (default: false)
       disable_led: false
       # -- Optional: adapter type, not needed unless you are experiencing problems (default: shown below, options: zstack, deconz, ezsp)
-      # adapter: null
+      adapter: deconz
       # -- Optional: Baud rate speed for serial port, this can be anything firmware support but default is 115200 for Z-Stack and EZSP, 38400 for Deconz, however note that some EZSP firmware need 57600.
       baudrate: 115200
       # -- Optional: RTS / CTS Hardware Flow Control for serial port (default: false)
