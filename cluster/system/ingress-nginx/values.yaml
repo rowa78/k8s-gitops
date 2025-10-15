@@ -12,7 +12,7 @@ ingress-nginx:
     dnsPolicy: ClusterFirstWithHostNet
     kind: DaemonSet
     service:
-      enabled: false
+      enabled: true
       type: ClusterIP
       #loadBalancerIP: "10.0.1.200"
       # nodePorts:
