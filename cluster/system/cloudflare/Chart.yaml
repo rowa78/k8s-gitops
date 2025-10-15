@@ -2,6 +2,6 @@ name: oauth2-proxy
 apiVersion: v2
 version: 1.0.0
 dependencies:
-  - name: external-dns
-    version: "8.7.11"
-    repository: oci://registry-1.docker.io/bitnamicharts
+  - name: cloudflared
+    version: "2.2.2"
+    repository: https://community-charts.github.io/helm-charts
