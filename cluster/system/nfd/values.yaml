@@ -92,15 +92,15 @@ node-feature-discovery:
             - "class"
             - "vendor"
             - "device"
-        custom:
-          - name: "zigbee"
-            labels:
-              "zigbee": "true"
-            matchOn:
-              - usbId:
-                  class: ["02"]
-                  vendor: ["1cf1"]
-                  device: ["0030"]
+        # custom:
+        #   - name: "zigbee"
+        #     labels:
+        #       "zigbee": "true"
+        #     matchOn:
+        #       - usbId:
+        #           class: ["02"]
+        #           vendor: ["1cf1"]
+        #           device: ["0030"]
       #    # The following feature demonstrates the capabilities of the matchFeatures
       #    - name: "my custom rule"
       #      labels:
