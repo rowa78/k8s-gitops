@@ -1,4 +1,7 @@
 zigbee2mqtt:
+
+  service:
+    type: ClusterIP
   
   statefulset:
     # -- annotations for the statefulset created
