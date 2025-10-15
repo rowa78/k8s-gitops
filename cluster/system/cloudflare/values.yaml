@@ -43,6 +43,64 @@ cloudflared:
         originServerName: rwcloud.org
     - service: http_status:404
 
+external-dns:  
+  # -- [Environment variables](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) for the `external-dns` container.
+  env: 
+  - name: CF_API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: external-dns-secrets
+        key: cloudflare_api_token
+  - name: TARGET_URL
+    valueFrom:
+      secretKeyRef:
+        name: external-dns-secrets
+        key: endpoint
+  
+  serviceMonitor:
+    # -- If `true`, create a `ServiceMonitor` resource to support the _Prometheus Operator_.
+    enabled: false
+
+  # -- Log level.
+  logLevel: info  # @schema enum:[panic, debug, info, warning, error, fatal]; type:string; default: "info"
+
+  # -- Log format.
+  logFormat: text  # @schema enum:["text", "json"]; type:string; default: "text"
+
+  # -- _Kubernetes_ resources to monitor for DNS entries.
+  sources:
+    - ingress
+
+  # -- How DNS records are synchronized between sources and providers; available values are `create-only`, `sync`, & `upsert-only`.
+  policy: sync  # @schema enum:[create-only, sync, upsert-only]; type:string; default: "upsert-only"
+
+  # -- Specify the registry for storing ownership and labels.
+  # Valid values are `txt`, `aws-sd`, `dynamodb` & `noop`.
+  registry: txt  # @schema enum:[txt, aws-sd, dynamodb, noop]; default: "txt"
+
+  provider:  # @schema type: [object, string]
+    # -- _ExternalDNS_ provider name; for the available providers and how to configure them see [README](https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/README.md#providers).
+    name: cloudflare
+    webhook:
+      # -- Optional [Service Monitor](https://prometheus-operator.dev/docs/operator/design/#servicemonitor) configuration for the `webhook` container.
+      # @default -- See _values.yaml_
+      serviceMonitor:
+        interval:
+        scheme:
+        tlsConfig: {}
+        bearerTokenFile:
+        scrapeTimeout:
+        metricRelabelings: []
+        relabelings: []
+
+  # -- Extra arguments to provide to _ExternalDNS_.
+  # An array or map can be used, with maps allowing for value overrides; maps also support slice values to use the same arg multiple times.
+  extraArgs:  # @schema type: [array, null, object]; item: string; uniqueItems: true
+    default-targets:
+      - $(TARGET_URL)
+    force-default-targets:
+  
+
 # external-dns:
 #   # Copyright Broadcom, Inc. All Rights Reserved.
 #   # SPDX-License-Identifier: APACHE-2.0
