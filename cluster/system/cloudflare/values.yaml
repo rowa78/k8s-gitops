@@ -39,7 +39,8 @@ cloudflared:
   ingress:
     - hostname: "*.rwcloud.org" # or "*.example.com" but you must define a CNAME record for "*" to your DNS
       service: https://ingress-nginx-controller.ingress-nginx.svc.cluster.local:443
-
+      originRequest:
+        originServerName: rwcloud.org
     - service: http_status:404
 
 # external-dns:
