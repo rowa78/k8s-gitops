@@ -8,12 +8,11 @@ home-assistant:
 
   securityContext:
     privileged: true
-
-  podSecurityContext:    
     capabilities:
       add:
         - NET_ADMIN
         - NET_RAW
+
 
   additionalVolumes:
     - hostPath:
