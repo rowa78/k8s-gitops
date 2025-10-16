@@ -79,7 +79,7 @@ kube-prometheus-stack:
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: longhorn
+            storageClassName: longhorn-best-effort
             resources:
               requests:
                 storage: 1Gi
@@ -269,7 +269,7 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
-            storageClassName: longhorn
+            storageClassName: longhorn-best-effort
             resources:
               requests:
                 storage: 50Gi     
