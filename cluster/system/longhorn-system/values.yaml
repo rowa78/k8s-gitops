@@ -24,7 +24,7 @@ longhorn:
     removeSnapshotsDuringFilesystemTrim: "enabled"
   defaultSettings:    
     defaultDataPath: /storage/longhorn
-    #createDefaultDiskLabeledNodes: "true"
+    createDefaultDiskLabeledNodes: "true"
     defaultReplicaCount: "2"
     defaultDataLocality: best-effort
     nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
