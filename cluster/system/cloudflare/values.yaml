@@ -59,7 +59,7 @@ external-dns:
   
   serviceMonitor:
     # -- If `true`, create a `ServiceMonitor` resource to support the _Prometheus Operator_.
-    enabled: false
+    enabled: true
 
   # -- Log level.
   logLevel: info  # @schema enum:[panic, debug, info, warning, error, fatal]; type:string; default: "info"
