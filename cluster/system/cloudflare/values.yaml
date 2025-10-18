@@ -99,7 +99,7 @@ external-dns:
     default-targets:
       - $(TARGET_URL)
     force-default-targets:
-    cloudflare-proxied:
+#    cloudflare-proxied:
   
 
 # external-dns:
