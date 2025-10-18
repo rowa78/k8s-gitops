@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    grafana_dashboard: "1"
+  name: redis-operator-dashboard
+data:
+{{ (.Files.Glob "files/dashboards/*").AsConfig | indent 2 }}
+    
+
