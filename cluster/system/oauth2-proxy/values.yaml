@@ -210,6 +210,7 @@ oauth2-proxy:
 
 redis:  
   redisStandalone:
+    name: "redis"
     redisSecret:
       secretName: "redis-password"
       secretKey: "redis-password"
