@@ -206,3 +206,24 @@ oauth2-proxy:
       #   targetLabel: nodename
       #   replacement: $1
       #   action: replace
+
+
+redis:  
+  redisStandalone:
+    redisSecret:
+      secretName: "redis-password"
+      secretKey: "redis-password"
+    
+  serviceMonitor:
+    enabled: true
+    interval: 30s
+    
+  storageSpec:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: openebs-zfs
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+    #   selector: {}
