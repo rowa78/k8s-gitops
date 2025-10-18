@@ -214,6 +214,9 @@ redis:
     redisSecret:
       secretName: "redis-password"
       secretKey: "redis-password"
+
+  redisExporter:
+    enabled: true
     
   serviceMonitor:
     enabled: true
