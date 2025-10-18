@@ -15,7 +15,7 @@ spec:
     path: cluster/platform/minio/operator
   destination:
     name: in-cluster
-    namespace: minio-operator
+    namespace: minio
   syncPolicy:
     automated:
       prune: true
