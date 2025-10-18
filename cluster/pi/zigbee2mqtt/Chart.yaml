@@ -1,0 +1,7 @@
+apiVersion: v2
+name: zigbee2mqtt
+version: 1.0.0
+dependencies:
+  - name: zigbee2mqtt
+    version: 2.6.2
+    repository: https://charts.zigbee2mqtt.io

@@ -1,7 +1,0 @@
-name: sealed-secrets
-apiVersion: v2
-version: 1.0.0
-dependencies:
-  - name: longhorn
-    version: "1.10.0"
-    repository: https://charts.longhorn.io
