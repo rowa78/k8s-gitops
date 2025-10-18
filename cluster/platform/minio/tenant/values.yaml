@@ -1,0 +1,119 @@
+tenant:
+  tenant:
+    name: minio
+    
+    configSecret:
+      name: myminio-env-configuration
+      accessKey: minio
+      secretKey: minio123
+      #existingSecret: true
+    
+    # See `Operator CRD: Pools <https://min.io/docs/minio/kubernetes/upstream/reference/operator-crd.html#pool>`__ for more information on all subfields.
+    pools:
+      ###
+      # The number of MinIO Tenant Pods / Servers in this pool.
+      # For standalone mode, supply 1. For distributed mode, supply 4 or more.
+      # Note that the operator does not support upgrading from standalone to distributed mode.
+      - servers: 1
+        ###
+        # Custom name for the pool
+        name: pool-0
+        ###
+        # The number of volumes attached per MinIO Tenant Pod / Server.
+        volumesPerServer: 4
+        ###
+        # The capacity per volume requested per MinIO Tenant Pod.
+        size: 10Gi
+        
+        storageClassName: openebs-zfs        
+    ###
+    # Configures a Prometheus-compatible scraping endpoint at the specified port.
+    metrics:
+      enabled: true
+      port: 9000
+      protocol: http
+    
+    ###
+    # MinIO features to enable or disable in the MinIO Tenant
+    # See `Operator CRD: Features <https://min.io/docs/minio/kubernetes/upstream/reference/operator-crd.html#features>`__.
+    features:
+      bucketDNS: false
+      domains: { }
+      enableSFTP: false
+    ###
+    # Array of objects describing one or more buckets to create during tenant provisioning.
+    # Example:
+    # 
+    # .. code-block:: yaml
+    #
+    #    - name: my-minio-bucket
+    #      objectLock: false        # optional
+    #      region: us-east-1        # optional
+    buckets: [ ]
+    ###
+    # Array of Kubernetes secrets from which the Operator generates MinIO users during tenant provisioning.
+    # Each element in the array is an object consisting of a key-value pair ``name: <string>``, where the ``<string>`` references an opaque Kubernetes secret.
+    # Each secret should specify the ``CONSOLE_ACCESS_KEY`` and ``CONSOLE_SECRET_KEY`` as the access key and secret key for that user.
+    # The Operator creates each user with the ``consoleAdmin`` policy by default. You can change the assigned policy after the Tenant starts.
+    users: [ ]
+    ###
+    # The `PodManagement <https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/#pod-management-policy>`__ policy for MinIO Tenant Pods. 
+    # Can be "OrderedReady" or "Parallel"
+    
+    ###
+    # Directs the Operator to add the Tenant's metric scrape configuration to an existing Kubernetes Prometheus deployment managed by the Prometheus Operator.
+    prometheusOperator: false
+    ###
+    # Configure pod logging configuration for the MinIO Tenant.
+    #
+    # - Specify ``json`` for JSON-formatted logs.
+    # - Specify ``anonymous`` for anonymized logs.
+    # - Specify ``quiet`` to supress logging.
+    #
+    # An example of JSON-formatted logs is as follows:
+    #
+    # .. code-block:: shell
+    #
+    #    $ k logs myminio-pool-0-0 -n default
+    #    {"level":"INFO","errKind":"","time":"2022-04-07T21:49:33.740058549Z","message":"All MinIO sub-systems initialized successfully"}
+    
+  ###
+  # Configures `Ingress <https://kubernetes.io/docs/concepts/services-networking/ingress/>`__ for the Tenant S3 API and Console.
+  #
+  # Set the keys to conform to the Ingress controller and configuration of your choice.
+  ingress:
+    api:
+      enabled: false
+      ingressClassName: ""
+      labels: { }
+      annotations: { }
+      tls: [ ]
+      host: minio.local
+      path: /
+      pathType: Prefix
+    console:
+      enabled: true
+      ingressClassName: "nginx"
+      labels: { }
+      annotations: 
+        cert-manager.io/cluster-issuer: letsencrypt-production
+      tls: 
+        - secretName: minio-tls
+          hosts:
+            - minio-console.rwcloud.org
+      host: minio-console.rwcloud.org
+      path: /
+      pathType: Prefix
+  # Use an extraResources template section to include additional Kubernetes resources
+  # with the Helm deployment.
+  #extraResources:
+  #  - |
+  #    apiVersion: v1
+  #    kind: Secret
+  #    type: Opaque
+  #    metadata:
+  #      name: {{ dig "tenant" "configSecret" "name" "" (.Values | merge (dict)) }}
+  #    stringData:
+  #      config.env: |-
+  #        export MINIO_ROOT_USER='minio'
+  #        export MINIO_ROOT_PASSWORD='minio123'
