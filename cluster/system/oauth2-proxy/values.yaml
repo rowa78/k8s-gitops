@@ -86,7 +86,7 @@ oauth2-proxy:
   # Configure the session storage type, between cookie and redis
   sessionStorage:
     # Can be one of the supported session storage cookie|redis
-    type: redis
+    type: cookie
     redis:
       # Name of the Kubernetes secret containing the redis & redis sentinel password values (see also `sessionStorage.redis.passwordKey`)
       existingSecret: "redis-password"
