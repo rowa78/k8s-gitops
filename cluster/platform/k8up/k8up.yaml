@@ -1,0 +1,68 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k8up-settings
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: platform
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/platform/k8up/settings
+  destination:
+    name: in-cluster
+    namespace: k8up
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k8up-crds
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: platform
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/platform/k8up/k8up-crds
+  destination:
+    name: in-cluster
+    namespace: k8up
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - ServerSideApply=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k8up-operator
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: platform
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/platform/k8up/k8up-operator
+  destination:
+    name: in-cluster
+    namespace: k8up
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
