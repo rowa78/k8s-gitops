@@ -6,7 +6,8 @@ tenant:
       name: myminio-env-configuration
       accessKey: minio
       secretKey: minio123
-      #existingSecret: true
+      existingSecret: true
+      
     
     # See `Operator CRD: Pools <https://min.io/docs/minio/kubernetes/upstream/reference/operator-crd.html#pool>`__ for more information on all subfields.
     pools:
