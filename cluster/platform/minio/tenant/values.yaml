@@ -25,7 +25,10 @@ tenant:
         # The capacity per volume requested per MinIO Tenant Pod.
         size: 10Gi
         
-        storageClassName: openebs-zfs        
+        storageClassName: openebs-zfs       
+
+    certificate:
+      requestAutoCert: false 
     ###
     # Configures a Prometheus-compatible scraping endpoint at the specified port.
     metrics:
