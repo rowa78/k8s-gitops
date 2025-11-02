@@ -17,6 +17,42 @@ neubooten, netplan anpassen, insbesondere vswitch settings.
         - to: 10.0.0.0/24
           via: 10.0.1.1
 
+bridged:
+
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eno1: {}
+  bridges:
+    br0:
+      interfaces: [eno1]
+      addresses:
+        - 176.9.92.21/32
+        - 2a01:4f8:151:3305::2/64
+      routes:
+        - on-link: true
+          to: 0.0.0.0/0
+          via: 176.9.92.1
+        - to: default
+          via: fe80::1
+      nameservers:
+        addresses:
+          - 185.12.64.1
+          - 2a01:4ff:ff00::add:2
+  vlans:
+    eno1.4000:
+      id: 4000
+      link: eno1
+      mtu: 1400
+      addresses:
+        - 10.0.1.2/24
+        - "fd00:1111:2222:0::2/64"
+      routes:
+        - to: 10.0.0.0/24
+          via: 10.0.1.1
+
+
 tailscale installieren und jeweils registrieren
 
 z.B. 
@@ -24,6 +60,13 @@ tailscale up --advertise-routes=10.0.1.2/32,fd00:1111:2222::2/128 --accept-route
 ansible-playbook -i hosts.yaml install.yaml
 ansible-playbook -i hosts.yaml harden.yaml
 #ansible-playbook -i hosts.yaml wireguard.yaml
+
+bei debian:
+
+apt install -y linux-headers-$(uname -r) build-essential dkms
+apt install -y zfs-dkms
+modprobe zfs
+echo zfs > /etc/modules-load.d/zfs.conf
 
 # manuelles anlegen eines zpools
 
@@ -43,6 +86,7 @@ zfs create -o compression=lz4 -o mountpoint=/var/lib/kubelet -o atime=off zpool/
 
 zfs create -o compression=lz4 -o atime=off zpool/pvcs
 zfs create -o compression=lz4 -o atime=off zpool/pg-pvcs
+zfs create -o compression=lz4 -o atime=off -o dedup=on -o recordsize=16k zpool/vm-pvcs
 
 zfs create zpool/longhorn -V 600G
 mkfs.xfs /dev/zvol/zpool/longhorn

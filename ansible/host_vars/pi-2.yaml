@@ -1,11 +1,12 @@
-ansible_user: ubuntu
-ansible_host: 192.168.0.102
+ansible_user: ronny
+ansible_host: pi-2.local
+ansible_sudo_pass: "{{ lookup('env','TERRA_SUDO_PASS') }}"
 
 k3s_control_node: false
 
-k3s_agent:
-  node-taint: pi-node=true:NoSchedule
-  node-label: location=lan
+# k3s_agent:
+#   node-taint: pi-node=true:NoSchedule
+#   node-label: location=lan
   #node-ip: 100.70.19.73
   #flannel-iface: 'tailscale0'
 

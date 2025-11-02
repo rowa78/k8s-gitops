@@ -1,5 +1,6 @@
-ansible_user: debian
-ansible_host: 10.0.11.10
+ansible_user: ubuntu
+ansible_host: master01
+ansible_sudo_pass: "{{ lookup('env','TERRA_SUDO_PASS') }}"
 
 k3s_control_node: true
 

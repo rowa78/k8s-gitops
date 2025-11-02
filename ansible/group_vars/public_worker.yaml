@@ -8,12 +8,12 @@ harden_linux_ufw_rules:
   - rule: "allow"
     to_port: "443"
     protocol: "tcp"
-  - rule: "allow"
-    to_port: "51820"
-    protocol: "udp"
-  - rule: "allow"
-    interface: "wg0"
-    direction: "in"
+#  - rule: "allow"
+#    to_port: "51820"
+#    protocol: "udp"
+#  - rule: "allow"
+#    interface: "wg0"
+#    direction: "in"
 
 #harden_linux_ufw_allow_networks:
 #  - "192.168.201.0/24"  

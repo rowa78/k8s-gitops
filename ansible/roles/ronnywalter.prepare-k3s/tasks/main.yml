@@ -1,8 +1,4 @@
 ---
-- name: change hostname
-  hostname:
-    name: "{{inventory_hostname}}"
-
 - name: Test for raspberry pi /proc/cpuinfo
   command: grep -E "Raspberry Pi|BCM2708|BCM2709|BCM2835|BCM2836" /proc/cpuinfo
   register: grep_cpuinfo_raspberrypi
@@ -20,6 +16,12 @@
     raspberry_pi: true
   when:
     grep_cpuinfo_raspberrypi.rc == 0 or grep_device_tree_model_raspberrypi.rc == 0
+
+- name: change hostname
+  hostname:
+    name: "{{inventory_hostname}}"
+  when:
+    - raspberry_pi|default(false)
 
 - name: enable cgroups on raspberrypi
   include_tasks: "cgroups.yaml"  
@@ -75,12 +77,12 @@
     upgrade: "yes"
     update_cache: yes
 
-- name: install linux-modules-extra-raspi
-  package:
-    name: linux-modules-extra-raspi
-    state: present 
-  when:
-    - raspberry_pi|default(false)
+# - name: install linux-modules-extra-raspi
+#   package:
+#     name: linux-modules-extra-raspi
+#     state: present 
+#   when:
+#     - raspberry_pi|default(false)
 
 - name: Reboot box if kernel/libs updated and requested by the system
   shell: sleep 2 && /sbin/shutdown -r now 'Rebooting box to update system libs/kernel as needed' 
@@ -100,30 +102,47 @@
     name: nfs-common
     state: present
 
-- name: install open-iscsi
-  package:
-    name: open-iscsi
-    state: present
+# - name: install open-iscsi
+#   package:
+#     name: open-iscsi
+#     state: present
+
+# - name: install pi-bluetooth
+#   package:
+#     name: pi-bluetooth
+#     state: present
+#   when:
+#     - raspberry_pi|default(false)
+
+# - name: install bluez
+#   package:
+#     name: bluez
+#     state: present
+#   when:
+#     - raspberry_pi|default(false)
+
 
 # - name: Install aptitude
 #   package:
 #     name: aptitude
 #     state: present        
 
-- name: remove sshguard
-  package:
-    name: sshguard
-    state: absent       
+# - name: remove sshguard
+#   package:
+#     name: sshguard
+#     state: absent       
 
 # - name: install fail2ban
 #   package:
 #     name: fail2ban
 #     state: present
+#   when:
+#     - not raspberry_pi|default(false)
 
-- name: install rsyslog
-  package:
-    name: rsyslog
-    state: present
+# - name: install rsyslog
+#   package:
+#     name: rsyslog
+#     state: present
 
 # - name: install qemu-guest-agent
 #   package:
@@ -140,30 +159,43 @@
 #     name: qemu-guest-agent
 #     state: started
 
-- name: install zfs-utils
-  package:
-    name: zfsutils-linux    
-    state: present
+# - name: install zfs-utils
+#   package:
+#     name: zfsutils-linux    
+#     state: present
+#   when:
+#     - not raspberry_pi|default(false)
 
-- name: install fdisk
-  package:
-    name: fdisk
-    state: present
+# - name: install fdisk
+#   package:
+#     name: fdisk
+#     state: present
 
-- name: Enable service fail2ban
-  ansible.builtin.service:
-    name: fail2ban
-    enabled: yes  
+# - name: install fio
+#   package:
+#     name: fio
+#     state: present
 
-- name: Generate fail2ban ssh configuration file
-  ansible.builtin.template:
-    src: jail.local.j2
-    dest: "/etc/fail2ban/jail.d/jail.local"    
+# - name: Enable service fail2ban
+#   ansible.builtin.service:
+#     name: fail2ban
+#     enabled: yes 
+#   when:
+#     - not raspberry_pi|default(false)
 
-- name: retart service fail2ban
-  ansible.builtin.service:
-    name: fail2ban
-    state: restarted
+# - name: Generate fail2ban ssh configuration file
+#   ansible.builtin.template:
+#     src: jail.local.j2
+#     dest: "/etc/fail2ban/jail.d/jail.local"    
+#   when:
+#     - not raspberry_pi|default(false)
+
+# - name: retart service fail2ban
+#   ansible.builtin.service:
+#     name: fail2ban
+#     state: restarted
+#   when:
+#     - not raspberry_pi|default(false)
 
 # - name: configure multipath.con
 #   ansible.builtin.template:
@@ -174,3 +206,67 @@
 #   ansible.builtin.service:
 #     name: multipathd
 #     state: restarted
+
+# - name: Install KVM and related packages
+#   package:
+#     name:
+#       - qemu-kvm
+#       - libvirt-daemon-system
+#       - libvirt-clients
+#       - bridge-utils
+#       - virt-manager
+#       - cpu-checker
+#       - net-tools
+#     state: present
+
+# - name: Ensure kvm kernel module is loaded (Intel)
+#   modprobe:
+#     name: kvm_intel
+#     state: present
+#   when: "'Intel' in ansible_facts['processor'][0]"
+
+# - name: Ensure kvm kernel module is loaded (AMD)
+#   modprobe:
+#     name: kvm_amd
+#     state: present
+#   when: "'AMD' in ansible_facts['processor'][0]"
+
+# - name: Enable and start libvirtd
+#   service:
+#     name: libvirtd
+#     state: started
+#     enabled: true
+
+# - name: configuring ufw
+#   community.general.ufw:
+#     rule: limit
+#     port: ssh
+#     proto: tcp
+#   when:
+#     - not raspberry_pi|default(false)
+
+# - name: configuring ufw - https
+#   community.general.ufw:
+#     rule: allow
+#     port: https
+#     proto: tcp
+#   when:
+#     - not raspberry_pi|default(false)
+
+# - name: configuring ufw - tailscale
+#   community.general.ufw:
+#     rule: allow
+#     port: 41641
+#     proto: udp
+#   when:
+#     - not raspberry_pi|default(false)
+
+# - name: enabling ufw
+#   community.general.ufw:
+#     state: enabled
+#   when:
+#     - not raspberry_pi|default(false)
+
+
+
+ 

@@ -1,0 +1,6 @@
+ansible_user: debian
+ansible_host: k8s01
+
+k3s_control_node: true
+
+rke2_type: server

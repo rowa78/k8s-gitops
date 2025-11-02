@@ -1,5 +1,5 @@
 k3s_state: installed
-k3s_release_version: v1.29.3+k3s1
+k3s_release_version: v1.34.1+k3s1
 k3s_become: true
 k3s_build_cluster: true
 
@@ -10,38 +10,40 @@ k3s_use_unsupported_config: true
 k3s_etcd_datastore: true
 
 k3s_server:
-  #datastore-endpoint: "postgres://k3s:{{ postgresql_password }}@192.168.1.100:5432/k3s?sslmode=disable"
+  #datastore-endpoint: "postgres://k3s:kndfnkj437783hjds@postgres.lan.internal:5432/k3sdb?sslmode=disable"
   #datastore-endpoint: "http://192.168.100.1:2379,http://192.168.100.2:2379,http://192.168.100.3:2379"
   #flannel-iface: none
-  #cluster-cidr: 10.42.0.0/16,2001:cafe:42::/56
-  #service-cidr: 10.43.0.0/16,2001:cafe:43::/112
+  cluster-cidr: 10.42.0.0/16,2001:db8:42::/56
+  service-cidr: 10.43.0.0/16,2001:db8:43::/112
   #flannel-backend: none
-  #flannel-ipv6-masq: true
+  flannel-ipv6-masq: true
   #node-taint: 
   #  - node-role.kubernetes.io/master=true:NoSchedule
   #  - node-role.kubernetes.io/control-plane=true:NoSchedule
   disable:
     - traefik
     - metrics-server 
-    - local-storage
     - servicelb
+    - local-storage
   #  - network-policy
-  tls-san: 
-   - 10.0.1.2
-   - 100.98.101.62   
+  # tls-san: 
+  # - 192.168.0.100
+  # - 192.168.0.101
   #tls-san: 192.168.100.2
   #tls-san: 192.168.1.101  
   # for monitoring
-  kube-controller-manager-arg:
+  #kube-controller-manager-arg:
   #- "address=0.0.0.0"
-  - "bind-address=0.0.0.0"
-  kube-proxy-arg:
-  - "metrics-bind-address=0.0.0.0"
-  - "nodeport-addresses=10.0.1.0/24,fd00::/8"
-  kube-scheduler-arg:
+  #- "bind-address=0.0.0.0"
+  #kube-proxy-arg:
+  #- "metrics-bind-address=0.0.0.0"
+  #- "nodeport-addresses=10.0.1.0/24,fd00::/8"
+  #kube-scheduler-arg:
   #- "address=0.0.0.0"
-  - "bind-address=0.0.0.0"
+  #- "bind-address=0.0.0.0"
   # Controller Manager exposes etcd sqllite metrics
+  #kubelet-arg:
+  #- resolv-conf=/etc/resolv.conf
   etcd-expose-metrics: true
   #snapshotter: zfs
 
@@ -53,4 +55,4 @@ k3s_server:
 #  - "manifests/kube-vip/kube-vip-daemonset.yaml"
 
 # the ip of first node
-k3s_registration_address: 10.0.1.2
+# k3s_registration_address: k8s01.k8s.internal

@@ -1,21 +1,11 @@
 all:
-  children:    
-    public_worker:
-      children:
-        masters:
-        workers:       
-    local_worker:
-      hosts: 
-        #pi-0:
-    k8s_cluster:
-      children:
-        public_worker:
-        local_worker:
+  children:         
     masters:
-      hosts:
-        terra:        
+      hosts: 
+        master01:
     workers:
       hosts:
-    wireguard_peers:
+    k8s_cluster:
       children:
-        public_worker:
+        masters:
+        workers:    

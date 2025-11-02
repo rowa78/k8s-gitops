@@ -18,7 +18,9 @@
   delegate_to: localhost
   become: false
   when:
+  - not ansible_check_mode
   - rke2_download_kubeconf | bool
+  - inventory_hostname == groups[rke2_servers_group_name].0
 
 - name: Summary
   when: inventory_hostname == groups[rke2_servers_group_name].0

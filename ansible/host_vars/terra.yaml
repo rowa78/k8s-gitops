@@ -1,8 +1,7 @@
 ansible_user: ronny
 ansible_host: terra
+ansible_sudo_pass: "{{ lookup('env','TERRA_SUDO_PASS') }}"
 
-wireguard_address: 10.100.0.2/24
-wireguard_allowed_ips: 10.100.0.2/32, 10.0.1.0/24
 
 k3s_control_node: true
 
