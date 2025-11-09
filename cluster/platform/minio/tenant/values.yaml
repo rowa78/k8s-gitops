@@ -22,7 +22,7 @@ tenant:
         volumesPerServer: 4
         ###
         # The capacity per volume requested per MinIO Tenant Pod.
-        size: 10Gi
+        size: 100Gi
         
         storageClassName: nfs-client
 
