@@ -630,6 +630,8 @@ sealed-secrets-web:
       gethomepage.dev/name: Sealed Secrets Web
       gethomepage.dev/app: Sealed Secrets Web
       gethomepage.dev/pod-selector: ""
+      nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.rwcloud.org/oauth2/start?rd=$scheme://$host$request_uri
+      nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.oauth2-proxy.svc.cluster.local/oauth2/auth
 
     # -- Ingress labels
     labels: {}
