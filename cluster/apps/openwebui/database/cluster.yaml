@@ -43,10 +43,10 @@ spec:
 
   storage:
     size: 5Gi
-    storageClass: longhorn-best-effort
+    storageClass: nfs-client
   walStorage:
     size: 2Gi
-    storageClass: longhorn-best-effort
+    storageClass: nfs-client
 
   plugins:
   - name: barman-cloud.cloudnative-pg.io
