@@ -18,7 +18,7 @@ open-webui:
 
     persistentVolume:
       enabled: true
-      storageClass: openebs-zfs
+      storageClass: nfs-client
       size: 10Gi
       
 
@@ -27,6 +27,9 @@ open-webui:
     enabled: true
     # -- This section can be used to pass required environment variables to your pipelines (e.g. Langfuse hostname)
     extraEnvVars: []
+
+    persistence:
+      storageClass: nfs-client
 
   tika:
     # -- Automatically install Apache Tika to extend Open WebUI
@@ -185,7 +188,7 @@ open-webui:
     # -- If using multiple replicas, you must update accessModes to ReadWriteMany
     accessModes:
       - ReadWriteOnce
-    storageClass: "openebs-zfs"
+    storageClass: "nfs-client"
     selector: {}
     annotations: {}
 
