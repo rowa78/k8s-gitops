@@ -24,7 +24,7 @@ tenant:
         # The capacity per volume requested per MinIO Tenant Pod.
         size: 10Gi
         
-        storageClassName: openebs-zfs       
+        storageClassName: nfs-client
 
     certificate:
       requestAutoCert: false 
