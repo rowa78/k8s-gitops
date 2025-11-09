@@ -109,6 +109,8 @@ kube-prometheus-stack:
   grafana:
     fullnameOverride: grafana
     defaultDashboardsTimezone: Europe/Berlin
+    initChownData:
+      enabled: false
     replicas: 1
     persistence:
       enabled: true
