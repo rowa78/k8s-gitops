@@ -3,7 +3,7 @@ apiVersion: v2
 version: 1.0.0
 dependencies:
   - name: cloudflared
-    version: "2.2.3"
+    version: "2.2.4"
     repository: https://community-charts.github.io/helm-charts
   - name: external-dns
     version: "1.19.0"
