@@ -1,7 +1,7 @@
 nfs-subdir-external-provisioner: 
   nfs:
     server: 192.168.0.200
-    path: epool/k8s_nfs
+    path: /epool/k8s_nfs
   storageClass:
     name: nfs-client-epool
     provisionerName: k8s-sigs.io/nfs-client-epool
