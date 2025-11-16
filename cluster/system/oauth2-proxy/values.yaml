@@ -225,7 +225,7 @@ redis:
   storageSpec:
     volumeClaimTemplate:
       spec:
-        storageClassName: nfs-client-epool
+        storageClassName: openebs-zfs
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
