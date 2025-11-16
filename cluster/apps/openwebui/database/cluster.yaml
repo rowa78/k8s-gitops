@@ -9,7 +9,7 @@ metadata:
     tailscale.com/expose: "true"
 spec:
   imageName: 'ghcr.io/cloudnative-pg/postgresql:17.5-202507280807-standard-bullseye'
-  instances: 2
+  instances: 1
 
   resources:
     requests:
