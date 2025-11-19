@@ -43,10 +43,10 @@ spec:
 
   storage:
     size: 5Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: nfs-client-intern
   walStorage:
     size: 2Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: nfs-client-intern
 
   plugins:
   - name: barman-cloud.cloudnative-pg.io
