@@ -1,0 +1,7 @@
+nfs-subdir-external-provisioner: 
+  nfs:
+    server: 192.168.0.200
+    path: /rpool/pvcs-async
+  storageClass:
+    name: nfs-client-intern-async
+    provisionerName: k8s-sigs.io/nfs-client-intern-async
