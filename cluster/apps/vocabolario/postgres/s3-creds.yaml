@@ -1,6 +1,17 @@
-apiVersion: onepassword.com/v1
-kind: OnePasswordItem
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
 metadata:
+  annotations:
+    sealedsecrets.bitnami.com/cluster-wide: "true"
   name: s3-creds
 spec:
-  itemPath: "vaults/k8s/items/all#s3-database-secret"
+  encryptedData:
+    aws_access_key_id: AgCgn46GvbPtAsnCBq1eENC87gEVf66y8qeBgcNrpWaPSST6CjLoudkvGgukXbdwnWGF/WmSGqSwaczSwpoJmKFOUVc4sKZHcnDEODV1Vj2XspjVWnnNVPpkXUCVjundNkOk08oLylx3VHotqq7Btdb1bmN+Z9eeF8LAQdZLnlL4igPPlQWPRFi2dpzPE6zE+WrZcPW5pvwbqCmLak4t80VF7Y+dmLxZCynZNrJXlxsCk4srNycEpHeifVnZP2PKY/7ss5D2L9GajTTusn2AFQLN/mRcd//oGPJeM7xYdB3XPjMLc88qCPTcp3c6zczCLxfnNoBP1jouad7dJ80r/J4Mr0kNCPcT5doBJ25y/S7pmfws3jETvpnoGoxlPb6m+jOQSgX/ZRJHSxm8Nw2aBULUzu5Ueb2i+9o8cZ5Q2gNPCu7ejGBPxSAOapSPU86rKOiE4ii/NWsBCCfKk/hYbDr1oCBSo70/veR485pAkAhj+dXrgudVNU+mucSOLblx95PEWBMIRNQX1mgyLni9fdwzxrSvOAyHSaZkNkZZsGHIzidSTZk2AvKOpVQDzXlgkq4VKa0xHU+dPgMihLO388WiYwz2N6meEXJww8IPlSBIZ+gK5z+cbuFjHqNR0hluZ74vx1svVcNFpqtchUCBQQCKjRu7PEIPzumNuRuttmmbK8dcru9uXOv/Nh60uRd9x9WD8ZcNWQ==
+    aws_secret_access_key: AgA3PO9yW2ZiiND2lWwF7afs6ER+3SuyxDuvRE+IBW2RuvjZuXKz3eFzBEGpIeHOfF1DcGrhF5VGc6AxREHKV+9pUvdhnRzuC53lkmmm0OAkWznv0cwh3EcQxm8y/clh2jHxXheds1KPJKFEXGefItFpinAKMS88+58bmA4zN3YN7Hyk1QJqoDzlEyLt6G4i30qpWdsYMeYgGwyx5ziirvygdD73hwoyZZ3cM8PCKxfSwdfYR0bQqG+5svQZ81vIPJgm58+5z6sLeonEYIEeXD0aFhxuR7/uLZh/Nqw1LwZreT+0X7dl7BenkR7j4vpFOVYXU20Mrj49ng7cuTfATPyWQ6ETcTrqqCSLfPMgzMUrqCelBo+7L9Od6AqcYmTXhQ2AkAYT/CzeleIv4hFrZKsXPR2RExHV0hd4sRqO12lP9usgifI6vmKxBltL80e7IumJ6/BaeJ8w1fq43RBvEIDfyzvDNvASgaAdsdcgG4BBgkmX1uOYBSQwepEk3ZD5MfYZHTHkIqsUconx1FCGbdalFwSBSeoErCGIS2uhGa+5ceXvFBA2Vtkb61YXvNHEL6rLfEo/gnhx+FXFgx//a3Gf/+9g+xdVG3GwrYH31oGjyt+QW+puLjnKR1kPT7c2tqwapPi4cIOSgg/nHkJ61H29GiMiBvzeB96bIuy5Cskifq9mQXInmEfMAmW8fuU99wvgG7Bq/pH8q1ZiBzMz01s=
+  template:
+    metadata:
+      annotations:
+        sealedsecrets.bitnami.com/cluster-wide: "true"      
+      name: s3-creds
+    type: Opaque
