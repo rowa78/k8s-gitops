@@ -1,0 +1,34 @@
+karma:
+  image:
+    repository: ghcr.io/prymitive/karma
+    tag: v0.120
+  env:
+    - name: ALERTMANAGER_URI
+      value: http://prometheus-alertmanager:9093
+    - name: ALERTMANAGER_EXTERNAL_URI
+      value: https://alertmanager.rwcloud.org
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.rwcloud.org/oauth2/start?rd=$scheme://$host$request_uri
+      nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.oauth2-proxy.svc.cluster.local/oauth2/auth
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Karma Dashboard
+      gethomepage.dev/group: System
+      gethomepage.dev/icon: mdi-alert-box-outline
+      gethomepage.dev/name: Karma
+      gethomepage.dev/app: karma
+      gethomepage.dev/pod-selector: ""
+    #  nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
+    #  nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start
+    hosts:
+      - &host karma.rwcloud.org
+    path: /
+    tls:
+      - hosts:
+          - *host
+        secretName: karma-tls
+  serviceMonitor:
+    enabled: true

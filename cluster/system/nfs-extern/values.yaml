@@ -1,0 +1,7 @@
+nfs-subdir-external-provisioner: 
+  nfs:
+    server: 192.168.0.200
+    path: /extpool1/pvcs
+  storageClass:
+    name: nfs-client-extern
+    provisionerName: k8s-sigs.io/nfs-client-extern
