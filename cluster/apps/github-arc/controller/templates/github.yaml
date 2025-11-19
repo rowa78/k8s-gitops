@@ -1,0 +1,16 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: github
+  namespace: github-arc
+spec:
+  encryptedData:
+    github_token: AgBiRRbpMMKXkRqwpJLK2FETivhJjtXFRk5NZwCYsvdlDvVP8lN9S0l7aMyYMIZdOzHVaUrJBrIGD+og/cNE9hJs1QCw8dZaU0p0HI/n7XExomC7KYe8Qlq/F+GS+xIby5T4i+DAizeK2GItpez9U1UiZUEge7DDBsbgufsGzwJfGRz0AJAaYM5DrEA5wLSCND9RsX0yTFvccwt6kSE/pC5AwDyI1ap6mQc7MjCvscLwCFcMnswF6agr1Fmi7IJ5EoOpf4dDuJt2xmyCcQ64LOT6BIewk4ve2UY4Omrt76CSxJDwa3u0XO1WrlBx8BvQaoXI7XyRoOMy7XICWd2VyVmzZTLqiXov9ItT1y5RqBjh0x38x1wTJ0GKfuhxzJ81dlmPPIToN/gziCiNxwiz+tQlkpoXq79Bjnhgqvz9hnhMZsJXaLSNtelLPP1XKv7UAaPLr2Z7y9VUbbnjf0eyvm0qzlNk5X4vDJER5XppVQiK9/33o+Ry2E1diYoRhKPYRrSWnSu3werzWo3Q/pgFeDsj2NSt1/aEmLtkfV2cUufs5Gl8srU2dQ/XqYvj/Bb//wm3zZgVgAUNykL5qpe2qzgIOStb/EIvt/WISgi7cmYGUUJqaCW0AvUTSdr28ljAtFsrDEqCVpNcs7LOdIPLYMb30+DNrR0/JBPtQViosFuaimQ8sjNmTbRjMY523ZQT/vjAIZMXJu60qEVaCrRnrSLAuE84Uyt1c85t3ST6yi7mC7eGpvRjSpiG
+  template:
+    metadata:
+      creationTimestamp: null
+      name: github
+      namespace: github-arc
+    type: Opaque
