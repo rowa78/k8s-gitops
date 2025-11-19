@@ -18,7 +18,7 @@ open-webui:
 
     persistentVolume:
       enabled: true
-      storageClass: openebs-zfs
+      storageClass: nfs-client-intern
       size: 10Gi
       
 
@@ -29,7 +29,7 @@ open-webui:
     extraEnvVars: []
 
     persistence:
-      storageClass: openebs-zfs
+      storageClass: nfs-client-intern
 
   tika:
     # -- Automatically install Apache Tika to extend Open WebUI
@@ -188,7 +188,7 @@ open-webui:
     # -- If using multiple replicas, you must update accessModes to ReadWriteMany
     accessModes:
       - ReadWriteOnce
-    storageClass: "openebs-zfs"
+    storageClass: "nfs-client-intern"
     selector: {}
     annotations: {}
 
