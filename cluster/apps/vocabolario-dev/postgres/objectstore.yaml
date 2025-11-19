@@ -1,0 +1,19 @@
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: minio
+spec:
+  configuration:
+    endpointURL: "http://rustfs.fritz.box:9000"       
+    destinationPath: "s3://rwcloud-postgres/"       
+    s3Credentials:
+      accessKeyId:
+        name: s3-creds
+        key: aws_access_key_id
+      secretAccessKey:
+        name: s3-creds
+        key: aws_secret_access_key
+    wal:
+      compression: bzip2      
+      maxParallel: 8  
+  retentionPolicy: "5d"
