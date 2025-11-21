@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: rustfs-app
+  name: garage-app
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "1"
@@ -12,10 +12,10 @@ spec:
   source:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
-    path: cluster/platform/rustfs/rustfs
+    path: cluster/platform/s3/garage
   destination:
     name: in-cluster
-    namespace: rustfs
+    namespace: s3
   syncPolicy:
     automated:
       prune: true
