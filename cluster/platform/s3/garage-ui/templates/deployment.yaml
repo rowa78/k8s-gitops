@@ -34,9 +34,12 @@ spec:
           ports:
             - containerPort: 3902
               name: web
-          {{- with .Values.environment }}
+          {{- if .Values.environment }}
           env:
-            {{- toYaml . | nindent 12 }}
+            {{- range $key, $value := .Values.environment }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
           {{- end }}
           volumeMounts:
             - name: garage-config
