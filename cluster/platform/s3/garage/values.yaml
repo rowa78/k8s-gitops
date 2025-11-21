@@ -151,14 +151,14 @@ ingress:
             - path: /
               pathType: Prefix
         # -- garage S3 API endpoint, DNS style bucket access
-        - host: "*.s3.rwcloud.org"
-          paths:
-            - path: /
-              pathType: Prefix
-      tls: []
-      #  - secretName: my-garage-cluster-tls
-      #    hosts:
-      #      - kubernetes.docker.internal
+        # - host: "*.s3.rwcloud.org"
+        #   paths:
+        #     - path: /
+        #       pathType: Prefix
+      tls: 
+        - secretName: s3-tls
+          hosts:
+            - s3.rwcloud.org
     web:
       enabled: true
       # -- Rely _either_ on the className or the annotation below but not both!
@@ -176,10 +176,10 @@ ingress:
          paths:
            - path: /
              pathType: Prefix
-      tls: []
-      #  - secretName: my-garage-cluster-tls
-      #    hosts:
-      #      - kubernetes.docker.internal
+      tls: 
+      - secretName: s3-console-tls
+        hosts:
+           - s3-console.rwcloud.org
 
 resources: {}
   # The following are indicative for a small-size deployement, for anything serious double them.
