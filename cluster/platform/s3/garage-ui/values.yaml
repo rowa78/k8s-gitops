@@ -78,6 +78,6 @@ tolerations: []
 affinity: {}
 
 environment:
-  API_BASE_URL: "http://garage-app:3900"
+  API_BASE_URL: "http://garage-app:3903"
   S3_ENDPOINT_URL: "http://garage-app:3900"
 
