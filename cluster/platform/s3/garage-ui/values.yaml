@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 
 image:
-  repository: dxflrs/garage
-  tag: "v2.0.0"
+  repository: khairul169/garage-webui
+  tag: "latest"
   pullPolicy: IfNotPresent
 
 # -- Name of the existing ConfigMap containing garage.toml
