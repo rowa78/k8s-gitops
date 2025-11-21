@@ -160,7 +160,7 @@ ingress:
           hosts:
             - s3.rwcloud.org
     web:
-      enabled: true
+      enabled: false
       # -- Rely _either_ on the className or the annotation below but not both!
       # If you want to use the className, set
       # className: "nginx"
