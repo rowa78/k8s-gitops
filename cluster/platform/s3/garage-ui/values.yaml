@@ -9,7 +9,7 @@ image:
 
 # -- Name of the existing ConfigMap containing garage.toml
 # This should reference the ConfigMap from the garage chart
-configMapName: ""
+configMapName: "garage-app-config"
 
 # -- Number of replicas
 replicaCount: 1
