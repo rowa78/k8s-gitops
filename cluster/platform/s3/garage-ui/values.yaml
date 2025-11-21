@@ -1,0 +1,81 @@
+# Default values for garage-ui.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: dxflrs/garage
+  tag: "v2.0.0"
+  pullPolicy: IfNotPresent
+
+# -- Name of the existing ConfigMap containing garage.toml
+# This should reference the ConfigMap from the garage chart
+configMapName: ""
+
+# -- Number of replicas
+replicaCount: 1
+
+# -- set if you need credentials to pull your custom image
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- additonal pod annotations
+podAnnotations: {}
+
+podSecurityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+  runAsNonRoot: true
+
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+
+service:
+  type: ClusterIP
+  port: 3902
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: garage-ui.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 256Mi
+  # requests:
+  #   cpu: 50m
+  #   memory: 128Mi
+
+# -- Specifies a livenessProbe
+livenessProbe: {}
+# -- Specifies a readinessProbe
+readinessProbe: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+environment: {}
+

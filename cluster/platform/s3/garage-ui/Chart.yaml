@@ -1,0 +1,7 @@
+apiVersion: v2
+name: garage-ui
+description: Garage S3 UI deployment
+type: application
+version: 0.1.0
+appVersion: "v2.0.0"
+
