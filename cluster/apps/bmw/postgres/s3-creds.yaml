@@ -1,0 +1,21 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  annotations:
+    sealedsecrets.bitnami.com/cluster-wide: "true"
+  creationTimestamp: null
+  name: s3-creds
+  namespace: vocabolario
+spec:
+  encryptedData:
+    aws_access_key_id: AgAtCL+D2TZog0VCqoSB7bu4ESsof6Q3YNzLHmOpI967+bQUDfGYYJAjys8gi7U07Cbi1huO2gmICPlfEHosoi3Oi1XKRetHaHV44GdjK/SiKpbk4LNGZFLrLx0Zt4w68FLfXSYs+t949fWGOJH4CGiDmb7EeDpk2jv/AXMJoLF78OgCp/ny5x3K8C87dmfP2YrKsQYwZBZCGs9jk+uidNYT9t9MFzCZklaYNIpaOCcTOMyU+mXi29jdT7FOHfd3jkmzSe323S2Qa2JXybdICCOi6hagYOVSS13yFlGP8WMcnlVWXTQ7XVwNBQHFBxu6zXtN0fEl97OS9u9vp28zo2GnaOG/gXro4eZW7WbDYy0+LY8J1ZO4f6l3kjkGI7wC9euQcvNwNHDFQL1ygRKt82XGdbyfRzvcLf86ciBB5VqrCbN3S6smiiZjUvzXTUZzxq3k5VFFiXZVOw3FR1TLs3LtYF0x+4dQ/BgZ4wfMkwvNcy0X5ZUmQfuE05mLeR83SkjEKIUVje0hFbHv0XX0Y7PL8cBdmnGDqqxbgS8mkK5gkZAwxAH0TvIbAPyLrj7i54RyHcOCMev36jaZkGppv9WiPrZIgM9vyBk0a8Qk4cuCNnCrSS9KWGhgWmAccYiS6+0AtBV5dGuo/nW9dUcLL+YIrK7XDi7okUu9Y8E5ZqQ3kT1p0ResctllD6OURob5tmvdSkfAfbWsilsHZ3FFFFQfgdsBrw==
+    aws_secret_access_key: AgAv5ufO2x/qMT6WN5qi7Fp+V9cNXFZpYm3nq7ljW/hxTtUL467a5L5oZcpfPRC/mvwIt0eL5EcQX+ka1JczC5AJ94VAwnUW8sn3ZVU+WGGKgnHFE1JeSNOPq56updtqo6So09m43W6koHP6bWME4f5Z3kdJpb4FikVOm5KfZUgwYQ9Q6YctPDZGdoVVT48uCkGGc/bZTCkfUZJPCLYtaqIcqjxYuSK2yxEx29UH4W33yiXz748D7S99rgOjYLpWRRXGbtDmRCGf33z9kzXqoZCWG16wO597GqzA5E1YdCqinL0NI2pQHEOS43pnECsx2tfpHfE0sbSuGLnyncK2ymvETlsjd4SOIiWQiRayv4ZhFlAzD/mTWg2OmZfnvXnlMQ9MZhMnV4KYinhbaAwm+TlmPhR4zsjcqSN+LWS2Kt3BeOhF7rktwT7ISr95HwypJxZYiZRGTlr4QkmpH6hOGcKotDFlWj+U0QlmDXXozM4uCHkYPdXARpH7TUE72C97mg+sb640U5l0Lin4vj0kLnZuuxTKy3Y7++mPM9m06boGE/MWu/olp11Ahx/slh1R21f3R1wPjr3pEuIIlc/eB1PobLQ1zYelg5o1COUE9fpu4lUx72krya+2HbgmKyQMiejf4+9bp9UP1jOGbnA+fGCCqeQ1EkSz2Ux81AQlYvk1jryR0YVZpsjI+e8B+C4laK4nNLgZZdfEjUdoyVTnI1lKz2k8MeHh+FqltsCBfm8oMNUiM7kjovcY
+  template:
+    metadata:
+      annotations:
+        sealedsecrets.bitnami.com/cluster-wide: "true"
+      creationTimestamp: null
+      name: s3-creds
+      namespace: vocabolario
+    type: Opaque
