@@ -4,6 +4,8 @@
   become: true
   vars:
     pyratlabs_issue_controller_dump: true
+    k3s_server:
+      snapshotter: native
     k3s_agent:
       snapshotter: native
   pre_tasks:

@@ -7,8 +7,12 @@
   become: "{{ k3s_become }}"
 
 - name: Clean up nodes that are in an uninstalled state
+  when:
+    - k3s_check_kubectl.stat.exists is defined
+    - k3s_check_kubectl.stat.exists
+    - k3s_control_delegate is defined
+    - not ansible_check_mode
   block:
-
     - name: Gather a list of nodes
       ansible.builtin.command:
         cmd: "{{ k3s_install_dir }}/kubectl get nodes"
@@ -19,38 +23,32 @@
       register: kubectl_get_nodes_result
       become: "{{ k3s_become }}"
 
-    - name: Ensure uninstalled nodes are drained
+    - name: Ensure uninstalled nodes are drained # noqa no-changed-when
       ansible.builtin.command:
         cmd: >-
-          {{ k3s_install_dir }}/kubectl drain {{ item }}
+          {{ k3s_install_dir }}/kubectl drain {{ hostvars[item].ansible_hostname }}
             --ignore-daemonsets
-            --{{ k3s_drain_command[ansible_version.string is version_compare('1.22', '>=')] }}
+            --{{ k3s_drain_command[ansible_version.string is version_compare('1.33', '>=')] }}
             --force
       delegate_to: "{{ k3s_control_delegate }}"
       run_once: true
       when:
         - kubectl_get_nodes_result.stdout is defined
-        - item in kubectl_get_nodes_result.stdout
+        - hostvars[item].ansible_hostname in kubectl_get_nodes_result.stdout
         - hostvars[item].k3s_state is defined
         - hostvars[item].k3s_state == 'uninstalled'
       loop: "{{ ansible_play_hosts }}"
       become: "{{ k3s_become }}"
 
-    - name: Ensure uninstalled nodes are removed
+    - name: Ensure uninstalled nodes are removed # noqa no-changed-when
       ansible.builtin.command:
-        cmd: "{{ k3s_install_dir }}/kubectl delete node {{ item }}"
+        cmd: "{{ k3s_install_dir }}/kubectl delete node {{ hostvars[item].ansible_hostname }}"
       delegate_to: "{{ k3s_control_delegate }}"
       run_once: true
       when:
         - kubectl_get_nodes_result.stdout is defined
-        - item in kubectl_get_nodes_result.stdout
+        - hostvars[item].ansible_hostname in kubectl_get_nodes_result.stdout
         - hostvars[item].k3s_state is defined
         - hostvars[item].k3s_state == 'uninstalled'
       loop: "{{ ansible_play_hosts }}"
       become: "{{ k3s_become }}"
-
-  when:
-    - k3s_check_kubectl.stat.exists is defined
-    - k3s_check_kubectl.stat.exists
-    - k3s_control_delegate is defined
-    - not ansible_check_mode

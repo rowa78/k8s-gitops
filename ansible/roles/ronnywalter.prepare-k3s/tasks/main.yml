@@ -102,10 +102,10 @@
     name: nfs-common
     state: present
 
-# - name: install open-iscsi
-#   package:
-#     name: open-iscsi
-#     state: present
+- name: install open-iscsi
+  package:
+    name: open-iscsi
+    state: present
 
 # - name: install pi-bluetooth
 #   package:
@@ -159,17 +159,17 @@
 #     name: qemu-guest-agent
 #     state: started
 
-# - name: install zfs-utils
-#   package:
-#     name: zfsutils-linux    
-#     state: present
-#   when:
-#     - not raspberry_pi|default(false)
+- name: install zfs-utils
+  package:
+    name: zfsutils-linux    
+    state: present
+  when:
+    - not raspberry_pi|default(false)
 
-# - name: install fdisk
-#   package:
-#     name: fdisk
-#     state: present
+- name: install fdisk
+  package:
+    name: fdisk
+    state: present
 
 # - name: install fio
 #   package:

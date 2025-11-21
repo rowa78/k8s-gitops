@@ -2,10 +2,14 @@ all:
   children:         
     masters:
       hosts: 
-        master01:
+        stardust:
     workers:
       hosts:
-    k8s_cluster:
+        # worker01:
+        # worker02:
+        # worker03:
+        # worker04:
+    k3s_cluster:
       children:
         masters:
         workers:    

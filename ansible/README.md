@@ -80,7 +80,7 @@ zpool erstellen, jeweils dritte partition
 
 zpool create -o ashift=12 zpool /dev/nvme0n1p3 /dev/nvme1n1p3
 zfs set compression=lz4 zpool
-
+zpool set autotrim=on zpool
 zfs create -o compression=lz4 -o mountpoint=/var/lib/rancher -o atime=off zpool/rancher
 zfs create -o compression=lz4 -o mountpoint=/var/lib/kubelet -o atime=off zpool/kubelet
 
@@ -88,14 +88,16 @@ zfs create -o compression=lz4 -o atime=off zpool/pvcs
 zfs create -o compression=lz4 -o atime=off zpool/pg-pvcs
 zfs create -o compression=lz4 -o atime=off -o dedup=on -o recordsize=16k zpool/vm-pvcs
 
-zfs create zpool/longhorn -V 600G
-mkfs.xfs /dev/zvol/zpool/longhorn
-mkdir -p /storage/longhorn
-mount -o noatime,discard /dev/zvol/zpool/longhorn /storage/longhorn
 
-in die fstab:
+tank auf den externen ssds:
 
-/dev/zvol/zpool/longhorn /storage/longhorn xfs noatime,discard 0 0
+sudo zpool create -o ashift=12 tank \
+  mirror \
+  /dev/ssk-port5 \
+  /dev/ssk-port4
+
+zfs create -o compression=lz4 -o atime=off tank/pvcs
+zpool set autotrim=on tank
 
 
 prüfen: 

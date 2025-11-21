@@ -1,8 +1,8 @@
 {% if active_server is defined %}
 {% if rke2_api_private_ip is defined %}
-server: https://{{ rke2_api_private_ip }}:{{ rke2_api_private_port }}
+server: https://{{ rke2_api_private_ip | ansible.utils.ipwrap }}:{{ rke2_api_private_port }}
 {% else %}
-server: https://{{ rke2_api_ip }}:9345
+server: https://{{ rke2_api_ip | ansible.utils.ipwrap }}:9345
 {% endif %}
 {% endif %}
 {% if rke2_bind_address is defined %}
@@ -44,6 +44,9 @@ node-label:
 {% endfor %}
 {% endif %}
 snapshotter: {{ rke2_snapshotter }}
+{% if rke2_etcd_snapshot_schedule is defined %}
+etcd-snapshot-schedule-cron: "{{ rke2_etcd_snapshot_schedule }}"
+{% endif %}
 node-name: {{ rke2_node_name }}
 {% if ( disable_kube_proxy | bool ) %}
 disable-kube-proxy: true
@@ -53,12 +56,24 @@ profile: {{ rke2_cis_profile }}
 {%endif%}
 {% if rke2_server_options is defined and inventory_hostname in groups[rke2_servers_group_name] %}
 {% for option in rke2_server_options %}
+{% if option is mapping %}
+{% for key, value in option.items() %}
+{{ key }}: {{ value }}
+{% endfor %}
+{% else %}
 {{ option }}
+{% endif %}
 {% endfor %}
 {% endif %}
-{% if rke2_agent_options is defined and inventory_hostname in groups[rke2_agents_group_name] %}
+{% if rke2_agent_options is defined and inventory_hostname in groups[rke2_agents_group_name] | default([]) %}
 {% for option in rke2_agent_options %}
+{% if option is mapping %}
+{% for key, value in option.items() %}
+{{ key }}: {{ value }}
+{% endfor %}
+{% else %}
 {{ option }}
+{% endif %}
 {% endfor %}
 {% endif %}
 {% if ( rke2_kube_controller_manager_arg is defined ) %}
@@ -88,6 +103,12 @@ kube-proxy-arg:
   - {{ argument }}
 {% endfor %}
 {% endif %}
+{% if ( rke2_kube_proxy_extra_mount is defined ) %}
+kube-proxy-extra-mount:
+{% for mount in rke2_kube_proxy_extra_mount %}
+  - {{ mount }}
+{% endfor %}
+{% endif %}
 {% if (rke2_disable_cloud_controller | bool ) %}
 disable-cloud-controller: true
 {% if rke2_cloud_provider_name != false %}
@@ -98,4 +119,7 @@ cluster-cidr: "{% for network in rke2_cluster_cidr %}{{ network }}{% if not loop
 service-cidr: "{% for network in rke2_service_cidr %}{{ network }}{% if not loop['last'] %},{% endif %}{% endfor %}"
 {% if (rke2_selinux | bool ) %}
 selinux: true
+{% endif %}
+{% if rke2_type == 'server' %}
+ingress-controller: {{ rke2_ingress_controller }}
 {% endif %}
