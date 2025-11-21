@@ -3,5 +3,5 @@ name: arc
 version: 1.0.0
 dependencies:
   - name: gha-runner-scale-set-controller
-    version: 0.11.0
+    version: 0.13.0
     repository: oci://ghcr.io/actions/actions-runner-controller-charts
