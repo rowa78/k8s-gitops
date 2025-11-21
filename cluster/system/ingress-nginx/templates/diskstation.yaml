@@ -29,6 +29,7 @@ metadata:
   name: lan-service-diskstation
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   rules:
   - host: ds.ronnywalter.de
@@ -41,3 +42,7 @@ spec:
             name: diskstation-service
             port:
               number: 5000
+  tls:
+  - hosts:
+    - ds.ronnywalter.de
+    secretName: ds-tls

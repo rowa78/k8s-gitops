@@ -29,6 +29,7 @@ metadata:
   name: lan-service-keycloak
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   rules:
   - host: auth.rwcloud.org
@@ -41,3 +42,7 @@ spec:
             name: keycloak-service
             port:
               number: 9091
+  tls:
+  - hosts:
+    - auth.rwcloud.org
+    secretName: auth-tls
