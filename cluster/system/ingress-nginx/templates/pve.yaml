@@ -4,8 +4,8 @@ metadata:
   name: pve-service
 spec:
   ports:
-  - port: 5000
-    targetPort: 5000
+  - port: 8006
+    targetPort: 8006
   clusterIP: None
 ---
 apiVersion: discovery.k8s.io/v1
