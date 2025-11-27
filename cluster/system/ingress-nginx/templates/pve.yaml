@@ -30,6 +30,16 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     cert-manager.io/cluster-issuer: letsencrypt-production
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Proxmox
+    gethomepage.dev/group: System
+    gethomepage.dev/icon: proxmox.png
+    gethomepage.dev/name: Proxmox
+    gethomepage.dev/app: Proxmox
+    gethomepage.dev/pod-selector: ""
+    nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.rwcloud.org/oauth2/start?rd=$scheme://$host$request_uri
+    nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.oauth2-proxy.svc.cluster.local/oauth2/auth
+
 spec:
   rules:
   - host: pve.rwcloud.org
