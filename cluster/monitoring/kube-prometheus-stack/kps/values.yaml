@@ -79,7 +79,7 @@ kube-prometheus-stack:
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: openebs-zfs-ext
+            storageClassName: nfs-client-intern
             resources:
               requests:
                 storage: 1Gi
@@ -115,7 +115,7 @@ kube-prometheus-stack:
     persistence:
       enabled: true
       type: sts
-      storageClassName: openebs-zfs-ext
+      storageClassName: nfs-client-intern
       size: 1Gi
     ingress:
       enabled: true
@@ -123,6 +123,9 @@ kube-prometheus-stack:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
         nginx.ingress.kubernetes.io/affinity: "cookie"
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.rwcloud.org/oauth2/start?rd=$scheme://$host$request_uri
+        nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.oauth2-proxy.svc.cluster.local/oauth2/auth
         gethomepage.dev/enabled: "true"
         gethomepage.dev/description: Grafana
         gethomepage.dev/group: System
@@ -271,7 +274,7 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
-            storageClassName: openebs-zfs-ext
+            storageClassName: nfs-client-intern
             resources:
               requests:
                 storage: 50Gi     
@@ -568,7 +571,7 @@ prometheus-pushgateway:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "openebs-zfs-ext"
+    storageClass: "nfs-client-intern"
 
     ## Subdirectory of pushgateway data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
