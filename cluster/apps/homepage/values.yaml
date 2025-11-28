@@ -24,19 +24,6 @@ homepage:
       maxSurge: 25%
       maxUnavailable: 25%
 
-  env:
-    - name: HOMEPAGE_VAR_DISKSTATION_USER      
-      valueFrom:
-        secretKeyRef:
-          name: widget-secrets
-          key: DISKSTATION_USER
-    - name: HOMEPAGE_VAR_DISKSTATION_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: widget-secrets
-          key: DISKSTATION_PASSWORD
-    
-
   # Enable the ingress to expose Homepage to the network.
   ingress:
     main:
@@ -51,24 +38,15 @@ homepage:
         #  proxy_set_header X-Forwarded-Method $request_method;        
         # This should be the in-cluster DNS name for the authentik outpost service
         # as when the external URL is specified here, nginx will overwrite some crucial headers
-        nginx.ingress.kubernetes.io/auth-url: |-
-            http://ak-outpost-authentik-embedded-outpost.authentik.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
-        # If you're using domain-level auth, use the authentication URL instead of the application URL
-        nginx.ingress.kubernetes.io/auth-signin: |-
-            https://home.rwcloud.org/outpost.goauthentik.io/start?rd=$escaped_request_uri
-        nginx.ingress.kubernetes.io/auth-response-headers: |-
-            Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
-        nginx.ingress.kubernetes.io/auth-snippet: |
-            proxy_set_header X-Forwarded-Host $http_host;
 
       ingressClassName: "nginx"
       hosts:
-        - host: &host "home.rwcloud.org"
+        - host: &host "start.rwcloud.org"
           paths:
             - path: /
               pathType: Prefix
       tls:
-        - secretName: homepage-tls
+        - secretName: start-tls
           hosts:
             - *host
 
@@ -103,18 +81,6 @@ homepage:
             memory: true
             showLabel: true
 
-    services: 
-      - Storage:
-        - Diskstation:
-            icon: synology-dsm.svg
-            href: "https://ds.ronnywalter.de"
-            description: Synology DSM
-            siteMonitor: "https://ds.ronnywalter.de"
-            widget:
-                type: diskstation
-                url: http://192.168.0.3:5000
-                username: '{{HOMEPAGE_VAR_DISKSTATION_USER}}'
-                password: '{{HOMEPAGE_VAR_DISKSTATION_PASSWORD}}'
     kubernetes:
       # change mode to 'cluster' to use RBAC service account
       mode: cluster
