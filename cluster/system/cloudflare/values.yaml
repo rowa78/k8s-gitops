@@ -1,0 +1,343 @@
+cloudflared:
+  # -- This is for setting up the cloudflared tunnel secrets. For more information checkout: https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/do-more-with-tunnels/local-management/create-local-tunnel/
+  tunnelSecrets:
+    # -- This is for cloudflared tunnel certificate PEM file.
+    base64EncodedPemFile: ""
+    # -- This is for cloudflared tunnel configuration JSON file.
+    base64EncodedConfigJsonFile: ""
+    # -- This is for setting up the existing secret for the cloudflared tunnel certificate PEM file. If not set, the base64EncodedPemFile will be used.
+    existingPemFileSecret:
+      # -- This is the name of the existing secret.
+      name: "tunnel-credentials"
+      # -- This is the key of the certificate PEM file in the existing secret.
+      key: "cert.pem"
+    # -- This is for setting up the existing secret for the cloudflared tunnel configuration JSON file. If not set, the base64EncodedConfigJsonFile will be used.
+    existingConfigJsonFileSecret:
+      # -- This is the name of the existing secret.
+      name: "tunnel-credentials"
+      # -- This is the key of the configuration JSON file in the existing secret.
+      key: "credentials.json"
+
+  # -- Please find more configuration from https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/arguments/
+  tunnelConfig:
+    # -- cloudflared tunnel name
+    name: "k3s"
+    metricsUpdateFrequency: 5s
+    autoUpdateFrequency: 24h
+    noAutoUpdate: true
+    gracePeriod: 30s
+    retries: 5
+    # auto, http2, h2mux, quic
+    protocol: auto
+    # info, warn, error, fatal, panic
+    logLevel: info
+    transportLogLevel: warn
+    connectTimeout: 30s
+    warpRouting: false
+
+  # -- Cloudflare ingress rules. More information can be found here: https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/configure-tunnels/local-management/configuration-file/#how-traffic-is-matched
+  ingress:
+    - hostname: "*.rwcloud.org" # or "*.example.com" but you must define a CNAME record for "*" to your DNS
+      service: https://ingress-nginx-controller.ingress-nginx.svc.cluster.local:443
+      originRequest:
+        originServerName: rwcloud.org
+    - service: http_status:404
+
+external-dns:  
+  # -- [Environment variables](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) for the `external-dns` container.
+  env: 
+  - name: CF_API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: external-dns-secrets
+        key: cloudflare_api_token
+  - name: TARGET_URL
+    valueFrom:
+      secretKeyRef:
+        name: external-dns-secrets
+        key: endpoint
+  
+  serviceMonitor:
+    # -- If `true`, create a `ServiceMonitor` resource to support the _Prometheus Operator_.
+    enabled: true
+
+  # -- Log level.
+  logLevel: info  # @schema enum:[panic, debug, info, warning, error, fatal]; type:string; default: "info"
+
+  # -- Log format.
+  logFormat: text  # @schema enum:["text", "json"]; type:string; default: "text"
+
+  # -- _Kubernetes_ resources to monitor for DNS entries.
+  sources:
+    - ingress
+
+  # -- How DNS records are synchronized between sources and providers; available values are `create-only`, `sync`, & `upsert-only`.
+  policy: sync  # @schema enum:[create-only, sync, upsert-only]; type:string; default: "upsert-only"
+
+  # -- Specify the registry for storing ownership and labels.
+  # Valid values are `txt`, `aws-sd`, `dynamodb` & `noop`.
+  registry: txt  # @schema enum:[txt, aws-sd, dynamodb, noop]; default: "txt"
+
+  provider:  # @schema type: [object, string]
+    # -- _ExternalDNS_ provider name; for the available providers and how to configure them see [README](https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/README.md#providers).
+    name: cloudflare
+    webhook:
+      # -- Optional [Service Monitor](https://prometheus-operator.dev/docs/operator/design/#servicemonitor) configuration for the `webhook` container.
+      # @default -- See _values.yaml_
+      serviceMonitor:
+        interval:
+        scheme:
+        tlsConfig: {}
+        bearerTokenFile:
+        scrapeTimeout:
+        metricRelabelings: []
+        relabelings: []
+
+  # -- Extra arguments to provide to _ExternalDNS_.
+  # An array or map can be used, with maps allowing for value overrides; maps also support slice values to use the same arg multiple times.
+  extraArgs:  # @schema type: [array, null, object]; item: string; uniqueItems: true
+    default-targets:
+      - $(TARGET_URL)
+    force-default-targets:
+    cloudflare-proxied:
+  
+
+# external-dns:
+#   # Copyright Broadcom, Inc. All Rights Reserved.
+#   # SPDX-License-Identifier: APACHE-2.0
+
+#   ## @section Global parameters
+#   ## Global Docker image parameters
+#   ## Please, note that this will override the image parameters, including dependencies, configured to use the global value
+#   ## Current available global Docker image parameters: imageRegistry, imagePullSecrets and storageClass
+#   ##
+
+#   ## @param global.imageRegistry Global Docker image registry
+#   ## @param global.imagePullSecrets Global Docker registry secret names as an array
+#   ##
+#   global:
+#     imageRegistry: ""
+#     ## E.g.
+#     ## imagePullSecrets:
+#     ##   - myRegistryKeySecretName
+#     ##
+#     imagePullSecrets: []
+#   ## @section Common parameters
+#   ##
+
+#   extraEnvVars:
+#    - name: TARGET_URL
+#      valueFrom:
+#        secretKeyRef:
+#          name: external-dns-secrets
+#          key: endpoint
+
+#   # extraArgs:
+#   #   # the loadbalancer-ip
+#   #   - --default-targets=10.18.41.8
+#   #   - --txt-new-format-only
+#   extraArgs: 
+#     default-targets:
+#     - $(TARGET_URL)
+#     txt-new-format-only:
+#   ## @section external-dns parameters
+#   ##
+
+#   ## @param provider DNS provider where the DNS records will be created.
+#   ## Available providers are:
+#   ## - akamai, alibabacloud, aws, azure, azure-private-dns, cloudflare, coredns, designate, digitalocean, google, hetzner, infoblox, linode, rfc2136, transip, oci
+#   ##
+#   provider: cloudflare
+#   ## @param initContainers Attach additional init containers to the pod (evaluated as a template)
+#   ##
+#   initContainers: []
+#   ## DNS-Pod services
+#   ## Ref: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/
+#   ## @param dnsPolicy Specifies the DNS policy for the external-dns deployment
+#   ## DNS policies can be set on a per-Pod basis. Currently Kubernetes supports the following Pod-specific DNS policies.
+#   ## Available options: Default, ClusterFirst, ClusterFirstWithHostNet, None
+#   ## Ref: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
+#   dnsPolicy: ""
+#   ## @param dnsConfig  allows users more control on the DNS settings for a Pod. Required if `dnsPolicy` is set to `None`
+#   ## The dnsConfig field is optional and it can work with any dnsPolicy settings.
+#   ## Ref: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config
+#   ## E.g.
+#   ## dnsConfig:
+#   ##   nameservers:
+#   ##     - 192.0.2.1 # this is an example
+#   ##   searches:
+#   ##     - ns1.svc.cluster-domain.example
+#   ##     - my.dns.search.suffix
+#   ##   options:
+#   ##     - name: ndots
+#   ##       value: "2"
+#   ##     - name: edns0
+#   dnsConfig: {}
+#   ## @param sidecars Attach additional containers to the pod (evaluated as a template)
+#   ##
+#   sidecars: []
+#   ## Flags related to processing sources
+#   ## ref: https://github.com/kubernetes-sigs/external-dns/blob/master/pkg/apis/externaldns/types.go#L272
+#   ## @param namespace Limit sources of endpoints to a specific namespace (default: all namespaces)
+#   ##
+#   namespace: ""
+#   ## @param watchReleaseNamespace Watch only namespace used for the release
+#   ##
+#   watchReleaseNamespace: false
+#   ## @param fqdnTemplates Templated strings that are used to generate DNS names from sources that don't define a hostname themselves
+#   ##
+#   fqdnTemplates: []
+#   ## @param containerPorts.http HTTP Container port
+#   ##
+#   containerPorts:
+#     http: 7979
+#   ## @param combineFQDNAnnotation Combine FQDN template and annotations instead of overwriting
+#   ##
+#   combineFQDNAnnotation: false
+#   ## @param ignoreHostnameAnnotation Ignore hostname annotation when generating DNS names, valid only when fqdn-template is set
+#   ##
+#   ignoreHostnameAnnotation: false
+#   ## @param publishInternalServices Allow external-dns to publish DNS records for ClusterIP services
+#   ##
+#   publishInternalServices: false
+#   ## @param publishHostIP Allow external-dns to publish host-ip for headless services
+#   ##
+#   publishHostIP: false
+#   ## @param serviceTypeFilter The service types to take care about (default: all, options: ClusterIP, NodePort, LoadBalancer, ExternalName)
+#   ##
+#   serviceTypeFilter: []
+#   ## Chart Validation
+#   ##
+#   validation:
+#     ## @param validation.enabled Enable chart validation
+#     ##
+#     enabled: true
+#   ## Cloudflare configuration to be set via arguments/env. variables
+#   ##
+#   cloudflare:
+#     ## @param cloudflare.apiToken When using the Cloudflare provider, `CF_API_TOKEN` to set (optional)
+#     ##
+#     apiToken: ""
+#     ## @param cloudflare.apiKey When using the Cloudflare provider, `CF_API_KEY` to set (optional)
+#     ##
+#     apiKey: ""
+#     ## @param cloudflare.secretName When using the Cloudflare provider, it's the name of the secret containing cloudflare_api_token or cloudflare_api_key.
+#     ## This ignores cloudflare.apiToken, and cloudflare.apiKey
+#     ##
+#     secretName: "external-dns-secrets"
+#     ## @param cloudflare.email When using the Cloudflare provider, `CF_API_EMAIL` to set (optional). Needed when using CF_API_KEY
+#     ##
+#     email: ""
+#     ## @param cloudflare.proxied When using the Cloudflare provider, enable the proxy feature (DDOS protection, CDN...) (optional)
+#     ##
+#     proxied: false
+#     ## @param cloudflare.dnsRecordsPerPage Number of DNS records to fetch per page. (optional)
+#     ## When using the Cloudflare provider, specify how many DNS records listed per page, max possible 5,000 (default: 100)
+#     ##
+#     dnsRecordsPerPage: 100
+#   ## @param domainFilters Limit possible target zones by domain suffixes (optional)
+#   ##
+#   domainFilters: []
+#   ## @param excludeDomains Exclude subdomains (optional)
+#   ##
+#   excludeDomains: []
+#   ## @param regexDomainFilter Limit possible target zones by regex domain suffixes (optional)
+#   ## If regexDomainFilter is specified, domainFilters will be ignored
+#   ##
+#   regexDomainFilter: ""
+#   ## @param regexDomainExclusion Exclude subdomains by using regex pattern (optional)
+#   ## If regexDomainFilter is specified, excludeDomains will be ignored and external-dns will use regexDomainExclusion even though regexDomainExclusion is empty
+#   ##
+#   regexDomainExclusion: ""
+#   ## @param zoneNameFilters Filter target zones by zone domain (optional)
+#   ##
+#   zoneNameFilters: []
+#   ## @param zoneIdFilters Limit possible target zones by zone id (optional)
+#   ##
+#   zoneIdFilters: []
+#   ## @param annotationFilter Filter sources managed by external-dns via annotation using label selector (optional)
+#   ##
+#   annotationFilter: ""
+#   ## @param labelFilter Select sources managed by external-dns using label selector (optional)
+#   ##
+#   labelFilter: ""
+#   ## @param ingressClassFilters Filter sources managed by external-dns via IngressClass (optional)
+#   ##
+#   ingressClassFilters: []
+#   ## @param managedRecordTypesFilters Filter record types managed by external-dns (optional)
+#   ##
+#   managedRecordTypesFilters: []
+#   ## @param dryRun When enabled, prints DNS record changes rather than actually performing them (optional)
+#   ##
+#   dryRun: false
+#   ## @param triggerLoopOnEvent When enabled, triggers run loop on create/update/delete events in addition to regular interval (optional)
+#   ##
+#   triggerLoopOnEvent: false
+#   ## @param interval Interval update period to use
+#   ##
+#   interval: "1m"
+#   ## @param logLevel Verbosity of the logs (options: panic, debug, info, warning, error, fatal, trace)
+#   ##
+#   logLevel: info
+#   ## @param logFormat Which format to output logs in (options: text, json)
+#   ##
+#   logFormat: text
+
+#   ## Prometheus Exporter / Metrics
+#   ##
+#   metrics:
+#     ## @param metrics.enabled Enable prometheus to access external-dns metrics endpoint
+#     ##
+#     enabled: true
+#     ## @param metrics.podAnnotations Annotations for enabling prometheus to access the metrics endpoint
+#     ##
+#     podAnnotations: {}
+#     ## Prometheus Operator ServiceMonitor configuration
+#     ##
+#     serviceMonitor:
+#       ## @param metrics.serviceMonitor.enabled Create ServiceMonitor object
+#       ##
+#       enabled: true
+#       ## @param metrics.serviceMonitor.namespace Namespace in which Prometheus is running
+#       ##
+#       namespace: ""
+#       ## @param metrics.serviceMonitor.interval Interval at which metrics should be scraped
+#       ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
+#       ##
+#       interval: ""
+#       ## @param metrics.serviceMonitor.scrapeTimeout Timeout after which the scrape is ended
+#       ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
+#       ##
+#       scrapeTimeout: ""
+#       ## @param metrics.serviceMonitor.selector Additional labels for ServiceMonitor object
+#       ## ref: https://github.com/bitnami/charts/tree/main/bitnami/prometheus-operator#prometheus-configuration
+#       ## e.g:
+#       ## selector:
+#       ##   prometheus: my-prometheus
+#       ##
+#       selector: {}
+#       ## @param metrics.serviceMonitor.metricRelabelings Specify Metric Relabelings to add to the scrape endpoint
+#       ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#relabelconfig
+#       ##
+#       metricRelabelings: []
+#       ## @param metrics.serviceMonitor.relabelings [array] Prometheus relabeling rules
+#       ##
+#       relabelings: []
+#       ## @param metrics.serviceMonitor.honorLabels Specify honorLabels parameter to add the scrape endpoint
+#       ##
+#       honorLabels: false
+#       ## @param metrics.serviceMonitor.labels Used to pass Labels that are required by the installed Prometheus Operator
+#       ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#prometheusspec
+#       ##
+#       labels: {}
+#       ## @param metrics.serviceMonitor.targetLabels Labels from the Kubernetes service to be transferred to the created metrics
+#       targetLabels: []
+#       ## @param metrics.serviceMonitor.podTargetLabels Labels from the Kubernetes pod to be transferred to the created metrics
+#       podTargetLabels: []
+#       ## @param metrics.serviceMonitor.annotations Additional custom annotations for the ServiceMonitor
+#       ##
+#       annotations: {}
+#       ## @param metrics.serviceMonitor.jobLabel The name of the label on the target service to use as the job name in prometheus.
+#       ##
+#       jobLabel: ""
+    
