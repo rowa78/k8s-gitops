@@ -1,3 +1,0 @@
-ansible_user: ronny
-ansible_host: discovery
-ansible_sudo_pass: "{{ lookup('env','DISCOVERY_SUDO_PASS') }}"

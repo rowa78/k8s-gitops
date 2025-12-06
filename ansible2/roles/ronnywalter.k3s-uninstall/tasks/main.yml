@@ -1,3 +1,0 @@
----
-- name: execute /usr/local/bin/k3s-uninstall.sh
-  ansible.builtin.shell: /usr/local/bin/k3s-uninstall.sh

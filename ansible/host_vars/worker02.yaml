@@ -1,6 +1,0 @@
-ansible_user: ubuntu
-ansible_host: worker02
-
-k3s_control_node: false
-
-rke2_type: agent

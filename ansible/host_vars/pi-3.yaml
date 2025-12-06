@@ -1,5 +1,0 @@
-ansible_user: ronny
-ansible_host: 192.168.0.149
-ansible_sudo_pass: "{{ lookup('env','TERRA_SUDO_PASS') }}"
-
-k3s_control_node: false

@@ -1,6 +1,0 @@
----
-- name: general setup
-  hosts: "wireguard_peers"  
-  roles:
-    - githubixx.ansible_role_wireguard
-#   - ronnywalter.resolv_nodes

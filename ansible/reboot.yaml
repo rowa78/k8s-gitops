@@ -1,6 +1,0 @@
----
-- name: general setup
-  hosts: "k8s_cluster"  
-  roles:
-    - ronnywalter.reboot
-#   - ronnywalter.resolv_nodes

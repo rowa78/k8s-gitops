@@ -1,6 +1,0 @@
----
-- name: 
-  hosts: database
-  roles:
-    - ronnywalter.qemu-hosts
-    - geerlingguy.postgresql

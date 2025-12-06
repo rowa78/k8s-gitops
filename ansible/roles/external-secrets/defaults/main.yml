@@ -1,4 +1,0 @@
----
-namespace: "external-secrets"
-vault_token: "{{ lookup('env', 'VAULT_TOKEN') }}"
-

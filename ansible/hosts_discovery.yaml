@@ -1,6 +1,0 @@
-all:
-  children:        
-    wireguard_peers:
-      hosts:
-        pi-wg:      
-        discovery:

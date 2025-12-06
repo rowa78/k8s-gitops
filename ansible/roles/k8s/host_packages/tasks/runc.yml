@@ -1,8 +1,0 @@
----
-- name: runc - download
-  ansible.builtin.get_url:
-    url: "{{ runc_url }}"
-    dest: "{{ bin_dir }}/runc"
-    mode: 0755
-    owner: root
-    group: root

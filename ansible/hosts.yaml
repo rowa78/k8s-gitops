@@ -2,7 +2,7 @@ all:
   children:         
     masters:
       hosts: 
-        stardust:
+        voyager:
     workers:
       hosts:
         # worker01:

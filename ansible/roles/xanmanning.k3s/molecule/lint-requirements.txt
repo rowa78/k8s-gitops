@@ -1,4 +1,0 @@
--r ../requirements.txt
-
-yamllint>=1.37.1
-ansible-lint>=25.6.1

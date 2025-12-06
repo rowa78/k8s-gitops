@@ -1,9 +1,0 @@
-wireguard_port: "51820"
-
-wireguard_unmanaged_peers:
-  opnsense.titan.rwcloud.org:
-    public_key: lcpB3eM0PM8XmPj5bP9Xub5NDJ1Lq/ZCE1yu+/ZCFGc=
-    # preshared_key: ... e.g. from ansible-vault?
-    allowed_ips: 192.168.2.0/24, 192.168.1.0/24, 10.1.0.0/24, 172.65.201.188/32
-    endpoint: opnsense.enterprise.rwcloud.org:51820
-    persistent_keepalive: 0

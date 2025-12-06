@@ -1,6 +1,0 @@
----
-- name: clean
-  hosts: "k8s_cluster" 
-  roles:
-    - ronnywalter.rke2-uninstall
-    - ronnywalter.reboot

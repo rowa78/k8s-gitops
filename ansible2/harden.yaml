@@ -1,6 +1,0 @@
----
-- name: general setup
-  hosts: "public_nodes:loadbalancer"  
-  roles:
-    - githubixx.harden-linux
-#   - ronnywalter.resolv_nodes
