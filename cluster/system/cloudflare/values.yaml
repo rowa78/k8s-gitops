@@ -28,7 +28,7 @@ cloudflared:
     gracePeriod: 30s
     retries: 5
     # auto, http2, h2mux, quic
-    protocol: auto
+    protocol: http2
     # info, warn, error, fatal, panic
     logLevel: info
     transportLogLevel: warn
