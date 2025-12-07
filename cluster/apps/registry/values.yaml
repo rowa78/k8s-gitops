@@ -149,6 +149,7 @@ docker-registry-ui:
         gethomepage.dev/icon: docker.png
         gethomepage.dev/name: Docker Registry
         gethomepage.dev/pod-selector: ""
+        external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
       # If you want a custom path, you can try this example:
       # path: /ui(/|$)(.*)
       # annotations:
