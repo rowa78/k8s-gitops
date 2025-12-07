@@ -225,7 +225,7 @@ redis:
   storageSpec:
     volumeClaimTemplate:
       spec:
-        storageClassName: nfs-client-intern
+        storageClassName: longhorn
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
