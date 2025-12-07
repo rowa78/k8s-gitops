@@ -18,7 +18,7 @@ open-webui:
 
     persistentVolume:
       enabled: true
-      storageClass: nfs-client-intern
+      storageClass: longhorn
       size: 10Gi
       
 
@@ -29,7 +29,7 @@ open-webui:
     extraEnvVars: []
 
     persistence:
-      storageClass: nfs-client-intern
+      storageClass: longhorn
 
   tika:
     # -- Automatically install Apache Tika to extend Open WebUI
@@ -188,7 +188,7 @@ open-webui:
     # -- If using multiple replicas, you must update accessModes to ReadWriteMany
     accessModes:
       - ReadWriteOnce
-    storageClass: "nfs-client-intern"
+    storageClass: "longhorn"
     selector: {}
     annotations: {}
 
