@@ -12,9 +12,9 @@ ingress-nginx:
     dnsPolicy: ClusterFirstWithHostNet
     kind: Deployment
     service:
-      enabled: false
-      type: LoadBalancer
-      loadBalancerIP: "192.168.0.240"
+      enabled: true
+      type: ClusterIP
+      # loadBalancerIP: "192.168.0.240"
       # nodePorts:
       #   http: 32080
       #   https: 32443
