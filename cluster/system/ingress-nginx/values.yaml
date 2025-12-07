@@ -8,7 +8,7 @@ ingress-nginx:
       enabled: true
       # -- Is this the default ingressClass for the cluster
       default: true
-    hostNetwork: false
+    hostNetwork: true
     dnsPolicy: ClusterFirstWithHostNet
     kind: DaemonSet
     service:
