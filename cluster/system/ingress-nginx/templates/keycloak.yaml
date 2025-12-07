@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak-service
+spec:
+  ports:
+  - port: 9091
+    targetPort: 9091
+  clusterIP: None
+---
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: keycloak-service
+  labels:
+    kubernetes.io/service-name: keycloak-service
+addressType: IPv4
+ports:
+- name: http
+  port: 9091
+endpoints:
+- addresses:
+  - 192.168.0.3
+  conditions: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lan-service-keycloak
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  rules:
+  - host: auth.rwcloud.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: keycloak-service
+            port:
+              number: 9091
+  tls:
+  - hosts:
+    - auth.rwcloud.org
+    secretName: auth-tls
