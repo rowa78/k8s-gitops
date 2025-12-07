@@ -10,7 +10,7 @@ ingress-nginx:
       default: true
     hostNetwork: false
     dnsPolicy: ClusterFirstWithHostNet
-    kind: Daemonset
+    kind: DaemonSet
     service:
       enabled: true
       type: ClusterIP
