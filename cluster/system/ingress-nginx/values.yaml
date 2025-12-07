@@ -8,11 +8,11 @@ ingress-nginx:
       enabled: true
       # -- Is this the default ingressClass for the cluster
       default: true
-    hostNetwork: false
+    hostNetwork: true
     dnsPolicy: ClusterFirstWithHostNet
-    kind: DaemonSet
+    kind: Deployment
     service:
-      enabled: true
+      enabled: false
       type: LoadBalancer
       loadBalancerIP: "192.168.0.240"
       # nodePorts:
@@ -63,4 +63,6 @@ ingress-nginx:
       enabled: true
       # -- Is this the default ingressClass for the cluster
       default: true
+    nodeSelector:
+      kubernetes.io/hostname: terra
 
