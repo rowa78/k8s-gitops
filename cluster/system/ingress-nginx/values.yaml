@@ -13,8 +13,8 @@ ingress-nginx:
     kind: DaemonSet
     service:
       enabled: true
-      type: ClusterIP
-      #loadBalancerIP: "10.0.1.200"
+      type: loadBalancer
+      loadBalancerIP: "192.168.0.240"
       # nodePorts:
       #   http: 32080
       #   https: 32443
