@@ -26,6 +26,7 @@ ingress-nginx:
     config:
       use-proxy-protocol: "true"
       enable-real-ip: "true"
+      proxy-real-ip-cidr: "192.168.0.225/32,fd00:2222::42:c0ff:fea8:babe/128,fd00:dead:beef::2/128"
       compute-full-forwarded-for: "true"
       ssl-protocols: "TLSv1.3 TLSv1.2"
       proxy-body-size: "1000m"      
