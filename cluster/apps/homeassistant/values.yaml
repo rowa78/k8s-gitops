@@ -55,7 +55,7 @@ home-assistant:
       gethomepage.dev/enabled: "true"
       gethomepage.dev/description: Homeassistant
       gethomepage.dev/group: Apps
-      gethomepage.dev/icon: homeassistant.png
+      gethomepage.dev/icon: https://home.rwcloud.org/static/icons/favicon-192x192.png
       gethomepage.dev/name: Homeassistant
       gethomepage.dev/app: homeassistant
       gethomepage.dev/pod-selector: ""
