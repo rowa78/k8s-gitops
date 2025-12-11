@@ -52,6 +52,13 @@ home-assistant:
     labels: {}
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Homeassistant
+      gethomepage.dev/group: Apps
+      gethomepage.dev/icon: homeassistant.png
+      gethomepage.dev/name: Homeassistant
+      gethomepage.dev/app: homeassistant
+      gethomepage.dev/pod-selector: ""
     hosts:
       - host: home.rwcloud.org
         paths:
