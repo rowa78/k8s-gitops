@@ -4,7 +4,7 @@ home-assistant:
   # Declare variables to be passed into your templates.
 
   # Number of replicas for the deployment
-  replicaCount: 2
+  replicaCount: 1
 
   # Environment variables
   env: 
