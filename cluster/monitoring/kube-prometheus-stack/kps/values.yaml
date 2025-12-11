@@ -130,7 +130,7 @@ kube-prometheus-stack:
         gethomepage.dev/description: Grafana
         gethomepage.dev/group: System
         gethomepage.dev/icon: grafana.png
-        gethomepage.dev/name: Grafana
+        gethomepage.dev/name: grafana
         gethomepage.dev/pod-selector: ""
       hosts:
         - &host grafana.rwcloud.org
