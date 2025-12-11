@@ -1,0 +1,7 @@
+apiVersion: v2
+name: homeassistant
+version: 1.0.0
+dependencies:
+  - name: homeassistant
+    version: 0.3.34
+    repository: https://pajikos.github.io/home-assistant-helm-chart/
