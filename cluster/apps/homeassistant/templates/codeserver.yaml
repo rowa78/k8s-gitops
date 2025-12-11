@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: homeassistant
+  namespace: codeserver
+spec:
+  encryptedData:
+    password: AgAEviANUH4kNNyU0xpehZLr2Wa2nFbxjon6w7VrAI22tUy/YY6lb+gBu5EUhF61VhDlEkKJeUmEpmP5MIQjgIZO6I66pSrQYnRyxLsQcE91Nz+Z/8XsJqyutHJOgUZOSdmeippOPEL4ShGNF5HpfGR6/oI5f947ZkfTodM13uLthXskqoR9HtHfq4Ctmn+2XJ+gWt6sZymbP0XYX9LJfBPrBB4CsIOHimVo1N7Aib/FwgA2Gt778+hGweBg1q+foVw4mznEizSXVjkzj7o8yJF/yQjc4sPrRyujMon1Pb+q0R7jBC/UanspsxUl90li44o4v4Tt1UJUElgaWXBP90t+OxKPQBfWOWAZv9ECm7XDbSGSPuNx4gCE/HNa6nijOqfTHbLFZ/6JjbFl+yZBvgweHEZ9t0h93RSFACo8MFibI8bGSEa1jf4RB29Lp48oQNVLFrBahBSpifO8pLV6o3zNoHnEstjwX47FHGFowI8sKEK8Gb0w/6Nc/clXQJVSc109wf+yliNIg39rFLjQZEa33hB36M485+dzXYwWHJByhr2/VBubLl9dkB7DxLCWzM2rjaPWP6bPXDgT/PnuMYCyTtLsP6TePv8YA9BE2bRYZ2/xQ+sIrnjDbaBL8gVwZNxTP51zP/IQdfBwpOi5LgQ3s8xShNwPOyv5xG+hbwsZRiINHVvcec5R0+YCrgNYsGAoY0r9woWIb8Wh+nXV2py5
+  template:
+    metadata:
+      name: homeassistant
+      namespace: codeserver
+    type: Opaque

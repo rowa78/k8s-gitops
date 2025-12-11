@@ -305,10 +305,10 @@ home-assistant:
       # Authentication settings for the code-server addon
       auth:
         # Enable or disable authentication (if disabled, --auth none is used)
-        enabled: false
+        enabled: true
         # Existing secret containing the password
         # The secret should have a key 'password' containing the code-server password
-        existingSecret: ""
+        existingSecret: "codeserver"
         # Password for code-server (only used if existingSecret is not set)
         # If neither existingSecret nor password is set, code-server will generate a random password
         # which will be printed in the logs
@@ -322,19 +322,32 @@ home-assistant:
       # Ingress settings for the code-server addon
       ingress:
         # Enable or disable the ingress for the code-server addon
-        enabled: false
+        enabled: true
         # Ingress class name
-        className: ""
+        className: "nginx"
         # Ingress annotations
-        annotations: {}
+        annotations: 
+          cert-manager.io/cluster-issuer: letsencrypt-production      
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Homeassistant-Codeserver
+          gethomepage.dev/group: Apps
+          gethomepage.dev/icon: vscode.png
+          gethomepage.dev/name: Homeassistant-Codeserver
+          gethomepage.dev/app: homeassistant
+          gethomepage.dev/pod-selector: ""
+          nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.rwcloud.org/oauth2/start?rd=$scheme://$host$request_uri
+          nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.oauth2-proxy.svc.cluster.local/oauth2/auth
         # Ingress hosts configuration
         hosts:
-          - host: chart-example.local
+          - host: hass-code.rwcloud.org
             paths:
               - path: /
                 pathType: ImplementationSpecific
         # Ingress TLS configuration
-        tls: []
+        tls: 
+          - secretName: hass-code-tls
+            hosts:
+              - hass-code.rwcloud.org
       # if you need any additional volume mounts, you can define them here
       additionalMounts: []
         # - mountPath: /home/coder/.ssh/id_rsa
