@@ -1,0 +1,359 @@
+home-assistant:
+  # Default values for home-assistant.
+  # This is a YAML-formatted file.
+  # Declare variables to be passed into your templates.
+
+  # Number of replicas for the deployment
+  replicaCount: 2
+
+  # Environment variables
+  env: 
+  - name: TZ
+    value: Europe/Prague
+  # - name: SOME_VAR_FROM_CONFIG_MAP
+  #   valueFrom:
+  #     configMapRef:
+  #       name: configmap-name
+  #       key: config-key
+  # - name: SOME_SECRET
+  #   valueFrom:
+  #     secretKeyRef:
+  #       name: secret-name
+  #       key: secret-key
+
+  # Use environment variables from ConfigMaps or Secrets
+  envFrom: []
+  # - configMapRef:
+  #     name: config-map-name
+  # - secretRef:
+  #     name: secret-name
+
+  hostPort:
+    # Enable 'hostPort' or not
+    enabled: false
+    port: 8123
+
+  # Specifies if the containers should be started in hostNetwork mode.
+  #
+  # Required for use auto-discovery feature of Home Assistant
+  hostNetwork: true
+
+  # Set the dnsPolicy (you'll want ClusterFirstWithHostNet if running on hostNetwork to reac
+  # other k8s services via DNS
+  # dnsPolicy: ClusterFirst
+
+  # Ingress settings
+  ingress:
+    # Enable ingress for home assistant
+    enabled: false
+    # Enable external ingress (cannot be true when ingress.enabled is true)
+    external: false
+    className: ""
+    labels: {}
+    annotations:
+      {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: chart-example.local
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+  initContainers: []
+  # Example of integrating a custom component before starting the Home Assistant container
+  # Uses emptyDir custom-components, see below
+  # - name: init-panasonic-cc
+  #   image: alpine/git
+  #   command: [ "/bin/sh", "-c" ]
+  #   args:
+  #   - |
+  #     git clone https://github.com/sockless-coding/panasonic_cc.git /git/panasonic_cc
+  #     cp -r /git/panasonic_cc/custom_components/panasonic_cc/* /panasonic_cc
+  #     chown -R 1000:1000 /panasonic_cc/*
+  #   volumeMounts:
+  #   - name: custom-components
+  #     mountPath: /panasonic_cc
+
+  # Configuration for Home Assistant
+  configuration:
+    # Enable or disable the configuration setup for Home Assistant
+    enabled: true
+    # Force init will merge the current configuration file with the default configuration on every start
+    # This is useful when you want to ensure that the configuration file is always up to date
+    forceInit: false
+    # List of trusted proxies in the format of CIDR notation in a case of using a reverse proxy
+    # Here is the list of the most common private IP ranges, use your list of possible trusted proxies, usually, it's the IP of the reverse proxy
+    trusted_proxies:
+      - 10.0.0.0/8
+      - 172.16.0.0/12
+      - 192.168.0.0/16
+      - 127.0.0.0/8
+    # Template for the configuration.yaml file
+    # Used the `tpl` function to render the template, so you can use Go template functions
+    templateConfig: |-
+      # Loads default set of integrations. Do not remove.
+      default_config:
+
+      {{- if or .Values.ingress.enabled .Values.ingress.external }}
+      http:
+        use_x_forwarded_for: true
+        trusted_proxies:
+          {{- range .Values.configuration.trusted_proxies }}
+          - {{ . }}
+          {{- end }}
+      {{- end}}
+      # Load frontend themes from the themes folder
+      frontend:
+        themes: !include_dir_merge_named themes
+
+      automation: !include automations.yaml
+      script: !include scripts.yaml
+      scene: !include scenes.yaml
+
+    # Init script for the Home Assistant initialization, you can use Go template functions
+    # Script is executed before the Home Assistant container starts and is used to prepare the configuration
+    # Will be executed only if the configuration.enabled is set to true
+    initScript: |-
+      #!/bin/bash
+      set -e
+
+      # Check if the configuration file exists
+      if [ ! -f /config/configuration.yaml ]; then
+        echo "Configuration file not found, creating a new one"
+        cp /config-templates/configuration.yaml /config/configuration.yaml
+      fi
+
+      # Check if the force init is enabled
+      forceInit="{{ .Values.configuration.forceInit }}"
+      if [ "$forceInit" = "true" ]; then
+        echo "Force init is enabled, overwriting the configuration file"
+        current_time=$(date +%Y%m%d_%H%M%S)
+        echo "Backup the current configuration file to configuration.yaml.$current_time"
+        cp /config/configuration.yaml /config/configuration.yaml.$current_time
+        echo "Before cleanup - all backup files:"
+        ls -l /config/configuration.yaml.*
+        echo "Cleaning up - keeping only 10 most recent backups..."
+        ls -t /config/configuration.yaml.* 2>/dev/null | tail -n +11 | xargs -r rm
+        echo "After cleanup - remaining backup files:"
+        ls -l /config/configuration.yaml.*
+        echo "The current configuration file will be merged with the default configuration file with this content:"
+        cat /config-templates/configuration.yaml
+        if [[ ! -s /config/configuration.yaml ]]; then
+          # If /config/configuration.yaml is empty, use the content of /config-templates/configuration.yaml
+          cat /config-templates/configuration.yaml > /config/configuration.yaml
+        else
+          # Perform the merge operation if /config/configuration.yaml is not empty
+          yq eval-all --inplace 'select(fileIndex == 0) *d select(fileIndex == 1)' /config/configuration.yaml /config-templates/configuration.yaml
+        fi
+      fi
+
+      # Check if the automations file exists
+      if [ ! -f /config/automations.yaml ]; then
+        echo "Automations file not found, creating a new one"
+        touch /config/automations.yaml
+        echo "[]" >> /config/automations.yaml
+      fi
+
+      # Check if the scripts file exists
+      if [ ! -f /config/scripts.yaml ]; then
+        echo "Scripts file not found, creating a new one"
+        touch /config/scripts.yaml
+      fi
+
+      # Check if the scenes file exists
+      if [ ! -f /config/scenes.yaml ]; then
+        echo "Scenes file not found, creating a new one"
+        touch /config/scenes.yaml
+      fi
+
+    initContainer:
+      name: setup-config
+      image: mikefarah/yq:4
+      securityContext:
+        runAsUser: 0
+      command: ["/bin/sh", "-c"]
+      args:
+      - /bin/sh /mnt/init/init.sh
+      # env:
+      # - name: FORCE_INIT
+      #   valueFrom:
+      #     configMapKeyRef:
+      #       name: init-script
+      #       key: forceInit
+      # Home Assistant configuration volume will be mounted to /config automatically
+      volumeMounts:
+        - name: init-volume
+          mountPath: /mnt/init/init.sh
+          subPath: init.sh
+        - name: config-volume
+          mountPath: /config-templates
+
+  # Persistence values for the Home Assistant instance
+  persistence:
+    # Enable or disable persistence
+    enabled: true
+    # Access mode for the persistent volume claim
+    accessMode: ReadWriteOnce
+    # Size of the persistent volume claim
+    size: 5Gi
+    # Storage class for the persistent volume claim
+    storageClass: "longhorn"
+    # Name of the existing volume for the StatefulSet, this option can be used to bind to an existing PV
+    existingVolume: ""
+    # Name of the existing PVC to use with Deployment, this option can be used to use an existing PVC
+    existingClaim: ""
+    # Annotations to add to the persistent volume claim
+    annotations: {}
+    #  k8up.io/backup: "true"
+    #  another-annotation: "value"
+    ## Persistent Volume selectors
+    ## https://kubernetes.io/docs/concepts/storage/persistent-volumes/#selector
+    matchLabels: {}
+    matchExpressions: {}
+
+  # if you need any additional volumes, you can define them here
+  additionalVolumes: []
+    # - name: custom-components
+    #   emptyDir: {}
+
+    # - hostPath:
+    #     path: >-
+    #       /dev/serial/by-id/usb-Silicon_Labs_Sonoff_Zigbee_3.0_USB_Dongle_Plus_0001-if00-port0
+    #     type: CharDevice
+    #   name: usb
+  # if you need any additional volume mounts, you can define them here
+  additionalMounts: []
+    # - mountPath: /config/custom_components/panasonic_cc
+    #   name: custom-components
+
+    # - mountPath: /dev/ttyACM0
+    #   name: usb
+
+  # if you need to expose additional ports
+  additionalPorts: []
+  #  - name: sia
+  #    containerPort: 8124
+  #    protocol: TCP
+
+  # if you need to expose additional services
+  additionalServices: []
+  #  - name: sia
+  #    port: 8124
+  #    targetPort: sia
+  #    type: NodePort
+  #    protocol: TCP
+  #    nodePort: 30124
+
+  livenessProbe:
+    failureThreshold: 3
+    httpGet:
+      path: /
+      port: http
+      scheme: HTTP
+    periodSeconds: 20
+    successThreshold: 1
+    timeoutSeconds: 2
+  readinessProbe:
+    failureThreshold: 3
+    httpGet:
+      path: /
+      port: http
+      scheme: HTTP
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  startupProbe: {}
+    # initialDelaySeconds: 1
+    # periodSeconds: 5
+    # timeoutSeconds: 1
+    # successThreshold: 1
+    # failureThreshold: 1
+    # httpGet:
+    #   scheme: HTTP
+    #   path: /
+    #   port: http
+
+  serviceMonitor:
+    # requires HA integration:  https://www.home-assistant.io/integrations/prometheus/
+    enabled: false
+    scrapeInterval: 30s
+    labels: {}
+    # Bearer token authentication configuration
+    bearerToken: {}
+      # Name of the secret containing the bearer token
+      # secretName: ""
+      # Key in the secret containing the bearer token
+      # secretKey: ""
+
+  # Addons configuration for additional services
+  addons:
+    # Code-server addon configuration
+    codeserver:
+      # Enable or disable the code-server addon
+      enabled: true
+      # Resource settings for the code-server container
+      resources: {}
+      # Image settings for the code-server addon
+      image:
+        # Repository for the code-server image
+        repository: ghcr.io/coder/code-server
+        # Image pull policy for the code-server image
+        pullPolicy: IfNotPresent
+        # Tag for the code-server image
+        tag: "4.105.1"
+      # Authentication settings for the code-server addon
+      auth:
+        # Enable or disable authentication (if disabled, --auth none is used)
+        enabled: false
+        # Existing secret containing the password
+        # The secret should have a key 'password' containing the code-server password
+        existingSecret: ""
+        # Password for code-server (only used if existingSecret is not set)
+        # If neither existingSecret nor password is set, code-server will generate a random password
+        # which will be printed in the logs
+        password: ""
+      # Service settings
+      service:
+        # Service type (ClusterIP, NodePort, LoadBalancer, or ExternalName)
+        type: ClusterIP
+        # Service port
+        port: 12321
+      # Ingress settings for the code-server addon
+      ingress:
+        # Enable or disable the ingress for the code-server addon
+        enabled: false
+        # Ingress class name
+        className: ""
+        # Ingress annotations
+        annotations: {}
+        # Ingress hosts configuration
+        hosts:
+          - host: chart-example.local
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        # Ingress TLS configuration
+        tls: []
+      # if you need any additional volume mounts, you can define them here
+      additionalMounts: []
+        # - mountPath: /home/coder/.ssh/id_rsa
+        #   name: id-rsa
+
+  # Controller configuration
+  controller:
+    # Type of controller to use: StatefulSet or Deployment
+    type: StatefulSet
+
+  # Annotations to add to the stateful set
+  statefulSetAnnotations: {}
+
+  # Annotations to add to the deployment
+  deploymentAnnotations: {}
+
+  # Deployment strategy type (RollingUpdate, Recreate)
+  deploymentStrategy: RollingUpdate
