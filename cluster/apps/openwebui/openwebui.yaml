@@ -40,6 +40,27 @@ spec:
     automated:
       prune: true
       selfHeal: false
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openwebui-backup
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/apps/openwebui/backup
+  destination:
+    name: in-cluster
+    namespace: openwebui     
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
