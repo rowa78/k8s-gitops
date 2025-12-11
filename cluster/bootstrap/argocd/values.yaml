@@ -151,7 +151,7 @@ argo-cd:
         gethomepage.dev/enabled: "true"
         gethomepage.dev/description: ArgoCD
         gethomepage.dev/group: System
-        gethomepage.dev/icon: argocd.png
+        gethomepage.dev/icon: https://argo-cd.readthedocs.io/en/stable/assets/logo.png
         gethomepage.dev/name: ArgoCD        
         gethomepage.dev/pod-selector: ""
 
