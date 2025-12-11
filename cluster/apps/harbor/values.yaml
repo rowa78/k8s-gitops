@@ -41,6 +41,7 @@ harbor:
       kubeVersionOverride: ""
       className: ""
       annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
         # note different ingress controllers may require a different ssl-redirect annotation
         # for Envoy, use ingress.kubernetes.io/force-ssl-redirect: "true" and remove the nginx lines below
         ingress.kubernetes.io/ssl-redirect: "true"
