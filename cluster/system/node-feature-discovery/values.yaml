@@ -1,0 +1,15 @@
+node-feature-discovery:
+
+  #
+  # Prometheus configuration
+  #
+  prometheus:
+    # -- Create PodMonitor object for enabling metrics collection by Prometheus Operator.
+    # @section -- Prometheus
+    enable: true
+    # -- Interval at which metrics are scraped.
+    # @section -- Prometheus
+    scrapeInterval: 10s
+    # -- Labels to add to the PodMonitor object.
+    # @section -- Prometheus
+    labels: {}
