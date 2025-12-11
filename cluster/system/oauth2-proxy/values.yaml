@@ -46,13 +46,6 @@ oauth2-proxy:
     # Example:
     # existingConfig: config
 
-  image:
-    repository: "quay.io/oauth2-proxy/oauth2-proxy"
-    # appVersion is used by default
-    tag: ""
-    pullPolicy: "IfNotPresent"
-    command: []
-
   ingress:
     enabled: true
     className: nginx
