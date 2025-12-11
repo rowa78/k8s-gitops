@@ -83,14 +83,12 @@ home-assistant:
     enabled: true
     # Force init will merge the current configuration file with the default configuration on every start
     # This is useful when you want to ensure that the configuration file is always up to date
-    forceInit: false
+    forceInit: true
     # List of trusted proxies in the format of CIDR notation in a case of using a reverse proxy
     # Here is the list of the most common private IP ranges, use your list of possible trusted proxies, usually, it's the IP of the reverse proxy
     trusted_proxies:
-      - 10.0.0.0/8
-      - 172.16.0.0/12
-      - 192.168.0.0/16
-      - 127.0.0.0/8
+      - 10.0.0.0/8      
+      - 192.168.0.0/16      
     # Template for the configuration.yaml file
     # Used the `tpl` function to render the template, so you can use Go template functions
     templateConfig: |-
