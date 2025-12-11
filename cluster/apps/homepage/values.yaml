@@ -65,6 +65,9 @@ homepage:
               - abbr: DH
                 href: https://hub.docker.com
 
+    services:
+      
+
     widgets:
       - search:
           provider: duckduckgo
