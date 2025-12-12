@@ -13,3 +13,8 @@ node-feature-discovery:
     # -- Labels to add to the PodMonitor object.
     # @section -- Prometheus
     labels: {}
+
+  worker:
+    config:      
+      sources:
+        - usb
