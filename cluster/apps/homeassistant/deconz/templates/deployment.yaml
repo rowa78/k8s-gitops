@@ -39,11 +39,13 @@ spec:
               value: "{{ .Values.env.VERBOSE }}"
             - name: TZ
               value: "{{ .Values.env.TZ }}"
+{{- if .Values.vnc.create }}
             - name: DECONZ_VNC_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.vnc.secretName }}
                   key: password
+{{- end }}
           ports:
             - name: http
               containerPort: 80
