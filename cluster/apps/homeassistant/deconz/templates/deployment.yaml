@@ -39,7 +39,7 @@ spec:
               value: "{{ .Values.env.VERBOSE }}"
             - name: TZ
               value: "{{ .Values.env.TZ }}"
-{{- if .Values.vnc.create }}
+{{- if .Values.vnc.enabled }}
             - name: DECONZ_VNC_PASSWORD
               valueFrom:
                 secretKeyRef:

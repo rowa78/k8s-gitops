@@ -17,9 +17,8 @@ securityContext:
   privileged: true
 
 vnc:
-  create: false
-  secretName: deconz-vnc
-  password: changeme
+  enabled: true
+  secretName: deconz-vnc  
 
 ## nodeSelector is used to select the node where the pod will be scheduled
 ## label the node that has the USB device.
