@@ -1,0 +1,69 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deconz
+  labels:
+    app.kubernetes.io/name: deconz
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: deconz
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: deconz
+    spec:
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+      containers:
+        - name: deconz
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          env:
+            - name: DECONZ_VNC_MODE
+              value: "{{ .Values.env.VNC_MODE }}"
+            - name: DECONZ_VNC_PORT
+              value: "{{ .Values.env.VNC_PORT }}"
+            - name: DECONZ_WEB_PORT
+              value: "{{ .Values.env.WEB_PORT }}"
+            - name: DECONZ_WS_PORT
+              value: "{{ .Values.env.WS_PORT }}"
+            - name: DECONZ_START_VERBOSE
+              value: "{{ .Values.env.VERBOSE }}"
+            - name: TZ
+              value: "{{ .Values.env.TZ }}"
+            - name: DECONZ_VNC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.vnc.secretName }}
+                  key: password
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+            - name: websocket
+              containerPort: 443
+              protocol: TCP
+            - name: vnc
+              containerPort: 5900
+              protocol: TCP
+          volumeMounts:
+            - name: config
+              mountPath: /opt/deCONZ
+            - name: conbee
+              mountPath: /dev/ttyUSB0
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: {{ .Values.pvc.name }}
+        - name: conbee
+          hostPath:
+            path: {{ .Values.conbee.devicePath }}
+            type: ''
