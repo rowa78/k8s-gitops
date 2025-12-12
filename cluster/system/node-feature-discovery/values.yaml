@@ -17,4 +17,4 @@ node-feature-discovery:
   worker:
     config:      
       sources:
-        - usb
+        usb:
