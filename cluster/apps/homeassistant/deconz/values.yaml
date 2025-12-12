@@ -25,7 +25,7 @@ vnc:
 ## label the node that has the USB device.
 ## with the label "usb=zigbee" or change the value to match your node label
 nodeSelector:
-  feature.node.kubernetes.io/usb-02_1cf1_0030.present: true
+  feature.node.kubernetes.io/usb-02_1cf1_0030.present: 'true'
 
 pvc:
   name: deconz-config
