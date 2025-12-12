@@ -20,3 +20,7 @@ node-feature-discovery:
         sources: ["usb"]
       sources:
         usb:
+          vendorIDWhitelist:
+            - "1cf1"
+          deviceIDWhitelist:
+            - "0030"
