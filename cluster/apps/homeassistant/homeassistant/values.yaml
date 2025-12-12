@@ -40,7 +40,7 @@ home-assistant:
 
   # Set the dnsPolicy (you'll want ClusterFirstWithHostNet if running on hostNetwork to reac
   # other k8s services via DNS
-  # dnsPolicy: ClusterFirst
+  dnsPolicy: ClusterFirstWithHostNet
 
   # Ingress settings
   ingress:
