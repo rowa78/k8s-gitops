@@ -287,7 +287,14 @@ kube-prometheus-stack:
       retentionSize: "40GiB" 
       podAntiAffinity: hard
       thanos: {}        
-      # additionalScrapeConfigs:
+      additionalScrapeConfigs:      
+        - job_name: 'haproxy'
+          scrape_interval: 30s
+          static_configs:
+            - targets: ['192.168.0.225:8405']
+              labels:
+                instance: 'haproxy'
+                job: 'haproxy'
       #   - job_name: diskstation
       #     static_configs:
       #       - targets: ['diskstation.tailscale.svc.cluster.local:9100']  
