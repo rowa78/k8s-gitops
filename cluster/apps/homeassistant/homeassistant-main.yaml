@@ -41,4 +41,25 @@ spec:
       prune: false
       selfHeal: true
 ---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: homeassistant-database
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/apps/homeassistant/postgres
+  destination:
+    name: in-cluster
+    namespace: homeassistant
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+---
 
