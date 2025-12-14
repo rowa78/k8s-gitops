@@ -1,20 +1,14 @@
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
 metadata:
   name: basic-auth
+  namespace: registry
 spec:
-  secretStoreRef:
-    kind: ClusterSecretStore
-    name: vault-backend
-  target:
-    template:
-      data:
-        htpasswd: |
-          {{ `{{ .registryPass }}` }}
-  data:
-    - secretKey: registryPass
-      remoteRef:
-        key: secret/registry
-        property: registryPass
-        decodingStrategy: Base64
-    
+  encryptedData:
+    registryPass: AgB3UowlZ0Gq4OItnpwiuyUaXtYgdpkKRBY3MdrUAa3kvr0Dx1jE9e4jkjuCv3KfTI+/Y9PYltW20BXAhZ/0Ds9RyKx0SpVf9SuThs3wi/aZdGwCD/fgVXEq4krOZdGfHpR1XvN4lZg8VtYu7pKZzCTnYZ/rRJDnM0TsjZPCjVpPxuY2n9XCdZZ7VUqk5IcIDf7YWnZUAGUFPW7mGWYYeM52bZPU4Bp8r8uVLMLw/yJt0PS8tWygc07bXTLPxtE0V4ZjRBJOF9LhkLFtoPMs8jiMy7xkVBBoR2jrjLH0h5EG6oXjKwtD6t6uNvmzOVetpLmEr6gVXDrbCpj/9zKBQK0djapKkoQ2sH9OuJMAWcGZbc2CwyGeEXC2qD7OoHhrxfwX8XHWpZYQuCNTUJ6QK2JF1y8cxeuKFsMAD0fbnUiXDxS+tGgABBU/yVs17UYwWZS9S86hREH6GHZU4/a0NcodeNKpFXQGhteQ29owrsx4HPl/iV96Bcs0EVriM3jJcWl2TFg/pPibVKSt8dEQLRMOXLgNeMVKp5P1iaPiQIsl328KerDT4hz+LIrEnaY3adw92QdpH6cP5WUDadGYRuoSym0ZzmbWzorwMgl8fEsEcuqtzLlkQ1tYeh9IyGR8Ueu2o+UC43Whueet1+i3+s49oqT81ylwvMgfBPSnDLegxD6wYYVKNg2xUK0Rb7g4pQvTrIEkky5njRAAXFSXVk17Ir+rVVIyRreJ1Ly8nEfrs40gLKIFVW1BL0/WaORopIAW3FetdyJ1NSWVjDDExi1OtRU=
+  template:
+    metadata:
+      name: basic-auth
+      namespace: registry
+    type: Opaque
