@@ -150,7 +150,7 @@ harbor:
         # Set it to "-" to disable dynamic provisioning
         storageClass: "longhorn"
         subPath: ""
-        accessMode: ReadWriteOnce
+        accessMode: ReadWriteMany
         size: 50Gi
         annotations: {}
       jobservice:
@@ -158,7 +158,7 @@ harbor:
           existingClaim: ""
           storageClass: "longhorn"
           subPath: ""
-          accessMode: ReadWriteOnce
+          accessMode: ReadWriteMany
           size: 1Gi
           annotations: {}
       # If external database is used, the following settings for database will
@@ -183,7 +183,7 @@ harbor:
         existingClaim: ""
         storageClass: "longhorn"
         subPath: ""
-        accessMode: ReadWriteOnce
+        accessMode: ReadWriteMany
         size: 5Gi
         annotations: {}
     # Define which storage backend is used for registry to store
