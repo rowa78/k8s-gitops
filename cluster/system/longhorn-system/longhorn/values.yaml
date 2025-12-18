@@ -23,7 +23,7 @@ longhorn:
     defaultDataLocality: best-effort
     removeSnapshotsDuringFilesystemTrim: "enabled"
   defaultSettings:    
-    defaultDataPath: /var/lib/longhorn
+    defaultDataPath: /var/mnt/longhorn
     #createDefaultDiskLabeledNodes: "true"
     defaultReplicaCount: 1
     defaultDataLocality: best-effort
