@@ -20,7 +20,7 @@ ports:
   port: 8006
 endpoints:
 - addresses:
-  - 192.168.0.202
+  - 192.168.0.201
   conditions: {}
 ---
 apiVersion: networking.k8s.io/v1
@@ -28,7 +28,7 @@ kind: Ingress
 metadata:
   name: lan-service-pve
   annotations:
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    #nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     cert-manager.io/cluster-issuer: letsencrypt-production
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
 spec:
