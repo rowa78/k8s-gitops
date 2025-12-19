@@ -28,7 +28,7 @@ kind: Ingress
 metadata:
   name: lan-service-pve
   annotations:
-    #nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     cert-manager.io/cluster-issuer: letsencrypt-production
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
 spec:
