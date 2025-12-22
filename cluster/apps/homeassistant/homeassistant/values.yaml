@@ -183,7 +183,7 @@ home-assistant:
       name: setup-config
       image: mikefarah/yq:4
       securityContext:
-        runAsUser: 0
+        runAsUser: 1000
       command: ["/bin/sh", "-c"]
       args:
       - /bin/sh /mnt/init/init.sh
