@@ -9,7 +9,7 @@ home-assistant:
   # Environment variables
   env: 
   - name: TZ
-    value: Europe/Prague
+    value: Europe/Berlin
   # - name: SOME_VAR_FROM_CONFIG_MAP
   #   valueFrom:
   #     configMapRef:
@@ -27,6 +27,11 @@ home-assistant:
   #     name: config-map-name
   # - secretRef:
   #     name: secret-name
+
+  podSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
 
   hostPort:
     # Enable 'hostPort' or not
