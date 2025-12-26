@@ -1,0 +1,17 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: traefik-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - 10.0.0.2/32  # Eine IP für Traefik
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: traefik-l2
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - traefik-pool
