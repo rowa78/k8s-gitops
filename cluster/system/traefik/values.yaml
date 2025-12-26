@@ -844,7 +844,7 @@ traefik:
       # The port protocol (TCP/UDP)
       protocol: TCP
       # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
-      nodePort:  # @schema type:[integer, null]; minimum:0
+      nodePort: 30080 # @schema type:[integer, null]; minimum:0
       redirections:
         # -- Port Redirections
         # Added in 2.2, one can make permanent redirects via entrypoints.
@@ -894,7 +894,7 @@ traefik:
       ## -- The port protocol (TCP/UDP)
       protocol: TCP
       # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
-      nodePort:  # @schema type:[integer, null]; minimum:0
+      nodePort: 30443 # @schema type:[integer, null]; minimum:0
       # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#application-protocol)
       appProtocol:  # @schema type:[string, null]
       # -- See [upstream documentation](https://doc.traefik.io/traefik/routing/entrypoints/#allowacmebypass)
@@ -1093,7 +1093,7 @@ traefik:
   # To prevent unschedulable pods due to port collisions, if hostNetwork=true
   # and replicas>1, a pod anti-affinity is recommended and will be set if the
   # affinity is left as default.
-  hostNetwork: true
+  hostNetwork: false
 
   # -- Whether Role Based Access Control objects like roles and rolebindings should be created
   rbac:  # @schema additionalProperties: false
