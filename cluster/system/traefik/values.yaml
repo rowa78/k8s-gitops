@@ -319,7 +319,7 @@ traefik:
         enabled: true
         # -- Override path of Kubernetes Service used to copy status from. Format: namespace/servicename.
         # Default to Service deployed with this Chart.
-        pathOverride: ""
+        pathOverride: "traefik/traefik"
       # -- Defines whether to use Native Kubernetes load-balancing mode by default.
       nativeLBByDefault: false
       # -- Defines whether to make prefix matching strictly comply with the Kubernetes Ingress specification.
