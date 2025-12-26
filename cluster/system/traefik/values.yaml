@@ -1028,7 +1028,10 @@ traefik:
     # - 172.16.0.0/16
     ## -- Class of the load balancer implementation
     # loadBalancerClass: service.k8s.aws/nlb
-    externalIPs: []
+    externalIPs:       
+      - 10.0.0.23  # Node 1 IP
+      - 10.0.0.21  # Node 2 IP
+      - 10.0.0.22  # Node 3 IP
     # - 1.2.3.4
     ## One of SingleStack, PreferDualStack, or RequireDualStack.
     # ipFamilyPolicy: SingleStack
