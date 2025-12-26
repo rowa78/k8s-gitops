@@ -155,7 +155,7 @@ argo-cd:
         gethomepage.dev/name: ArgoCD        
         gethomepage.dev/pod-selector: ""
 
-      #ingressClassName: nginx
+      ingressClassName: traefik
       hostname: "argocd.rwcloud.org"
       tls: true
     metrics:
