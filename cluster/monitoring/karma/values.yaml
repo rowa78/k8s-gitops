@@ -9,7 +9,7 @@ karma:
       value: https://alertmanager.rwcloud.org
   ingress:
     enabled: true
-    ingressClassName: nginx
+    ingressClassName: traefik
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
       nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.rwcloud.org/oauth2/start?rd=$scheme://$host$request_uri

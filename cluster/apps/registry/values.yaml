@@ -134,7 +134,7 @@ docker-registry-ui:
       # Determines the interpretation of the Path matching, must be Prefix to serve assets.
       pathType: Prefix
       # The name of an IngressClass cluster resource.
-      ingressClassName: nginx
+      ingressClassName: traefik
       # TLS configuration
       tls:
       - secretName: registry-tls

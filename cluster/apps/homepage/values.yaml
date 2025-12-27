@@ -41,7 +41,7 @@ homepage:
         # This should be the in-cluster DNS name for the authentik outpost service
         # as when the external URL is specified here, nginx will overwrite some crucial headers
 
-      ingressClassName: "nginx"
+      ingressClassName: "traefik"
       hosts:
         - host: &host "start.rwcloud.org"
           paths:

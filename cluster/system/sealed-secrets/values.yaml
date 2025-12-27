@@ -612,7 +612,7 @@ sealed-secrets-web:
     enabled: true
 
     # -- Ingress class name
-    className: "nginx"
+    className: "traefik"
 
     # -- Ingress annotations
     annotations: 
