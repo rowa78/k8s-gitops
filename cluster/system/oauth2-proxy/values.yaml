@@ -35,7 +35,7 @@ oauth2-proxy:
       email_domains=["*"]
       # Upstream config
       upstreams = ["static://200"]
-      
+
       cookie_domains=[".rwcloud.org"]
       cookie_secure=true
       cookie_refresh = "2m"
@@ -47,6 +47,8 @@ oauth2-proxy:
       pass_user_headers = true
       set_authorization_header = true
       set_xauthrequest = true
+
+      reverse_proxy=true
 
     # Custom configuration file: oauth2_proxy.cfg
     # configFile: |-
