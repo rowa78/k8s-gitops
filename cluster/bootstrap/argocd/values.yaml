@@ -154,6 +154,7 @@ argo-cd:
         gethomepage.dev/icon: https://argo-cd.readthedocs.io/en/stable/assets/logo.png
         gethomepage.dev/name: ArgoCD        
         gethomepage.dev/pod-selector: ""
+        traefik.ingress.kubernetes.io/service.serversscheme: http
 
       ingressClassName: traefik
       hostname: "argocd.rwcloud.org"
