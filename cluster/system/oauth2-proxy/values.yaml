@@ -36,10 +36,16 @@ oauth2-proxy:
       # Upstream config
       cookie_domains=[".rwcloud.org"]
       cookie_secure=true
+      cookie_refresh = "2m"
+      cookie_expire = "24h"
       scope="openid"      
       whitelist_domains=[".rwcloud.org"]      
-      reverse_proxy=true
-      skip_auth_preflight=true
+      pass_access_token = true
+      pass_authorization_header = true
+      pass_user_headers = true
+      set_authorization_header = true
+      set_xauthrequest = true
+
     # Custom configuration file: oauth2_proxy.cfg
     # configFile: |-
     #   pass_basic_auth = false
