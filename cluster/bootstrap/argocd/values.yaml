@@ -145,7 +145,7 @@ argo-cd:
       policy.csv: |
         g, plattform-admins, role:admin
     ingress:
-      enabled: true
+      enabled: false
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production        
         gethomepage.dev/enabled: "true"
@@ -154,8 +154,6 @@ argo-cd:
         gethomepage.dev/icon: https://argo-cd.readthedocs.io/en/stable/assets/logo.png
         gethomepage.dev/name: ArgoCD        
         gethomepage.dev/pod-selector: ""
-        traefik.ingress.kubernetes.io/service.serversscheme: http
-
       ingressClassName: traefik
       hostname: "argocd.rwcloud.org"
       tls: true
