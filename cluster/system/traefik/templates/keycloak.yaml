@@ -1,47 +1,67 @@
+###############################################################################
+# Service
+###############################################################################
 apiVersion: v1
 kind: Service
 metadata:
   name: keycloak-service
+  namespace: default
 spec:
   ports:
-  - port: 9091
-    targetPort: 9091
-  clusterIP: None
+    - name: http
+      port: 9091
+      protocol: TCP
+      targetPort: 9091
 ---
-apiVersion: discovery.k8s.io/v1
-kind: EndpointSlice
+###############################################################################
+# Endpoints (externes LAN-Ziel)
+###############################################################################
+apiVersion: v1
+kind: Endpoints
 metadata:
   name: keycloak-service
-  labels:
-    kubernetes.io/service-name: keycloak-service
-addressType: IPv4
-ports:
-- name: http
-  port: 9091
-endpoints:
-- addresses:
-  - 192.168.0.3
-  conditions: {}
+  namespace: default
+subsets:
+  - addresses:
+      - ip: 192.168.0.3
+    ports:
+      - name: http
+        port: 9091
+        protocol: TCP
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+###############################################################################
+# Certificate (cert-manager)
+###############################################################################
+apiVersion: cert-manager.io/v1
+kind: Certificate
 metadata:
-  name: lan-service-keycloak
-  annotations:    
-    cert-manager.io/cluster-issuer: letsencrypt-production
+  name: auth-cert
+  namespace: default
 spec:
-  rules:
-  - host: auth.rwcloud.org
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: keycloak-service
-            port:
-              number: 9091
-  tls:
-  - hosts:
+  secretName: auth-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
     - auth.rwcloud.org
+---
+###############################################################################
+# Traefik IngressRoute
+###############################################################################
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: keycloak
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`auth.rwcloud.org`)
+      services:
+        - name: keycloak-service
+          port: 9091
+          scheme: http
+  tls:
     secretName: auth-tls
