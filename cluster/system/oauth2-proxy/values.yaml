@@ -34,6 +34,8 @@ oauth2-proxy:
       code_challenge_method="S256"
       email_domains=["*"]
       # Upstream config
+      upstreams = ["static://200"]
+      
       cookie_domains=[".rwcloud.org"]
       cookie_secure=true
       cookie_refresh = "2m"
