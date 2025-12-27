@@ -53,7 +53,9 @@ oauth2-proxy:
     # Use an existing config map (see configmap.yaml for required fields)
     # Example:
     # existingConfig: config
-
+  extraArgs:
+    - --skip-provider-button
+    - --reverse-proxy 
   ingress:
     enabled: true
     className: traefik
