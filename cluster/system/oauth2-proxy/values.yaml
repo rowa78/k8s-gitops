@@ -39,6 +39,7 @@ oauth2-proxy:
       scope="openid"      
       whitelist_domains=[".rwcloud.org"]      
       reverse_proxy=true
+      skip_auth_preflight=true
     # Custom configuration file: oauth2_proxy.cfg
     # configFile: |-
     #   pass_basic_auth = false
