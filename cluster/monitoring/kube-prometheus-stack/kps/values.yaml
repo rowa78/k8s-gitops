@@ -288,7 +288,7 @@ kube-prometheus-stack:
         - job_name: 'haproxy'
           scrape_interval: 30s
           static_configs:
-            - targets: ['192.168.1.1:8405']
+            - targets: ['192.168.1.2:8405']
               labels:
                 instance: 'haproxy'
                 job: 'haproxy'
