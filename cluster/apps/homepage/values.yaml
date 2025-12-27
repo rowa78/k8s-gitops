@@ -31,8 +31,8 @@ homepage:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
         traefik.ingress.kubernetes.io/router.middlewares: >
-          default-oauth2-auth@kubernetescrd,
-          default-oauth2-signin@kubernetescrd
+          oauth2-proxy-oauth2-auth@kubernetescrd,
+          oauth2-proxy-oauth2-signin@kubernetescrd
         #nginx.ingress.kubernetes.io/auth-method: GET
         #nginx.ingress.kubernetes.io/auth-url: https://auth.rwcloud.org/api/verify
         #nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org?rm=$request_method
