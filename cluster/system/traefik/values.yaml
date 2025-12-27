@@ -3,7 +3,7 @@ traefik:
     # -- Enable deployment
     enabled: true
     # -- Deployment or DaemonSet
-    kind: DaemonSet
+    kind: Deployment
   service:
     type: LoadBalancer
     # -- Additional annotations applied to both TCP and UDP services (e.g. for cloud provider specific config)
