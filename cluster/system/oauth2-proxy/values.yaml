@@ -34,10 +34,11 @@ oauth2-proxy:
       code_challenge_method="S256"
       email_domains=["*"]
       # Upstream config
-      cookie_domains=["rwcloud.org"]
+      cookie_domains=[".rwcloud.org"]
       cookie_secure=true
       scope="openid"      
       whitelist_domains=[".rwcloud.org"]      
+      reverse_proxy=true
     # Custom configuration file: oauth2_proxy.cfg
     # configFile: |-
     #   pass_basic_auth = false
