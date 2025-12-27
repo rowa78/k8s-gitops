@@ -90,9 +90,8 @@ kube-prometheus-stack:
       ingressClassName: traefik
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
-        nginx.ingress.kubernetes.io/auth-method: GET
-        nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.rwcloud.org/oauth2/start?rd=$scheme://$host$request_uri
-        nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.oauth2-proxy.svc.cluster.local/oauth2/auth
+        traefik.ingress.kubernetes.io/router.middlewares: >
+          oauth2-proxy-oauth2-auth@kubernetescrd
         gethomepage.dev/enabled: "true"
         gethomepage.dev/description: Alertmanager
         gethomepage.dev/group: System
@@ -121,11 +120,9 @@ kube-prometheus-stack:
       enabled: true
       ingressClassName: traefik
       annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-production
-        nginx.ingress.kubernetes.io/affinity: "cookie"
-        nginx.ingress.kubernetes.io/auth-method: GET
-        nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.rwcloud.org/oauth2/start?rd=$scheme://$host$request_uri
-        nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.oauth2-proxy.svc.cluster.local/oauth2/auth
+        cert-manager.io/cluster-issuer: letsencrypt-production        
+        traefik.ingress.kubernetes.io/router.middlewares: >
+          oauth2-proxy-oauth2-auth@kubernetescrd
         gethomepage.dev/enabled: "true"
         gethomepage.dev/description: Grafana
         gethomepage.dev/group: System
@@ -328,8 +325,8 @@ kube-prometheus-stack:
       ingressClassName: traefik
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
-        nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.rwcloud.org/oauth2/start?rd=$scheme://$host$request_uri
-        nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.oauth2-proxy.svc.cluster.local/oauth2/auth
+        traefik.ingress.kubernetes.io/router.middlewares: >
+          oauth2-proxy-oauth2-auth@kubernetescrd
         gethomepage.dev/enabled: "true"
         gethomepage.dev/description: Prometheus
         gethomepage.dev/group: System

@@ -12,8 +12,8 @@ karma:
     ingressClassName: traefik
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
-      nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.rwcloud.org/oauth2/start?rd=$scheme://$host$request_uri
-      nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.oauth2-proxy.svc.cluster.local/oauth2/auth
+      traefik.ingress.kubernetes.io/router.middlewares: >
+        oauth2-proxy-oauth2-auth@kubernetescrd
       gethomepage.dev/enabled: "true"
       gethomepage.dev/description: Karma Dashboard
       gethomepage.dev/group: System
@@ -21,8 +21,6 @@ karma:
       gethomepage.dev/name: Karma
       gethomepage.dev/app: karma
       gethomepage.dev/pod-selector: ""
-    #  nginx.ingress.kubernetes.io/auth-url: "https://auth.rwcloud.org/oauth2/auth"
-    #  nginx.ingress.kubernetes.io/auth-signin: https://auth.rwcloud.org/oauth2/start
     hosts:
       - &host karma.rwcloud.org
     path: /

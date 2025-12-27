@@ -162,9 +162,7 @@ open-webui:
 
   ingress:
     enabled: true
-    class: "traefik"
-    # -- Use appropriate annotations for your Ingress controller, e.g., for NGINX:
-    # nginx.ingress.kubernetes.io/rewrite-target: /
+    class: "traefik"    
     annotations: 
       cert-manager.io/cluster-issuer: letsencrypt-production
       gethomepage.dev/enabled: "true"
