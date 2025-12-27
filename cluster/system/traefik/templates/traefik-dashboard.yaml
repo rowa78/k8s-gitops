@@ -1,0 +1,33 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: traefik-dashboard-tls
+  namespace: traefik
+spec:
+  secretName: traefik-dashboard-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - traefik.rwcloud.org
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard
+  namespace: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`traefik-dashboard.rwcloud.org`)
+      priority: 10
+      middlewares:
+        - name: oauth2-auth
+          namespace: oauth2-proxy
+      services:
+        - name: api@internal
+          kind: TraefikService
+  tls:
+    secretName: traefik-dashboard-tls
