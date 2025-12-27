@@ -21,7 +21,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`traefik-dashboard.rwcloud.org`)
+      match: Host(`traefik.rwcloud.org`)
       priority: 10
       middlewares:
         - name: oauth2-auth
