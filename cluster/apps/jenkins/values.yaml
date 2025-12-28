@@ -535,8 +535,7 @@ jenkins:
       # Ignored if securityRealm is defined in controller.JCasC.configScripts
       # -- Jenkins Config as Code Security Realm-section
       securityRealm: |-
-        oic:
-          allowedTokenExpirationClockSkewSeconds: 0
+        oic:          
           clientId: "jenkins"
           clientSecret: "${openid-client-secret}"
           disableSslVerification: false
@@ -550,7 +549,7 @@ jenkins:
           userIdStrategy: "caseSensitive"
           userNameField: "preferred_username"
 
-#escapeHatchSecret: "{AQAAABAAAABAR1QbNv47+dZ/0Jz3ZN/b4n2GLXFo5UpkzJA180BTyq0eZtp7jSHUCKCLS7S7mYpTxSaBHK/CMaiUJjGT7KEUgqTwkrXGkeUU6OOMzeATbX0=}"
+      #escapeHatchSecret: "{AQAAABAAAABAR1QbNv47+dZ/0Jz3ZN/b4n2GLXFo5UpkzJA180BTyq0eZtp7jSHUCKCLS7S7mYpTxSaBHK/CMaiUJjGT7KEUgqTwkrXGkeUU6OOMzeATbX0=}"
       # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
       # -- Jenkins Config as Code Authorization Strategy-section
       authorizationStrategy: |-
