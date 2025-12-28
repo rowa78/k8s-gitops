@@ -43,10 +43,10 @@ spec:
 
   storage:
     size: 20Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: longhorn
   walStorage:
     size: 5Gi
-    storageClass: openebs-zfs-postgres
+    storageClass: longhorn
 
   plugins:
   - name: barman-cloud.cloudnative-pg.io
