@@ -762,7 +762,9 @@ jenkins:
       # For Kubernetes v1.19+, use 'networking.k8s.io/v1'
       apiVersion: "extensions/v1beta1"
       labels: {}
-      annotations: {}
+      annotations: 
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.tls: "true"
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
       # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
