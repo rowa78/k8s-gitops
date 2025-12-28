@@ -729,6 +729,7 @@ jenkins:
         gethomepage.dev/icon: jenkins.png
         gethomepage.dev/name: Jenkins
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.middlewares: jenkins-jenkins-forwarded-headers@kubernetescrd
         traefik.ingress.kubernetes.io/router.tls: "true"
         # kubernetes.io/ingress.class: nginx
         # kubernetes.io/tls-acme: "true"
