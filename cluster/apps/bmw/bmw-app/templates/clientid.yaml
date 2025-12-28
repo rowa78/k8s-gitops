@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: bmw
+  namespace: bmw
+spec:
+  encryptedData:
+    clientid: AgA0dKZWzXrZuswLksg1c58+Xmk0Be3jhzT/1udJizuteRG/nHN0YpcLfNrFdeErnsnkfivXj9aHA6hzjy0MKjJCbLJb+mNKqudyYONzsxYvSuyxK9k5f62DEsgm6lrihedlA+2OH6Fdx5WfcrQkX8rrjODhsBq+7MogRScfZHusswlaP4YzbENHmsjNpiH/6lpTPbcm6wTJ17xCGSH5jIfZr9hPqNcW0vIuq9R9R9TaFdtzXrIWgSbfIj1zqA00zW8OIkbdbryS5RXCtJKR7EgY1ICA7eYiwnebBBg1BZaPPpaLM05wO20kS/2ON1hl7l5sngPZ6Ku3u9hkYHLhfnYkCf/VEPcJjLn++8YK/32SGg4By+7W6RUsTP8CbwO+vXuSNISMMvWWKVODhnAXaxdj73bnMza0XYPN++BQUMJTcMo9cWysXvfCtdv6+ewQByIwEzLV954PZ55LaCqmkmA6Y40tgW5j4Qd0C3ag/UDzZXor7bor24PxXi35cjtzqtSPmnEVlLoa+hcHnYiq2nOBccwjOXmHQd/n+mihC8jSJv2+U86MZXvjTMrD1g4emp9QU8pY5Ip1RiFACCxSPbRGz2MZ1u0xcYvpuRVWq4dkJnwlIVAVPI+CvmckJn19NXbKtlZzDaV4ynFonmv95cCTak/xqyySyZd2GcFOns1iHUM3zOJMGCCXUqyajCzNY6D47I7x5Bzt2ptO1FoTqH26v2R06gUUGR6/oJIz2jZbQWSp9LU=
+  template:
+    metadata:
+      name: bmw
+      namespace: bmw
+    type: Opaque
