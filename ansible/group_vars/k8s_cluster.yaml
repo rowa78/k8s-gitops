@@ -45,11 +45,11 @@ rke2_kubevip_cloud_provider_enable: false
 rke2_kubevip_svc_enable: false
 
 rke2_cluster_cidr:
-  - 10.42.0.0/16,2001:cafe:42::/56
+  - 10.42.0.0/16,fd00:10:42::/48
 
 # default service network range for rke2
 rke2_service_cidr:
-  - 10.43.0.0/16,2001:cafe:43::/112
+  - 10.43.0.0/16,fd00:10:43::/112
 
 #rke2_server_options:
 #  - "node-ip: {{ hostvars[inventory_hostname]['ansible_' + rke2_interface]['ipv4']['address'] }},{{ hostvars[inventory_hostname]['ansible_' + rke2_interface]['ipv6'][0]['address'] }}"

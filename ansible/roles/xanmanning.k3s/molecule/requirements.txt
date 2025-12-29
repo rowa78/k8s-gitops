@@ -1,0 +1,5 @@
+-r ../requirements.txt
+
+molecule-plugins[docker]
+docker>=7.1.0
+netaddr>=1.3.0

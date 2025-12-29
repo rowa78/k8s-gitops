@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: deconz-vnc
+  namespace: homeassistant
+spec:
+  encryptedData:
+    password: AgCQJH5pwxXVceF6djCAUEydCydIaafGBFr9HHNSGKtsPRH15k44vz7mN6ZGkY/Mdj8eiOovzW2hsatFQxb3yEOl6SeXwNZkJQzQbt4ApesOCJNxUJJHH0hlutyoGFSbE3azLxAxVlEVylfcKuI+VaFuEl5XR7oplKX8UJGkGRAwhBcX/KtEL5BRoRRQzS8bJlzovU/wQnXiGNHSTSsZ7WHrLkQs/Gm/PD6PkZUgthrKVyCPup8/2FHjIH0Ug2T/Qn3P7Xb1pcsjaS1PMysxkb0jRT4lxHclTVHunYsXNYILzYP4pACqaAiNM+XSnCi2wWXuzFBktwARtaARZ++FigsVRxCr6H85mFTKrKLi0eWD1e2luxTxnqt4OIGB8jQT49J8nn+DIWF5ETU3kcy0Ie71yhJ+uOTMgcXEkTwHIbFQ3QiX8p/KuzhTS0TdDle26noM/STOZR5OmSQPW4n1eYJhwKAwTjI821qks8NgmPK5lkdY4FE0KUU1fgp1BZZcwRhgBEf0fnsxZ3Lxbzu3GT9vZTIbHf2KP7l4mlA1vwjzy2FvQw6CLfVuEn74cTroWOzjF7Wd3V53d29muC8cim7+qzzm70ihsr1FUrGFHY2yMiWLEYuQpfiDsF3CBhx80Y1Pmct7w6UCuZ2XnSB+3/0RLXu4q81yfTjKnwF3c5430jzMhJHj6WzsbzX6hd9VuGGZS0vLmNISTHCvABUJDEtk
+  template:
+    metadata:
+      name: deconz-vnc
+      namespace: homeassistant
+    type: Opaque

@@ -1,0 +1,6 @@
+ansible_user: ronny
+ansible_host: terra
+ansible_sudo_pass: "{{ lookup('env','TERRA_SUDO_PASS') }}"
+
+rke2_type: server
+k3s_control_node: true
