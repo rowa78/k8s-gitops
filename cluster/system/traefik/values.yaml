@@ -20,7 +20,7 @@ traefik:
     websecure:
       proxyProtocol:
         trustedIPs:
-          - 192.168.1.2/32
+          - 192.168.0.0/16
           - fd00:2222::/64
   
   ingressRoute:
