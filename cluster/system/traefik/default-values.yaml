@@ -136,7 +136,10 @@ experimental:
     # -- Enable traefik experimental GatewayClass CRD
     enabled: false
   # -- Enable experimental plugins
-  plugins: {}
+  plugins: 
+    geoblock:
+      moduleName: "github.com/PascalMinder/geoblock"
+      version: "v0.3.3"
   # -- Enable experimental local plugins
   localPlugins: {}
   # -- Enable OTLP logging experimental feature.
