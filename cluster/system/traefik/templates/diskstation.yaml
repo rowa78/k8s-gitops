@@ -51,6 +51,12 @@ kind: IngressRoute
 metadata:
   name: diskstation
   namespace: default
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Rancher
+    gethomepage.dev/group: System
+    gethomepage.dev/icon: synology-dark.png
+    gethomepage.dev/name: Diskstation
 spec:
   entryPoints:
     - websecure
