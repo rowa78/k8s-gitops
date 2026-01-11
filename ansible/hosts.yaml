@@ -1,16 +1,17 @@
 all:
   children:         
-    k3s_server:
+    masters:
       hosts: 
-        terra:
-        mars:
-    k3s_agent:
+        k8s-01:
+        k8s-02:
+        k8s-03:
+    workers:
       hosts:
         # worker01:
         # worker02:
         # worker03:
         # worker04:        
-    k3s_cluster:
+    k8s_cluster:
       children:
-        k3s_server:
-        k3s_agent:    
+        masters:
+        workers:    

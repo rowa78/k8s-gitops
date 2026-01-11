@@ -16,7 +16,7 @@ rke2_ha_mode_kubevip: true
 # In HA mode choose a static IP which will be set as VIP in keepalived.
 # Or if the keepalived is disabled, use IP address of your LB.
 #rke2_api_ip: "{{ hostvars[groups[rke2_servers_group_name].0]['ansible_default_ipv4']['address'] }}"
-rke2_api_ip: 192.168.0.250
+rke2_api_ip: 192.168.1.1
 
 # optional option for RKE2 Server to listen on a private IP address on port 9345
 # rke2_api_private_ip:
@@ -25,7 +25,7 @@ rke2_api_ip: 192.168.0.250
 # rke2_api_cidr: 24
 
 # optional option for kubevip
-# rke2_interface: eth0
+rke2_interface: eth0
 # optional option for IPv4/IPv6 addresses to advertise for node
 #rke2_bind_address: "{{ hostvars[inventory_hostname]['ansible_' + rke2_interface]['ipv4']['address'] }}"
 
@@ -39,10 +39,10 @@ rke2_loadbalancer_ip_range: {}
 #  cidr-finance: 192.168.0.220/29,192.168.0.230/29
 
 # Install kubevip cloud provider if rke2_ha_mode_kubevip is true
-rke2_kubevip_cloud_provider_enable: false
+rke2_kubevip_cloud_provider_enable: true
 
 # Enable kube-vip to watch Services of type LoadBalancer
-rke2_kubevip_svc_enable: false
+rke2_kubevip_svc_enable: true
 
 rke2_cluster_cidr:
   - 10.42.0.0/16,fd00:10:42::/48
@@ -52,8 +52,8 @@ rke2_service_cidr:
   - 10.43.0.0/16,fd00:10:43::/112
 
 #rke2_server_options:
-#  - "node-ip: {{ hostvars[inventory_hostname]['ansible_' + rke2_interface]['ipv4']['address'] }},{{ hostvars[inventory_hostname]['ansible_' + rke2_interface]['ipv6'][0]['address'] }}"
-  # - "kube-proxy-arg: ['nodeport-addresses=10.0.1.0/24,fd00::/8']"
+  #- "node-ip: {{ hostvars[inventory_hostname]['ansible_' + rke2_interface]['ipv4']['address'] }},{{ hostvars[inventory_hostname]['ansible_' + rke2_interface]['ipv6'][0]['address'] }}"
+ # - "kube-proxy-arg: ['nodeport-addresses=10.0.1.0/24,fd00::/8']"
   # - "kubelet-arg: ['max-pods=250']"
 
 # Do not deploy packaged components and delete any deployed components

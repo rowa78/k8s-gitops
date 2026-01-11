@@ -1,0 +1,9 @@
+ansible_user: ronny
+ansible_host: k8s-01
+ansible_sudo_pass: "{{ lookup('env','TERRA_SUDO_PASS') }}"
+
+rke2_type: server
+
+rke2_server_options:  
+  - "node-ip: 192.168.1.30,fd00:2222::be24:11ff:fec9:b15c"
+  - "advertise-address: 192.168.1.30"
