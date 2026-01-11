@@ -23,7 +23,7 @@ traefik:
           - 192.168.0.0/16
           - fd00:2222::/64
       middlewares:
-        - my-GeoBlock:
+        - geblock:
             plugin:
               geoblock:
                 silentStartUp: false
