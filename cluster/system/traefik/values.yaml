@@ -22,26 +22,6 @@ traefik:
         trustedIPs:
           - 192.168.0.0/16
           - fd00:2222::/64
-      middlewares:
-        - geblock:
-            plugin:
-              geoblock:
-                silentStartUp: false
-                allowLocalRequests: true
-                logLocalRequests: false
-                logAllowedRequests: false
-                logApiRequests: false
-                api: "https://get.geojs.io/v1/ip/country/{ip}"
-                apiTimeoutMs: 500
-                cacheSize: 25
-                forceMonthlyUpdate: true
-                allowUnknownCountries: false
-                unknownCountryApiResponse: "nil"
-                countries:
-                  - DE
-                excludedPathPatterns:
-                  - "^[^/]+/health$"
-                  - "^[^/]+/status$"
   
   ingressRoute:
     dashboard:

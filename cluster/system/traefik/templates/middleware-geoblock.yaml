@@ -1,0 +1,24 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: geblock
+  namespace: traefik
+spec:
+  plugin:
+    geoblock:
+      silentStartUp: false
+      allowLocalRequests: true
+      logLocalRequests: false
+      logAllowedRequests: false
+      logApiRequests: false
+      api: "https://get.geojs.io/v1/ip/country/{ip}"
+      apiTimeoutMs: 500
+      cacheSize: 25
+      forceMonthlyUpdate: true
+      allowUnknownCountries: false
+      unknownCountryApiResponse: "nil"
+      countries:
+        - DE
+      excludedPathPatterns:
+        - "^[^/]+/health$"
+        - "^[^/]+/status$"
