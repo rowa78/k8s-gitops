@@ -54,10 +54,9 @@ metadata:
   annotations:
     gethomepage.dev/href: "https://ds.ronnywalter.de"
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/description: Rancher
+    gethomepage.dev/description: Diskstation
     gethomepage.dev/group: System
-    gethomepage.dev/icon: synology-dark.png
-    gethomepage.dev/name: Diskstation
+    gethomepage.dev/icon: synology.png
 spec:
   entryPoints:
     - websecure
