@@ -13,10 +13,10 @@ spec:
 
   resources:
     requests:
-      memory: "500m"
+      memory: "100m"
       cpu: "100m"
     limits:
-      memory: "6Gi"
+      memory: "2Gi"
       cpu: "4"
   bootstrap:
     initdb:
