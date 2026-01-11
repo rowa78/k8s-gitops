@@ -49,3 +49,6 @@ traefik:
       geoblock:
         moduleName: "github.com/PascalMinder/geoblock"
         version: "v0.3.3"
+  
+  additionalArguments:
+  - "--entrypoints.websecure.http.middlewares=traefik-geblock@kubernetescrd"
