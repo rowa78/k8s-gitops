@@ -1,4 +1,4 @@
-{{- if .Values.createSecret }}
+{{- if .Values.createCertificate }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:

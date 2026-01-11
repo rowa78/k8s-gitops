@@ -20,6 +20,7 @@
       --include-crds
       --set externalSecret=false
       --set sealedsecret=false
+      --set createCertificate=false
       {{ argocd_root_app_set_repo | default('', true) }}
   register: argocd_root_app_template_result
   changed_when: false

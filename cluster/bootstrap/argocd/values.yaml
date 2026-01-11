@@ -316,5 +316,5 @@ argo-cd:
 
 externalsecret: true
 sealedsecret: true
-createSecret: true
+createCertificate: true
 
