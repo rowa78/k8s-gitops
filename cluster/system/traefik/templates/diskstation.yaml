@@ -52,6 +52,7 @@ metadata:
   name: diskstation
   namespace: default
   annotations:
+    gethomepage.dev/href: "https://ds.ronnywalter.de"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/description: Rancher
     gethomepage.dev/group: System
