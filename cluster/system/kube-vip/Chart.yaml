@@ -3,7 +3,7 @@ apiVersion: v2
 version: 1.0.0
 dependencies:
   - name: kube-vip
-    version: "0.9.2"
+    version: "0.9.5"
     repository: https://kube-vip.github.io/helm-charts
   # - name: kube-vip-cloud-provider
   #   version: "0.2.9"
