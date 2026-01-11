@@ -36,6 +36,7 @@
           --set argo-cd.notifications.metrics.serviceMonitor.enabled=false
           --set externalsecret=false
           --set sealedsecret=false
+          --set createCertificate=false
       register: argocd_init_helm_template_result
       changed_when: false
 
