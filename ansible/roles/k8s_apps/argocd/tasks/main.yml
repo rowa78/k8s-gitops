@@ -37,6 +37,7 @@
           --set externalsecret=false
           --set sealedsecret=false
           --set createCertificate=false
+          --set createIngressRoute=false
       register: argocd_init_helm_template_result
       changed_when: false
 

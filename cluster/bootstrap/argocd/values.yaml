@@ -317,4 +317,4 @@ argo-cd:
 externalsecret: true
 sealedsecret: true
 createCertificate: true
-
+createIngressRoute: true
