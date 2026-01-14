@@ -1,7 +1,0 @@
-nfs-subdir-external-provisioner: 
-  nfs:
-    server: nfsd.fritz.box
-    path: /
-  storageClass:
-    name: nfs-client-nfsd
-    provisionerName: k8s-sigs.io/nfs-client-nfsd
