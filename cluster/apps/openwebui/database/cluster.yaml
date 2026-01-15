@@ -43,10 +43,10 @@ spec:
 
   storage:
     size: 5Gi
-    storageClass: longhorn-strict-local
+    storageClass: longhorn
   walStorage:
     size: 2Gi
-    storageClass: longhorn-strict-local
+    storageClass: longhorn
 
   plugins:
   - name: barman-cloud.cloudnative-pg.io
