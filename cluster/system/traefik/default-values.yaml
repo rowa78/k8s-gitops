@@ -998,7 +998,7 @@ tlsOptions: {}
 tlsStore: {}
 
 service:
-  enabled: true
+  enabled: false
   ## -- Single service is using `MixedProtocolLBService` feature gate.
   ## -- When set to false, it will create two Service, one for TCP and one for UDP.
   single: true
@@ -1087,7 +1087,7 @@ certificatesResolvers: {}
 # To prevent unschedulable pods due to port collisions, if hostNetwork=true
 # and replicas>1, a pod anti-affinity is recommended and will be set if the
 # affinity is left as default.
-hostNetwork: false
+hostNetwork: true
 
 # -- Whether Role Based Access Control objects like roles and rolebindings should be created
 rbac:  # @schema additionalProperties: false
