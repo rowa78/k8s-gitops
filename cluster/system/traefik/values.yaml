@@ -6,6 +6,14 @@ traefik:
     kind: DaemonSet
 
   hostNetwork: true
+
+  updateStrategy:  # @schema additionalProperties: false
+    # -- Customize updateStrategy of Deployment or DaemonSet
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1  # @schema type:[integer, string, null]
+      maxSurge: 1        # @schema type:[integer, string, null]
+
   service:
     enabled: false
     type: LoadBalancer
