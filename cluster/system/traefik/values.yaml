@@ -5,7 +5,7 @@ traefik:
     # -- Deployment or DaemonSet
     kind: DaemonSet
 
-  hostNetwork: true
+  hostNetwork: false
 
   updateStrategy:  # @schema additionalProperties: false
     # -- Customize updateStrategy of Deployment or DaemonSet
@@ -28,7 +28,12 @@ traefik:
       externalTrafficPolicy: Local
   
   ports:
+    traefik:
+      port: 8080
+      # -- Use hostPort if set.
+      hostPort:  
     websecure:
+      hostPort: 443
       proxyProtocol:
         trustedIPs:
           - 192.168.0.0/16
