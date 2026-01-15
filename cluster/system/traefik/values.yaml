@@ -36,7 +36,7 @@ traefik:
       hostPort: 443
       proxyProtocol:
         trustedIPs:
-          - 192.168.0.0/16
+          - 192.168.0.0/24
           - fd00:2222::/64
   
   ingressRoute:
