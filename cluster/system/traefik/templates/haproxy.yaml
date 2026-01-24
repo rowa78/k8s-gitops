@@ -64,6 +64,9 @@ spec:
   routes:
     - kind: Rule
       match: Host(`haproxy.rwcloud.org`) && PathPrefix(`/stats`)
+      middlewares:
+        - name: oauth2-proxy-oauth2-auth@kubernetescrd
+        - name: traefik-geblock@kubernetescrd
       services:
         - name: haproxy-service
           port: 8404
