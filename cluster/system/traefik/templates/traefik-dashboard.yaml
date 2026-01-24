@@ -29,6 +29,13 @@ kind: IngressRoute
 metadata:
   name: traefik-dashboard
   namespace: traefik
+  annotations:
+    gethomepage.dev/href: "https://traefik.rwcloud.org"
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Traefik Dashboard
+    gethomepage.dev/group: System
+    gethomepage.dev/icon: traefik.png
+    gethomepage.dev/pod-selector: ""
 spec:
   entryPoints:
     - websecure
