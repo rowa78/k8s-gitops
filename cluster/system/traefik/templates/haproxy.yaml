@@ -63,7 +63,10 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`haproxy.rwcloud.org`)
+      match: Host(`haproxy.rwcloud.org`) && PathPrefix(`/stats`)
+      middlewares:
+        - name: geblock
+          namespace: traefik
       services:
         - name: haproxy-service
           port: 8404
