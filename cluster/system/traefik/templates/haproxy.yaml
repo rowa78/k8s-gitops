@@ -67,8 +67,6 @@ spec:
       middlewares:
         - name: oauth2-auth
           namespace: oauth2-proxy
-        - name: geblock
-          namespace: traefik
       services:
         - name: haproxy-service
           port: 8404
