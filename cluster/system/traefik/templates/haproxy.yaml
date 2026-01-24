@@ -52,7 +52,7 @@ metadata:
   name: haproxy
   namespace: default
   annotations:
-    gethomepage.dev/href: "https://haproxy.rwcloud.org"
+    gethomepage.dev/href: "https://haproxy.rwcloud.org/stats"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/description: HAProxy
     gethomepage.dev/group: System
