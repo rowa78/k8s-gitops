@@ -65,8 +65,7 @@ spec:
     - kind: Rule
       match: Host(`haproxy.rwcloud.org`) && PathPrefix(`/stats`)
       middlewares:
-        - name: geblock
-          namespace: traefik
+        - name: traefik-geblock@kubernetescrd
       services:
         - name: haproxy-service
           port: 8404
