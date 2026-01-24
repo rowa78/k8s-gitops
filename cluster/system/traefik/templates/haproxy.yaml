@@ -44,6 +44,48 @@ spec:
     - haproxy.rwcloud.org
 ---
 ###############################################################################
+# Middlewares
+###############################################################################
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: oauth2-auth
+  namespace: default
+spec:
+  forwardAuth:
+    address: http://oauth2-proxy.oauth2-proxy.svc.cluster.local/oauth2/
+    trustForwardHeader: true
+    authResponseHeaders:
+      - X-Auth-Request-User
+      - X-Auth-Request-Email
+      - Authorization
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: geblock
+  namespace: default
+spec:
+  plugin:
+    geoblock:
+      silentStartUp: false
+      allowLocalRequests: true
+      logLocalRequests: false
+      logAllowedRequests: false
+      logApiRequests: false
+      api: "https://get.geojs.io/v1/ip/country/{ip}"
+      apiTimeoutMs: 500
+      cacheSize: 25
+      forceMonthlyUpdate: true
+      allowUnknownCountries: false
+      unknownCountryApiResponse: "nil"
+      countries:
+        - DE
+      excludedPathPatterns:
+        - "^[^/]+/health$"
+        - "^[^/]+/status$"
+---
+###############################################################################
 # IngressRoute
 ###############################################################################
 apiVersion: traefik.io/v1alpha1
@@ -65,8 +107,8 @@ spec:
     - kind: Rule
       match: Host(`haproxy.rwcloud.org`) && PathPrefix(`/stats`)
       middlewares:
-        - name: oauth2-proxy-oauth2-auth@kubernetescrd
-        - name: traefik-geblock@kubernetescrd
+        - name: oauth2-auth
+        - name: geblock
       services:
         - name: haproxy-service
           port: 8404
