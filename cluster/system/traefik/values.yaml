@@ -68,3 +68,4 @@ traefik:
   
   additionalArguments:
   - "--entrypoints.websecure.http.middlewares=traefik-geblock@kubernetescrd"
+  - "--providers.kubernetescrd.allowCrossNamespace=true"
