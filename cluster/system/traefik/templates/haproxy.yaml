@@ -1,0 +1,72 @@
+###############################################################################
+# Service
+###############################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: haproxy-service
+  namespace: default
+spec:
+  ports:
+    - name: http
+      port: 8404
+      targetPort: 8404
+---
+###############################################################################
+# Endpoints (statt EndpointSlice!)
+###############################################################################
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: haproxy-service
+  namespace: default
+subsets:
+  - addresses:
+      - ip: 192.168.0.225
+    ports:
+      - name: http
+        port: 8404
+---
+###############################################################################
+# Certificate
+###############################################################################
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: haproxy-cert
+  namespace: default
+spec:
+  secretName: haproxy-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - haproxy.rwcloud.org
+---
+###############################################################################
+# IngressRoute
+###############################################################################
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: haproxy
+  namespace: default
+  annotations:
+    gethomepage.dev/href: "https://haproxy.rwcloud.org"
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: HAProxy
+    gethomepage.dev/group: System
+    gethomepage.dev/icon: haproxy.png
+    gethomepage.dev/pod-selector: ""
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`haproxy.rwcloud.org`)
+      services:
+        - name: haproxy-service
+          port: 8404
+          scheme: http
+  tls:
+    secretName: haproxy-tls
