@@ -16,7 +16,7 @@ traefik:
 
   service:
     enabled: true
-    type: ClusterIP
+    type: NodePort
     # -- Additional annotations applied to both TCP and UDP services (e.g. for cloud provider specific config)
     # annotations: 
     #   kube-vip.io/loadbalancerIPs: "192.168.1.100,fd00:2222:0:0::100"
