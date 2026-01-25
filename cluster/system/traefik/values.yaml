@@ -30,9 +30,9 @@ traefik:
     traefik:
       port: 8080
       # -- Use hostPort if set.
-      hostPort:  
+      # hostPort:  
     websecure:
-      hostPort: 443
+      # hostPort: 443
       proxyProtocol:
         trustedIPs:
           - 192.168.0.0/24
