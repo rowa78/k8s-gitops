@@ -33,8 +33,8 @@ traefik:
       # -- Use hostPort if set.
       # hostPort:  
     web:
-      port: 8080
-      nodePort: 30080
+      port: 8000
+      nodePort: 30000
     websecure:
       port: 8443
       nodePort: 30443
