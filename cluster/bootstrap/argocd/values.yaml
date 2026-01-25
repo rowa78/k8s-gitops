@@ -117,6 +117,16 @@ argo-cd:
           end
         end
         return hs
+      resource.customizations.health.networking.k8s.io_Ingress: |
+        hs = {}
+        if obj.spec ~= nil and obj.spec.ingressClassName == "traefik" then
+          hs.status = "Healthy"
+          hs.message = "Ingress exposed via external HAProxy (Traefik NodePort)"
+          return hs
+        end
+        hs.status = "Progressing"
+        hs.message = "Waiting for LoadBalancer address"
+        return hs
       resource.customizations.actions.external-secrets.io_ExternalSecret: |
         discovery.lua: |
           actions = {}
