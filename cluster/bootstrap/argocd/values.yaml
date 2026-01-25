@@ -140,17 +140,7 @@ argo-cd:
           - '.spec.versions[]?.additionalPrinterColumns[]?.priority | select(. == 0)'
       resource.customizations.ignoreDifferences.config.kio.kasten.io_Policy: |
         jqPathExpressions:
-          - '.spec.actions[]?.exportParameters'     
-      resource.customizations.health.networking.k8s.io_Ingress: |
-        hs = {}
-        if obj.spec ~= nil and obj.spec.ingressClassName == "traefik" then
-          hs.status = "Healthy"
-          hs.message = "Ingress exposed via external HAProxy (Traefik NodePort)"
-          return hs
-        end
-        hs.status = "Progressing"
-        hs.message = "Waiting for LoadBalancer address"
-        return hs     
+          - '.spec.actions[]?.exportParameters'                    
     rbacConfig:
       policy.csv: |
         g, plattform-admins, role:admin
