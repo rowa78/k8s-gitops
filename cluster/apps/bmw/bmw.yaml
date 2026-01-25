@@ -40,6 +40,27 @@ spec:
     automated:
       prune: false
       selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bmw-backup
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/apps/bmw/backup
+  destination:
+    name: in-cluster
+    namespace: bmw
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
