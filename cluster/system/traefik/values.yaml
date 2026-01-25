@@ -24,8 +24,7 @@ traefik:
       - IPv4
       - IPv6
     ipFamilyPolicy: PreferDualStack
-    spec: 
-      externalTrafficPolicy: Local
+
   
   ports:
     traefik:
