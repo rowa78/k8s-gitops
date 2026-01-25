@@ -5,7 +5,7 @@ traefik:
     # -- Deployment or DaemonSet
     kind: DaemonSet
 
-  hostNetwork: true
+  hostNetwork: false
 
   updateStrategy:  # @schema additionalProperties: false
     # -- Customize updateStrategy of Deployment or DaemonSet
