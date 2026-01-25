@@ -15,7 +15,7 @@ traefik:
       maxSurge:         # @schema type:[integer, string, null]
 
   service:
-    enabled: false
+    enabled: true
     type: NodePort
     # -- Additional annotations applied to both TCP and UDP services (e.g. for cloud provider specific config)
     # annotations: 
@@ -29,10 +29,12 @@ traefik:
   ports:
     traefik:
       port: 8080
+      nodePort: 38080
       # -- Use hostPort if set.
       # hostPort:  
     websecure:
       port: 8443
+      nodePort: 38443
       # hostPort: 443
       proxyProtocol:
         trustedIPs:
@@ -40,7 +42,7 @@ traefik:
           - fd00:2222::/64
     metrics:
       port: 9101
-
+      nodePort: 39101
 
   ingressRoute:
     dashboard:
