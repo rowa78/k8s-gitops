@@ -32,7 +32,7 @@ traefik:
       # -- Use hostPort if set.
       # hostPort:  
     websecure:
-      port: 443
+      port: 8443
       # hostPort: 443
       proxyProtocol:
         trustedIPs:
