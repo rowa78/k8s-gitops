@@ -62,3 +62,21 @@ forgejo:
       enabled: true
       serviceMonitor:
         enabled: true
+
+    additionalConfigFromEnvs:
+      - name: FORGEJO__DATABASE__PASSWD
+        valueFrom:
+          secretKeyRef:
+            name: forgejodb-app
+            key: password
+      - name: FORGEJO__DATABASE__USER
+        valueFrom:
+          secretKeyRef:
+            name: forgejodb-app
+            key: username
+
+    config:
+      database: 
+        DB_TYPE: postgres
+        HOST: forgejodb-rw:5432
+        NAME: forgejodb
