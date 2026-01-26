@@ -17,7 +17,7 @@ forgejo:
   ingress:
     enabled: true
     # className: nginx
-    className:
+    className: traefik
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
       gethomepage.dev/enabled: "true"
@@ -26,7 +26,6 @@ forgejo:
       gethomepage.dev/icon: forgejo.png
       gethomepage.dev/name: Forgejo
       gethomepage.dev/pod-selector: ""
-      kubernetes.io/ingress.class: traefik
       # kubernetes.io/tls-acme: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: 0
       # kubernetes.io/ingress.class: nginx
