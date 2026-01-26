@@ -80,3 +80,7 @@ forgejo:
         DB_TYPE: postgres
         HOST: forgejodb-rw:5432
         NAME: forgejodb
+
+      oauth2_client: 
+        OPENID_CONNECT_SCOPES: profile email roles        
+        ENABLE_AUTO_REGISTRATION: true
