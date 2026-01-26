@@ -46,6 +46,9 @@ traefik:
     metrics:
       port: 9101
       nodePort: 30101
+    ssh:
+      port: 2222
+      nodeport: 32222
 
   ingressRoute:
     dashboard:
