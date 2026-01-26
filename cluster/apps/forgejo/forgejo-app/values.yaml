@@ -13,3 +13,30 @@ forgejo:
     volumeName: ''
     annotations:
       helm.sh/resource-policy: keep
+
+  ingress:
+    enabled: true
+    # className: nginx
+    className:
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Forgejo
+      gethomepage.dev/group: Apps
+      gethomepage.dev/icon: forgejo.png
+      gethomepage.dev/name: Forgejo
+      gethomepage.dev/pod-selector: ""
+      kubernetes.io/ingress.class: traefik
+      # kubernetes.io/tls-acme: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: 0
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: git.rwcloud.org
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: git-certificate-tls
+        hosts:
+        - git.rwcloud.org
