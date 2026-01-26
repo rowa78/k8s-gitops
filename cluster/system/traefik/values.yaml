@@ -48,7 +48,9 @@ traefik:
       nodePort: 30101
     ssh:
       port: 2222
-      nodeport: 32222
+      expose: true
+      exposedPort: 2222
+      protocol: TCP
 
   ingressRoute:
     dashboard:
