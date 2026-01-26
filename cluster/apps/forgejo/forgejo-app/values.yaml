@@ -84,3 +84,8 @@ forgejo:
       oauth2_client: 
         OPENID_CONNECT_SCOPES: profile email roles        
         ENABLE_AUTO_REGISTRATION: true
+
+      server:
+        SSH_PORT: 2222 # rootful image
+        SSH_LISTEN_PORT: 2222 # rootless image
+        ROOT_URL: https://git.rwcloud.org/
