@@ -51,6 +51,7 @@ traefik:
       protocol: TCP
       nodePort: 32222
       exposedPort: 2222
+      
 
   ingressRoute:
     dashboard:
