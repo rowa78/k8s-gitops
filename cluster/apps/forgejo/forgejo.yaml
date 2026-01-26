@@ -40,24 +40,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: forgejo-backup
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: apps
-  source:
-    repoURL: https://github.com/rowa78/k8s-gitops.git
-    targetRevision: main
-    path: cluster/apps/forgejo/backup
-  destination:
-    name: in-cluster
-    namespace: forgejo     
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
