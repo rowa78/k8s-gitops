@@ -1,0 +1,15 @@
+forgejo:
+  persistence:
+    enabled: true
+    create: true
+    mount: true
+    claimName: gitea-shared-storage
+    size: 50Gi
+    accessModes:
+      - ReadWriteOnce
+    labels: {}
+    storageClass: longhorn
+    subPath:
+    volumeName: ''
+    annotations:
+      helm.sh/resource-policy: keep
