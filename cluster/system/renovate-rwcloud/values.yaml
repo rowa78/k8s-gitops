@@ -10,7 +10,8 @@ renovate:
         "autodiscoverFilter": ["ronny/*"],
         "onboarding": true,
         "requireConfig": "optional",
-        "printConfig": false
+        "printConfig": false,
+        "gitAuthor": "Renovate Bot <renovate@ronnywalter.de>"
       }
   existingSecret: renovate
   nodeSelector: 
