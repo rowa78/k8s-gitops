@@ -10,11 +10,6 @@
   "dependencyDashboardTitle": "🤖 Renovate Dashboard",
   "suppressNotifications": ["prEditedNotification"],
   "rebaseWhen": "conflicted",
-  "schedule": [
-    "after 10pm every weekday",
-    "before 5am every weekday",
-    "every weekend"
-  ],
   "prConcurrentLimit": 5,
   "prCreation": "not-pending",
   "prHourlyLimit": 0,
