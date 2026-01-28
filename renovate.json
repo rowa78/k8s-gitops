@@ -1,9 +1,28 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    ":rebaseStalePrs",
+    ":disableRateLimiting"
+  ],
   "dependencyDashboard": true,
+  "dependencyDashboardTitle": "🤖 Renovate Dashboard",
+  "suppressNotifications": ["prEditedNotification"],
+  "rebaseWhen": "conflicted",
+  "schedule": [
+    "after 10pm every weekday",
+    "before 5am every weekday",
+    "every weekend"
+  ],
+  "prConcurrentLimit": 5,
+  "prCreation": "not-pending",
+  "prHourlyLimit": 0,
   "enabledManagers": [
     "helmfile",
     "kubernetes",
-    "helmv3"
+    "helmv3",
+    "ansible"
   ],
   "helmv3": {
     "fileMatch": [
@@ -20,29 +39,116 @@
       "^cluster/.*\\.yaml$"
     ]
   },
+  "ansible": {
+    "fileMatch": [
+      "^ansible/.*\\.ya?ml$"
+    ]
+  },
+  "commitMessagePrefix": "chore(deps):",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{{newValue}}}",
+  "labels": ["dependencies", "renovate"],
+  "addLabels": ["{{updateType}}"],
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "addLabels": ["priority-high"]
+  },
+  "stabilityDays": 3,
   "packageRules": [
     {
-      "matchManagers": [
-        "helmv3",
-        "helmfile"
-      ],
-      "groupName": null,
-      "group": {
-        "enabled": false
-      }
+      "description": "Kubernetes Images gruppieren nach Namespace",
+      "matchManagers": ["kubernetes"],
+      "matchDatasources": ["docker"],
+      "groupName": "kubernetes-images-{{packageName}}",
+      "additionalBranchPrefix": "k8s-"
     },
     {
-      "matchManagers": [
-        "helmv3",
-        "helmfile"
-      ],
-      "matchUpdateTypes": [
-        "patch"
-      ],
+      "description": "Helm Charts einzeln updaten",
+      "matchManagers": ["helmv3", "helmfile"],
+      "groupName": null,
+      "additionalBranchPrefix": "helm-"
+    },
+    {
+      "description": "Patch Updates automatisch mergen",
+      "matchUpdateTypes": ["patch"],
       "automerge": true,
-      "automergeType": "branch",
-      "automergeComment": "Auto-Merge für Patch-Version"
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "platformAutomerge": true,
+      "ignoreTests": false
+    },
+    {
+      "description": "Minor Updates mit kurzer Stabilität",
+      "matchUpdateTypes": ["minor"],
+      "stabilityDays": 1,
+      "automerge": false
+    },
+    {
+      "description": "Major Updates manuell prüfen",
+      "matchUpdateTypes": ["major"],
+      "stabilityDays": 7,
+      "automerge": false,
+      "labels": ["major-update", "needs-review"]
+    },
+    {
+      "description": "Sicherheitsupdates priorisieren",
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["patch"],
+      "vulnerabilitySeverity": ["HIGH", "CRITICAL"],
+      "automerge": true,
+      "stabilityDays": 0,
+      "labels": ["security", "automerge"]
+    },
+    {
+      "description": "Ansible Rollen Updates",
+      "matchManagers": ["ansible"],
+      "groupName": "ansible-dependencies",
+      "automerge": false,
+      "additionalBranchPrefix": "ansible-"
+    },
+    {
+      "description": "System Images (CoreDNS, Traefik, etc.) gemeinsam",
+      "matchManagers": ["kubernetes"],
+      "matchPackagePatterns": [
+        "^k8s\\.gcr\\.io/",
+        "^registry\\.k8s\\.io/",
+        "^coredns/",
+        "^traefik"
+      ],
+      "groupName": "system-images",
+      "automerge": false
+    },
+    {
+      "description": "ArgoCD Updates separat",
+      "matchManagers": ["kubernetes", "helmv3"],
+      "matchPackagePatterns": ["argocd"],
+      "groupName": "argocd",
+      "automerge": false,
+      "labels": ["argocd", "needs-testing"]
     }
   ],
-  "recreateWhen": "always"
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update Ansible Galaxy Rollen in requirements.yml",
+      "fileMatch": ["^ansible/requirements\\.ya?ml$"],
+      "matchStrings": [
+        "- name: (?<depName>.*?)\\n  version: [\"']?(?<currentValue>.*?)[\"']?"
+      ],
+      "datasourceTemplate": "galaxy-collection"
+    }
+  ],
+  "hostRules": [
+    {
+      "matchHost": "ghcr.io",
+      "timeout": 60000
+    }
+  ],
+  "ignoreDeps": [],
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "**/.git/**",
+    "**/.DS_Store"
+  ]
 }
