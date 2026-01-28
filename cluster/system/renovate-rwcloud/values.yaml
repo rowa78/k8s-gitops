@@ -12,7 +12,7 @@ renovate:
         "requireConfig": "optional",
         "printConfig": false,
         "gitAuthor": "Renovate Bot <renovate@ronnywalter.de>",
-        "platformAutomerge": true
+        "platformAutomerge": false
       }
   existingSecret: renovate
   nodeSelector: 
