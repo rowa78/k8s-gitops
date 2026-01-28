@@ -7,8 +7,7 @@
   "enabledManagers": [
     "helmfile",
     "kubernetes",
-    "helmv3",
-    "ansible"
+    "helmv3"
   ],
   "helmv3": {
     "fileMatch": [
