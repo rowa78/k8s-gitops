@@ -11,7 +11,7 @@
   "suppressNotifications": ["prEditedNotification"],
   "rebaseWhen": "conflicted",
   "prConcurrentLimit": 5,
-  "prCreation": "not-pending",
+  "prCreation": "immediate",
   "prHourlyLimit": 0,
   "enabledManagers": [
     "helmfile",
