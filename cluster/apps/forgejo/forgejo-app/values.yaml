@@ -74,6 +74,16 @@ forgejo:
           secretKeyRef:
             name: forgejodb-app
             key: username
+      - name: FORGEJO__MAILER__USER
+        valueFrom:
+          secretKeyRef:
+            name: forgejo-smtp
+            key: username
+      - name: FORGEJO__MAILER__PASSWD
+        valueFrom:
+          secretKeyRef:
+            name: forgejo-smtp
+            key: password
 
     config:
       database: 
@@ -98,9 +108,7 @@ forgejo:
 
       mailer:
         ENABLED: true
-        FROM: forgejo@example.com
+        FROM: git@rwcloud.org
         PROTOCOL: smtps
-        SMTP_ADDR: mail.example.com
-        SMTP_PORT: 465
-        USER: forgejo@example.com
-        PASSWD: 'geheim'
+        SMTP_ADDR: smtp.mail.me.com
+        SMTP_PORT: 465        
