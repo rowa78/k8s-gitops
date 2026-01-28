@@ -93,8 +93,7 @@
     {
       "description": "Sicherheitsupdates priorisieren",
       "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["patch"],
-      "vulnerabilitySeverity": ["HIGH", "CRITICAL"],
+      "matchUpdateTypes": ["patch", "minor"],
       "automerge": true,
       "stabilityDays": 0,
       "labels": ["security", "automerge"]
