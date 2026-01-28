@@ -11,7 +11,8 @@ renovate:
         "onboarding": true,
         "requireConfig": "optional",
         "printConfig": false,
-        "gitAuthor": "Renovate Bot <renovate@ronnywalter.de>"
+        "gitAuthor": "Renovate Bot <renovate@ronnywalter.de>",
+        "platformAutomerge": true
       }
   existingSecret: renovate
   nodeSelector: 
