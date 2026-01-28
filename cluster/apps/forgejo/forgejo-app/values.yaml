@@ -86,6 +86,8 @@ forgejo:
             key: password
 
     config:
+      APP_NAME: git.rwcloud.org
+      
       database: 
         DB_TYPE: postgres
         HOST: forgejodb-rw:5432
