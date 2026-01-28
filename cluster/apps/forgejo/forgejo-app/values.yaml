@@ -99,7 +99,7 @@ forgejo:
       mailer:
         ENABLED: true
         FROM: forgejo@example.com
-        PROTOCOL:smtps
+        PROTOCOL: smtps
         SMTP_ADDR: mail.example.com
         SMTP_PORT: 465
         USER: forgejo@example.com
