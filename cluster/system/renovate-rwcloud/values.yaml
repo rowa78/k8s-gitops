@@ -4,7 +4,7 @@ renovate:
   renovate:
     config: |
       {
-        "platform": "gitea",
+        "platform": "forgejo",
         "endpoint": "https://git.rwcloud.org/api/v1",
         "autodiscover": true,
         "autodiscoverFilter": ["ronny/*"],
