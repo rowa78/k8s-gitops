@@ -1,18 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    ":semanticCommits",
-    ":rebaseStalePrs",
-    ":disableRateLimiting"
-  ],
+  "extends": ["config:base"],
   "dependencyDashboard": true,
-  "dependencyDashboardTitle": "🤖 Renovate Dashboard",
-  "suppressNotifications": ["prEditedNotification"],
-  "rebaseWhen": "conflicted",
-  "prConcurrentLimit": 5,
-  "prCreation": "immediate",
-  "prHourlyLimit": 0,
   "enabledManagers": [
     "helmfile",
     "kubernetes",
@@ -39,110 +28,30 @@
       "^ansible/.*\\.ya?ml$"
     ]
   },
-  "commitMessagePrefix": "chore(deps):",
-  "commitMessageTopic": "{{depName}}",
-  "commitMessageExtra": "to {{{newValue}}}",
-  "labels": ["dependencies", "renovate"],
-  "addLabels": ["{{updateType}}"],
-  "vulnerabilityAlerts": {
-    "labels": ["security"],
-    "addLabels": ["priority-high"]
-  },
-  "stabilityDays": 3,
   "packageRules": [
     {
-      "description": "Kubernetes Images gruppieren nach Namespace",
-      "matchManagers": ["kubernetes"],
-      "matchDatasources": ["docker"],
-      "groupName": "kubernetes-images-{{packageName}}",
-      "additionalBranchPrefix": "k8s-"
-    },
-    {
-      "description": "Helm Charts einzeln updaten",
-      "matchManagers": ["helmv3", "helmfile"],
-      "groupName": null,
-      "additionalBranchPrefix": "helm-"
-    },
-    {
-      "description": "Patch Updates automatisch mergen",
-      "matchUpdateTypes": ["patch"],
+      "matchManagers": ["helmv3", "helmfile", "kubernetes"],
+      "matchUpdateTypes": ["minor"],
       "automerge": true,
       "automergeType": "pr",
-      "automergeStrategy": "squash",
-      "platformAutomerge": true,
-      "ignoreTests": false
+      "automergeStrategy": "squash"
     },
     {
-      "description": "Minor Updates mit kurzer Stabilität",
-      "matchUpdateTypes": ["minor"],
-      "stabilityDays": 1,
-      "automerge": false
-    },
-    {
-      "description": "Major Updates manuell prüfen",
+      "matchManagers": ["helmv3", "helmfile", "kubernetes"],
       "matchUpdateTypes": ["major"],
-      "stabilityDays": 7,
-      "automerge": false,
-      "labels": ["major-update", "needs-review"]
-    },
-    {
-      "description": "Sicherheitsupdates priorisieren",
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["patch", "minor"],
-      "automerge": true,
-      "stabilityDays": 0,
-      "labels": ["security", "automerge"]
-    },
-    {
-      "description": "Ansible Rollen Updates",
-      "matchManagers": ["ansible"],
-      "groupName": "ansible-dependencies",
-      "automerge": false,
-      "additionalBranchPrefix": "ansible-"
-    },
-    {
-      "description": "System Images (CoreDNS, Traefik, etc.) gemeinsam",
-      "matchManagers": ["kubernetes"],
-      "matchPackagePatterns": [
-        "^k8s\\.gcr\\.io/",
-        "^registry\\.k8s\\.io/",
-        "^coredns/",
-        "^traefik"
-      ],
-      "groupName": "system-images",
       "automerge": false
     },
     {
-      "description": "ArgoCD Updates separat",
-      "matchManagers": ["kubernetes", "helmv3"],
-      "matchPackagePatterns": ["argocd"],
-      "groupName": "argocd",
-      "automerge": false,
-      "labels": ["argocd", "needs-testing"]
-    }
-  ],
-  "customManagers": [
+      "matchManagers": ["ansible"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
     {
-      "customType": "regex",
-      "description": "Update Ansible Galaxy Rollen in requirements.yml",
-      "fileMatch": ["^ansible/requirements\\.ya?ml$"],
-      "matchStrings": [
-        "- name: (?<depName>.*?)\\n  version: [\"']?(?<currentValue>.*?)[\"']?"
-      ],
-      "datasourceTemplate": "galaxy-collection"
+      "matchManagers": ["ansible"],
+      "matchUpdateTypes": ["major"],
+      "automerge": false
     }
-  ],
-  "hostRules": [
-    {
-      "matchHost": "ghcr.io",
-      "timeout": 60000
-    }
-  ],
-  "ignoreDeps": [],
-  "ignorePaths": [
-    "**/node_modules/**",
-    "**/bower_components/**",
-    "**/.git/**",
-    "**/.DS_Store"
   ]
 }
