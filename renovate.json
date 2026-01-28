@@ -33,25 +33,13 @@
   "packageRules": [
     {
       "matchManagers": ["helmv3", "helmfile", "kubernetes"],
-      "matchUpdateTypes": ["minor"],
+      "matchUpdateTypes": ["patch"],
       "automerge": true,
       "automergeType": "pr",
       "automergeStrategy": "squash"
     },
     {
       "matchManagers": ["helmv3", "helmfile", "kubernetes"],
-      "matchUpdateTypes": ["major"],
-      "automerge": false
-    },
-    {
-      "matchManagers": ["ansible"],
-      "matchUpdateTypes": ["minor"],
-      "automerge": true,
-      "automergeType": "pr",
-      "automergeStrategy": "squash"
-    },
-    {
-      "matchManagers": ["ansible"],
       "matchUpdateTypes": ["major"],
       "automerge": false
     }
