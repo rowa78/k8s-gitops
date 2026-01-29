@@ -1,0 +1,72 @@
+###############################################################################
+# Service
+###############################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: terra-service
+  namespace: default
+spec:
+  ports:
+    - name: http
+      port: 8006
+      targetPort: 8006
+---
+###############################################################################
+# Endpoints (statt EndpointSlice!)
+###############################################################################
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: terra-service
+  namespace: default
+subsets:
+  - addresses:
+      - ip: 192.168.0.40
+    ports:
+      - name: http
+        port: 8006
+---
+###############################################################################
+# Certificate
+###############################################################################
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: terra-cert
+  namespace: default
+spec:
+  secretName: terra-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - terra.rwcloud.org
+---
+###############################################################################
+# IngressRoute
+###############################################################################
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: terra
+  namespace: default
+  annotations:
+    gethomepage.dev/href: "https://terra.rwcloud.org"
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: terra
+    gethomepage.dev/group: System
+    gethomepage.dev/icon: proxmox.png
+    gethomepage.dev/pod-selector: ""
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`terra.rwcloud.org`)
+      services:
+        - name: terra-service
+          port: 8006
+          scheme: http
+  tls:
+    secretName: terra-tls
