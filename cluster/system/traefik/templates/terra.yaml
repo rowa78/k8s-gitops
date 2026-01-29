@@ -67,6 +67,6 @@ spec:
       services:
         - name: terra-service
           port: 8006
-          scheme: http
+          scheme: https
   tls:
     secretName: terra-tls
