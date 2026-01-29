@@ -7,7 +7,8 @@
   "enabledManagers": [
     "helmfile",
     "kubernetes",
-    "helmv3"
+    "helmv3",
+    "helm-values"
   ],
   "helmv3": {
     "fileMatch": [
