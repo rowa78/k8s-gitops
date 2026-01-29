@@ -24,6 +24,12 @@ homepage:
       maxSurge: 25%
       maxUnavailable: 25%
 
+  env:
+  - name: HOMEPAGE_ALLOWED_HOSTS
+    # This value must be set
+    # ref: https://gethomepage.dev/installation/#homepage_allowed_hosts
+    value: start.rwcloud.org
+
   # Enable the ingress to expose Homepage to the network.
   ingress:
     main:
