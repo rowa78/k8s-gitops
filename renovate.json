@@ -32,15 +32,15 @@
   },
   "packageRules": [
     {
-      "matchManagers": ["helmv3", "helmfile", "kubernetes"],
+      "matchManagers": ["helmv3", "helmfile", "kubernetes","helm-values"],
       "matchUpdateTypes": ["patch"],
       "automerge": true,
       "automergeType": "pr",
       "automergeStrategy": "squash"
     },
     {
-      "matchManagers": ["helmv3", "helmfile", "kubernetes"],
-      "matchUpdateTypes": ["major"],
+      "matchManagers": ["helmv3", "helmfile", "kubernetes","helm-values"],
+      "matchUpdateTypes": ["major", "minor"],
       "automerge": false
     }
   ]
