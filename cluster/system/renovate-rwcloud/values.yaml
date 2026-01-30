@@ -14,10 +14,6 @@ renovate:
         "gitAuthor": "Renovate Bot <renovate@ronnywalter.de>",
         "platformAutomerge": true
       }
-  existingSecret: renovate
-  nodeSelector: 
-    kubernetes.io/arch: amd64
-
     # -- Options related to persistence
     persistence:
       cache:
@@ -27,3 +23,9 @@ renovate:
         storageClass: "longhorn"
         # -- Storage size of the cache PVC
         storageSize: "5Gi"
+
+  existingSecret: renovate
+  nodeSelector: 
+    kubernetes.io/arch: amd64
+
+
