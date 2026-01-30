@@ -1,6 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
+  "extends": [
+    "config:recommended"
+  ],
   "dependencyDashboard": true,
   "prHourlyLimit": 0,
   "prConcurrentLimit": 0,
@@ -11,36 +13,51 @@
     "helm-values"
   ],
   "helmv3": {
-    "fileMatch": [
-      "(^|/)Chart\\.yaml$"
+    "managerFilePatterns": [
+      "/(^|/)Chart\\.yaml$/"
     ]
   },
   "kubernetes": {
-    "fileMatch": [
-      "^cluster/.*\\.yaml$"
+    "managerFilePatterns": [
+      "/^cluster/.*\\.yaml$/"
     ]
   },
   "helmfile": {
-    "fileMatch": [
-      "^cluster/.*\\.yaml$"
+    "managerFilePatterns": [
+      "/^cluster/.*\\.yaml$/"
     ]
   },
   "ansible": {
-    "fileMatch": [
-      "^ansible/.*\\.ya?ml$"
+    "managerFilePatterns": [
+      "/^ansible/.*\\.ya?ml$/"
     ]
   },
   "packageRules": [
     {
-      "matchManagers": ["helmv3", "helmfile", "kubernetes","helm-values"],
-      "matchUpdateTypes": ["patch"],
+      "matchManagers": [
+        "helmv3",
+        "helmfile",
+        "kubernetes",
+        "helm-values"
+      ],
+      "matchUpdateTypes": [
+        "patch"
+      ],
       "automerge": true,
       "automergeType": "pr",
       "automergeStrategy": "squash"
     },
     {
-      "matchManagers": ["helmv3", "helmfile", "kubernetes","helm-values"],
-      "matchUpdateTypes": ["major", "minor"],
+      "matchManagers": [
+        "helmv3",
+        "helmfile",
+        "kubernetes",
+        "helm-values"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
       "automerge": false
     }
   ]
