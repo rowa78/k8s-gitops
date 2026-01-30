@@ -9,7 +9,7 @@ renovate:
         "autodiscover": true,
         "autodiscoverFilter": ["ronny/*"],
         "onboarding": true,
-        "requireConfig": "optional",
+        "requireConfig": "required",
         "printConfig": false,
         "gitAuthor": "Renovate Bot <renovate@ronnywalter.de>",
         "platformAutomerge": true
@@ -18,22 +18,12 @@ renovate:
   nodeSelector: 
     kubernetes.io/arch: amd64
 
-  redis:
-    # Configuration for a Redis subchart. Additional documentation at
-    # https://github.com/bitnami/charts/tree/master/bitnami/redis
-
-    # -- Enable the Redis subchart?
-    enabled: false
-
-    # -- Override the prefix of the redisHost
-    nameOverride: ''
-
-    # -- Disable replication by default
-    architecture: standalone
-
-    auth:
-      # -- Don't require a password by default
-      enabled: false
-
-    # -- Override Kubernetes version for redis chart
-    kubeVersion: ''
+  # -- Options related to persistence
+  persistence:
+    cache:
+      # -- Allow the cache to persist between runs
+      enabled: true
+      # -- Storage class of the cache PVC
+      storageClass: "longhorn"
+      # -- Storage size of the cache PVC
+      storageSize: "5Gi"
