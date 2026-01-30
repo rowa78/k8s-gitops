@@ -18,12 +18,12 @@ renovate:
   nodeSelector: 
     kubernetes.io/arch: amd64
 
-  # -- Options related to persistence
-  persistence:
-    cache:
-      # -- Allow the cache to persist between runs
-      enabled: true
-      # -- Storage class of the cache PVC
-      storageClass: "longhorn"
-      # -- Storage size of the cache PVC
-      storageSize: "5Gi"
+    # -- Options related to persistence
+    persistence:
+      cache:
+        # -- Allow the cache to persist between runs
+        enabled: true
+        # -- Storage class of the cache PVC
+        storageClass: "longhorn"
+        # -- Storage size of the cache PVC
+        storageSize: "5Gi"
