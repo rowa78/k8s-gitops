@@ -47,6 +47,8 @@ calibre-web-automated:
       gethomepage.dev/icon: calibre-web.png
       gethomepage.dev/name: Calibre
       gethomepage.dev/pod-selector: "app.kubernetes.io/name=calibre-web-automated"
+      traefik.ingress.kubernetes.io/router.middlewares: >
+        oauth2-proxy-oauth2-auth@kubernetescrd
     host: books.rwcloud.org
     path: /
     pathType: Prefix
@@ -59,7 +61,7 @@ calibre-web-automated:
     # Config-Volume
     config:
       enabled: true
-      storageClass: nfs-client-diskstation
+      storageClass: longhorn
       accessMode: ReadWriteOnce
       size: 1Gi
       # existingClaim: ""
