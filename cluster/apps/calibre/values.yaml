@@ -59,7 +59,7 @@ calibre-web-automated:
     # Config-Volume
     config:
       enabled: true
-      storageClass: longhorn
+      storageClass: nfs-client-diskstation
       accessMode: ReadWriteOnce
       size: 1Gi
       # existingClaim: ""
