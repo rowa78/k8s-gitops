@@ -1,0 +1,84 @@
+{{- $values := (index .Values "calibre-web-automated") -}}
+{{- if $values.persistence.config.enabled }}
+{{- if not $values.persistence.config.existingClaim }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "calibre-web-automated.fullname" . }}-config
+  labels:
+    {{- include "calibre-web-automated.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ $values.persistence.config.accessMode }}
+  {{- if $values.persistence.config.storageClass }}
+  storageClassName: {{ $values.persistence.config.storageClass }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ $values.persistence.config.size }}
+{{- end }}
+{{- end }}
+
+{{- if $values.persistence.ingest.enabled }}
+{{- if not $values.persistence.ingest.existingClaim }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "calibre-web-automated.fullname" . }}-ingest
+  labels:
+    {{- include "calibre-web-automated.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ $values.persistence.ingest.accessMode }}
+  {{- if $values.persistence.ingest.storageClass }}
+  storageClassName: {{ $values.persistence.ingest.storageClass }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ $values.persistence.ingest.size }}
+{{- end }}
+{{- end }}
+
+{{- if $values.persistence.library.enabled }}
+{{- if not $values.persistence.library.existingClaim }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "calibre-web-automated.fullname" . }}-library
+  labels:
+    {{- include "calibre-web-automated.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ $values.persistence.library.accessMode }}
+  {{- if $values.persistence.library.storageClass }}
+  storageClassName: {{ $values.persistence.library.storageClass }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ $values.persistence.library.size }}
+{{- end }}
+{{- end }}
+
+{{- if $values.persistence.plugins.enabled }}
+{{- if not $values.persistence.plugins.existingClaim }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "calibre-web-automated.fullname" . }}-plugins
+  labels:
+    {{- include "calibre-web-automated.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ $values.persistence.plugins.accessMode }}
+  {{- if $values.persistence.plugins.storageClass }}
+  storageClassName: {{ $values.persistence.plugins.storageClass }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ $values.persistence.plugins.size }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,102 @@
+{{- $values := (index .Values "calibre-web-automated") -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "calibre-web-automated.fullname" . }}
+  labels:
+    {{- include "calibre-web-automated.labels" . | nindent 4 }}
+spec:
+  replicas: {{ $values.replicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "calibre-web-automated.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "calibre-web-automated.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with $values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: calibre-web-automated
+        image: "{{ $values.image.repository }}:{{ $values.image.tag }}"
+        imagePullPolicy: {{ $values.image.pullPolicy }}
+        {{- with $values.securityContext }}
+        securityContext:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        env:
+        {{- range $key, $value := $values.env }}
+        - name: {{ $key }}
+          value: {{ $value | quote }}
+        {{- end }}
+        ports:
+        - name: http
+          containerPort: {{ $values.service.targetPort }}
+          protocol: TCP
+        {{- if $values.livenessProbe.enabled }}
+        livenessProbe:
+          {{- omit $values.livenessProbe "enabled" | toYaml | nindent 10 }}
+        {{- end }}
+        {{- if $values.readinessProbe.enabled }}
+        readinessProbe:
+          {{- omit $values.readinessProbe "enabled" | toYaml | nindent 10 }}
+        {{- end }}
+        {{- with $values.resources }}
+        resources:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        volumeMounts:
+        {{- if $values.persistence.config.enabled }}
+        - name: config
+          mountPath: {{ $values.persistence.config.mountPath }}
+        {{- end }}
+        {{- if $values.persistence.ingest.enabled }}
+        - name: ingest
+          mountPath: {{ $values.persistence.ingest.mountPath }}
+        {{- end }}
+        {{- if $values.persistence.library.enabled }}
+        - name: library
+          mountPath: {{ $values.persistence.library.mountPath }}
+        {{- end }}
+        {{- if $values.persistence.plugins.enabled }}
+        - name: plugins
+          mountPath: {{ $values.persistence.plugins.mountPath }}
+        {{- end }}
+      volumes:
+      {{- if $values.persistence.config.enabled }}
+      - name: config
+        persistentVolumeClaim:
+          claimName: {{ include "calibre-web-automated.fullname" . }}-config
+      {{- end }}
+      {{- if $values.persistence.ingest.enabled }}
+      - name: ingest
+        persistentVolumeClaim:
+          claimName: {{ include "calibre-web-automated.fullname" . }}-ingest
+      {{- end }}
+      {{- if $values.persistence.library.enabled }}
+      - name: library
+        persistentVolumeClaim:
+          claimName: {{ include "calibre-web-automated.fullname" . }}-library
+      {{- end }}
+      {{- if $values.persistence.plugins.enabled }}
+      - name: plugins
+        persistentVolumeClaim:
+          claimName: {{ include "calibre-web-automated.fullname" . }}-plugins
+      {{- end }}
+      {{- with $values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

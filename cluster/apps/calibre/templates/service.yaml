@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "calibre-web-automated.fullname" . }}
+  labels:
+    {{- include "calibre-web-automated.labels" . | nindent 4 }}
+  {{- with (index .Values "calibre-web-automated").service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ (index .Values "calibre-web-automated").service.type }}
+  ports:
+  - port: {{ (index .Values "calibre-web-automated").service.port }}
+    targetPort: http
+    protocol: TCP
+    name: http
+  selector:
+    {{- include "calibre-web-automated.selectorLabels" . | nindent 4 }}

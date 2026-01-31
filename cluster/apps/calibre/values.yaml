@@ -1,0 +1,146 @@
+calibre-web-automated:
+  # Container-Konfiguration
+  image:
+    repository: crocodilestick/calibre-web-automated
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  # Anzahl der Replicas
+  replicaCount: 1
+
+  # Umgebungsvariablen
+  env:
+    # Benutzer- und Gruppen-IDs
+    PUID: "1000"
+    PGID: "1000"
+    # Zeitzone
+    TZ: "Europe/Berlin"
+    # Port-Override (optional)
+    # CWA_PORT_OVERRIDE: "8083"
+    # Hardcover API-Key
+    HARDCOVER_TOKEN: "your_hardcover_api_key_here"
+    # Network Share Mode
+    NETWORK_SHARE_MODE: "false"
+    # Watch Mode Override (optional)
+    # CWA_WATCH_MODE: "poll"
+    # Trusted Proxy Count
+    # TRUSTED_PROXY_COUNT: "2"
+    # Disable Library Automount
+    # DISABLE_LIBRARY_AUTOMOUNT: "false"
+
+  # Service-Konfiguration
+  service:
+    type: ClusterIP
+    port: 8083
+    targetPort: 8083
+    annotations: {}
+
+  # Ingress-Konfiguration
+  ingress:
+    enabled: true
+    className: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Calibre Web Automated
+      gethomepage.dev/group: Apps
+      gethomepage.dev/icon: calibre-web.png
+      gethomepage.dev/name: Calibre
+      gethomepage.dev/pod-selector: "app.kubernetes.io/name=calibre-web-automated"
+    host: books.rwcloud.org
+    path: /
+    pathType: Prefix
+    tls:
+      enabled: true
+      secretName: books-tls
+
+  # Persistence-Konfiguration
+  persistence:
+    # Config-Volume
+    config:
+      enabled: true
+      storageClass: longhorn
+      accessMode: ReadWriteOnce
+      size: 1Gi
+      # existingClaim: ""
+      mountPath: /config
+
+    # Ingest-Volume (Bücher, die automatisch verarbeitet werden)
+    ingest:
+      enabled: true
+      storageClass: nfs-client-diskstation
+      accessMode: ReadWriteOnce
+      size: 10Gi
+      # existingClaim: ""
+      mountPath: /cwa-book-ingest
+
+    # Library-Volume (Calibre-Bibliothek)
+    library:
+      enabled: true
+      storageClass: nfs-client-diskstation
+      accessMode: ReadWriteOnce
+      size: 100Gi
+      # existingClaim: ""
+      mountPath: /calibre-library
+
+    # Plugins-Volume (optional)
+    plugins:
+      enabled: false
+      storageClass: longhorn
+      accessMode: ReadWriteOnce
+      size: 1Gi
+      # existingClaim: ""
+      mountPath: /config/.config/calibre/plugins
+
+  # Resources
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 2000m
+      memory: 2Gi
+
+  # Security Context
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+    # Für Ports < 1024 würde man zusätzliche Capabilities benötigen:
+    # capabilities:
+    #   add:
+    #     - NET_BIND_SERVICE
+
+  # Pod Security Context
+  podSecurityContext:
+    fsGroup: 1000
+
+  # Node Selector
+  nodeSelector: {}
+
+  # Tolerations
+  tolerations: []
+
+  # Affinity
+  affinity: {}
+
+  # Probes
+  livenessProbe:
+    enabled: true
+    httpGet:
+      path: /
+      port: 8083
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+
+  readinessProbe:
+    enabled: true
+    httpGet:
+      path: /
+      port: 8083
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
