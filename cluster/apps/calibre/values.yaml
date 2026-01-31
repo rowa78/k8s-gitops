@@ -85,7 +85,7 @@ calibre-web-automated:
 
     # Plugins-Volume (optional)
     plugins:
-      enabled: false
+      enabled: true
       storageClass: longhorn
       accessMode: ReadWriteOnce
       size: 1Gi
@@ -103,16 +103,19 @@ calibre-web-automated:
 
   # Container Security Context
   securityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
-    # allowPrivilegeEscalation muss true sein für s6-overlay
+    # s6-overlay benötigt diese Capabilities
+    capabilities:
+      add:
+        - SETGID
+        - SETUID
+        - CHOWN
+        - FOWNER
     allowPrivilegeEscalation: true
 
   # Pod Security Context
   podSecurityContext:
     fsGroup: 1000
-    # Zusätzliche Gruppen-IDs für den Container
-    supplementalGroups: [1000]
+    fsGroupChangePolicy: "OnRootMismatch"
 
   # Node Selector
   nodeSelector: {}
