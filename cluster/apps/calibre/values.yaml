@@ -126,13 +126,25 @@ calibre-web-automated:
   # Affinity
   affinity: {}
 
+  # Init Container für Verzeichnis-Vorbereitung
+  initContainer:
+    enabled: true
+    image: busybox:latest
+    command:
+      - sh
+      - -c
+      - |
+        chown -R 1000:1000 /config /cwa-book-ingest /calibre-library
+        chmod -R 755 /config /cwa-book-ingest /calibre-library
+        echo "Permissions set successfully"
+
   # Probes
   livenessProbe:
     enabled: true
     httpGet:
       path: /
       port: 8083
-    initialDelaySeconds: 60
+    initialDelaySeconds: 90
     periodSeconds: 10
     timeoutSeconds: 5
     failureThreshold: 3
@@ -142,7 +154,7 @@ calibre-web-automated:
     httpGet:
       path: /
       port: 8083
-    initialDelaySeconds: 30
+    initialDelaySeconds: 60
     periodSeconds: 10
     timeoutSeconds: 5
     failureThreshold: 3

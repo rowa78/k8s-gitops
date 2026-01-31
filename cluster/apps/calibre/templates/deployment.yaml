@@ -21,6 +21,28 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if $values.initContainer.enabled }}
+      initContainers:
+      - name: init-permissions
+        image: {{ $values.initContainer.image }}
+        command:
+          {{- toYaml $values.initContainer.command | nindent 10 }}
+        volumeMounts:
+        {{- if $values.persistence.config.enabled }}
+        - name: config
+          mountPath: /config
+        {{- end }}
+        {{- if $values.persistence.ingest.enabled }}
+        - name: ingest
+          mountPath: /cwa-book-ingest
+        {{- end }}
+        {{- if $values.persistence.library.enabled }}
+        - name: library
+          mountPath: /calibre-library
+        {{- end }}
+        securityContext:
+          runAsUser: 0
+      {{- end }}
       containers:
       - name: calibre-web-automated
         image: "{{ $values.image.repository }}:{{ $values.image.tag }}"
