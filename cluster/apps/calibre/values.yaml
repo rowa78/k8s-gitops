@@ -2,7 +2,7 @@ calibre-web-automated:
   # Container-Konfiguration
   image:
     repository: crocodilestick/calibre-web-automated
-    tag: latest
+    tag: v4.0.2
     pullPolicy: IfNotPresent
 
   # Anzahl der Replicas
@@ -101,19 +101,18 @@ calibre-web-automated:
       cpu: 2000m
       memory: 2Gi
 
-  # Security Context
+  # Container Security Context
   securityContext:
     runAsUser: 1000
     runAsGroup: 1000
-    fsGroup: 1000
-    # Für Ports < 1024 würde man zusätzliche Capabilities benötigen:
-    # capabilities:
-    #   add:
-    #     - NET_BIND_SERVICE
+    # allowPrivilegeEscalation muss true sein für s6-overlay
+    allowPrivilegeEscalation: true
 
   # Pod Security Context
   podSecurityContext:
     fsGroup: 1000
+    # Zusätzliche Gruppen-IDs für den Container
+    supplementalGroups: [1000]
 
   # Node Selector
   nodeSelector: {}
