@@ -70,7 +70,7 @@ calibre-web-automated:
     # Ingest-Volume (Bücher, die automatisch verarbeitet werden)
     ingest:
       enabled: true
-      storageClass: nfs-client-diskstation
+      storageClass: longhorn
       accessMode: ReadWriteOnce
       size: 10Gi
       # existingClaim: ""
@@ -79,7 +79,7 @@ calibre-web-automated:
     # Library-Volume (Calibre-Bibliothek)
     library:
       enabled: true
-      storageClass: nfs-client-diskstation
+      storageClass: longhorn
       accessMode: ReadWriteOnce
       size: 100Gi
       # existingClaim: ""
