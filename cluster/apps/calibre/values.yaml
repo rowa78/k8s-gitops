@@ -2,7 +2,7 @@ calibre-web-automated:
   # Container-Konfiguration
   image:
     repository: crocodilestick/calibre-web-automated
-    tag: v4.0.4
+    tag: v4.0.5
     pullPolicy: IfNotPresent
 
   # Anzahl der Replicas
