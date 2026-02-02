@@ -23,6 +23,9 @@ renovate:
         storageClass: "longhorn"
         # -- Storage size of the cache PVC
         storageSize: "5Gi"
+    env:
+      - name: LOG_LEVEL
+        value: 'debug'
 
   existingSecret: renovate
   nodeSelector: 
