@@ -232,7 +232,7 @@ redis:
   storageSpec:
     volumeClaimTemplate:
       spec:
-        storageClassName: longhorn
+        storageClassName: openebs-hostpath
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
