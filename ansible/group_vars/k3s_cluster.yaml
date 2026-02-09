@@ -1,5 +1,5 @@
 k3s_state: installed
-k3s_release_version: v1.34.2+k3s1
+k3s_release_version: v1.34.3+k3s1
 k3s_become: true
 k3s_build_cluster: true
 # 2 nodes at the moment.
@@ -15,11 +15,11 @@ k3s_server:
   service-cidr: 10.43.0.0/16,fd00:10:43::/112
   #flannel-backend: none
   #flannel-ipv6-masq: true
-  # node-taint: 
-  #   - node-role.kubernetes.io/master=true:NoSchedule
-  #   - node-role.kubernetes.io/control-plane=true:NoSchedule
+  node-taint: 
+    - node-role.kubernetes.io/master=true:NoSchedule
+    - node-role.kubernetes.io/control-plane=true:NoSchedule
   tls-san: 
-    - 192.168.1.1
+    - k8s-master-01.fritz.box
   disable:
     - traefik
     # - metrics-server 

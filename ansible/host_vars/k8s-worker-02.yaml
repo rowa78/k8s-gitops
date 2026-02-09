@@ -1,0 +1,5 @@
+ansible_user: ronny
+ansible_host: k8s-worker-02
+ansible_sudo_pass: "{{ lookup('env','TERRA_SUDO_PASS') }}"
+
+k3s_control_node: false

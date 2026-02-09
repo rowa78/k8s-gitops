@@ -2,11 +2,10 @@ all:
   children:         
     masters:
       hosts: 
-        k8s-01:
-        k8s-02:
-        k8s-03:
+        cloud-1:      
     workers:
       hosts:
+        cloud-2:
         # worker01:
         # worker02:
         # worker03:

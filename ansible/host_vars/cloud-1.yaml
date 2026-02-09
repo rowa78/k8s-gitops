@@ -1,0 +1,20 @@
+ansible_user: ronny
+ansible_host: cloud-1.fritz.box
+ansible_sudo_pass: "{{ lookup('env','TERRA_SUDO_PASS') }}"
+
+rke2_type: server
+
+rke2_agent_options:
+  - kubelet-arg:
+    - node-ip=192.168.0.37,fd00:2222::7a55:36ff:fe02:7d38
+
+k3s_server:
+  kubelet-arg:
+  - "config=/etc/rancher/k3s/kubelet-config.yaml"
+  tls-san: 
+    - terra.fritz.box
+  disable:
+    - traefik
+    # - metrics-server 
+    - local-storage
+    - servicelb
