@@ -18,7 +18,7 @@ open-webui:
 
     persistentVolume:
       enabled: true
-      storageClass: longhorn
+      storageClass: openebs-hostpath
       size: 10Gi
       
 
@@ -29,7 +29,7 @@ open-webui:
     extraEnvVars: []
 
     persistence:
-      storageClass: longhorn
+      storageClass: openebs-hostpath
 
   tika:
     # -- Automatically install Apache Tika to extend Open WebUI
@@ -186,7 +186,7 @@ open-webui:
     # -- If using multiple replicas, you must update accessModes to ReadWriteMany
     accessModes:
       - ReadWriteOnce
-    storageClass: "longhorn"
+    storageClass: "openebs-hostpath"
     selector: {}
     annotations: {}
 

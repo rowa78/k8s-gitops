@@ -20,7 +20,7 @@ renovate:
         # -- Allow the cache to persist between runs
         enabled: true
         # -- Storage class of the cache PVC
-        storageClass: "longhorn"
+        storageClass: "openebs-hostpath"
         # -- Storage size of the cache PVC
         storageSize: "5Gi"
   env:
