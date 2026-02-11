@@ -34,6 +34,10 @@ spec:
                 secretKeyRef:
                   name: {{ coalesce .Values.openNotebook.encryptionKey.existingSecret.name "open-notebook-secrets" }}
                   key: {{ .Values.openNotebook.encryptionKey.existingSecret.key | default "OPEN_NOTEBOOK_ENCRYPTION_KEY" }}
+            {{- if .Values.openNotebook.apiUrl }}
+            - name: API_URL
+              value: {{ .Values.openNotebook.apiUrl | quote }}
+            {{- end }}
             - name: SURREAL_URL
               value: {{ .Values.openNotebook.surrealdb.url | quote }}
             - name: SURREAL_NAMESPACE

@@ -17,6 +17,10 @@ openNotebook:
     namespace: open_notebook
     database: open_notebook
 
+  # API URL für Web-Frontend (wenn API per Ingress auf separatem Host erreichbar)
+  # z.B. https://api.notebook.rwcloud.org - Frontend ruft dann diese URL für API-Calls auf
+  apiUrl: "https://api.notebook.rwcloud.org"
+
   # Use existing secret for SurrealDB credentials (overrides surrealdb.user/password above)
   surrealdbExistingSecret:
     name: surrealdb-credentials
