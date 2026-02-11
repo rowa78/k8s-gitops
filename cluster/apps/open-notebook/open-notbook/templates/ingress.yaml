@@ -28,12 +28,24 @@ spec:
         paths:
           {{- range .paths }}
           - path: {{ .path }}
-            pathType: {{ .pathType }}
+            pathType: {{ .pathType | default "Prefix" }}
             backend:
               service:
                 name: {{ include "open-notebook.fullname" $ }}
                 port:
-                  number: 8502
+                  number: {{ .servicePort | default 8502 }}
           {{- end }}
+    {{- end }}
+    {{- if and .Values.ingress.api .Values.ingress.api.enabled .Values.ingress.api.host }}
+    - host: {{ .Values.ingress.api.host | quote }}
+      http:
+        paths:
+          - path: {{ .Values.ingress.api.path | default "/" }}
+            pathType: {{ .Values.ingress.api.pathType | default "Prefix" }}
+            backend:
+              service:
+                name: {{ include "open-notebook.fullname" . }}
+                port:
+                  number: {{ .Values.ingress.api.servicePort | default 5055 }}
     {{- end }}
 {{- end }}

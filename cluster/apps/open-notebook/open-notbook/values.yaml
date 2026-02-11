@@ -57,8 +57,19 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-  tls: 
+          servicePort: 8502  # Web UI
+  # API auf separatem Subdomain (z.B. api.notebook.rwcloud.org)
+  api:
+    enabled: true
+    host: api.notebook.rwcloud.org
+    path: /
+    pathType: Prefix
+    servicePort: 5055
+  tls:
     - secretName: open-notebook-tls
       hosts:
         - notebook.rwcloud.org
+    - secretName: open-notebook-api-tls
+      hosts:
+        - api.notebook.rwcloud.org
   
