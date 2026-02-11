@@ -40,27 +40,27 @@ spec:
     automated:
       prune: true
       selfHeal: true 
-# ---
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: open-notebook-app
-#   namespace: argocd
-#   finalizers:
-#     - resources-finalizer.argocd.argoproj.io
-# spec:
-#   project: apps
-#   source:
-#     repoURL: https://github.com/rowa78/k8s-gitops.git
-#     targetRevision: main
-#     path: cluster/apps/open-notebook/open-notebook-app
-#   destination:
-#     name: in-cluster
-#     namespace: open-notebook
-#   syncPolicy:
-#     automated:
-#       prune: false
-#       selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: open-notebook-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/apps/open-notebook/open-notebook-app
+  destination:
+    name: in-cluster
+    namespace: open-notebook
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
 ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
