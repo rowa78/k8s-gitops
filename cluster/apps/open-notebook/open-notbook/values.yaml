@@ -39,6 +39,11 @@ openNotebook:
       # Base64 encrypted value from: echo -n "your-key" | kubectl create secret generic open-notebook-secrets --from-file=OPEN_NOTEBOOK_ENCRYPTION_KEY=/dev/stdin -n open-notebook --dry-run=client -o yaml | kubeseal -n open-notebook -o yaml
       encryptedData: ""
 
+  passwordKey:
+    existingSecret:
+      name: open-notebook-secret
+      key: OPEN_NOTEBOOK_PASSWORD
+
   persistence:
     enabled: true
     size: 2Gi
