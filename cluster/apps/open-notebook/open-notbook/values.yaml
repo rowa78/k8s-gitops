@@ -18,10 +18,10 @@ openNotebook:
     database: open_notebook
 
   # Use existing secret for SurrealDB credentials (overrides surrealdb.user/password above)
-    surrealdbExistingSecret:
-      name: surrealdb-credentials
-      userKey: SURREAL_USER
-      passKey: SURREAL_PASS
+  surrealdbExistingSecret:
+    name: surrealdb-credentials
+    userKey: SURREAL_USER
+    passKey: SURREAL_PASS
 
   # Encryption key for credential storage (REQUIRED - Pod won't start without it)
   # Option A: Set existingSecret.name to use an existing Secret
