@@ -43,7 +43,7 @@ openNotebook:
   resources: {}
 
 ingress:
-  enabled: false
+  enabled: true
   className: traefik
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
@@ -53,12 +53,12 @@ ingress:
     gethomepage.dev/name: Open Notebook
     gethomepage.dev/pod-selector: "app.kubernetes.io/name=open-notebook"
   hosts:
-    - host: notebook.example.org
+    - host: notebook.rwcloud.org
       paths:
         - path: /
           pathType: Prefix
-  tls: []
-  # tls:
-  #   - secretName: open-notebook-tls
-  #     hosts:
-  #       - notebook.example.org
+  tls: 
+    - secretName: open-notebook-tls
+      hosts:
+        - notebook.rwcloud.org
+  
