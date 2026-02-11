@@ -45,12 +45,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.openNotebook.surrealdbExistingSecret.name }}
-                  key: {{ .Values.openNotebook.surrealdbExistingSecret.userKey }}
+                  key: {{ .Values.openNotebook.surrealdbExistingSecret.userKey | default "SURREAL_USER" }}
             - name: SURREAL_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.openNotebook.surrealdbExistingSecret.name }}
-                  key: {{ .Values.openNotebook.surrealdbExistingSecret.passwordKey }}
+                  key: {{ .Values.openNotebook.surrealdbExistingSecret.passKey | default "SURREAL_PASS" }}
             {{- else }}
             - name: SURREAL_USER
               value: {{ .Values.openNotebook.surrealdb.user | quote }}
