@@ -29,7 +29,7 @@ openNotebook:
   encryptionKey:
     existingSecret:
       # When set, use this secret instead of creating SealedSecret
-      name: ""
+      name: open-notebook-secret
       key: OPEN_NOTEBOOK_ENCRYPTION_KEY
     sealedSecret:
       # Base64 encrypted value from: echo -n "your-key" | kubectl create secret generic open-notebook-secrets --from-file=OPEN_NOTEBOOK_ENCRYPTION_KEY=/dev/stdin -n open-notebook --dry-run=client -o yaml | kubeseal -n open-notebook -o yaml
