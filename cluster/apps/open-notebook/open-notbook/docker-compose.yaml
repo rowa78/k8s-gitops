@@ -1,0 +1,30 @@
+services:
+  surrealdb:
+    image: surrealdb/surrealdb:v2
+    command: start --user root --pass password --bind 0.0.0.0:8000 rocksdb:/mydata/mydatabase.db
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./surreal_data:/mydata
+
+  open_notebook:
+    image: lfnovo/open_notebook:v1-latest
+    pull_policy: always
+    ports:
+      - "8502:8502"  # Web UI
+      - "5055:5055"  # API
+    environment:
+      # Encryption key for credential storage (required)
+      - OPEN_NOTEBOOK_ENCRYPTION_KEY=change-me-to-a-secret-string
+
+      # Database (required)
+      - SURREAL_URL=ws://surrealdb:8000/rpc
+      - SURREAL_USER=root
+      - SURREAL_PASSWORD=password
+      - SURREAL_NAMESPACE=open_notebook
+      - SURREAL_DATABASE=open_notebook
+    volumes:
+      - ./notebook_data:/app/data
+    depends_on:
+      - surrealdb
+    restart: always

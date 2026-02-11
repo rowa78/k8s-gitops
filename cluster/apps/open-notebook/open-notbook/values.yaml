@@ -1,0 +1,66 @@
+# Open Notebook - connects to externally deployed SurrealDB
+
+nameOverride: ""
+fullnameOverride: ""
+
+openNotebook:
+  image:
+    repository: lfnovo/open_notebook
+    tag: v1-latest
+    pullPolicy: Always
+
+  replicaCount: 1
+
+  # External SurrealDB connection (SurrealDB deployed separately via surrealdb/helm-charts)
+  surrealdb:
+    url: ws://surrealdb.open-notebook.svc.cluster.local:8000/rpc
+    user: root
+    password: password
+    namespace: open_notebook
+    database: open_notebook
+
+  # Use existing secret for SurrealDB credentials (overrides surrealdb.user/password above)
+  # surrealdbExistingSecret:
+  #   name: surrealdb-credentials
+  #   userKey: SURREAL_USER
+  #   passwordKey: SURREAL_PASSWORD
+
+  # Encryption key for credential storage (REQUIRED - Pod won't start without it)
+  # Option A: Set existingSecret.name to use an existing Secret
+  # Option B: Set sealedSecret.encryptedData (run kubeseal, paste the base64 value)
+  encryptionKey:
+    existingSecret:
+      # When set, use this secret instead of creating SealedSecret
+      name: ""
+      key: OPEN_NOTEBOOK_ENCRYPTION_KEY
+    sealedSecret:
+      # Base64 encrypted value from: echo -n "your-key" | kubectl create secret generic open-notebook-secrets --from-file=OPEN_NOTEBOOK_ENCRYPTION_KEY=/dev/stdin -n open-notebook --dry-run=client -o yaml | kubeseal -n open-notebook -o yaml
+      encryptedData: ""
+
+  persistence:
+    enabled: true
+    size: 2Gi
+    storageClass: openebs-hostpath
+
+  resources: {}
+
+ingress:
+  enabled: false
+  className: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Open Notebook
+    gethomepage.dev/group: Apps
+    gethomepage.dev/name: Open Notebook
+    gethomepage.dev/pod-selector: "app.kubernetes.io/name=open-notebook"
+  hosts:
+    - host: notebook.example.org
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  # tls:
+  #   - secretName: open-notebook-tls
+  #     hosts:
+  #       - notebook.example.org

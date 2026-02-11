@@ -1,0 +1,4 @@
+apiVersion: v2
+name: open-notebook
+version: 1.0.0
+description: Open Notebook - note-taking app with SurrealDB backend

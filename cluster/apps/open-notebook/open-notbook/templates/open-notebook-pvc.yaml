@@ -1,0 +1,17 @@
+{{- if .Values.openNotebook.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "open-notebook.fullname" . }}-data
+  labels:
+    {{- include "open-notebook.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.openNotebook.persistence.size }}
+  {{- if .Values.openNotebook.persistence.storageClass }}
+  storageClassName: {{ .Values.openNotebook.persistence.storageClass }}
+  {{- end }}
+{{- end }}

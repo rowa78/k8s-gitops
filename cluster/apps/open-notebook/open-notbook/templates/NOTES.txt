@@ -1,0 +1,14 @@
+Open Notebook has been deployed.
+
+NEXT STEPS:
+1. Configure OPEN_NOTEBOOK_ENCRYPTION_KEY (required):
+   - Either set encryptionKey.existingSecret.name in values to an existing Secret
+   - Or set encryptionKey.sealedSecret.encryptedData with a kubeseal-ed value
+
+2. Ensure SurrealDB is deployed externally and update surrealdb.url in values if needed.
+
+3. If using Ingress, enable it and set your host in values.
+{{- if .Values.ingress.enabled }}
+
+Access Open Notebook at: https://{{ (index .Values.ingress.hosts 0).host }}
+{{- end }}

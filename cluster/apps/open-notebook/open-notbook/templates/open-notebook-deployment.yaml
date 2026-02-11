@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "open-notebook.fullname" . }}
+  labels:
+    {{- include "open-notebook.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.openNotebook.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "open-notebook.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "open-notebook.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        {{- include "open-notebook.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: open-notebook
+          image: "{{ .Values.openNotebook.image.repository }}:{{ .Values.openNotebook.image.tag }}"
+          imagePullPolicy: {{ .Values.openNotebook.image.pullPolicy }}
+          ports:
+            - name: web
+              containerPort: 8502
+              protocol: TCP
+            - name: api
+              containerPort: 5055
+              protocol: TCP
+          env:
+            - name: OPEN_NOTEBOOK_ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ coalesce .Values.openNotebook.encryptionKey.existingSecret.name "open-notebook-secrets" }}
+                  key: {{ .Values.openNotebook.encryptionKey.existingSecret.key | default "OPEN_NOTEBOOK_ENCRYPTION_KEY" }}
+            - name: SURREAL_URL
+              value: {{ .Values.openNotebook.surrealdb.url | quote }}
+            - name: SURREAL_NAMESPACE
+              value: {{ .Values.openNotebook.surrealdb.namespace | quote }}
+            - name: SURREAL_DATABASE
+              value: {{ .Values.openNotebook.surrealdb.database | quote }}
+            {{- if and .Values.openNotebook.surrealdbExistingSecret .Values.openNotebook.surrealdbExistingSecret.name }}
+            - name: SURREAL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.openNotebook.surrealdbExistingSecret.name }}
+                  key: {{ .Values.openNotebook.surrealdbExistingSecret.userKey }}
+            - name: SURREAL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.openNotebook.surrealdbExistingSecret.name }}
+                  key: {{ .Values.openNotebook.surrealdbExistingSecret.passwordKey }}
+            {{- else }}
+            - name: SURREAL_USER
+              value: {{ .Values.openNotebook.surrealdb.user | quote }}
+            - name: SURREAL_PASSWORD
+              value: {{ .Values.openNotebook.surrealdb.password | quote }}
+            {{- end }}
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+          resources:
+            {{- toYaml .Values.openNotebook.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: web
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: web
+            initialDelaySeconds: 10
+            periodSeconds: 5
+      volumes:
+        - name: data
+          {{- if .Values.openNotebook.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "open-notebook.fullname" . }}-data
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
