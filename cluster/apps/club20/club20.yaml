@@ -1,0 +1,63 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: club20-postgres
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/apps/club20/postgres
+  destination:
+    name: in-cluster
+    namespace: club20     
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true 
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: club20-backup
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/apps/club20/backup
+  destination:
+    name: in-cluster
+    namespace: club20
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: club20-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/apps/club20/club20-app
+  destination:
+    name: in-cluster
+    namespace: club20
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
