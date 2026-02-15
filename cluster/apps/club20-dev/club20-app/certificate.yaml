@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "wildcard-cert"
+spec:
+  secretName: "wildcard-tls"
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: "club20.rwcloud.org"
+  dnsNames:
+  - "club20.rwcloud.org"
+  - "*.club20.rwcloud.org"
