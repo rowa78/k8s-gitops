@@ -2,6 +2,27 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
+  name: club20-dev-postgres
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/apps/club20-dev/postgres
+  destination:
+    name: in-cluster
+    namespace: club20-dev 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true 
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
   name: club20-dev-app
   namespace: argocd
   finalizers:
