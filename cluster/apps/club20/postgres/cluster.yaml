@@ -1,7 +1,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: club20db
+  name: club20-postgres
   annotations:
     k8up.io/backupcommand: sh -c 'pg_dump --clean club20db'
     k8up.io/file-extension: .sql
