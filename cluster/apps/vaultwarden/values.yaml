@@ -589,7 +589,7 @@ vaultwarden:
     ## @param adminToken.value Plain or argon2 string containing the admin token.
     ## This example is the argon2 has of "R@ndomTokenString" (no quotes).
     ##
-    value: "$argon2id$v=19$m=19456,t=2,p=1$Vkx1VkE4RmhDMUhwNm9YVlhPQkVOZk1Yc1duSDdGRVYzd0Y5ZkgwaVg0Yz0$PK+h1ANCbzzmEKaiQfCjWw+hWFaMKvLhG2PjRanH5Kk"
+    value: "$argon2id$v=19$m=65540,t=3,p=4$eDlReTl5V0xnVDVpMzhFWVVPUDBXaFJmd2ZEdm9yRVBOZTVQTGZxVS9xZz0$7G2Gndw8JH7gfIR+fsThXBU1hg6F1/z9RthwOhwHcf8"
 
   ## @param adminRateLimitSeconds Number of seconds, on average, between admin login requests from the same IP address before rate limiting kicks in.
   ##
@@ -602,7 +602,7 @@ vaultwarden:
   ## @param timeZone Specify timezone different from the default (UTC).
   ## For example: "Europe/Berlin"
   ##
-  timeZone: ""
+  timeZone: "Europe/Berlin"
 
   ## @section BETA Features
   ##
