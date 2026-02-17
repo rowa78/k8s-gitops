@@ -352,10 +352,10 @@ vaultwarden:
     uriOverride: ""
     ## @param database.existingSecret Name of an existing secret containing either a single key with the database uri, or a separate key for username and password
     ##
-    existingSecret: ""
+    existingSecret: "vaultwardendb-app"
     ## @param database.existingSecretKey Key in the existing secret
     ##
-    existingSecretKey: ""
+    existingSecretKey: "uri"
     ## @param database.existingSecretUserKey Key in the existing secret
     ##
     existingSecretUserKey: username
