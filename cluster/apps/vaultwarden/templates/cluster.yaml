@@ -1,0 +1,68 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: vaultwardendb
+  annotations:
+    k8up.io/backupcommand: sh -c 'pg_dump --clean vaultwardendb'
+    k8up.io/file-extension: .sql
+    k8up.io/backup: 'false'
+    tailscale.com/expose: "true"
+spec:
+  imageName: 'ghcr.io/cloudnative-pg/postgresql:17.7'
+  instances: 1
+
+  resources:
+    requests:
+      memory: "500m"
+      cpu: "100m"
+    limits:
+      memory: "6Gi"
+      cpu: "4"
+  bootstrap:
+    initdb:
+      database: vaultwardendb
+      owner: vaultwarden 
+  # bootstrap:
+  #   recovery:
+  #     source: vaultwardendb
+
+  postgresql:
+    parameters:        
+      pg_stat_statements.max: "10000"
+      pg_stat_statements.track: all
+      hypopg.use_real_oids: 'true'
+     
+  replicationSlots:
+    highAvailability:
+      enabled: true
+
+  monitoring:
+    enablePodMonitor: true
+
+  enableSuperuserAccess: true
+
+  storage:
+    size: 10Gi
+    storageClass: openebs-hostpath
+  walStorage:
+    size: 5Gi
+    storageClass: openebs-hostpath
+
+  plugins:
+  - name: barman-cloud.cloudnative-pg.io
+    isWALArchiver: true
+    parameters:
+      barmanObjectName: minio
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: vaultwardendb-backup
+spec:
+  schedule: "0 0 0 * * *"
+  backupOwnerReference: self
+  cluster:
+    name: vaultwardendb
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io
