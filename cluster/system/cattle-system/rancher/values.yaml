@@ -163,7 +163,7 @@ rancher:
     enabled: true
     image:
       repository: rancher/shell
-      tag: v0.6.1
+      tag: v0.6.2
     namespaceList:
       - cattle-fleet-system
       - cattle-system
