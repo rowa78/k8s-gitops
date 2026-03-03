@@ -44,7 +44,7 @@ open-webui:
     # -- Specifies the websocket manager to use with env `WEBSOCKET_MANAGER`: redis (default)
     manager: redis
     # -- Specifies the URL of the Redis instance for websocket communication. Template with `redis://[:<password>@]<hostname>:<port>/<db>`
-    url: redis://open-webui-redis:6379/0
+    url: redis://openwebui-valkey:6379/0
     # -- Deploys a redis
     redis:
       # -- Enable redis installation
