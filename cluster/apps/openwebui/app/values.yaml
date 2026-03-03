@@ -48,7 +48,7 @@ open-webui:
     # -- Deploys a redis
     redis:
       # -- Enable redis installation
-      enabled: true
+      enabled: false
       # -- Redis name
       name: open-webui-redis
       # -- Redis labels
@@ -58,7 +58,7 @@ open-webui:
       # -- Redis image
       image:
         repository: redis
-        tag: 8.0.6-alpine3.21
+        #tag: 8.0.6-alpine3.21
         pullPolicy: IfNotPresent
       # -- Redis command (overrides default)
       command: []
