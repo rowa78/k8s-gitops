@@ -32,10 +32,10 @@ config:
   # Password for edit mode (required)
   # Can be set via --set config.editModePassword=yourpassword
   # Or create a secret manually and reference it below
-  editModePassword: "hallo123!"
+  #editModePassword: "hallo123!"
   
   # Use existing secret for password
-  existingSecret: ""
+  existingSecret: "linkhub-tronlinkhub"
   existingSecretKey: "EDIT_MODE_PASSWORD"
   
   # TOTP/2FA configuration
