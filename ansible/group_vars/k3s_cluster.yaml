@@ -7,25 +7,30 @@ k3s_use_unsupported_config: true
 
 k3s_etcd_datastore: true
 
+k3s_server_config_yaml_d_files:
+  - templates/node-ip.yaml.j2
+
 k3s_server:
   #datastore-endpoint: "postgres://k3s:{{ postgresql_password }}@192.168.1.100:5432/k3s?sslmode=disable"
   #datastore-endpoint: "http://192.168.100.1:2379,http://192.168.100.2:2379,http://192.168.100.3:2379"
-  #flannel-iface: none
+  flannel-iface: eth0
   cluster-cidr: 10.42.0.0/16,fd00:10:42::/48
   service-cidr: 10.43.0.0/16,fd00:10:43::/112
   #flannel-backend: none
   #flannel-ipv6-masq: true
-  node-taint: 
-    - node-role.kubernetes.io/master=true:NoSchedule
-    - node-role.kubernetes.io/control-plane=true:NoSchedule
+  # node-taint: 
+  #   - node-role.kubernetes.io/master=true:NoSchedule
+  #   - node-role.kubernetes.io/control-plane=true:NoSchedule
   tls-san: 
-    - k8s-master-01.fritz.box
+    - k3s01.fritz.box
   disable:
     - traefik
     # - metrics-server 
     - local-storage
     - servicelb
   
+
+
   etcd-expose-metrics: true
 
   #k3s_registration_address: 10.0.0.107

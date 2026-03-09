@@ -28,7 +28,7 @@ homepage:
   - name: HOMEPAGE_ALLOWED_HOSTS
     # This value must be set
     # ref: https://gethomepage.dev/installation/#homepage_allowed_hosts
-    value: start.rwcloud.org
+    value: homepage.rwcloud.org
 
   # Enable the ingress to expose Homepage to the network.
   ingress:
@@ -41,7 +41,7 @@ homepage:
 
       ingressClassName: "traefik"
       hosts:
-        - host: &host "start.rwcloud.org"
+        - host: &host "homepage.rwcloud.org"
           paths:
             - path: /
               pathType: Prefix

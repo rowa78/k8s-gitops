@@ -1,0 +1,16 @@
+apiVersion: v2
+name: tronlinkhub
+description: A modern link dashboard for organizing and accessing your services
+type: application
+version: 1.3.3
+appVersion: "4.1.3"
+keywords:
+  - dashboard
+  - links
+  - homepage
+  - startpage
+maintainers:
+  - name: tron4x
+home: https://github.com/tron4x/tronlinkhub
+sources:
+  - https://github.com/tron4x/tronlinkhub

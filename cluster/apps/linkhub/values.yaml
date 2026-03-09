@@ -1,0 +1,154 @@
+# Default values for linkhub
+# This is a YAML-formatted file.
+
+# Namespace configuration
+namespace:
+  # Create the namespace (set to false if namespace already exists)
+  create: false
+  # Name of the namespace
+  name: "linkhub"
+  # Annotations for the namespace
+  annotations: {}
+
+# Number of replicas
+replicaCount: 1
+
+image:
+  repository: ghcr.io/tron4x/tronlinkhub
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  # Use "v4.0.8" for local builds, or leave empty to use appVersion
+  tag: ""
+
+# imagePullSecrets - uncomment if using a private registry
+# imagePullSecrets:
+#   - name: externalregistry
+imagePullSecrets: {}
+nameOverride: ""
+fullnameOverride: ""
+
+# LinkHub configuration
+config:
+  # Password for edit mode (required)
+  # Can be set via --set config.editModePassword=yourpassword
+  # Or create a secret manually and reference it below
+  editModePassword: "hallo123!"
+  
+  # Use existing secret for password
+  existingSecret: ""
+  existingSecretKey: "EDIT_MODE_PASSWORD"
+  
+  # TOTP/2FA configuration
+  # Issuer name shown in authenticator apps (e.g., Google Authenticator)
+  totpIssuer: "LinkHub"
+  # Optional: Pre-configured TOTP secret (if empty, generated via UI)
+  totpSecret: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  fsGroup: 65534
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 65534
+  runAsGroup: 65534
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: false
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+  className: "traefik"
+  annotations: {}
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    traefik.ingress.kubernetes.io/router.middlewares: >
+      oauth2-proxy-oauth2-auth@kubernetescrd
+  hosts:
+    - host: start.rwcloud.org
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: 
+    - secretName: linkhub-tls
+      hosts:
+        - start.rwcloud.org
+
+# Persistent storage for data (settings, sessions, uploads)
+persistence:
+  enabled: true
+  # Use existing PVC
+  existingClaim: ""
+  # Storage class (leave empty for default)
+  storageClass: "openebs-hostpath"
+  # Access mode - use ReadWriteMany for multiple replicas
+  accessMode: ReadWriteOnce
+  # Size of the persistent volume
+  size: 1Gi
+  # Annotations for the PVC
+  annotations: {}
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# Liveness and readiness probes
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 3
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Extra environment variables
+extraEnv: []
+#  - name: TZ
+#    value: "Europe/Berlin"
+
+# Extra volumes
+extraVolumes: []
+
+# Extra volume mounts
+extraVolumeMounts: []

@@ -2,15 +2,15 @@ all:
   children:         
     masters:
       hosts: 
-        cloud-1:      
+        k3s01:      
     workers:
       hosts:
-        cloud-2:
+        # cloud-2:
         # worker01:
         # worker02:
         # worker03:
         # worker04:        
-    k8s_cluster:
+    k3s_cluster:
       children:
         masters:
         workers:    
