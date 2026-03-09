@@ -74,7 +74,7 @@ service:
 ingress:
   enabled: true
   className: "traefik"
-  annotations: {}
+  annotations: 
     cert-manager.io/cluster-issuer: letsencrypt-production
     traefik.ingress.kubernetes.io/router.middlewares: >
       oauth2-proxy-oauth2-auth@kubernetescrd
