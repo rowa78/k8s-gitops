@@ -15,11 +15,11 @@ tronlinkhub:
   replicaCount: 1
 
   image:
-    repository: ghcr.io/tron4x/tronlinkhub-beta
+    repository: ghcr.io/tron4x/tronlinkhub
     pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
     # Use "v4.0.8" for local builds, or leave empty to use appVersion
-    tag: "4.1.4"
+    #tag: "4.1.4"
 
   # imagePullSecrets - uncomment if using a private registry
   # imagePullSecrets:
