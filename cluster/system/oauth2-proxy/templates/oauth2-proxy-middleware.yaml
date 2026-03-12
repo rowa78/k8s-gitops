@@ -5,7 +5,7 @@ metadata:
   namespace: oauth2-proxy
 spec:
   forwardAuth:
-    address: http://oauth2-proxy.oauth2-proxy.svc.cluster.local/oauth2/
+    address: https://oauth2-proxy.rwcloud.org/oauth2/
     trustForwardHeader: true
     authResponseHeaders:
       - X-Auth-Request-User
