@@ -5,7 +5,7 @@ traefik:
     # -- Deployment or DaemonSet
     kind: DaemonSet
 
-  hostNetwork: false
+  hostNetwork: true
 
   updateStrategy:  # @schema additionalProperties: false
     # -- Customize updateStrategy of Deployment or DaemonSet
@@ -15,7 +15,7 @@ traefik:
       maxSurge:         # @schema type:[integer, string, null]
 
   service:
-    enabled: true
+    enabled: false
     type: NodePort
     externalTrafficPolicy: Local
     # -- Additional annotations applied to both TCP and UDP services (e.g. for cloud provider specific config)
