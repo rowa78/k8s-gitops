@@ -1,0 +1,106 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: xopenwebui-database
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/apps/xopenwebui/database
+  destination:
+    name: in-cluster
+    namespace: xopenwebui
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true 
+---
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: xopenwebui-valkey
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/apps/xopenwebui/valkey
+  destination:
+    name: in-cluster
+    namespace: xopenwebui
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true 
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: xopenwebui-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/apps/xopenwebui/app
+  destination:
+    name: in-cluster
+    namespace: xopenwebui     
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: xopenwebui-backup
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/apps/xopenwebui/backup
+  destination:
+    name: in-cluster
+    namespace: xopenwebui     
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: nextcloud-backup
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+# spec:
+#   project: apps
+#   source:
+#     repoURL: https://github.com/rowa78/k8s-gitops.git
+#     targetRevision: main
+#     path: cluster/apps/nextcloud/backup
+#   destination:
+#     name: in-cluster
+#     namespace: nextcloud     
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true

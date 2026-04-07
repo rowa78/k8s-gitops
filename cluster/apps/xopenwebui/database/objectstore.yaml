@@ -1,0 +1,18 @@
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: minio
+spec:
+  configuration:
+    endpointURL: "https://fsn1.your-objectstorage.com"       
+    destinationPath: "s3://rwcloud-postgres/"       
+    s3Credentials:
+      accessKeyId:
+        name: s3-creds
+        key: aws_access_key_id
+      secretAccessKey:
+        name: s3-creds
+        key: aws_secret_access_key
+    wal:
+      compression: bzip2        
+  retentionPolicy: "5d"

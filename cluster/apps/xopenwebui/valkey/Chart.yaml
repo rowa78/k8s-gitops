@@ -1,0 +1,10 @@
+apiVersion: v2
+name: open-webui
+version: 0.0.0
+dependencies:
+  - name: valkey
+    version: 0.9.3
+    repository: https://valkey.io/valkey-helm/
+  #- name: redis
+  #  version: 17.3.7
+  #  repository: https://charts.bitnami.com/bitnami
