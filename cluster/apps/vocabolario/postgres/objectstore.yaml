@@ -4,7 +4,7 @@ metadata:
   name: minio
 spec:
   configuration:
-    endpointURL: "https://fsn1.your-objectstorage.com"      
+    endpointURL: "http://s3.fritz.box:9000"      
     destinationPath: "s3://rwcloud-postgres/"       
     s3Credentials:
       accessKeyId:
