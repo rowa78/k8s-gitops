@@ -1,7 +1,0 @@
-apiVersion: v2
-name: tronlinkhub
-version: 1.0.0
-dependencies:
-  - name: tronlinkhub
-    version: 1.3.4
-    repository: oci://ghcr.io/tron4x/charts
