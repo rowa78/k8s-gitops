@@ -67,9 +67,16 @@ homepage:
       - Internal:
         - duplistatus:
             href: http://diskstation.fritz.box:9666
+            icon: https://wsj-br.github.io/duplistatus/img/duplistatus_logo.png
         - duplicati:
             href: http://diskstation.fritz.box:8200
             icon: duplicati.png
+        - duplicati-s3:
+            href: http://s3.fritz.box:8200
+            icon: duplicati.png
+        - s3:
+            href: http://s3.fritz.box:9100
+            icon: s3.png
 
     widgets:
       - search:
