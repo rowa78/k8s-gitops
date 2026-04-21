@@ -87,6 +87,9 @@ homepage:
     kubernetes:
       # change mode to 'cluster' to use RBAC service account
       mode: cluster
+      ingress: true # default, enable ingress
+      traefik: true # enable traefik ingressRoute
+      gateway: true # enable gateway-api
     docker:
     settings:
 
