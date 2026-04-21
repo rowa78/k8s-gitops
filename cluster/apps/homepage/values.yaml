@@ -28,7 +28,7 @@ homepage:
   - name: HOMEPAGE_ALLOWED_HOSTS
     # This value must be set
     # ref: https://gethomepage.dev/installation/#homepage_allowed_hosts
-    value: homepage.rwcloud.org
+    value: start.rwcloud.org
 
   # Enable the ingress to expose Homepage to the network.
   ingress:
