@@ -68,8 +68,5 @@ spec:
         - name: duplicati-service
           port: 8200
           scheme: http
-      middlewares:
-        - name: oauth2-auth
-          namespace: oauth2-proxy
   tls:
     secretName: duplicati-tls
