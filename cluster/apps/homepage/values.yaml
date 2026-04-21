@@ -69,6 +69,7 @@ homepage:
             href: http://diskstation.fritz.box:9666
         - duplicati:
             href: http://diskstation.fritz.box:8200
+            icon: duplicati.png
 
     widgets:
       - search:
