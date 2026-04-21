@@ -41,7 +41,7 @@ homepage:
 
       ingressClassName: "traefik"
       hosts:
-        - host: &host "homepage.rwcloud.org"
+        - host: &host "start.rwcloud.org"
           paths:
             - path: /
               pathType: Prefix
@@ -64,7 +64,11 @@ homepage:
                 href: https://hub.docker.com
 
     services:
-      
+      - Internal:
+        - duplistatus:
+            href: http://diskstation.fritz.box:9666
+        - duplicati:
+            href: http://diskstation.fritz.box:8200
 
     widgets:
       - search:
