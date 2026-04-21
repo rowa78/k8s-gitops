@@ -76,7 +76,7 @@ homepage:
             icon: duplicati.png
         - s3:
             href: http://s3.fritz.box:9100
-            icon: s3.png
+            icon: rustfs.png
 
     widgets:
       - search:
