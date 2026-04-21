@@ -1,0 +1,75 @@
+###############################################################################
+# Service
+###############################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: duplicati-service
+  namespace: default
+spec:
+  ports:
+    - name: http
+      port: 8200
+      targetPort: 8200
+---
+###############################################################################
+# Endpoints (statt EndpointSlice!)
+###############################################################################
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: duplicati-service
+  namespace: default
+subsets:
+  - addresses:
+      - ip: 192.168.0.3
+    ports:
+      - name: http
+        port: 8200
+---
+###############################################################################
+# Certificate
+###############################################################################
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: duplicati-cert
+  namespace: default
+spec:
+  secretName: duplicati-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - duplicati.rwcloud.org
+---
+###############################################################################
+# IngressRoute
+###############################################################################
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: duplicati
+  namespace: default
+  annotations:
+    gethomepage.dev/href: "https://duplicati.rwcloud.org"
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Duplicati
+    gethomepage.dev/group: System
+    gethomepage.dev/icon: duplicati.png
+    gethomepage.dev/pod-selector: ""
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`duplicati.rwcloud.org`)
+      services:
+        - name: duplicati-service
+          port: 8200
+          scheme: http
+      middlewares:
+        - name: oauth2-auth
+          namespace: oauth2-proxy
+  tls:
+    secretName: duplicati-tls
