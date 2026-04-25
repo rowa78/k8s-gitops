@@ -75,7 +75,7 @@ homepage:
             href: http://s3.fritz.box:8200
             icon: duplicati.png
         - s3:
-            href: http://s3.fritz.box:9100
+            href: http://s3.fritz.box:9001
             icon: rustfs.png
 
     widgets:
