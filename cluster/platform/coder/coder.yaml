@@ -1,0 +1,63 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: coder-database
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: platform
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/platform/coder/database
+  destination:
+    name: in-cluster
+    namespace: coder
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true 
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: coder-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: platform
+  source:
+    repoURL: https://github.com/rowa78/k8s-gitops.git
+    targetRevision: main
+    path: cluster/platform/coder/app
+  destination:
+    name: in-cluster
+    namespace: coder
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: nextcloud-backup
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+# spec:
+#   project: apps
+#   source:
+#     repoURL: https://github.com/rowa78/k8s-gitops.git
+#     targetRevision: main
+#     path: cluster/apps/nextcloud/backup
+#   destination:
+#     name: in-cluster
+#     namespace: nextcloud     
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true

@@ -1,0 +1,10 @@
+apiVersion: v2
+name: coder
+version: 0.0.0
+dependencies:
+  - name: coder
+    version: 2.33.2
+    repository: https://helm.coder.com/v2
+  #- name: redis
+  #  version: 17.3.7
+  #  repository: https://charts.bitnami.com/bitnami
