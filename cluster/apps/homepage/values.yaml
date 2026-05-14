@@ -70,7 +70,7 @@ homepage:
             icon: backrest.png
         - backrest-rustfs:
             href: http://s3.fritz.box:9898
-            icon: duplicati.png        
+            icon: backrest.png        
         - s3:
             href: http://s3.fritz.box:9001
             icon: rustfs.png
