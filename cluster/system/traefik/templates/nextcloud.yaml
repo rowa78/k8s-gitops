@@ -1,0 +1,81 @@
+###############################################################################
+# Service
+###############################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud-service
+  namespace: default
+spec:
+  ports:
+    - name: https
+      port: 443
+      targetPort: 443
+---
+###############################################################################
+# Endpoints (statt EndpointSlice!)
+###############################################################################
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: nextcloud-service
+  namespace: default
+subsets:
+  - addresses:
+      - ip: 192.168.0.123
+    ports:
+      - name: https
+        port: 443
+---
+###############################################################################
+# Certificate
+###############################################################################
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: nextcloud-cert
+  namespace: default
+spec:
+  secretName: nextcloud-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - cloud.rwcloud.org
+---
+###############################################################################
+# IngressRoute
+###############################################################################
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nextcloud
+  namespace: default
+  annotations:
+    gethomepage.dev/href: "https://cloud.rwcloud.org"
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: terra
+    gethomepage.dev/group: System
+    gethomepage.dev/icon: nextcloud.png
+    gethomepage.dev/pod-selector: ""
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`cloud.rwcloud.org`)
+      services:
+        - name: nextcloud-service
+          port: 8006
+          scheme: https
+          serversTransport: nextcloud-transport
+  tls:
+    secretName: nextcloud-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: nextcloud-transport
+  namespace: default
+spec:
+  insecureSkipVerify: true
