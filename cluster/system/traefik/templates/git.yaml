@@ -1,0 +1,72 @@
+###############################################################################
+# Service
+###############################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: git-service
+  namespace: default
+spec:
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000
+---
+###############################################################################
+# Endpoints (statt EndpointSlice!)
+###############################################################################
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: git-service
+  namespace: default
+subsets:
+  - addresses:
+      - ip: 192.168.0.3
+    ports:
+      - name: http
+        port: 3000
+---
+###############################################################################
+# Certificate
+###############################################################################
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: git-cert
+  namespace: default
+spec:
+  secretName: git-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - git.rwcloud.org
+---
+###############################################################################
+# IngressRoute
+###############################################################################
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: git
+  namespace: default
+  annotations:
+    gethomepage.dev/href: "https://git.rwcloud.org"
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: git
+    gethomepage.dev/group: System
+    gethomepage.dev/icon: forgejo.png
+    gethomepage.dev/pod-selector: ""
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`git.rwcloud.org`)
+      services:
+        - name: git-service
+          port: 3000
+          scheme: http
+  tls:
+    secretName: git-tls
