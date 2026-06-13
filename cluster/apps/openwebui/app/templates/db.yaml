@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: db
+  namespace: openwebui
+spec:
+  encryptedData:
+    url: AgB0HCTxxfTrh4Gd93rRdBeqP5kWdwECbonYQhFRqvEdsy9nc/zqG1I2UvcCZ6nEhJHbVj8ADGNntsfgPuom6FKEUCTddBDlQeXs3eBOlhL3hNPso1h9edqXhCRZWaL66HjEYc8AJDy+FEqOVUW0f6/Jm0tOhewinpy9LXgpKnnqeX13T1hQbO/Q4lJjPDI7TOpzbdyOHhz7X2Qag5YAWlY8FsWyyvSgr6fGM9SqoSlfvPSniAouDIlU7ZvjQ7icv/J21RGXuo51vgnnEw7qpk4oazQ3lzXRaslHI8WAyEGoUAcOLfYj9qYo9nFSRcRP4Hrp9Tps/Gn1LJdSAYv5EAqONHk32fsnbZwp1N7ODNxqWGtIecGb3WSF0Yrn773coaKEcUqrPgYHdL7+xoeK7hN6VFA2oRDDW6BOCtWH8CItDdMofPRmestYjvdtmgb9fg6/thaYxiHyHaQn5rYMurlnycXazQO1hpErPuv4VH4s8bVJoXwPgUjtEiEWF4PP1Y4BJe2s3fysKEvSvnU7y/dFqsS0ZAdi/C/96DdXxCCC3SSdwvfouYIcZTEmeaqBijDIT+IEIEqwwl6qVaTS8uZqWyXgJ0hDZDtHbojeV3/XTzGPVfpMHwdFT/GL8OlBri7Y964dznkDLcXybwD6Wjjp/BYFkCJqtJ5NDZFxsgP77hNetvdnNVp4sh3V0R8hptil0OsSi5K4EIy+Emcj5IcY+dATWW24EKE+iwjyrEQ9jK3qM1B/m8ic9qW37hsnibWL1dvjBqy3PPzu9KHFaOsxoge8K7lI2rhTCfWnWpZjujg=
+  template:
+    metadata:
+      name: db
+      namespace: openwebui
+    type: Opaque
