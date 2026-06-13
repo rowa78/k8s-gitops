@@ -255,8 +255,8 @@ open-webui:
     - name: DATABASE_URL
       valueFrom:
         secretKeyRef:
-          name: openwebuidb-app
-          key: uri
+          name: db
+          key: url
     - name: ENABLE_WEBSOCKET_SUPPORT
       value: "true"
     # - name: OLLAMA_DEBUG

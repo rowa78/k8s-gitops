@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: db
+  namespace: xopenwebui
+spec:
+  encryptedData:
+    url: AgAuPCR/stQTsMdvGXX5eYz7WBnILARjcCu/+s03+1bIgC4cbx8dxxv/SsHNotYj2skFQaZtSpX4vr2zpFKWtnNJlcS++jkDVelXkuttAZ3mMPdvvOV3khorbvcvfqIa/z0WVvsaUMCsV8d/X7w0clhfnOwRnG7CWr+jhs8QDo9iKTH3MXXnrs5U5yFfBbCYQSN7ra+MeUP6lsXA3OK9lmbKTHnQyJ6efzTqEvndfwQv7RaDAwShO5zWGoNkhqYyzjBu+/Q6jxv4GTMoIe0kX8GOhXcuzD1zGZycS1Qb3Vh0biWmHfWPpDk53iJ/5KXmCrveeenRCCevPvIKc4urEmCOtQYLgGlVhsTem0ZkqXsJoPnXr+3jzctNmiWMjqIDNbzOem+6Bny6Ph31DXYASauIKJ6i/VtrszXr9gtOps4/l3HcRLSil10rLNWG3nq+evZ0zcJU7/AKgUcjb95MN/vGHs1TLodJsPO3fi4tI81YVP8+5XXe64wvEGWrKc9D1bBfGooKVhr82ZOKo79IWzcJzuVWQib8lmxbwhcI34VQMbtf1/P2xU8qN5mr+heZK7PL285jB1Ep48xP3Q0h+nYFJb76oFCy5M3nrhR1Y7H/1reiU9xYDhBWZa6CuanH1c+cN1aKygfOHyhWAeGI+3v4KCQMeYdPGoDAn9sjw0u1jfBB/u+G21GfNNK6CH5Ib/plk4yrZjQ+lEh2acGa58Bcieycgx+DAGawMn0CKx5PMN5w61HUSLy3nZ5fvURbqqBUrCyYrPld2jgpxnG7vgZXv0j5eTDBwC59ycQhxBenIZf8JA==
+  template:
+    metadata:
+      name: db
+      namespace: xopenwebui
+    type: Opaque
