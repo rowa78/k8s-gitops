@@ -63,7 +63,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`ds.ronnywalter.de`)
+      match: Host(`ai.rwcloud.org`)
       services:
         - name: openwebui-service
           port: 3000
