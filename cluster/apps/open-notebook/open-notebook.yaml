@@ -1,71 +1,8 @@
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: open-notebook-misc
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: apps
-  source:
-    repoURL: https://github.com/rowa78/k8s-gitops.git
-    targetRevision: main
-    path: cluster/apps/open-notebook/misc
-  destination:
-    name: in-cluster
-    namespace: open-notebook     
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true 
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: open-notebook-surrealdb
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: apps
-  source:
-    repoURL: https://github.com/rowa78/k8s-gitops.git
-    targetRevision: main
-    path: cluster/apps/open-notebook/surrealdb
-  destination:
-    name: in-cluster
-    namespace: open-notebook     
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true 
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: open-notebook-app
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: apps
-  source:
-    repoURL: https://github.com/rowa78/k8s-gitops.git
-    targetRevision: main
-    path: cluster/apps/open-notebook/open-notbook
-  destination:
-    name: in-cluster
-    namespace: open-notebook
-  syncPolicy:
-    automated:
-      prune: false
-      selfHeal: true
----
+# ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
 # metadata:
-#   name: bmw-backup
+#   name: open-notebook-misc
 #   namespace: argocd
 #   finalizers:
 #     - resources-finalizer.argocd.argoproj.io
@@ -74,32 +11,95 @@ spec:
 #   source:
 #     repoURL: https://github.com/rowa78/k8s-gitops.git
 #     targetRevision: main
-#     path: cluster/apps/bmw/backup
+#     path: cluster/apps/open-notebook/misc
 #   destination:
 #     name: in-cluster
-#     namespace: bmw
+#     namespace: open-notebook     
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true 
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: open-notebook-surrealdb
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+# spec:
+#   project: apps
+#   source:
+#     repoURL: https://github.com/rowa78/k8s-gitops.git
+#     targetRevision: main
+#     path: cluster/apps/open-notebook/surrealdb
+#   destination:
+#     name: in-cluster
+#     namespace: open-notebook     
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true 
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: open-notebook-app
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+# spec:
+#   project: apps
+#   source:
+#     repoURL: https://github.com/rowa78/k8s-gitops.git
+#     targetRevision: main
+#     path: cluster/apps/open-notebook/open-notbook
+#   destination:
+#     name: in-cluster
+#     namespace: open-notebook
 #   syncPolicy:
 #     automated:
 #       prune: false
 #       selfHeal: true
 # ---
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: vocabolario-app
-#   namespace: argocd
-#   finalizers:
-#     - resources-finalizer.argocd.argoproj.io
-# spec:
-#   project: apps
-#   source:
-#     repoURL: https://github.com/rowa78/k8s-gitops.git
-#     targetRevision: main
-#     path: cluster/apps/vocabolario/vocabolario-app
-#   destination:
-#     name: in-cluster
-#     namespace: vocabolario
-#   syncPolicy:
-#     automated:
-#       prune: false
-#       selfHeal: true
+# # apiVersion: argoproj.io/v1alpha1
+# # kind: Application
+# # metadata:
+# #   name: bmw-backup
+# #   namespace: argocd
+# #   finalizers:
+# #     - resources-finalizer.argocd.argoproj.io
+# # spec:
+# #   project: apps
+# #   source:
+# #     repoURL: https://github.com/rowa78/k8s-gitops.git
+# #     targetRevision: main
+# #     path: cluster/apps/bmw/backup
+# #   destination:
+# #     name: in-cluster
+# #     namespace: bmw
+# #   syncPolicy:
+# #     automated:
+# #       prune: false
+# #       selfHeal: true
+# # ---
+# # apiVersion: argoproj.io/v1alpha1
+# # kind: Application
+# # metadata:
+# #   name: vocabolario-app
+# #   namespace: argocd
+# #   finalizers:
+# #     - resources-finalizer.argocd.argoproj.io
+# # spec:
+# #   project: apps
+# #   source:
+# #     repoURL: https://github.com/rowa78/k8s-gitops.git
+# #     targetRevision: main
+# #     path: cluster/apps/vocabolario/vocabolario-app
+# #   destination:
+# #     name: in-cluster
+# #     namespace: vocabolario
+# #   syncPolicy:
+# #     automated:
+# #       prune: false
+# #       selfHeal: true
