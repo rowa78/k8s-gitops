@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: db
+  namespace: finance-tracker
+spec:
+  encryptedData:
+    url: AgA2M++EPr7Gka5XO8V9uWrqKMvc5ZyrC0Fq+u9I0afbjk1Tqg3PV1FG397xZzYAEQpCp9FVF4CgBKEXHcDtpywm8equu7luNHNnyhtTxvJ6yo6iNaJmbuuV6UB7d4TfvdSmDXXSehWSWrFhrb0949074T0OTKRYk1ROi2gn+8RfmS0R0v4BwyczPYoh9jiS7s+aPEepXyq1ZCRx6BF027Xvfc4LI32ukGed8vrHbIZz6dqREf2DhNKoAGgOum0rLp2/+u8GVv8ci4kHM2A2GTyJ+e8hqJsmRtrxN09C3LEqWARvHgo7PDpa4RYAueJ9Wyo8pfnRUpkvjzsUmm/Z+WvxFno15TzWSMffgbfTEL50rmVosDno7NpdoHdz3z8d3iL/pFGcMwc7PB24fP1v51nEkkj03ZL9fr36EuC3seUGZoMWmjiTNef+c776o500QzOFrnCNSBVHmZIn9W5bWK/IDdMBBEwIR1I5D4VDOWytWBsN3sdMFnjR/51FyP4YoyoSNl0BQxvCCE4IEaMGAQ5pcgTl121vVjCrYrly8sLk0Wwp7GQ5jXqKduaFvEoeytG0JKSs8C2oF0MB0cw06d/CVJIYfqZzrXFCDlPcgDGtFN9Qx4nOJr1sJPqY2YhZrQs6iBKOoUxHfXdSv26pXdzdY4b9nE916oM/QayRUYuicQ5FqWZ4i+3teJ7Akog7d6AuRvJWrX1WVy7u6Bj+ZYT46o3podyBiXSRsSIPJAy0gep3WgRRAiczkq6LYVILpbjk+CZlK+GzTIEKbvkx7HoNrYXlOz6+T2eGFTVJ66WdO0oOyec75B7f6x6X
+  template:
+    metadata:
+      name: db
+      namespace: finance-tracker
+    type: Opaque
