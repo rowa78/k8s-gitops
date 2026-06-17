@@ -18,7 +18,7 @@ open-webui:
 
     persistentVolume:
       enabled: true
-      storageClass: openebs-hostpath
+      storageClass: cloud-1
       size: 10Gi
       
 
