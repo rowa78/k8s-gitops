@@ -13,3 +13,4 @@ nfs-subdir-external-provisioner:
     name: cloud-1
     provisionerName: k8s-sigs.io/nfs-cloud-1
     archiveOnDelete: false
+    defaultClass: true
