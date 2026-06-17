@@ -2,13 +2,13 @@ nfs-subdir-external-provisioner:
   nfs:
     server: 192.168.0.40
     path: /srv/nfs/k3s
-    mountOptions: 
-    - nfsvers=4.2
-    - hard
-    - noatime
-    - nodiratime
-    - rsize=1048576
-    - wsize=1048576
+    # mountOptions: 
+    # - nfsvers=4.2
+    # - hard
+    # - noatime
+    # - nodiratime
+    # - rsize=1048576
+    # - wsize=1048576
   storageClass:
     name: cloud-2
     provisionerName: k8s-sigs.io/nfs-cloud-2    
