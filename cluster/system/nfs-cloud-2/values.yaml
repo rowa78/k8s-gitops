@@ -3,8 +3,8 @@ nfs-subdir-external-provisioner:
     server: 192.168.0.40
     path: /srv/nfs/k3s
     mountOptions: 
-    - nfsvers=4.2
-    # - hard
+    # - nfsvers=4.2
+    - hard
     # - noatime
     # - nodiratime
     # - rsize=1048576
