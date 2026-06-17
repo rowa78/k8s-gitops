@@ -1,6 +1,6 @@
 nfs-subdir-external-provisioner: 
   nfs:
-    server: cloud-2.fritz.box
+    server: 192.168.0.40
     path: /srv/nfs/k3s
   storageClass:
     name: cloud-2
