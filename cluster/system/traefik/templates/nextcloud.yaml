@@ -8,7 +8,7 @@ metadata:
   namespace: default
 spec:
   ports:
-    - name: https
+    - name: http
       port: 11000
       targetPort: 11000
 ---
@@ -24,7 +24,7 @@ subsets:
   - addresses:
       - ip: 192.168.0.142
     ports:
-      - name: https
+      - name: http
         port: 11000
 ---
 ###############################################################################
@@ -67,15 +67,7 @@ spec:
       services:
         - name: nextcloud-service
           port: 11000
-          scheme: https
+          scheme: http
           serversTransport: nextcloud-transport
   tls:
     secretName: nextcloud-tls
----
-apiVersion: traefik.io/v1alpha1
-kind: ServersTransport
-metadata:
-  name: nextcloud-transport
-  namespace: default
-spec:
-  insecureSkipVerify: true
