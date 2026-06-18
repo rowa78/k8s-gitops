@@ -71,3 +71,11 @@ spec:
           serversTransport: nextcloud-transport
   tls:
     secretName: nextcloud-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: nextcloud-transport
+  namespace: default
+spec:
+  insecureSkipVerify: true
