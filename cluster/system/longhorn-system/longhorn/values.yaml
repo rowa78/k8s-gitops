@@ -37,3 +37,5 @@ longhorn:
 #    backupTarget: s3://longhorn@minio/
 #    backupTargetCredentialSecret: longhorn-backup    
     deletingConfirmationFlag: "false"
+    v2DataEngine: "true"
+    dataEngineHugepageEnabled: "true"
