@@ -22,7 +22,7 @@ longhorn:
     defaultClass: false
     defaultDataLocality: best-effort    
     defaultDiskSelector:
-      enabled: true
+      enable: true
       selector: "filesystem"
   defaultSettings:    
     defaultDataPath: /storage/longhorn
