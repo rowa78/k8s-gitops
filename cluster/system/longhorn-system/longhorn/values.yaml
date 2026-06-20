@@ -17,11 +17,13 @@ longhorn:
     snapshotterReplicaCount: 1
         
   persistence:
-    defaultClassReplicaCount: 1
+    defaultClassReplicaCount: 2
     defaultFsType: ext4
     defaultClass: true
-    defaultDataLocality: best-effort
-    removeSnapshotsDuringFilesystemTrim: "enabled"
+    defaultDataLocality: best-effort    
+    defaultDiskSelector:
+      enabled: true
+      selector: "filesystem"
   defaultSettings:    
     defaultDataPath: /storage/longhorn
     #createDefaultDiskLabeledNodes: "true"
