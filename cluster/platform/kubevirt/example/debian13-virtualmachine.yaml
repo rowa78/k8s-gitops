@@ -6,6 +6,11 @@ kind: VirtualMachine
 metadata:
   name: debian13
   namespace: kubevirt-examples
+  labels:
+    kubevirt-manager.io/managed: "true"
+    kubevirt.io/domain: debian13
+    fw.kubevirt-manager.io/vm-name: debian13
+    cloud-init.kubevirt-manager.io/username: debian
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
@@ -14,11 +19,20 @@ spec:
     metadata:
       labels:
         kubevirt.io/vm: debian13
+        kubevirt-manager.io/managed: "true"
+        kubevirt.io/domain: debian13
+        fw.kubevirt-manager.io/vm-name: debian13
+        cloud-init.kubevirt-manager.io/username: debian
     spec:
       domain:
+        cpu:
+          cores: 2
+          sockets: 1
+          threads: 1
         devices:
           disks:
             - name: rootdisk
+              bootOrder: 1
               disk:
                 bus: virtio
             - name: cloudinitdisk
