@@ -18,6 +18,9 @@ spec:
             - name: rootdisk
               disk:
                 bus: virtio
+            - name: cloudinitdisk
+              disk:
+                bus: virtio
           interfaces:
             - name: default
               masquerade: {}
@@ -32,3 +35,11 @@ spec:
         - name: rootdisk
           dataVolume:
             name: cirros-dv
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              datasource_list: [ NoCloud, None ]
+              password: cirros
+              chpasswd: { expire: False }
+              ssh_pwauth: True
