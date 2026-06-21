@@ -21,9 +21,9 @@ longhorn:
     defaultFsType: ext4
     defaultClass: false
     defaultDataLocality: best-effort    
-    defaultDiskSelector:
-      enable: true
-      selector: "filesystem"
+    # defaultDiskSelector:
+    #   enable: true
+    #   selector: "filesystem"
   defaultSettings:    
     defaultDataPath: /storage/longhorn
     #createDefaultDiskLabeledNodes: "true"
