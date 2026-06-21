@@ -9,7 +9,13 @@ spec:
   configuration:
     developerConfiguration:
       featureGates:
+        - HotplugVolumes
+        - HostDisk
+        - VMExport
+        - Snapshot
         - ExpandDisks
+        - ExperimentalIgnitionSupport
+        - LiveMigration
     imagePullPolicy: IfNotPresent
   customizeComponents: {}
   imagePullPolicy: IfNotPresent
