@@ -126,8 +126,8 @@ spec:
           effect: NoExecute
       serviceAccountName: multus
       initContainers:
-        # k3s v1.36+ uses one "cni" binary; plugins are symlinks (flannel -> .../bin/cni).
-        # Multus chroot needs real files — copy cni once per plugin name.
+        # k3s: data/cni/* are symlinks to data/<hash>/bin/cni — only data/cni is mounted here,
+        # so resolve via readlink + hostroot (verified on terra).
         - name: ensure-k3s-cni-binaries
           image: busybox:1.36
           command:
@@ -135,18 +135,15 @@ spec:
             - -ec
             - |
               DEST=/host/var/lib/rancher/k3s/data/cni
-              mkdir -p "$DEST"
-              CNI_BIN=$(find /host/var/lib/rancher/k3s/data -path '*/bin/cni' -type f 2>/dev/null | head -1)
-              if [ -z "$CNI_BIN" ]; then
-                echo "k3s cni binary not found under /host/var/lib/rancher/k3s/data"
+              LINK=$(readlink "$DEST/flannel")
+              CNI_BIN="/hostroot${LINK}"
+              if [ ! -f "$CNI_BIN" ]; then
+                echo "cni binary not found at $CNI_BIN (readlink flannel -> $LINK)"
                 exit 1
               fi
               for bin in flannel bandwidth portmap bridge host-local loopback firewall; do
                 cp -f "$CNI_BIN" "$DEST/$bin"
                 chmod +x "$DEST/$bin"
-              done
-              for bin in flannel bandwidth portmap; do
-                [ -x "$DEST/$bin" ] || { echo "missing $bin"; exit 1; }
               done
               ls -la "$DEST"
           resources:
@@ -159,6 +156,9 @@ spec:
             - name: cnibin
               mountPath: /host/var/lib/rancher/k3s/data/cni
               mountPropagation: Bidirectional
+            - name: hostroot
+              mountPath: /hostroot
+              mountPropagation: HostToContainer
         - name: install-multus-binary
           image: ghcr.io/k8snetworkplumbingwg/multus-cni:v4.3.0-thick
           command:
