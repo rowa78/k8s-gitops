@@ -148,20 +148,20 @@
 #     name: rsyslog
 #     state: present
 
-- name: install qemu-guest-agent
-  package:
-    name: qemu-guest-agent
-    state: present
+# - name: install qemu-guest-agent
+#   package:
+#     name: qemu-guest-agent
+#     state: present
 
-- name: enable service qemu-guest-agent
-  ansible.builtin.service:
-    name: qemu-guest-agent
-    enabled: yes
+# - name: enable service qemu-guest-agent
+#   ansible.builtin.service:
+#     name: qemu-guest-agent
+#     enabled: yes
 
-- name: start service qemu-guest-agent
-  ansible.builtin.service:
-    name: qemu-guest-agent
-    state: started
+# - name: start service qemu-guest-agent
+#   ansible.builtin.service:
+#     name: qemu-guest-agent
+#     state: started
 
 # - name: install zfs-utils
 #   package:
@@ -211,35 +211,39 @@
 #     name: multipathd
 #     state: restarted
 
-# - name: Install KVM and related packages
-#   package:
-#     name:
-#       - qemu-kvm
-#       - libvirt-daemon-system
-#       - libvirt-clients
-#       - bridge-utils
-#       - virt-manager
-#       - cpu-checker
-#       - net-tools
-#     state: present
+- name: Install KVM and related packages
+  package:
+    name:
+      - qemu-kvm
+      - libvirt-clients
+      - bridge-utils
+      - cpu-checker
+      - net-tools
+    state: present
 
-# - name: Ensure kvm kernel module is loaded (Intel)
-#   modprobe:
-#     name: kvm_intel
-#     state: present
-#   when: "'Intel' in ansible_facts['processor'][0]"
+- name: Ensure kvm kernel module is loaded (Intel)
+  modprobe:
+    name: kvm_intel
+    state: present
+  when: "'Intel' in ansible_facts['processor'][0]"
 
-# - name: Ensure kvm kernel module is loaded (AMD)
-#   modprobe:
-#     name: kvm_amd
-#     state: present
-#   when: "'AMD' in ansible_facts['processor'][0]"
+- name: Ensure kvm kernel module is loaded (AMD)
+  modprobe:
+    name: kvm_amd
+    state: present
+  when: "'AMD' in ansible_facts['processor'][0]"
 
-# - name: Enable and start libvirtd
-#   service:
-#     name: libvirtd
-#     state: started
-#     enabled: true
+- name: Ensure vhost_net kernel module is loaded
+  modprobe:
+    name: vhost_net
+    state: present
+
+- name: Stop and disable libvirtd
+  service:
+    name: libvirtd
+    state: stopped
+    enabled: false
+  failed_when: false
 
 # - name: configuring ufw
 #   community.general.ufw:
@@ -272,5 +276,26 @@
 #     - not raspberry_pi|default(false)
 
 
+# # longhorn
+# - name: Ensure nvme-tcp kernel module is loaded
+#   modprobe:
+#     name: nvme-tcp
+#     state: present
 
- 
+# - name: Ensure vfio_pci kernel module is loaded
+#   modprobe:
+#     name: vfio_pci
+#     state: present
+
+# - name: Ensure uio_pci_generic kernel module is loaded
+#   modprobe:
+#     name: uio_pci_generic
+#     state: present
+
+# - name: Enable hugepages
+#   sysctl:
+#     name: vm.nr_hugepages
+#     value: "1024"
+#     state: present
+#     reload: yes
+#     sysctl_file: /etc/sysctl.d/99-sysctl.conf

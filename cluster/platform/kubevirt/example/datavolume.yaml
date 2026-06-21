@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kubevirt-examples
+---
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: cirros-dv
+  namespace: kubevirt-examples
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  source:
+    http:
+      url: https://cloud.cirros-cloud.net/0.6.2/cirros-0.6.2-x86_64-disk.img
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: longhorn

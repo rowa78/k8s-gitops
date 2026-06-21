@@ -2,14 +2,9 @@ all:
   children:         
     masters:
       hosts: 
-        k3s01:      
+        terra:            
     workers:
-      hosts:
-        # cloud-2:
-        # worker01:
-        # worker02:
-        # worker03:
-        # worker04:        
+      hosts:        
     k3s_cluster:
       children:
         masters:
