@@ -126,6 +126,42 @@ spec:
           effect: NoExecute
       serviceAccountName: multus
       initContainers:
+        # k3s stores CNI plugins as symlinks; multus chroot needs real binaries.
+        - name: ensure-k3s-cni-binaries
+          image: busybox:1.36
+          command:
+            - sh
+            - -ec
+            - |
+              DEST=/host/var/lib/rancher/k3s/data/cni
+              mkdir -p "$DEST"
+              for f in "$DEST"/*; do
+                [ -e "$f" ] || continue
+                base=$(basename "$f")
+                cp -Lf "$f" "$DEST/.flat.$base"
+                mv -f "$DEST/.flat.$base" "$DEST/$base"
+                chmod +x "$DEST/$base" 2>/dev/null || true
+              done
+              for dir in /host/var/lib/rancher/k3s/data/*/bin; do
+                [ -d "$dir" ] || continue
+                for bin in flannel bandwidth portmap bridge host-local loopback; do
+                  [ -x "$DEST/$bin" ] && continue
+                  [ -x "$dir/$bin" ] && cp -f "$dir/$bin" "$DEST/$bin" && chmod +x "$DEST/$bin"
+                done
+              done
+              for bin in flannel bandwidth portmap; do
+                [ -x "$DEST/$bin" ] || { echo "missing $bin in $DEST"; ls -la "$DEST"; exit 1; }
+              done
+          resources:
+            requests:
+              cpu: 10m
+              memory: 15Mi
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: cnibin
+              mountPath: /host/var/lib/rancher/k3s/data/cni
+              mountPropagation: Bidirectional
         - name: install-multus-binary
           image: ghcr.io/k8snetworkplumbingwg/multus-cni:v4.3.0-thick
           command:
