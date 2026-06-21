@@ -126,7 +126,8 @@ spec:
           effect: NoExecute
       serviceAccountName: multus
       initContainers:
-        # k3s stores CNI plugins as symlinks; multus chroot needs real binaries.
+        # k3s v1.36+ uses one "cni" binary; plugins are symlinks (flannel -> .../bin/cni).
+        # Multus chroot needs real files — copy cni once per plugin name.
         - name: ensure-k3s-cni-binaries
           image: busybox:1.36
           command:
@@ -135,23 +136,19 @@ spec:
             - |
               DEST=/host/var/lib/rancher/k3s/data/cni
               mkdir -p "$DEST"
-              for f in "$DEST"/*; do
-                [ -e "$f" ] || continue
-                base=$(basename "$f")
-                cp -Lf "$f" "$DEST/.flat.$base"
-                mv -f "$DEST/.flat.$base" "$DEST/$base"
-                chmod +x "$DEST/$base" 2>/dev/null || true
-              done
-              for dir in /host/var/lib/rancher/k3s/data/*/bin; do
-                [ -d "$dir" ] || continue
-                for bin in flannel bandwidth portmap bridge host-local loopback; do
-                  [ -x "$DEST/$bin" ] && continue
-                  [ -x "$dir/$bin" ] && cp -f "$dir/$bin" "$DEST/$bin" && chmod +x "$DEST/$bin"
-                done
+              CNI_BIN=$(find /host/var/lib/rancher/k3s/data -path '*/bin/cni' -type f 2>/dev/null | head -1)
+              if [ -z "$CNI_BIN" ]; then
+                echo "k3s cni binary not found under /host/var/lib/rancher/k3s/data"
+                exit 1
+              fi
+              for bin in flannel bandwidth portmap bridge host-local loopback firewall; do
+                cp -f "$CNI_BIN" "$DEST/$bin"
+                chmod +x "$DEST/$bin"
               done
               for bin in flannel bandwidth portmap; do
-                [ -x "$DEST/$bin" ] || { echo "missing $bin in $DEST"; ls -la "$DEST"; exit 1; }
+                [ -x "$DEST/$bin" ] || { echo "missing $bin"; exit 1; }
               done
+              ls -la "$DEST"
           resources:
             requests:
               cpu: 10m
