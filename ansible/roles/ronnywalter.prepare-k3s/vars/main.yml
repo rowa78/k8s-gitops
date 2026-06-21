@@ -1,2 +1,2 @@
 ---
-# vars file for ronnywalter.reboot
+k3s_kvm_qemu_package: qemu-system-x86

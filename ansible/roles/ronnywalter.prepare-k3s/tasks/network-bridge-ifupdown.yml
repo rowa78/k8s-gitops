@@ -1,0 +1,53 @@
+---
+- name: Disable standalone {{ k3s_lan_bridge.interface }} in /etc/network/interfaces
+  ansible.builtin.replace:
+    path: /etc/network/interfaces
+    regexp: '(?m)^allow-hotplug {{ k3s_lan_bridge.interface }}\s*$'
+    replace: '# allow-hotplug {{ k3s_lan_bridge.interface }}  # → interfaces.d/50-k3s-lan-bridge'
+  register: disable_eno1_hotplug
+
+- name: Disable standalone {{ k3s_lan_bridge.interface }} DHCP stanza
+  ansible.builtin.replace:
+    path: /etc/network/interfaces
+    regexp: '(?m)^iface {{ k3s_lan_bridge.interface }} inet dhcp\s*$'
+    replace: '# iface {{ k3s_lan_bridge.interface }} inet dhcp  # → interfaces.d/50-k3s-lan-bridge'
+  register: disable_eno1_iface
+
+- name: Deploy bridge config (Debian /etc/network/interfaces.d)
+  ansible.builtin.template:
+    src: lan-bridge.interfaces.j2
+    dest: /etc/network/interfaces.d/50-k3s-lan-bridge
+    owner: root
+    group: root
+    mode: "0644"
+  register: bridge_config
+
+- name: Check whether bridge exists
+  ansible.builtin.command: ip link show {{ k3s_lan_bridge.name }}
+  register: bridge_status
+  changed_when: false
+  failed_when: false
+
+- name: Apply bridge configuration (ifupdown)
+  ansible.builtin.systemd:
+    name: networking
+    state: restarted
+  when: >
+    disable_eno1_hotplug.changed
+    or disable_eno1_iface.changed
+    or bridge_config.changed
+    or bridge_status.rc != 0
+
+- name: Configure DNS (ifupdown static does not use dhcpcd)
+  ansible.builtin.copy:
+    dest: /etc/resolv.conf
+    content: |
+      {% for ns in k3s_lan_bridge.nameservers %}
+      nameserver {{ ns }}
+      {% endfor %}
+    owner: root
+    group: root
+    mode: "0644"
+  when: >
+    k3s_lan_bridge.nameservers is defined
+    and not (k3s_lan_bridge.dhcp4 | default(false))

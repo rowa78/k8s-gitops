@@ -1,2 +1,6 @@
 ---
-# defaults file for ronnywalter.reboot
+k3s_kvm_base_packages:
+  - libvirt-clients
+  - bridge-utils
+  - cpu-checker
+  - net-tools

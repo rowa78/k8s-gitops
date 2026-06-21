@@ -1,0 +1,3 @@
+---
+# qemu-kvm is a virtual package on Ubuntu 26.04+; use the concrete provider.
+k3s_kvm_qemu_package: qemu-system-x86

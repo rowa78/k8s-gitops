@@ -11,3 +11,11 @@ rke2_agent_options:
 k3s_control_node: true
 
 k3s_node_ip: "192.168.0.110,fd00:2222::89:f3ff:fef0:dbaf"
+
+# Ubuntu: network_backend defaults to netplan; Debian/terra uses ifupdown explicitly.
+# k3s_lan_bridge:
+#   name: br0
+#   interface: eno1
+#   inherit_mac: true
+#   dhcp4: true
+#   accept_ra: true

@@ -7,6 +7,13 @@ k3s_use_unsupported_config: true
 
 k3s_etcd_datastore: true
 
+# LAN bridge host networking: ifupdown (Debian) | netplan (Ubuntu).
+# Override per host in host_vars; default is Ubuntu → netplan, else ifupdown.
+# network_backend: netplan
+#
+# Ubuntu 26.04+: default sudo-rs breaks Ansible become (prompt timeout).
+# Set ansible_become_exe: /usr/bin/sudo.ws per host until ansible-core fix is released.
+
 k3s_server_config_yaml_d_files:
   - templates/node-ip.yaml.j2
 

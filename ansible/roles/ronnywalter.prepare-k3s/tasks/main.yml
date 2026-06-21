@@ -216,13 +216,8 @@
   when: k3s_lan_bridge is defined
 
 - name: Install KVM and related packages
-  package:
-    name:
-      - qemu-kvm
-      - libvirt-clients
-      - bridge-utils
-      - cpu-checker
-      - net-tools
+  ansible.builtin.package:
+    name: "{{ [k3s_kvm_qemu_package] + k3s_kvm_base_packages }}"
     state: present
 
 - name: Ensure kvm kernel module is loaded (Intel)

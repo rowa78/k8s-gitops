@@ -1,0 +1,48 @@
+# Linux bridge for KubeVirt LAN networking (Multus + bridge CNI).
+# Managed by Ansible — do not configure {{ k3s_lan_bridge.interface }} elsewhere.
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    {{ k3s_lan_bridge.interface }}:
+      dhcp4: false
+      dhcp6: false
+      optional: true
+  bridges:
+    {{ k3s_lan_bridge.name }}:
+      interfaces: [{{ k3s_lan_bridge.interface }}]
+{% if k3s_lan_bridge.inherit_mac | default(true) %}
+      macaddress: {{ k3s_lan_bridge.macaddress | default(ansible_facts[k3s_lan_bridge.interface].macaddress) | lower }}
+{% elif k3s_lan_bridge.macaddress is defined %}
+      macaddress: {{ k3s_lan_bridge.macaddress | lower }}
+{% endif %}
+      parameters:
+        stp: false
+        forward-delay: "0"
+      dhcp4: {{ k3s_lan_bridge.dhcp4 | default(false) | bool | lower }}
+      dhcp6: {{ k3s_lan_bridge.dhcp6 | default(false) | bool | lower }}
+{% if k3s_lan_bridge.accept_ra | default(false) %}
+      accept-ra: true
+{% endif %}
+{% if not (k3s_lan_bridge.dhcp4 | default(false)) and k3s_lan_bridge.addresses | default([]) | length > 0 %}
+      addresses:
+{% for addr in k3s_lan_bridge.addresses | default([]) %}
+{% if '.' in addr %}
+        - {{ addr if '/' in addr else addr + '/24' }}
+{% else %}
+        - "{{ addr if '/' in addr else addr }}"
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if k3s_lan_bridge.gateway4 is defined and not (k3s_lan_bridge.dhcp4 | default(false)) %}
+      routes:
+        - to: default
+          via: {{ k3s_lan_bridge.gateway4 }}
+{% endif %}
+{% if k3s_lan_bridge.nameservers is defined and not (k3s_lan_bridge.dhcp4 | default(false)) %}
+      nameservers:
+        addresses:
+{% for ns in k3s_lan_bridge.nameservers %}
+          - {{ ns }}
+{% endfor %}
+{% endif %}
