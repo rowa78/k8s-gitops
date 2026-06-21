@@ -30,8 +30,22 @@ spec:
   entryPoints:
     - websecure
   routes:
+    # Console/VNC WebSockets go through nginx /k8s (kubectl proxy).
+    - kind: Rule
+      match: Host(`kubevirt.rwcloud.org`) && PathPrefix(`/k8s`)
+      priority: 100
+      middlewares:
+        - name: oauth2-auth
+          namespace: oauth2-proxy
+      services:
+        - name: kubevirt-manager
+          port: 8080
+          passHostHeader: true
+          responseForwarding:
+            flushInterval: 100ms
     - kind: Rule
       match: Host(`kubevirt.rwcloud.org`)
+      priority: 1
       middlewares:
         - name: oauth2-auth
           namespace: oauth2-proxy
