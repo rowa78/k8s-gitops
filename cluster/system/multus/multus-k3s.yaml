@@ -135,10 +135,26 @@ spec:
             - -ec
             - |
               DEST=/host/var/lib/rancher/k3s/data/cni
-              LINK=$(readlink "$DEST/flannel")
+              # Already materialized on a prior run (flannel is a real file, not a symlink).
+              if [ -f "$DEST/flannel" ] && [ ! -L "$DEST/flannel" ] && [ -x "$DEST/bridge" ]; then
+                echo "CNI binaries already present"
+                ls -la "$DEST"
+                exit 0
+              fi
+              LINK=""
+              for candidate in flannel cni bandwidth; do
+                if [ -L "$DEST/$candidate" ]; then
+                  LINK=$(readlink "$DEST/$candidate")
+                  break
+                fi
+              done
+              if [ -z "$LINK" ]; then
+                echo "no CNI symlink found under $DEST (flannel/cni/bandwidth)"
+                exit 1
+              fi
               CNI_BIN="/hostroot${LINK}"
               if [ ! -f "$CNI_BIN" ]; then
-                echo "cni binary not found at $CNI_BIN (readlink flannel -> $LINK)"
+                echo "cni binary not found at $CNI_BIN (readlink -> $LINK)"
                 exit 1
               fi
               for bin in flannel bandwidth portmap bridge host-local loopback firewall; do
