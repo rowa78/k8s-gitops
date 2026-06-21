@@ -87,6 +87,8 @@ data:
       "cniVersion": "0.3.1",
       "logLevel": "verbose",
       "logToStderr": true,
+      "binDir": "/var/lib/rancher/k3s/data/cni",
+      "cniDir": "/var/lib/cni/multus",
       "cniConfigDir": "/host/var/lib/rancher/k3s/agent/etc/cni/net.d",
       "multusAutoconfigDir": "/host/var/lib/rancher/k3s/agent/etc/cni/net.d",
       "multusConfigFile": "auto",
