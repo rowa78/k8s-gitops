@@ -1,0 +1,57 @@
+# Lab example: default login debian/debian — change before any non-lab use.
+# Console: virtctl console debian13 -n kubevirt-examples
+# SSH:     virtctl ssh debian@debian13 -n kubevirt-examples
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: debian13
+  namespace: kubevirt-examples
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  runStrategy: Always
+  template:
+    metadata:
+      labels:
+        kubevirt.io/vm: debian13
+    spec:
+      domain:
+        devices:
+          disks:
+            - name: rootdisk
+              disk:
+                bus: virtio
+            - name: cloudinitdisk
+              disk:
+                bus: virtio
+          interfaces:
+            - name: default
+              masquerade: {}
+        resources:
+          requests:
+            memory: 2Gi
+            cpu: "2"
+      networks:
+        - name: default
+          pod: {}
+      volumes:
+        - name: rootdisk
+          dataVolume:
+            name: debian13-dv
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              hostname: debian13
+              ssh_pwauth: true
+              chpasswd:
+                list: |
+                  debian:debian
+                expire: false
+              users:
+                - name: debian
+                  sudo: ALL=(ALL) NOPASSWD:ALL
+                  shell: /bin/bash
+              package_update: true
+              packages:
+                - qemu-guest-agent

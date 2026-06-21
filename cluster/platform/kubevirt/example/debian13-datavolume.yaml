@@ -1,0 +1,19 @@
+# Lab example: imports Debian 13 (Trixie) genericcloud image via CDI (~326 MiB download).
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: debian13-dv
+  namespace: kubevirt-examples
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  source:
+    http:
+      url: https://cloud.debian.org/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 20Gi
+    storageClassName: longhorn
