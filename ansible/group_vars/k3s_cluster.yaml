@@ -13,7 +13,7 @@ k3s_server_config_yaml_d_files:
 k3s_server:
   #datastore-endpoint: "postgres://k3s:{{ postgresql_password }}@192.168.1.100:5432/k3s?sslmode=disable"
   #datastore-endpoint: "http://192.168.100.1:2379,http://192.168.100.2:2379,http://192.168.100.3:2379"
-  flannel-iface: eno1
+  flannel-iface: br0
   cluster-cidr: 10.42.0.0/16,fd00:10:42::/48
   service-cidr: 10.43.0.0/16,fd00:10:43::/112
   #flannel-backend: none
@@ -23,6 +23,7 @@ k3s_server:
   #   - node-role.kubernetes.io/control-plane=true:NoSchedule
   tls-san: 
     - terra.fritz.box
+    - 192.168.0.210
   disable:
     - traefik
     # - metrics-server 

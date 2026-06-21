@@ -1,0 +1,7 @@
+---
+- name: post-k3s LAN bridge CNI plugins
+  hosts: k3s_cluster
+  tasks:
+    - name: Install CNI bridge plugins after k3s
+      ansible.builtin.include_tasks: roles/ronnywalter.prepare-k3s/tasks/network-bridge-cni.yml
+      when: k3s_lan_bridge is defined

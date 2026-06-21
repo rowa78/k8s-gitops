@@ -3,6 +3,11 @@
   hosts: "k3s_cluster" 
   roles:
     - xanmanning.k3s
+
+- name: post-k3s LAN bridge CNI plugins
+  ansible.builtin.import_playbook: setup-k3s-post-network.yaml
+
+# Nur bei IP-Migration manuell: ansible-playbook setup-k3s-refresh-node.yaml
     
 #- name: ionice k3s-server
 #  hosts: "k3s_cluster"

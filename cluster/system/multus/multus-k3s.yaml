@@ -1,0 +1,225 @@
+# Multus CNI for k3s — chained with Flannel (primary CNI unchanged).
+# CNI paths: https://docs.k3s.io/networking/multus-ipams
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: network-attachment-definitions.k8s.cni.cncf.io
+spec:
+  group: k8s.cni.cncf.io
+  scope: Namespaced
+  names:
+    plural: network-attachment-definitions
+    singular: network-attachment-definition
+    kind: NetworkAttachmentDefinition
+    shortNames:
+      - nad
+      - net-attach-def
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          description: NetworkAttachmentDefinition expresses intent for attaching pods to networks.
+          type: object
+          properties:
+            apiVersion:
+              type: string
+            kind:
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: Desired state of a network attachment.
+              type: object
+              properties:
+                config:
+                  description: JSON-formatted CNI configuration.
+                  type: string
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: multus
+rules:
+  - apiGroups: ["k8s.cni.cncf.io"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: [""]
+    resources: ["pods", "pods/status"]
+    verbs: ["get", "list", "update", "watch"]
+  - apiGroups: ["", "events.k8s.io"]
+    resources: ["events"]
+    verbs: ["create", "patch", "update"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: multus
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: multus
+subjects:
+  - kind: ServiceAccount
+    name: multus
+    namespace: kube-system
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: multus
+  namespace: kube-system
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: multus-daemon-config
+  namespace: kube-system
+  labels:
+    tier: node
+    app: multus
+data:
+  daemon-config.json: |
+    {
+      "chrootDir": "/hostroot",
+      "cniVersion": "0.3.1",
+      "logLevel": "verbose",
+      "logToStderr": true,
+      "cniConfigDir": "/host/var/lib/rancher/k3s/agent/etc/cni/net.d",
+      "multusAutoconfigDir": "/host/var/lib/rancher/k3s/agent/etc/cni/net.d",
+      "multusConfigFile": "auto",
+      "socketDir": "/host/run/multus/"
+    }
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kube-multus-ds
+  namespace: kube-system
+  labels:
+    tier: node
+    app: multus
+    name: multus
+spec:
+  selector:
+    matchLabels:
+      name: multus
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        tier: node
+        app: multus
+        name: multus
+    spec:
+      hostNetwork: true
+      hostPID: true
+      tolerations:
+        - operator: Exists
+          effect: NoSchedule
+        - operator: Exists
+          effect: NoExecute
+      serviceAccountName: multus
+      initContainers:
+        - name: install-multus-binary
+          image: ghcr.io/k8snetworkplumbingwg/multus-cni:v4.3.0-thick
+          command:
+            - /usr/src/multus-cni/bin/install_multus
+            - -d
+            - /host/var/lib/rancher/k3s/data/cni
+            - -t
+            - thick
+          resources:
+            requests:
+              cpu: 10m
+              memory: 15Mi
+          securityContext:
+            privileged: true
+          terminationMessagePolicy: FallbackToLogsOnError
+          volumeMounts:
+            - name: cnibin
+              mountPath: /host/var/lib/rancher/k3s/data/cni
+              mountPropagation: Bidirectional
+      containers:
+        - name: kube-multus
+          image: ghcr.io/k8snetworkplumbingwg/multus-cni:v4.3.0-thick
+          command: [/usr/src/multus-cni/bin/multus-daemon]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 50Mi
+            limits:
+              cpu: 100m
+              memory: 50Mi
+          securityContext:
+            privileged: true
+          terminationMessagePolicy: FallbackToLogsOnError
+          volumeMounts:
+            - name: cni
+              mountPath: /host/var/lib/rancher/k3s/agent/etc/cni/net.d
+            - name: cnibin
+              mountPath: /var/lib/rancher/k3s/data/cni
+            - name: host-run
+              mountPath: /host/run
+            - name: host-var-lib-cni-multus
+              mountPath: /var/lib/cni/multus
+            - name: host-var-lib-kubelet
+              mountPath: /var/lib/kubelet
+              mountPropagation: HostToContainer
+            - name: host-run-k8s-cni-cncf-io
+              mountPath: /run/k8s.cni.cncf.io
+            - name: host-run-netns
+              mountPath: /run/netns
+              mountPropagation: HostToContainer
+            - name: multus-daemon-config
+              mountPath: /host/var/lib/rancher/k3s/agent/etc/cni/net.d/multus.d
+              readOnly: true
+            - name: hostroot
+              mountPath: /hostroot
+              mountPropagation: HostToContainer
+            - name: multus-conf-dir
+              mountPath: /host/var/lib/rancher/k3s/agent/etc/cni/multus/net.d
+          env:
+            - name: MULTUS_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: cni
+          hostPath:
+            path: /var/lib/rancher/k3s/agent/etc/cni/net.d
+        - name: cnibin
+          hostPath:
+            path: /var/lib/rancher/k3s/data/cni
+        - name: hostroot
+          hostPath:
+            path: /
+        - name: multus-daemon-config
+          configMap:
+            name: multus-daemon-config
+            items:
+              - key: daemon-config.json
+                path: daemon-config.json
+        - name: host-run
+          hostPath:
+            path: /run
+        - name: host-var-lib-cni-multus
+          hostPath:
+            path: /var/lib/cni/multus
+        - name: host-var-lib-kubelet
+          hostPath:
+            path: /var/lib/kubelet
+        - name: host-run-k8s-cni-cncf-io
+          hostPath:
+            path: /run/k8s.cni.cncf.io
+        - name: host-run-netns
+          hostPath:
+            path: /run/netns/
+        - name: multus-conf-dir
+          hostPath:
+            path: /var/lib/rancher/k3s/agent/etc/cni/multus/net.d
+            type: DirectoryOrCreate

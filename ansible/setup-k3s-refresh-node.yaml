@@ -1,0 +1,7 @@
+---
+- name: Refresh k3s node registration when InternalIP is stale
+  hosts: k3s_cluster
+  tasks:
+    - name: Refresh node InternalIP after node-ip change
+      ansible.builtin.include_tasks: roles/ronnywalter.prepare-k3s/tasks/k3s-refresh-node-ip.yml
+      when: k3s_node_ip is defined

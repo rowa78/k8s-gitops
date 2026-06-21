@@ -41,6 +41,10 @@ spec:
           interfaces:
             - name: default
               masquerade: {}
+              macAddress: "52:54:00:12:13:00"
+            - name: lan
+              bridge: {}
+              macAddress: "52:54:00:12:13:01"
         resources:
           requests:
             memory: 2Gi
@@ -48,6 +52,9 @@ spec:
       networks:
         - name: default
           pod: {}
+        - name: lan
+          multus:
+            networkName: kubevirt-examples/lan-bridge
       volumes:
         - name: rootdisk
           dataVolume:
@@ -69,3 +76,16 @@ spec:
               package_update: true
               packages:
                 - qemu-guest-agent
+            networkData: |
+              version: 2
+              ethernets:
+                pod0:
+                  match:
+                    macaddress: "52:54:00:12:13:00"
+                  dhcp4: true
+                lan0:
+                  match:
+                    macaddress: "52:54:00:12:13:01"
+                  dhcp4: true
+                  dhcp6: true
+                  accept-ra: true

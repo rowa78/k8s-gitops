@@ -1,0 +1,55 @@
+---
+- name: Read current node InternalIP from API
+  ansible.builtin.shell: |
+    set -o pipefail
+    k3s kubectl get node {{ inventory_hostname }} -o wide --no-headers | awk '{print $6}'
+  register: k3s_current_node_ips
+  changed_when: false
+  failed_when: false
+  become: true
+
+- name: Determine expected node IPv4
+  ansible.builtin.set_fact:
+    k3s_expected_node_ipv4: "{{ (k3s_node_ip.split(',')[0] | trim) }}"
+
+# Single-node: kubectl delete node fails with ServiceUnavailable.
+# cluster-reset + restart re-registers etcd membership and the node object.
+- name: Refresh stale k3s node registration
+  when: k3s_expected_node_ipv4 not in (k3s_current_node_ips.stdout | default(''))
+  block:
+    - name: Stop k3s before cluster-reset
+      ansible.builtin.systemd:
+        name: k3s
+        state: stopped
+      become: true
+
+    - name: Reset etcd membership to current node-ip
+      ansible.builtin.command:
+        cmd: k3s server --cluster-reset
+      become: true
+      changed_when: true
+
+    - name: Start k3s after cluster-reset
+      ansible.builtin.systemd:
+        name: k3s
+        state: started
+      become: true
+
+    - name: Wait for Kubernetes API
+      ansible.builtin.wait_for:
+        port: 6443
+        host: 127.0.0.1
+        timeout: 180
+      become: true
+
+    - name: Wait for node to report expected InternalIP
+      ansible.builtin.shell: |
+        set -o pipefail
+        k3s kubectl get node {{ inventory_hostname }} -o wide --no-headers | awk '{print $6}'
+      register: k3s_node_ip_check
+      until: k3s_expected_node_ipv4 in (k3s_node_ip_check.stdout | default(''))
+      retries: 24
+      delay: 5
+      changed_when: false
+      failed_when: false
+      become: true

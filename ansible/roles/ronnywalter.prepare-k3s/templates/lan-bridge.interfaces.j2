@@ -1,0 +1,39 @@
+# Linux bridge for KubeVirt LAN networking (Multus + bridge CNI).
+# Managed by Ansible — do not configure {{ k3s_lan_bridge.interface }} elsewhere.
+allow-hotplug {{ k3s_lan_bridge.interface }}
+iface {{ k3s_lan_bridge.interface }} inet manual
+
+auto {{ k3s_lan_bridge.name }}
+{% if k3s_lan_bridge.dhcp4 | default(false) %}
+iface {{ k3s_lan_bridge.name }} inet dhcp
+{% else %}
+iface {{ k3s_lan_bridge.name }} inet static
+{% for addr in k3s_lan_bridge.addresses | default([]) if '.' in addr %}
+    address {{ addr }}
+{% endfor %}
+{% if k3s_lan_bridge.gateway4 is defined %}
+    gateway {{ k3s_lan_bridge.gateway4 }}
+{% endif %}
+{% if k3s_lan_bridge.nameservers is defined %}
+    dns-nameservers {{ k3s_lan_bridge.nameservers | join(' ') }}
+{% endif %}
+{% endif %}
+{% if k3s_lan_bridge.inherit_mac | default(true) %}
+    hwaddress ether {{ k3s_lan_bridge.macaddress | default(ansible_facts[k3s_lan_bridge.interface].macaddress) }}
+{% elif k3s_lan_bridge.macaddress is defined %}
+    hwaddress ether {{ k3s_lan_bridge.macaddress }}
+{% endif %}
+    bridge-ports {{ k3s_lan_bridge.interface }}
+    bridge-stp off
+    bridge-fd 0
+{% for addr in k3s_lan_bridge.addresses | default([]) if '.' not in addr %}
+iface {{ k3s_lan_bridge.name }} inet6 static
+    address {{ addr }}
+{% endfor %}
+{% if k3s_lan_bridge.dhcp6 | default(false) %}
+iface {{ k3s_lan_bridge.name }} inet6 dhcp
+    accept_ra 2
+{% elif k3s_lan_bridge.accept_ra | default(false) %}
+iface {{ k3s_lan_bridge.name }} inet6 auto
+    accept_ra 2
+{% endif %}

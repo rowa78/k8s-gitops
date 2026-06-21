@@ -1,0 +1,17 @@
+---
+- name: Ensure k3s CNI plugin directory exists
+  ansible.builtin.file:
+    path: /var/lib/rancher/k3s/data/cni
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  when: k3s_lan_bridge.install_cni_plugins | default(true)
+
+- name: Install containernetworking CNI plugins for bridge/multus
+  ansible.builtin.unarchive:
+    src: "https://github.com/containernetworking/plugins/releases/download/v1.6.2/cni-plugins-linux-{{ ansible_architecture | replace('x86_64', 'amd64') | replace('aarch64', 'arm64') }}-v1.6.2.tgz"
+    dest: /var/lib/rancher/k3s/data/cni
+    remote_src: true
+    creates: /var/lib/rancher/k3s/data/cni/bridge
+  when: k3s_lan_bridge.install_cni_plugins | default(true)

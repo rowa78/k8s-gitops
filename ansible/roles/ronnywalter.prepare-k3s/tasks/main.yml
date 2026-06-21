@@ -211,6 +211,10 @@
 #     name: multipathd
 #     state: restarted
 
+- name: Configure LAN bridge for KubeVirt (br0)
+  ansible.builtin.include_tasks: network-bridge.yml
+  when: k3s_lan_bridge is defined
+
 - name: Install KVM and related packages
   package:
     name:
