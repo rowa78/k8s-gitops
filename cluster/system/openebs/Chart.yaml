@@ -2,7 +2,6 @@ name: openebs
 apiVersion: v2
 version: 1.0.0
 dependencies:
-  - name: openebs
-    version: "4.4.0"
-    repository: https://openebs.github.io/openebs
-  
+  - name: zfs-localpv
+    version: "2.10.1"
+    repository: https://openebs.github.io/zfs-localpv
