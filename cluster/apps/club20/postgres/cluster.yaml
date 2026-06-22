@@ -8,7 +8,11 @@ metadata:
     k8up.io/backup: 'false'
     tailscale.com/expose: "true"
 spec:
-  imageName: 'ghcr.io/cloudnative-pg/postgresql:17.5-202507280807-standard-bullseye'
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ClusterImageCatalog # Or 'ImageCatalog'
+    name: postgresql-global
+    major: 18
   instances: 1
 
   resources:
@@ -43,10 +47,10 @@ spec:
 
   storage:
     size: 10Gi
-    storageClass: openebs-hostpath
+    storageClass: openebs-zfs-postgres
   walStorage:
     size: 5Gi
-    storageClass: openebs-hostpath
+    storageClass: openebs-zfs-postgres
 
   plugins:
   - name: barman-cloud.cloudnative-pg.io
