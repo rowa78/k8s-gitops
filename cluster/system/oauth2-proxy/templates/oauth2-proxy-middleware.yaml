@@ -7,7 +7,7 @@ spec:
   forwardAuth:
     # /oauth2/auth returns 202/401 for ForwardAuth; /oauth2/ redirects and breaks WebSocket upgrades.
     # External URL: Traefik uses hostNetwork and cannot resolve *.svc.cluster.local via router DNS.
-    address: https://oauth2-proxy.rwcloud.org/oauth2/auth
+    address: https://oauth2-proxy.rwcloud.org/oauth2
     trustForwardHeader: true
     authResponseHeaders:
       - X-Auth-Request-User
