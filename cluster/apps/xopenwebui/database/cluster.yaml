@@ -25,7 +25,7 @@ spec:
   bootstrap:
     initdb:
       database: xopenwebuidb
-      owner: openwebui 
+      owner: xopenwebui 
   # bootstrap:
   #   recovery:
   #     source: xopenwebuidb
