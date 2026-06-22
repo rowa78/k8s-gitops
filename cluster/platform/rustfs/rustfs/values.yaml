@@ -200,14 +200,15 @@ rustfs:
     enabled: true
     className: "traefik" # Specify the classname, traefik or nginx. Different classname has different annotations for session sticky.
     traefikAnnotations: {} # Deprecated: use service.traefikAnnotations instead
-    annotations: {}
+    annotations: 
+      cert-manager.io/cluster-issuer: letsencrypt-production
     hosts:
       - host: s3.rwcloud.org
         paths:
           - path: /
             pathType: Prefix
     tls:
-      enabled: false # Enable tls and access rustfs via https.
+      enabled: true # Enable tls and access rustfs via https.
 
       certManager:
         enabled: false # Enable certmanager to generate certificate for rustfs, default false.
