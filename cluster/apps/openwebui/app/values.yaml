@@ -186,7 +186,7 @@ open-webui:
     # -- If using multiple replicas, you must update accessModes to ReadWriteMany
     accessModes:
       - ReadWriteOnce
-    storageClass: "cloud-1"
+    storageClass: "longhorn"
     selector: {}
     annotations: {}
 
@@ -255,8 +255,8 @@ open-webui:
     - name: DATABASE_URL
       valueFrom:
         secretKeyRef:
-          name: db
-          key: url
+          name: openwebuidb-app
+          key: uri
     - name: ENABLE_WEBSOCKET_SUPPORT
       value: "true"
     # - name: OLLAMA_DEBUG
