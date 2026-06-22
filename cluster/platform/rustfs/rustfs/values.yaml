@@ -217,8 +217,8 @@ rustfs:
         # To use an existing secret for tls certificates in the ingress enable this,
         # set the name of the existing secret and make sure that the secret contains
         # values for the keys "crt" and "key".
-        enabled: false
-        name: ""
+        enabled: true
+        name: "rustfs-tls"
 
       # If the certmanager is not used and no existing secret is used to provide a tls certificate,
       # then this certificate can be configured here. A secret will be created and used.
