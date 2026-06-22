@@ -1,9 +1,9 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: openwebuidb
+  name: xopenwebuidb
   annotations:
-    k8up.io/backupcommand: sh -c 'pg_dump --clean openwebuidb'
+    k8up.io/backupcommand: sh -c 'pg_dump --clean xopenwebuidb'
     k8up.io/file-extension: .sql
     k8up.io/backup: 'false'
     tailscale.com/expose: "true"
@@ -24,11 +24,11 @@ spec:
       cpu: "2"
   bootstrap:
     initdb:
-      database: openwebuidb
+      database: xopenwebuidb
       owner: openwebui 
   # bootstrap:
   #   recovery:
-  #     source: openwebuidb
+  #     source: xopenwebuidb
 
   postgresql:
     parameters:        
@@ -61,12 +61,12 @@ spec:
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
-  name: openwebuidb-backup
+  name: xopenwebuidb-backup
 spec:
   schedule: "0 0 0 * * *"
   backupOwnerReference: self
   cluster:
-    name: openwebuidb
+    name: xopenwebuidb
   method: plugin
   pluginConfiguration:
     name: barman-cloud.cloudnative-pg.io
