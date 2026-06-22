@@ -232,7 +232,7 @@ redis:
   storageSpec:
     volumeClaimTemplate:
       spec:
-        storageClassName: cloud-1
+        storageClassName: longhorn
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
