@@ -75,11 +75,11 @@ kube-prometheus-stack:
 
 
     alertmanagerSpec:
-      replicas: 2
+      replicas: 1
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: openebs-zfs
+            storageClassName: longhorn
             resources:
               requests:
                 storage: 1Gi
