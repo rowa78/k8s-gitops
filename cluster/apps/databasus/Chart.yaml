@@ -1,0 +1,7 @@
+apiVersion: v2
+name: databasus
+version: 1.0.0
+dependencies:
+  - name: databasus
+    version: 3.47.0
+    repository: oci://ghcr.io/databasus/charts

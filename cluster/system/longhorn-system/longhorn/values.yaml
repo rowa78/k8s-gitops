@@ -18,6 +18,7 @@ longhorn:
         
   persistence:
     defaultClassReplicaCount: 2
+    defaultClass: true
     defaultFsType: ext4
     defaultClass: false
     defaultDataLocality: best-effort    
