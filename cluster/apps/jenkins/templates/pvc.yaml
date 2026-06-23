@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: jenkins
 spec:
-  storageClassName: cloud-1
+  storageClassName: longhorn
   accessModes:
     - ReadWriteOnce
   resources:
