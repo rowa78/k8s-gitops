@@ -1,0 +1,7 @@
+apiVersion: v2
+name: homepage
+version: 1.0.0
+dependencies:
+  - name: databasus
+    version: 2.1.0
+    repository: oci://ghcr.io/databasus/charts
