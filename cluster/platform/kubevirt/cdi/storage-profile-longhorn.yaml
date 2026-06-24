@@ -1,0 +1,16 @@
+# CDI auto-detects Longhorn with ReadWriteOnce only; RWX is required for live migration
+# and to clear CDIDefaultStorageClassDegraded on multi-node clusters.
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: StorageProfile
+metadata:
+  name: longhorn
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  claimPropertySets:
+    - accessModes:
+        - ReadWriteMany
+      volumeMode: Filesystem
+    - accessModes:
+        - ReadWriteOnce
+      volumeMode: Filesystem
