@@ -16,6 +16,12 @@ unbound:
   port: 5335
   # Feste ClusterIP — AdGuard bootstrap_dns kann *.cluster.local nicht auflösen
   clusterIP: 10.43.0.153
+  logging:
+    # 0=errors, 1=startup/ops, 2+=details; ohne logfile → stderr (kubectl logs)
+    verbosity: 2
+    logQueries: false
+    logReplies: false
+    logServfail: true
   resources:
     requests:
       cpu: 25m

@@ -12,7 +12,11 @@ data:
       chroot: ""
       username: ""
       do-daemonize: no
-      verbosity: 1
+      use-syslog: no
+      verbosity: {{ .Values.unbound.logging.verbosity }}
+      log-queries: {{ .Values.unbound.logging.logQueries }}
+      log-replies: {{ .Values.unbound.logging.logReplies }}
+      log-servfail: {{ .Values.unbound.logging.logServfail }}
       interface: 0.0.0.0@{{ .Values.unbound.port }}
       port: {{ .Values.unbound.port }}
       do-ip4: yes
