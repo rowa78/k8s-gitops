@@ -52,14 +52,12 @@ data:
           answer: {{ .Values.adguard.internalDns.targetIpv6 | quote }}
       {{- end }}
     filters:
-      - enabled: true
-        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt
-        name: AdGuard DNS filter
-        id: 1
-      - enabled: true
-        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt
-        name: AdAway Default Blocklist
-        id: 2
+      {{- range .Values.adguard.filters }}
+      - enabled: {{ .enabled }}
+        url: {{ .url | quote }}
+        name: {{ .name | quote }}
+        id: {{ .id }}
+      {{- end }}
     querylog:
       enabled: true
       interval: 720h

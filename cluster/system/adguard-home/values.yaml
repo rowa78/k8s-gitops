@@ -73,6 +73,21 @@ adguard:
     wildcard: "*.internal.rwcloud.org"
     targetIpv4: 192.168.0.225
     targetIpv6: fd00:2222::42:c0ff:fea8:babe
+  # Blocklisten — id muss pro Eintrag eindeutig sein
+  filters:
+    - id: 1
+      enabled: true
+      name: AdGuard DNS filter
+      url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt
+    - id: 2
+      enabled: true
+      name: AdAway Default Blocklist
+      url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt
+    - id: 3
+      enabled: true
+      name: hagezi pro
+      # https://github.com/hagezi/dns-blocklists/tree/main#pro
+      url: https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.txt
 
 ingress:
   enabled: true
