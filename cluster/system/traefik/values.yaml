@@ -5,7 +5,7 @@ traefik:
     # -- Deployment or DaemonSet
     kind: DaemonSet
 
-  hostNetwork: true
+  hostNetwork: false
 
   updateStrategy:  # @schema additionalProperties: false
     # -- Customize updateStrategy of Deployment or DaemonSet
@@ -15,12 +15,13 @@ traefik:
       maxSurge:         # @schema type:[integer, string, null]
 
   service:
-    enabled: false
-    type: NodePort
-    externalTrafficPolicy: Local
-    # -- Additional annotations applied to both TCP and UDP services (e.g. for cloud provider specific config)
-    # annotations: 
-    #   kube-vip.io/loadbalancerIPs: "192.168.1.100,fd00:2222:0:0::100"
+    enabled: true
+    type: LoadBalancer
+    annotations:
+      metallb.universe.tf/loadBalancerIPs: "192.168.0.240,fd00:2222::240"
+    spec:
+      loadBalancerIP: 192.168.0.240
+      externalTrafficPolicy: Local
     ipFamilies:
       - IPv4
       - IPv6
