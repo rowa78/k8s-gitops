@@ -3,6 +3,7 @@ apiVersion: cdi.kubevirt.io/v1beta1
 kind: DataVolume
 metadata:
   name: nextcloud-dv
+  namespace: nextcloud
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 spec:

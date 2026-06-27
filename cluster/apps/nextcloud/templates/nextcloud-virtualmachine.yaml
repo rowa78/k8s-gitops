@@ -4,7 +4,8 @@
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
-  name: nextcloud  
+  name: nextcloud
+  namespace: nextcloud
   labels:
     kubevirt-manager.io/managed: "true"
     kubevirt.io/domain: nextcloud
@@ -40,10 +41,10 @@ spec:
           interfaces:
             - name: default
               masquerade: {}
-              macAddress: "52:54:00:12:13:00"
+              macAddress: "52:54:00:12:14:00"
             - name: lan
               bridge: {}
-              macAddress: "52:54:00:12:13:01"
+              macAddress: "52:54:00:12:14:01"
         resources:
           requests:
             memory: 4Gi
@@ -53,7 +54,7 @@ spec:
           pod: {}
         - name: lan
           multus:
-            networkName: kubevirt-examples/lan-bridge
+            networkName: lan-bridge
       volumes:
         - name: rootdisk
           dataVolume:
@@ -80,11 +81,11 @@ spec:
               ethernets:
                 pod0:
                   match:
-                    macaddress: "52:54:00:12:13:00"
+                    macaddress: "52:54:00:12:14:00"
                   dhcp4: true
                 lan0:
                   match:
-                    macaddress: "52:54:00:12:13:01"
+                    macaddress: "52:54:00:12:14:01"
                   dhcp4: true
                   dhcp6: true
                   accept-ra: true
