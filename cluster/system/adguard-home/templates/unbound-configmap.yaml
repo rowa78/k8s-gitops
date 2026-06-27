@@ -14,9 +14,9 @@ data:
       do-daemonize: no
       use-syslog: no
       verbosity: {{ .Values.unbound.logging.verbosity }}
-      log-queries: {{ .Values.unbound.logging.logQueries }}
-      log-replies: {{ .Values.unbound.logging.logReplies }}
-      log-servfail: {{ .Values.unbound.logging.logServfail }}
+      log-queries: {{ if .Values.unbound.logging.logQueries }}yes{{ else }}no{{ end }}
+      log-replies: {{ if .Values.unbound.logging.logReplies }}yes{{ else }}no{{ end }}
+      log-servfail: {{ if .Values.unbound.logging.logServfail }}yes{{ else }}no{{ end }}
       interface: 0.0.0.0@{{ .Values.unbound.port }}
       port: {{ .Values.unbound.port }}
       do-ip4: yes
