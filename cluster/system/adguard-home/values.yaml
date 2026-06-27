@@ -74,11 +74,11 @@ adguard:
     
 ingress:
   enabled: true
-  host: adguard.rwcloud.org
+  host: adguard.internal.rwcloud.org
   tlsSecretName: adguard-tls
   clusterIssuer: letsencrypt-production
   oauth2:
-    enabled: true
+    enabled: false
     middlewareName: oauth2-auth
     middlewareNamespace: oauth2-proxy
   homepage:
