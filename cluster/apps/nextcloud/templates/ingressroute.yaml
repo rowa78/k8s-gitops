@@ -1,5 +1,5 @@
 ###############################################################################
-# Service → VM on LAN (Nextcloud AIO / reverse proxy on :11000)
+# Service → VM on LAN (Nextcloud AIO on :11000)
 ###############################################################################
 apiVersion: v1
 kind: Service
@@ -76,3 +76,5 @@ metadata:
   namespace: nextcloud
 spec:
   insecureSkipVerify: true
+  respondingTimeouts:
+    readTimeout: 3610s
