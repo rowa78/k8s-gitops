@@ -312,7 +312,7 @@ rustfs:
   storageclass:
     name: longhorn
     dataStorageSize: 150Gi
-    logStorageSize: 10Gi
+    logStorageSize: 20Gi
     pvcAnnotations: {}
       #pvcAnnotations:
       #  data:
