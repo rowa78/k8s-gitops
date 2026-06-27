@@ -19,7 +19,7 @@ metadata:
   namespace: nextcloud
 subsets:
   - addresses:
-      - ip: 192.168.0.133
+      - ip: 192.168.0.145
     ports:
       - name: http
         port: 11000
