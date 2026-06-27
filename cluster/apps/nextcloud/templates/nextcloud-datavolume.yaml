@@ -1,4 +1,5 @@
-# Lab example: imports Debian 13 (Trixie) genericcloud image via CDI (~326 MiB download).
+# Imports Debian 13 (Trixie) genericcloud image via CDI (~324 MiB download).
+# Direct mirror URL — cloud.debian.org 302-redirects break CDI HTTP import (unexpected EOF).
 apiVersion: cdi.kubevirt.io/v1beta1
 kind: DataVolume
 metadata:
@@ -9,7 +10,7 @@ metadata:
 spec:
   source:
     http:
-      url: https://cloud.debian.org/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2
+      url: https://saimei.ftp.acc.umu.se/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2
   pvc:
     accessModes:
       - ReadWriteOnce
