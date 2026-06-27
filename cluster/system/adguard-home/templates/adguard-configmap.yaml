@@ -43,6 +43,15 @@ data:
         - {{ . | quote }}
         {{- end }}
       upstream_timeout: 10s
+      {{- if .Values.adguard.internalDns.enabled }}
+      rewrites:
+        - domain: {{ .Values.adguard.internalDns.wildcard | quote }}
+          answer: {{ .Values.adguard.internalDns.targetIpv4 | quote }}
+          enabled: true
+        - domain: {{ .Values.adguard.internalDns.wildcard | quote }}
+          answer: {{ .Values.adguard.internalDns.targetIpv6 | quote }}
+          enabled: true
+      {{- end }}
     filters:
       - enabled: true
         url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt

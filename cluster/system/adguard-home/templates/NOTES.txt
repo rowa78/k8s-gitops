@@ -15,6 +15,13 @@ Post-deploy checks:
 Router:
   Set Fritzbox DHCP DNS to {{ .Values.metallb.ipv4 }} and {{ .Values.metallb.ipv6 }}.
 
+Internal DNS (AdGuard rewrites → HAProxy):
+{{- if .Values.adguard.internalDns.enabled }}
+  {{ .Values.adguard.internalDns.wildcard }} → {{ .Values.adguard.internalDns.targetIpv4 }} / {{ .Values.adguard.internalDns.targetIpv6 }}
+  Test: dig @{{ .Values.metallb.ipv4 }} app.internal.rwcloud.org
+        dig -6 '@{{ .Values.metallb.ipv6 }}' app.internal.rwcloud.org AAAA
+{{- end }}
+
 Storage (like official Docker -v flags):
   /opt/adguardhome/conf  -> PVC adguard-conf  (AdGuardHome.yaml, TLS certs)
   /opt/adguardhome/work  -> PVC adguard-work  (querylog, stats, filter data)

@@ -28,6 +28,14 @@ spec:
               value: {{ .Values.adguard.admin.username | quote }}
             - name: UNBOUND_UPSTREAM
               value: "udp://{{ .Values.unbound.clusterIP }}:{{ .Values.unbound.port }}"
+            {{- if .Values.adguard.internalDns.enabled }}
+            - name: INTERNAL_REWRITE_DOMAIN
+              value: {{ .Values.adguard.internalDns.wildcard | quote }}
+            - name: INTERNAL_REWRITE_IPV4
+              value: {{ .Values.adguard.internalDns.targetIpv4 | quote }}
+            - name: INTERNAL_REWRITE_IPV6
+              value: {{ .Values.adguard.internalDns.targetIpv6 | quote }}
+            {{- end }}
             {{- if not .Values.adguard.admin.sealedSecret.enabled }}
             - name: ADMIN_PASSWORD_HASH
               valueFrom:
@@ -86,6 +94,34 @@ spec:
               ' "$CONF" > "$CONF.tmp" && mv "$CONF.tmp" "$CONF"
 
               sed -i "s|- udp://.*|- ${UNBOUND_UPSTREAM}|" "$CONF"
+
+              {{- if .Values.adguard.internalDns.enabled }}
+              awk -v domain="$INTERNAL_REWRITE_DOMAIN" -v v4="$INTERNAL_REWRITE_IPV4" -v v6="$INTERNAL_REWRITE_IPV6" '
+                function print_rewrites() {
+                  print "      rewrites:"
+                  print "        - domain: " domain
+                  print "          answer: " v4
+                  print "          enabled: true"
+                  print "        - domain: " domain
+                  print "          answer: " v6
+                  print "          enabled: true"
+                }
+                BEGIN { rewrites_written=0; inrewrites=0 }
+                /^      rewrites:/ {
+                  if (!rewrites_written) { print_rewrites(); rewrites_written=1 }
+                  inrewrites=1
+                  next
+                }
+                inrewrites && /^      [a-z]/ { inrewrites=0 }
+                inrewrites { next }
+                /^      upstream_timeout:/ {
+                  print
+                  if (!rewrites_written) { print_rewrites(); rewrites_written=1 }
+                  next
+                }
+                { print }
+              ' "$CONF" > "$CONF.tmp" && mv "$CONF.tmp" "$CONF"
+              {{- end }}
           volumeMounts:
             - name: conf
               mountPath: /opt/adguardhome/conf

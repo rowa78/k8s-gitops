@@ -68,6 +68,11 @@ adguard:
     - 10.43.0.10
     - 1.1.1.1
     - 8.8.8.8
+  internalDns:
+    enabled: true
+    wildcard: "*.internal.rwcloud.org"
+    targetIpv4: 192.168.0.225
+    targetIpv6: fd00:2222::42:c0ff:fea8:babe
 
 ingress:
   enabled: true
