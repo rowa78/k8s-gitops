@@ -42,13 +42,13 @@ adguard:
       cpu: 500m
       memory: 512Mi
   admin:
-    username: admin
+    username: ronny
     # bcrypt hash — replace via SealedSecret or change after first login
     # generate: htpasswd -bnBC 10 "" 'yourpassword' | cut -d: -f2
     #passwordHash: "*********"
     sealedSecret:
       enabled: true
-      passwordHash: AgAYPsBnOAhCTsDeF5WvX/uYEi+LrKBjevQo1vX3ASqn4XqPRpfI+d+pBqBJwj8swT8aolikKHZvbSi14PH/TJkPhkAeBMfa6eSVuG7b+a+8Eb/WDa5HKf/h9PYaFF0BbBr4ohvl8mET+pAIbre14mX39sDTpcPcyg2kSvxLRomW8WVqg5zBuzO1565pl6yoX8hUTWgz9AMqN351WFlffcMT3E6qibicXHR3+47WZm1jcgwX6rc5Rztv0N6+9LVLBuwve8UtZi2qAKJojfCdhIfzIcTS8K0mjoD3jmUsBFkTk+q66G8uDGQPAWYRZ0u8gMfhXmOoXfOw5iAv7q477yUcqdTeQkw08rbuxnRV0pEZCVquQxCbBIoKh3fIPzlqALxI2bvZYuKH7URRBNpmPnpdjbe74rWidzfpiafyAvxdJS/TNhZmG/T5VDc8qlic99gSioRk6kVuVGcLiC/chHzimDOaLMRJ3MCaBVZ/Kphdw++bcKLglhsv2N2PeJYxexyolwMjUvSxfqjp93jbV8kM/Mw+RSzPHHeJGHEwVYVZehpCv7lLX7Yvbcpc5DsNUzHI0mNdAd5mgdDs+jgbasbmakLTBjojVq3rlmH44xQ85B4xpPpeVvkrHOfmTv7uLDgp+X/yFZ0ZhgmByuh8fvQzyaX0geFxPR1YeojyoJsQe4CX05juPR0UyBXHrVhgBP4eV1mecw8Cs1G3YqyFhLhPdkoPGdWBi3jmkTmrdPFANX6t54nZ0ezxoTbLtxp1u5LQDVjXaMP00rO9odk=
+      passwordHash: AgDQp/Q13jRxu9vfJdRCO3i2V8lhU3ftABn3+1Ohj9UaLstEd81xn7nbwplZwF4FyKWSWNy5Ni5xYSjjxyLescwlM2Cb9Fph4GbJjd8Ij0Xi2UclNLkoj6kJ5+fY1hi654cnHoYkhwN2BexRHt8e+CKbt+l031VR20C2lVEidopL/ZrEF54yNuI8c+fjhoVc9WVd6BDNW9DepFyfgPySiA46uPQmT2UzfERD6e4gS0/t6JOQGZvBeF8afQwi75SixQ8s9PriqtSdSw2WTHEQsTscz/u6tmlDcUBHddw9iatgtqQShPTXo+ubMRreq3keAESr16jwE9hS1iXQp4J2rtGkHB9hIujjfxsXEOrgUX1twVfq2veX3E/kejjHim8uzySuyzBhcuUABwEvNf2VjwAZj+Wz9BfmdKLeh2kIGALO8/ueVLGTRnpAUFvHM6ft7S+RWnNLA0TX5VizmXZCovVusxNIjJNLPMhdrP3BP0RDfHhc2QXQhV1veYm4GQJLM+lGFTwzExKlySfjmCfDj8JeI8eM9WJrj/VU6QBPhyHrDBoEnD/mXM1A+R5VtuYASSROEGJP44TmoKGqXrWcwF7zl/HkawJdtipez8VKjgIpGm1W7Gnj6A5caxvWNglP4CAe1Nu+XF4NS1eotx6tYJmxeHzKADjs92A3fcusFneHvembWyIzQid82rNRLYHnUgIv7VtSucgQgf3Sk+A899vmSWCANNEAq4hRR5CXYGHvYAi2J/9aN/16l4ew+//nmdj6TDhy2h2S1WErjeM=
   privateNetworks:
     - 192.168.0.0/24
   localPtrUpstreams:
