@@ -44,6 +44,8 @@ traefik:
       http:
         encodedCharacters:
           allowEncodedSlash: true
+          allowEncodedQuestionMark: true
+          allowEncodedPercent: true
     metrics:
       port: 9101
       nodePort: 30101
