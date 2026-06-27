@@ -12,7 +12,7 @@ metadata:
     fw.kubevirt-manager.io/vm-name: nextcloud
     cloud-init.kubevirt-manager.io/username: nextcloud
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   runStrategy: Always
   template:
