@@ -5,7 +5,7 @@ traefik:
     # -- Deployment or DaemonSet
     kind: DaemonSet
 
-  hostNetwork: false
+  hostNetwork: true
 
   updateStrategy:  # @schema additionalProperties: false
     # -- Customize updateStrategy of Deployment or DaemonSet
@@ -15,13 +15,9 @@ traefik:
       maxSurge:         # @schema type:[integer, string, null]
 
   service:
-    enabled: true
-    type: LoadBalancer
-    annotations:
-      metallb.universe.tf/address-pool: lan
-      metallb.universe.tf/loadBalancerIPs: "192.168.0.240,fd00:2222::240"
-    spec:
-      externalTrafficPolicy: Local
+    enabled: false
+    type: NodePort
+    externalTrafficPolicy: Local
     ipFamilies:
       - IPv4
       - IPv6
