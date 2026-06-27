@@ -1,0 +1,4 @@
+apiVersion: v2
+name: adguard-home
+version: 0.1.0
+description: AdGuard Home with Unbound upstream for LAN DNS filtering

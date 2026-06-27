@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: adguard-config
+  labels:
+    app.kubernetes.io/name: adguard-home
+    app.kubernetes.io/instance: {{ .Release.Name }}
+data:
+  AdGuardHome.yaml: |
+    http:
+      address: 0.0.0.0:80
+      session_ttl: 720h
+    users:
+      - name: {{ .Values.adguard.admin.username | quote }}
+        password: {{ .Values.adguard.admin.passwordHash | quote }}
+    dns:
+      bind_hosts:
+        - 0.0.0.0
+      port: 53
+      anonymize_client_ip: false
+      protection_enabled: true
+      blocking_mode: default
+      ratelimit: 20
+      refuse_any: true
+      upstream_dns:
+        - udp://unbound.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.unbound.port }}
+      bootstrap_dns:
+        {{- range .Values.adguard.bootstrapDns }}
+        - {{ . | quote }}
+        {{- end }}
+      all_servers: false
+      fastest_addr: false
+      cache_size: 4194304
+      cache_ttl_min: 300
+      cache_ttl_max: 86400
+      private_networks:
+        {{- range .Values.adguard.privateNetworks }}
+        - {{ . | quote }}
+        {{- end }}
+      use_private_ptr_resolvers: true
+      local_ptr_upstreams:
+        {{- range .Values.adguard.localPtrUpstreams }}
+        - {{ . | quote }}
+        {{- end }}
+      upstream_timeout: 10s
+    filters:
+      - enabled: true
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt
+        name: AdGuard DNS filter
+        id: 1
+      - enabled: true
+        url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt
+        name: AdAway Default Blocklist
+        id: 2
+    querylog:
+      enabled: true
+      interval: 720h
+    statistics:
+      enabled: true
+      interval: 168h
+    schema_version: 29

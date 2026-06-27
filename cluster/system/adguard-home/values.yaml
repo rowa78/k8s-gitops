@@ -1,0 +1,70 @@
+metallb:
+  ipv4: "192.168.0.240"
+  ipv6: "fd00:2222::240"
+
+persistence:
+  storageClassName: longhorn
+  size: 2Gi
+
+unbound:
+  image:
+    repository: mvance/unbound
+    tag: "1.17.1"
+  port: 5335
+  resources:
+    requests:
+      cpu: 25m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+  fritzbox:
+    ip: "192.168.0.1"
+    forwardZones:
+      - fritz.box
+      - 0.168.192.in-addr.arpa
+  upstream:
+    - 1.1.1.1@53
+    - 8.8.8.8@53
+
+adguard:
+  image:
+    repository: adguard/adguardhome
+    tag: v0.107.61
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+  admin:
+    username: admin
+    # bcrypt hash — replace via SealedSecret or change after first login
+    # generate: htpasswd -bnBC 10 "" 'yourpassword' | cut -d: -f2
+    #passwordHash: "*********"
+    sealedSecret:
+      enabled: true
+      passwordHash: AgAYPsBnOAhCTsDeF5WvX/uYEi+LrKBjevQo1vX3ASqn4XqPRpfI+d+pBqBJwj8swT8aolikKHZvbSi14PH/TJkPhkAeBMfa6eSVuG7b+a+8Eb/WDa5HKf/h9PYaFF0BbBr4ohvl8mET+pAIbre14mX39sDTpcPcyg2kSvxLRomW8WVqg5zBuzO1565pl6yoX8hUTWgz9AMqN351WFlffcMT3E6qibicXHR3+47WZm1jcgwX6rc5Rztv0N6+9LVLBuwve8UtZi2qAKJojfCdhIfzIcTS8K0mjoD3jmUsBFkTk+q66G8uDGQPAWYRZ0u8gMfhXmOoXfOw5iAv7q477yUcqdTeQkw08rbuxnRV0pEZCVquQxCbBIoKh3fIPzlqALxI2bvZYuKH7URRBNpmPnpdjbe74rWidzfpiafyAvxdJS/TNhZmG/T5VDc8qlic99gSioRk6kVuVGcLiC/chHzimDOaLMRJ3MCaBVZ/Kphdw++bcKLglhsv2N2PeJYxexyolwMjUvSxfqjp93jbV8kM/Mw+RSzPHHeJGHEwVYVZehpCv7lLX7Yvbcpc5DsNUzHI0mNdAd5mgdDs+jgbasbmakLTBjojVq3rlmH44xQ85B4xpPpeVvkrHOfmTv7uLDgp+X/yFZ0ZhgmByuh8fvQzyaX0geFxPR1YeojyoJsQe4CX05juPR0UyBXHrVhgBP4eV1mecw8Cs1G3YqyFhLhPdkoPGdWBi3jmkTmrdPFANX6t54nZ0ezxoTbLtxp1u5LQDVjXaMP00rO9odk=
+  privateNetworks:
+    - 192.168.0.0/24
+  localPtrUpstreams:
+    - 192.168.0.1
+  bootstrapDns:
+    - 1.1.1.1
+    - 8.8.8.8
+
+ingress:
+  enabled: true
+  host: adguard.rwcloud.org
+  tlsSecretName: adguard-tls
+  clusterIssuer: letsencrypt-production
+  oauth2:
+    enabled: true
+    middlewareName: oauth2-auth
+    middlewareNamespace: oauth2-proxy
+  homepage:
+    enabled: true
+    description: AdGuard Home
+    group: System
+    icon: adguard-home.png

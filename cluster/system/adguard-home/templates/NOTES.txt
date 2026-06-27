@@ -1,0 +1,19 @@
+AdGuard Home has been deployed.
+
+DNS (LAN):
+  IPv4: {{ .Values.metallb.ipv4 }}:53
+  IPv6: {{ .Values.metallb.ipv6 }}:53
+
+Web UI:
+  https://{{ .Values.ingress.host }}
+  (protected by oauth2-proxy; default AdGuard login password is "changeme" until changed)
+
+Post-deploy checks:
+  dig @{{ .Values.metallb.ipv4 }} google.com
+  dig @{{ .Values.metallb.ipv4 }} diskstation.fritz.box
+
+Router:
+  Set Fritzbox DHCP DNS to {{ .Values.metallb.ipv4 }} and {{ .Values.metallb.ipv6 }}.
+
+Admin password:
+  Replace the bcrypt hash in values.yaml or apply a SealedSecret — see templates/adguard-admin-sealedsecret.yaml
