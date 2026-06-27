@@ -44,9 +44,6 @@ data:
         {{- end }}
       upstream_timeout: 10s
     filtering:
-      filtering_enabled: true
-      protection_enabled: true
-      blocking_mode: default
       {{- if .Values.adguard.internalDns.enabled }}
       rewrites:
         - domain: {{ .Values.adguard.internalDns.wildcard | quote }}
