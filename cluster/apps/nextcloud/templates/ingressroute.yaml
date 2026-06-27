@@ -76,6 +76,3 @@ metadata:
   namespace: nextcloud
 spec:
   insecureSkipVerify: true
-  respondingTimeouts:
-    # NEXTCLOUD_MAX_TIME default is 3600s — Traefik must outlive Nextcloud's own timeout.
-    readTimeout: 3610s
