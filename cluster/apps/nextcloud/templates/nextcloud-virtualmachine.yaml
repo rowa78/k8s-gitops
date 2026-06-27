@@ -71,10 +71,10 @@ spec:
               ssh_pwauth: true
               chpasswd:
                 list: |
-                  nextcloud:nextcloud
+                  ronny:nextcloud
                 expire: false
               users:
-                - name: nextcloud
+                - name: ronny
                   sudo: ALL=(ALL) NOPASSWD:ALL
                   shell: /bin/bash
               package_update: true
