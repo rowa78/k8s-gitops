@@ -45,17 +45,14 @@ data:
       upstream_timeout: 10s
     filtering:
       filtering_enabled: true
-      rewrites_enabled: true
       protection_enabled: true
       blocking_mode: default
       {{- if .Values.adguard.internalDns.enabled }}
       rewrites:
         - domain: {{ .Values.adguard.internalDns.wildcard | quote }}
           answer: {{ .Values.adguard.internalDns.targetIpv4 | quote }}
-          enabled: true
         - domain: {{ .Values.adguard.internalDns.wildcard | quote }}
           answer: {{ .Values.adguard.internalDns.targetIpv6 | quote }}
-          enabled: true
       {{- end }}
     filters:
       - enabled: true
@@ -72,4 +69,4 @@ data:
     statistics:
       enabled: true
       interval: 168h
-    schema_version: 30
+    schema_version: 29
