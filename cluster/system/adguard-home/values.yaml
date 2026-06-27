@@ -88,7 +88,11 @@ adguard:
       name: hagezi pro
       # https://github.com/hagezi/dns-blocklists/tree/main#pro
       url: https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.txt
-
+    - id: 4
+      enabled: true
+      name: hagezi apple bypass fix
+      url: https://github.com/hagezi/dns-blocklists/blob/main/adguard/apple-private-relay.txt
+    
 ingress:
   enabled: true
   host: adguard.rwcloud.org
