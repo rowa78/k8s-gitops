@@ -23,7 +23,7 @@ data:
       ratelimit: 20
       refuse_any: true
       upstream_dns:
-        - udp://unbound.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.unbound.port }}
+        - udp://{{ .Values.unbound.clusterIP }}:{{ .Values.unbound.port }}
       bootstrap_dns:
         {{- range .Values.adguard.bootstrapDns }}
         - {{ . | quote }}

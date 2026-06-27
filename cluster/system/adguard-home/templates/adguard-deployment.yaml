@@ -26,6 +26,8 @@ spec:
           env:
             - name: ADMIN_USER
               value: {{ .Values.adguard.admin.username | quote }}
+            - name: UNBOUND_UPSTREAM
+              value: "udp://{{ .Values.unbound.clusterIP }}:{{ .Values.unbound.port }}"
             {{- if not .Values.adguard.admin.sealedSecret.enabled }}
             - name: ADMIN_PASSWORD_HASH
               valueFrom:
@@ -38,7 +40,7 @@ spec:
             - -c
             - |
               set -eu
-              mkdir -p /opt/adguardhome/conf /opt/adguardhome/work
+              mkdir -p /opt/adguardhome/conf /opt/adguardhome/work/data/filters
               CONF=/opt/adguardhome/conf/AdGuardHome.yaml
 
               if [ -f /secrets/admin/{{ .Values.adguard.admin.sealedSecret.key }} ]; then
@@ -82,6 +84,8 @@ spec:
                   }
                 }
               ' "$CONF" > "$CONF.tmp" && mv "$CONF.tmp" "$CONF"
+
+              sed -i "s|- udp://.*|- ${UNBOUND_UPSTREAM}|" "$CONF"
           volumeMounts:
             - name: conf
               mountPath: /opt/adguardhome/conf

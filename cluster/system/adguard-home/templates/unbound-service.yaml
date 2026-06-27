@@ -7,6 +7,7 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
   type: ClusterIP
+  clusterIP: {{ .Values.unbound.clusterIP | quote }}
   selector:
     app.kubernetes.io/name: unbound
     app.kubernetes.io/instance: {{ .Release.Name }}
