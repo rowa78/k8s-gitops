@@ -1,0 +1,21 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: lan-ipv4
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+spec:
+  addresses:
+    - 192.168.0.240-192.168.0.250
+  autoAssign: true
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: lan-ipv6
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+spec:
+  addresses:
+    - fd00:2222::240-fd00:2222::250
+  autoAssign: true

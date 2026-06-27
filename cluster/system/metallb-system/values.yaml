@@ -1,0 +1,12 @@
+metallb:
+  speaker:
+    frr:
+      enabled: false
+  frrk8s:
+    enabled: false
+  prometheus:
+    rbacPrometheus: false
+    serviceMonitor:
+      enabled: true
+    prometheusRule:
+      enabled: true
