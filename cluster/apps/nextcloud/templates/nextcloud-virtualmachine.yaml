@@ -24,6 +24,10 @@ spec:
         fw.kubevirt-manager.io/vm-name: nextcloud
         cloud-init.kubevirt-manager.io/username: nextcloud
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: mars
+      # optional, empfohlen bei lokalem Storage:
+      evictionStrategy: None
       domain:
         cpu:
           cores: 4
