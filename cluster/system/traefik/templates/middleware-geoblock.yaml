@@ -22,5 +22,3 @@ spec:
       excludedPathPatterns:
         - "^[^/]+/health$"
         - "^[^/]+/status$"
-        # Nextcloud: sync/WebDAV/mobile clients; Cloudflare tunnel hides real client geo
-        - "^nextcloud\\.rwcloud\\.org"
