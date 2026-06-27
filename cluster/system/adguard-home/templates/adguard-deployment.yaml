@@ -28,13 +28,16 @@ spec:
             - -c
             - |
               set -eu
-              mkdir -p /opt/adguardhome/conf /opt/adguardhome/work
               if [ ! -f /opt/adguardhome/conf/AdGuardHome.yaml ]; then
                 cp /config/AdGuardHome.yaml /opt/adguardhome/conf/AdGuardHome.yaml
               fi
           volumeMounts:
             - name: data
-              mountPath: /opt/adguardhome
+              mountPath: /opt/adguardhome/conf
+              subPath: conf
+            - name: data
+              mountPath: /opt/adguardhome/work
+              subPath: work
             - name: config
               mountPath: /config
       containers:
@@ -56,7 +59,11 @@ spec:
                 - NET_BIND_SERVICE
           volumeMounts:
             - name: data
-              mountPath: /opt/adguardhome
+              mountPath: /opt/adguardhome/conf
+              subPath: conf
+            - name: data
+              mountPath: /opt/adguardhome/work
+              subPath: work
           resources:
             {{- toYaml .Values.adguard.resources | nindent 12 }}
           readinessProbe:
