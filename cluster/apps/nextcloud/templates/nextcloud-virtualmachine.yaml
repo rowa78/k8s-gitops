@@ -1,0 +1,90 @@
+# Lab example: default login debian/debian — change before any non-lab use.
+# Console: virtctl console debian13 -n kubevirt-examples
+# SSH:     virtctl ssh debian@debian13 -n kubevirt-examples
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: nextcloud  
+  labels:
+    kubevirt-manager.io/managed: "true"
+    kubevirt.io/domain: nextcloud
+    fw.kubevirt-manager.io/vm-name: nextcloud
+    cloud-init.kubevirt-manager.io/username: nextcloud
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  runStrategy: Always
+  template:
+    metadata:
+      labels:
+        kubevirt.io/vm: nextcloud
+        kubevirt-manager.io/managed: "true"
+        kubevirt.io/domain: nextcloud
+        fw.kubevirt-manager.io/vm-name: nextcloud
+        cloud-init.kubevirt-manager.io/username: nextcloud
+    spec:
+      domain:
+        cpu:
+          cores: 4
+          sockets: 1
+          threads: 1
+        devices:
+          disks:
+            - name: rootdisk
+              bootOrder: 1
+              disk:
+                bus: virtio
+            - name: cloudinitdisk
+              disk:
+                bus: virtio
+          interfaces:
+            - name: default
+              masquerade: {}
+              macAddress: "52:54:00:12:13:00"
+            - name: lan
+              bridge: {}
+              macAddress: "52:54:00:12:13:01"
+        resources:
+          requests:
+            memory: 4Gi
+            cpu: "2"
+      networks:
+        - name: default
+          pod: {}
+        - name: lan
+          multus:
+            networkName: kubevirt-examples/lan-bridge
+      volumes:
+        - name: rootdisk
+          dataVolume:
+            name: nextcloud-dv
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              hostname: nextcloud
+              ssh_pwauth: true
+              chpasswd:
+                list: |
+                  nextcloud:nextcloud
+                expire: false
+              users:
+                - name: nextcloud
+                  sudo: ALL=(ALL) NOPASSWD:ALL
+                  shell: /bin/bash
+              package_update: true
+              packages:
+                - qemu-guest-agent
+            networkData: |
+              version: 2
+              ethernets:
+                pod0:
+                  match:
+                    macaddress: "52:54:00:12:13:05"
+                  dhcp4: true
+                lan0:
+                  match:
+                    macaddress: "52:54:00:12:13:06"
+                  dhcp4: true
+                  dhcp6: true
+                  accept-ra: true
