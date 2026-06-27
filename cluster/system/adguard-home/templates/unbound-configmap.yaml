@@ -8,11 +8,17 @@ metadata:
 data:
   unbound.conf: |
     server:
+      directory: "/opt/unbound/etc/unbound"
+      chroot: ""
+      username: ""
+      do-daemonize: no
       verbosity: 1
-      interface: 0.0.0.0
+      interface: 0.0.0.0@{{ .Values.unbound.port }}
       port: {{ .Values.unbound.port }}
       do-ip4: yes
       do-ip6: yes
+      do-tcp: yes
+      do-udp: yes
       hide-identity: yes
       hide-version: yes
       harden-glue: yes

@@ -29,20 +29,26 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: config
-              mountPath: /etc/unbound/unbound.conf
+              mountPath: /opt/unbound/etc/unbound/unbound.conf
               subPath: unbound.conf
           resources:
             {{- toYaml .Values.unbound.resources | nindent 12 }}
           readinessProbe:
             tcpSocket:
               port: dns-tcp
-            initialDelaySeconds: 5
+            initialDelaySeconds: 10
             periodSeconds: 10
           livenessProbe:
             tcpSocket:
               port: dns-tcp
-            initialDelaySeconds: 15
+            initialDelaySeconds: 30
             periodSeconds: 20
+          startupProbe:
+            tcpSocket:
+              port: dns-tcp
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 12
       volumes:
         - name: config
           configMap:
