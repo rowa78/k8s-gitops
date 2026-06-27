@@ -6,7 +6,7 @@ DNS (LAN):
 
 Web UI:
   https://{{ .Values.ingress.host }}
-  (protected by oauth2-proxy; default AdGuard login password is "changeme" until changed)
+  (protected by oauth2-proxy)
 
 Post-deploy checks:
   dig @{{ .Values.metallb.ipv4 }} google.com
@@ -15,9 +15,22 @@ Post-deploy checks:
 Router:
   Set Fritzbox DHCP DNS to {{ .Values.metallb.ipv4 }} and {{ .Values.metallb.ipv6 }}.
 
-Admin password:
-  Replace the bcrypt hash in values.yaml or apply a SealedSecret — see templates/adguard-admin-sealedsecret.yaml
-
 Storage (like official Docker -v flags):
   /opt/adguardhome/conf  -> PVC adguard-conf  (AdGuardHome.yaml, TLS certs)
   /opt/adguardhome/work  -> PVC adguard-work  (querylog, stats, filter data)
+
+Admin login:
+  Username: adguard.admin.username in values.yaml
+  Password: the plaintext used with htpasswd
+
+Seal password:
+  htpasswd -bnBC 10 "" 'mypassword' | cut -d: -f2 | \
+    kubectl create secret generic adguard-admin \
+      --namespace adguard-home \
+      --from-literal=passwordHash="$(htpasswd -bnBC 10 "" 'mypassword' | cut -d: -f2)" \
+      --dry-run=client -o yaml | kubeseal -o yaml
+
+  Full htpasswd lines (user:hash) also work — init strips the username prefix.
+
+After password change, restart the pod:
+  kubectl rollout restart deployment/adguard-home -n adguard-home

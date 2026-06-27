@@ -23,15 +23,65 @@ spec:
       initContainers:
         - name: init-config
           image: busybox:1.36
+          env:
+            - name: ADMIN_USER
+              value: {{ .Values.adguard.admin.username | quote }}
+            {{- if not .Values.adguard.admin.sealedSecret.enabled }}
+            - name: ADMIN_PASSWORD_HASH
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.adguard.admin.sealedSecret.secretName }}
+                  key: {{ .Values.adguard.admin.sealedSecret.key }}
+            {{- end }}
           command:
             - sh
             - -c
             - |
               set -eu
               mkdir -p /opt/adguardhome/conf /opt/adguardhome/work
-              if [ ! -f /opt/adguardhome/conf/AdGuardHome.yaml ]; then
-                cp /config/AdGuardHome.yaml /opt/adguardhome/conf/AdGuardHome.yaml
+              CONF=/opt/adguardhome/conf/AdGuardHome.yaml
+
+              if [ -f /secrets/admin/{{ .Values.adguard.admin.sealedSecret.key }} ]; then
+                HASH=$(tr -d '\n\r' < /secrets/admin/{{ .Values.adguard.admin.sealedSecret.key }})
+              elif [ -n "${ADMIN_PASSWORD_HASH:-}" ]; then
+                HASH=$(printf '%s' "$ADMIN_PASSWORD_HASH" | tr -d '\n\r')
+              else
+                echo "no admin password configured" >&2
+                exit 1
               fi
+              case "$HASH" in
+                *:*) HASH=${HASH#*:} ;;
+              esac
+
+              if [ ! -f "$CONF" ]; then
+                sed -e "s|__ADMIN_USERNAME__|${ADMIN_USER}|g" \
+                    -e "s|__ADMIN_PASSWORD_HASH__|${HASH}|g" \
+                    /config/AdGuardHome.yaml > "$CONF"
+              fi
+
+              awk -v user="$ADMIN_USER" -v hash="$HASH" '
+                BEGIN { inusers=0; users_written=0 }
+                /^users:/ {
+                  if (!users_written) {
+                    print "users:"
+                    print "  - name: " user
+                    print "    password: " hash
+                    users_written=1
+                  }
+                  inusers=1
+                  next
+                }
+                inusers && /^[^ ]/ { inusers=0 }
+                inusers { next }
+                { print }
+                END {
+                  if (!users_written) {
+                    print "users:"
+                    print "  - name: " user
+                    print "    password: " hash
+                  }
+                }
+              ' "$CONF" > "$CONF.tmp" && mv "$CONF.tmp" "$CONF"
           volumeMounts:
             - name: conf
               mountPath: /opt/adguardhome/conf
@@ -39,6 +89,11 @@ spec:
               mountPath: /opt/adguardhome/work
             - name: config
               mountPath: /config
+            {{- if .Values.adguard.admin.sealedSecret.enabled }}
+            - name: admin-secret
+              mountPath: /secrets/admin
+              readOnly: true
+            {{- end }}
       containers:
         - name: adguard-home
           image: "{{ .Values.adguard.image.repository }}:{{ .Values.adguard.image.tag }}"
@@ -83,3 +138,8 @@ spec:
         - name: config
           configMap:
             name: adguard-config
+        {{- if .Values.adguard.admin.sealedSecret.enabled }}
+        - name: admin-secret
+          secret:
+            secretName: {{ .Values.adguard.admin.sealedSecret.secretName }}
+        {{- end }}

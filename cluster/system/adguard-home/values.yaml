@@ -43,12 +43,15 @@ adguard:
       memory: 512Mi
   admin:
     username: ronny
-    # bcrypt hash — replace via SealedSecret or change after first login
-    # generate: htpasswd -bnBC 10 "" 'yourpassword' | cut -d: -f2
-    #passwordHash: "*********"
+    # Nur den bcrypt-Hash (ohne "user:"), z.B.:
+    # htpasswd -bnBC 10 "" 'mypassword' | cut -d: -f2
+    # Oder htpasswd-Zeile sealen — Init-Container entfernt "user:" automatisch
+    passwordHash: ""
     sealedSecret:
       enabled: true
-      passwordHash: AgDQp/Q13jRxu9vfJdRCO3i2V8lhU3ftABn3+1Ohj9UaLstEd81xn7nbwplZwF4FyKWSWNy5Ni5xYSjjxyLescwlM2Cb9Fph4GbJjd8Ij0Xi2UclNLkoj6kJ5+fY1hi654cnHoYkhwN2BexRHt8e+CKbt+l031VR20C2lVEidopL/ZrEF54yNuI8c+fjhoVc9WVd6BDNW9DepFyfgPySiA46uPQmT2UzfERD6e4gS0/t6JOQGZvBeF8afQwi75SixQ8s9PriqtSdSw2WTHEQsTscz/u6tmlDcUBHddw9iatgtqQShPTXo+ubMRreq3keAESr16jwE9hS1iXQp4J2rtGkHB9hIujjfxsXEOrgUX1twVfq2veX3E/kejjHim8uzySuyzBhcuUABwEvNf2VjwAZj+Wz9BfmdKLeh2kIGALO8/ueVLGTRnpAUFvHM6ft7S+RWnNLA0TX5VizmXZCovVusxNIjJNLPMhdrP3BP0RDfHhc2QXQhV1veYm4GQJLM+lGFTwzExKlySfjmCfDj8JeI8eM9WJrj/VU6QBPhyHrDBoEnD/mXM1A+R5VtuYASSROEGJP44TmoKGqXrWcwF7zl/HkawJdtipez8VKjgIpGm1W7Gnj6A5caxvWNglP4CAe1Nu+XF4NS1eotx6tYJmxeHzKADjs92A3fcusFneHvembWyIzQid82rNRLYHnUgIv7VtSucgQgf3Sk+A899vmSWCANNEAq4hRR5CXYGHvYAi2J/9aN/16l4ew+//nmdj6TDhy2h2S1WErjeM=
+      secretName: adguard-admin
+      key: passwordHash
+      encryptedPasswordHash: AgDQp/Q13jRxu9vfJdRCO3i2V8lhU3ftABn3+1Ohj9UaLstEd81xn7nbwplZwF4FyKWSWNy5Ni5xYSjjxyLescwlM2Cb9Fph4GbJjd8Ij0Xi2UclNLkoj6kJ5+fY1hi654cnHoYkhwN2BexRHt8e+CKbt+l031VR20C2lVEidopL/ZrEF54yNuI8c+fjhoVc9WVd6BDNW9DepFyfgPySiA46uPQmT2UzfERD6e4gS0/t6JOQGZvBeF8afQwi75SixQ8s9PriqtSdSw2WTHEQsTscz/u6tmlDcUBHddw9iatgtqQShPTXo+ubMRreq3keAESr16jwE9hS1iXQp4J2rtGkHB9hIujjfxsXEOrgUX1twVfq2veX3E/kejjHim8uzySuyzBhcuUABwEvNf2VjwAZj+Wz9BfmdKLeh2kIGALO8/ueVLGTRnpAUFvHM6ft7S+RWnNLA0TX5VizmXZCovVusxNIjJNLPMhdrP3BP0RDfHhc2QXQhV1veYm4GQJLM+lGFTwzExKlySfjmCfDj8JeI8eM9WJrj/VU6QBPhyHrDBoEnD/mXM1A+R5VtuYASSROEGJP44TmoKGqXrWcwF7zl/HkawJdtipez8VKjgIpGm1W7Gnj6A5caxvWNglP4CAe1Nu+XF4NS1eotx6tYJmxeHzKADjs92A3fcusFneHvembWyIzQid82rNRLYHnUgIv7VtSucgQgf3Sk+A899vmSWCANNEAq4hRR5CXYGHvYAi2J/9aN/16l4ew+//nmdj6TDhy2h2S1WErjeM=
   privateNetworks:
     - 192.168.0.0/24
   localPtrUpstreams:

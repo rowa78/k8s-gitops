@@ -11,8 +11,8 @@ data:
       address: 0.0.0.0:80
       session_ttl: 720h
     users:
-      - name: {{ .Values.adguard.admin.username | quote }}
-        password: {{ .Values.adguard.admin.passwordHash | quote }}
+      - name: __ADMIN_USERNAME__
+        password: __ADMIN_PASSWORD_HASH__
     dns:
       bind_hosts:
         - 0.0.0.0
