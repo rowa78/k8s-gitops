@@ -99,17 +99,24 @@ spec:
 
               # upstream_dns: Fritzbox für fritz.box/PTR, danach Unbound
               awk -v fritz="$FRITZBOX_UPSTREAM" -v ptr="$FRITZBOX_PTR_UPSTREAM" -v unbound="$UNBOUND_UPSTREAM" '
+                function yaml_quote(s) {
+                  gsub(/\\/, "\\\\", s)
+                  gsub(/"/, "\\\"", s)
+                  return "\"" s "\""
+                }
                 BEGIN { inupstream=0; upstream_written=0 }
-                /^      upstream_dns:/ {
-                  print "      upstream_dns:"
-                  print "        - " fritz
-                  print "        - " ptr
-                  print "        - " unbound
+                /^[ ]*upstream_dns:/ {
+                  match($0, /^[ ]*/)
+                  indent = substr($0, RSTART, RLENGTH)
+                  print indent "upstream_dns:"
+                  print indent "  - " yaml_quote(fritz)
+                  print indent "  - " yaml_quote(ptr)
+                  print indent "  - " yaml_quote(unbound)
                   inupstream=1
                   upstream_written=1
                   next
                 }
-                inupstream && /^      [a-z]/ { inupstream=0 }
+                inupstream && /^[ ]*[a-z]/ && $0 !~ /^[ ]*-/ { inupstream=0 }
                 inupstream { next }
                 { print }
                 END {
@@ -122,38 +129,60 @@ spec:
 
               {{- if .Values.adguard.internalDns.enabled }}
               awk -v domain="$INTERNAL_REWRITE_DOMAIN" -v v4="$INTERNAL_REWRITE_IPV4" -v v6="$INTERNAL_REWRITE_IPV6" '
-                function print_filtering() {
-                  print "filtering:"
-                  print "  filtering_enabled: true"
-                  print "  rewrites_enabled: true"
-                  print "  protection_enabled: true"
-                  print "  blocking_mode: default"
-                  print "  rewrites:"
-                  print "    - domain: " domain
-                  print "      answer: " v4
-                  print "      enabled: true"
-                  print "    - domain: " domain
-                  print "      answer: " v6
-                  print "      enabled: true"
+                function yaml_quote(s) {
+                  gsub(/\\/, "\\\\", s)
+                  gsub(/"/, "\\\"", s)
+                  return "\"" s "\""
+                }
+                function print_filtering(prefix) {
+                  print prefix "filtering:"
+                  print prefix "  filtering_enabled: true"
+                  print prefix "  rewrites_enabled: true"
+                  print prefix "  protection_enabled: true"
+                  print prefix "  blocking_mode: default"
+                  print prefix "  rewrites:"
+                  print prefix "    - domain: " yaml_quote(domain)
+                  print prefix "      answer: " yaml_quote(v4)
+                  print prefix "      enabled: true"
+                  print prefix "    - domain: " yaml_quote(domain)
+                  print prefix "      answer: " yaml_quote(v6)
+                  print prefix "      enabled: true"
                 }
                 BEGIN {
                   filtering_written=0
                   infiltering=0
                   inoldrewrites=0
+                  root_prefix=""
                 }
                 # Alte Rewrites unter dns: entfernen (schema < 30)
-                /^      rewrites:/ { inoldrewrites=1; next }
-                inoldrewrites && /^      [a-z]/ { inoldrewrites=0 }
+                /^[ ]+rewrites:/ && $0 !~ /^[ ]{0,2}rewrites:/ { inoldrewrites=1; next }
+                inoldrewrites && /^[ ]+[a-z]/ && $0 !~ /^[ ]+-/ { inoldrewrites=0 }
                 inoldrewrites { next }
-                /^filtering:/ {
-                  if (!filtering_written) { print_filtering(); filtering_written=1 }
+                /^[ ]*filtering:/ {
+                  if (!filtering_written) {
+                    match($0, /^[ ]*/)
+                    root_prefix = substr($0, RSTART, RLENGTH)
+                    print_filtering(root_prefix)
+                    filtering_written=1
+                  }
                   infiltering=1
                   next
                 }
-                infiltering && /^[^ ]/ { infiltering=0 }
-                infiltering { next }
-                /^    filters:/ {
-                  if (!filtering_written) { print_filtering(); filtering_written=1 }
+                infiltering {
+                  if ($0 ~ /^[ ]*filters:/) {
+                    infiltering=0
+                    print
+                    next
+                  }
+                  next
+                }
+                /^[ ]*filters:/ {
+                  if (!filtering_written) {
+                    match($0, /^[ ]*/)
+                    root_prefix = substr($0, RSTART, RLENGTH)
+                    print_filtering(root_prefix)
+                    filtering_written=1
+                  }
                   print
                   next
                 }
