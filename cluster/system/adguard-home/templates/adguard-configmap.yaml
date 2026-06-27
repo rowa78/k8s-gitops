@@ -23,7 +23,7 @@ data:
       upstream_dns:
         - '[/{{ .Values.unbound.fritzbox.forwardZones | first }}/]{{ .Values.unbound.fritzbox.ip }}'
         - '[/168.192.in-addr.arpa/]{{ .Values.unbound.fritzbox.ip }}'
-        - udp://{{ .Values.unbound.clusterIP }}:{{ .Values.unbound.port }}
+        - 'udp://{{ .Values.unbound.clusterIP }}:{{ .Values.unbound.port }}'
       bootstrap_dns:
         {{- range .Values.adguard.bootstrapDns }}
         - {{ . | quote }}

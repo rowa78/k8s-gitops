@@ -51,3 +51,7 @@ Seal password:
 
 After password change, restart the pod:
   kubectl rollout restart deployment/adguard-home -n adguard-home
+
+Config note:
+  AdGuardHome.yaml is rewritten from Git on every pod start (init-container).
+  UI changes to DNS/filter settings are not persisted across restarts — edit values.yaml.
