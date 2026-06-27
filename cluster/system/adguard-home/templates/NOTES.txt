@@ -11,6 +11,16 @@ Web UI:
 Post-deploy checks:
   dig @{{ .Values.metallb.ipv4 }} google.com
   dig @{{ .Values.metallb.ipv4 }} diskstation.fritz.box
+  dig @{{ .Values.metallb.ipv4 }} terra.fritz.box
+
+  Rewrites (nach Pod-Restart):
+  dig @{{ .Values.metallb.ipv4 }} app.internal.rwcloud.org +short
+    → {{ .Values.adguard.internalDns.targetIpv4 }}
+  dig -6 '@{{ .Values.metallb.ipv6 }}' app.internal.rwcloud.org AAAA +short
+    → {{ .Values.adguard.internalDns.targetIpv6 }}
+
+  terra.fritz.box: Hostname muss in der Fritz!Box am Gerät gesetzt sein
+  (Heimnetz → Netzwerk → Gerät → Name), sonst liefert die Box „No answer“.
 
 Router:
   Set Fritzbox DHCP DNS to {{ .Values.metallb.ipv4 }} and {{ .Values.metallb.ipv6 }}.

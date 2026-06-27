@@ -18,11 +18,11 @@ data:
         - 0.0.0.0
       port: 53
       anonymize_client_ip: false
-      protection_enabled: true
-      blocking_mode: default
       ratelimit: 20
       refuse_any: true
       upstream_dns:
+        - '[/{{ .Values.unbound.fritzbox.forwardZones | first }}/]{{ .Values.unbound.fritzbox.ip }}'
+        - '[/168.192.in-addr.arpa/]{{ .Values.unbound.fritzbox.ip }}'
         - udp://{{ .Values.unbound.clusterIP }}:{{ .Values.unbound.port }}
       bootstrap_dns:
         {{- range .Values.adguard.bootstrapDns }}
@@ -43,6 +43,11 @@ data:
         - {{ . | quote }}
         {{- end }}
       upstream_timeout: 10s
+    filtering:
+      filtering_enabled: true
+      rewrites_enabled: true
+      protection_enabled: true
+      blocking_mode: default
       {{- if .Values.adguard.internalDns.enabled }}
       rewrites:
         - domain: {{ .Values.adguard.internalDns.wildcard | quote }}
@@ -67,4 +72,4 @@ data:
     statistics:
       enabled: true
       interval: 168h
-    schema_version: 29
+    schema_version: 30

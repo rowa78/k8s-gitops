@@ -28,6 +28,10 @@ spec:
               value: {{ .Values.adguard.admin.username | quote }}
             - name: UNBOUND_UPSTREAM
               value: "udp://{{ .Values.unbound.clusterIP }}:{{ .Values.unbound.port }}"
+            - name: FRITZBOX_UPSTREAM
+              value: "[/{{ .Values.unbound.fritzbox.forwardZones | first }}/]{{ .Values.unbound.fritzbox.ip }}"
+            - name: FRITZBOX_PTR_UPSTREAM
+              value: "[/168.192.in-addr.arpa/]{{ .Values.unbound.fritzbox.ip }}"
             {{- if .Values.adguard.internalDns.enabled }}
             - name: INTERNAL_REWRITE_DOMAIN
               value: {{ .Values.adguard.internalDns.wildcard | quote }}
@@ -93,30 +97,64 @@ spec:
                 }
               ' "$CONF" > "$CONF.tmp" && mv "$CONF.tmp" "$CONF"
 
-              sed -i "s|- udp://.*|- ${UNBOUND_UPSTREAM}|" "$CONF"
+              # upstream_dns: Fritzbox für fritz.box/PTR, danach Unbound
+              awk -v fritz="$FRITZBOX_UPSTREAM" -v ptr="$FRITZBOX_PTR_UPSTREAM" -v unbound="$UNBOUND_UPSTREAM" '
+                BEGIN { inupstream=0; upstream_written=0 }
+                /^      upstream_dns:/ {
+                  print "      upstream_dns:"
+                  print "        - " fritz
+                  print "        - " ptr
+                  print "        - " unbound
+                  inupstream=1
+                  upstream_written=1
+                  next
+                }
+                inupstream && /^      [a-z]/ { inupstream=0 }
+                inupstream { next }
+                { print }
+                END {
+                  if (!upstream_written) {
+                    print "upstream_dns patch failed: no upstream_dns block" > "/dev/stderr"
+                    exit 1
+                  }
+                }
+              ' "$CONF" > "$CONF.tmp" && mv "$CONF.tmp" "$CONF"
 
               {{- if .Values.adguard.internalDns.enabled }}
               awk -v domain="$INTERNAL_REWRITE_DOMAIN" -v v4="$INTERNAL_REWRITE_IPV4" -v v6="$INTERNAL_REWRITE_IPV6" '
-                function print_rewrites() {
-                  print "      rewrites:"
-                  print "        - domain: " domain
-                  print "          answer: " v4
-                  print "          enabled: true"
-                  print "        - domain: " domain
-                  print "          answer: " v6
-                  print "          enabled: true"
+                function print_filtering() {
+                  print "filtering:"
+                  print "  filtering_enabled: true"
+                  print "  rewrites_enabled: true"
+                  print "  protection_enabled: true"
+                  print "  blocking_mode: default"
+                  print "  rewrites:"
+                  print "    - domain: " domain
+                  print "      answer: " v4
+                  print "      enabled: true"
+                  print "    - domain: " domain
+                  print "      answer: " v6
+                  print "      enabled: true"
                 }
-                BEGIN { rewrites_written=0; inrewrites=0 }
-                /^      rewrites:/ {
-                  if (!rewrites_written) { print_rewrites(); rewrites_written=1 }
-                  inrewrites=1
+                BEGIN {
+                  filtering_written=0
+                  infiltering=0
+                  inoldrewrites=0
+                }
+                # Alte Rewrites unter dns: entfernen (schema < 30)
+                /^      rewrites:/ { inoldrewrites=1; next }
+                inoldrewrites && /^      [a-z]/ { inoldrewrites=0 }
+                inoldrewrites { next }
+                /^filtering:/ {
+                  if (!filtering_written) { print_filtering(); filtering_written=1 }
+                  infiltering=1
                   next
                 }
-                inrewrites && /^      [a-z]/ { inrewrites=0 }
-                inrewrites { next }
-                /^      upstream_timeout:/ {
+                infiltering && /^[^ ]/ { infiltering=0 }
+                infiltering { next }
+                /^    filters:/ {
+                  if (!filtering_written) { print_filtering(); filtering_written=1 }
                   print
-                  if (!rewrites_written) { print_rewrites(); rewrites_written=1 }
                   next
                 }
                 { print }
