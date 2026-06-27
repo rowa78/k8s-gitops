@@ -78,12 +78,13 @@ spec:
                 - qemu-guest-agent
             networkData: |
               version: 2
+              renderer: networkd
               ethernets:
-                pod0:
+                enp1s0:
                   match:
                     macaddress: "52:54:00:12:14:00"
                   dhcp4: true
-                lan0:
+                enp2s0:
                   match:
                     macaddress: "52:54:00:12:14:01"
                   dhcp4: true
