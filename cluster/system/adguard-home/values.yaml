@@ -9,39 +9,19 @@ persistence:
   work:
     size: 2Gi
 
-unbound:
-  image:
-    repository: mvance/unbound
-    tag: "1.17.1"
-  port: 5335
-  # Feste ClusterIP — AdGuard bootstrap_dns kann *.cluster.local nicht auflösen
-  clusterIP: 10.43.0.153
-  logging:
-    # 0=errors, 1=startup/ops, 2+=details; ohne logfile → stderr (kubectl logs)
-    verbosity: 2
-    logQueries: false
-    logReplies: false
-    logServfail: true
-  resources:
-    requests:
-      cpu: 25m
-      memory: 64Mi
-    limits:
-      cpu: 200m
-      memory: 256Mi
-  fritzbox:
-    ip: "192.168.0.1"
-    forwardZones:
-      - fritz.box
-      - 0.168.192.in-addr.arpa
-  upstream:
-    - 1.1.1.1@53
-    - 8.8.8.8@53
-
 adguard:
   image:
     repository: adguard/adguardhome
     tag: v0.107.61
+  # Upstream: zuerst Fritzbox-Zonen, dann öffentliche Resolver
+  fritzbox:
+    ip: "192.168.0.1"
+    zones:
+      - fritz.box
+      - 168.192.in-addr.arpa
+  upstreamDns:
+    - 1.1.1.1
+    - 8.8.8.8
   resources:
     requests:
       cpu: 50m
@@ -65,7 +45,6 @@ adguard:
   localPtrUpstreams:
     - 192.168.0.1
   bootstrapDns:
-    - 10.43.0.10
     - 1.1.1.1
     - 8.8.8.8
   internalDns:

@@ -21,9 +21,12 @@ data:
       ratelimit: 20
       refuse_any: true
       upstream_dns:
-        - '[/{{ .Values.unbound.fritzbox.forwardZones | first }}/]{{ .Values.unbound.fritzbox.ip }}'
-        - '[/168.192.in-addr.arpa/]{{ .Values.unbound.fritzbox.ip }}'
-        - 'udp://{{ .Values.unbound.clusterIP }}:{{ .Values.unbound.port }}'
+        {{- range .Values.adguard.fritzbox.zones }}
+        - '[/{{ . }}/]{{ $.Values.adguard.fritzbox.ip }}'
+        {{- end }}
+        {{- range .Values.adguard.upstreamDns }}
+        - {{ . | quote }}
+        {{- end }}
       bootstrap_dns:
         {{- range .Values.adguard.bootstrapDns }}
         - {{ . | quote }}
