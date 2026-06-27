@@ -80,11 +80,11 @@ spec:
               ethernets:
                 pod0:
                   match:
-                    macaddress: "52:54:00:12:13:05"
+                    macaddress: "52:54:00:12:13:00"
                   dhcp4: true
                 lan0:
                   match:
-                    macaddress: "52:54:00:12:13:06"
+                    macaddress: "52:54:00:12:13:01"
                   dhcp4: true
                   dhcp6: true
                   accept-ra: true
