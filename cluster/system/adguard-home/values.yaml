@@ -91,7 +91,7 @@ adguard:
     - id: 4
       enabled: true
       name: hagezi apple bypass fix
-      url: https://github.com/hagezi/dns-blocklists/blob/main/adguard/apple-private-relay.txt
+      url: https://raw.githubusercontent.com/hagezi/dns-blocklists/refs/heads/main/adguard/apple-private-relay.txt
     
 ingress:
   enabled: true
