@@ -20,7 +20,6 @@ traefik:
     annotations:
       metallb.universe.tf/loadBalancerIPs: "192.168.0.240,fd00:2222::240"
     spec:
-      loadBalancerIP: 192.168.0.240
       externalTrafficPolicy: Local
     ipFamilies:
       - IPv4
