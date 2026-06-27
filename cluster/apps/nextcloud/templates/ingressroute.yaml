@@ -1,0 +1,78 @@
+###############################################################################
+# Service → VM on LAN (Nextcloud HTTPS)
+###############################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud-service
+  namespace: nextcloud
+spec:
+  ports:
+    - name: https
+      port: 443
+      targetPort: 443
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: nextcloud-service
+  namespace: nextcloud
+subsets:
+  - addresses:
+      - ip: 192.168.0.133
+    ports:
+      - name: https
+        port: 443
+---
+###############################################################################
+# Certificate
+###############################################################################
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: nextcloud-cert
+  namespace: nextcloud
+spec:
+  secretName: nextcloud-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+    - nextcloud.rwcloud.org
+---
+###############################################################################
+# IngressRoute
+###############################################################################
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+  annotations:
+    gethomepage.dev/href: "https://nextcloud.rwcloud.org"
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Nextcloud VM
+    gethomepage.dev/group: Apps
+    gethomepage.dev/icon: nextcloud.png
+    gethomepage.dev/pod-selector: ""
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`nextcloud.rwcloud.org`)
+      services:
+        - name: nextcloud-service
+          port: 443
+          scheme: https
+          serversTransport: nextcloud-transport
+  tls:
+    secretName: nextcloud-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: nextcloud-transport
+  namespace: nextcloud
+spec:
+  insecureSkipVerify: true
