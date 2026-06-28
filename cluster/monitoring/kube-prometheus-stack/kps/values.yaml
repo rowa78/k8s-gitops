@@ -217,6 +217,9 @@ kube-prometheus-stack:
         jenkins:
           url: https://grafana.com/api/dashboards/9964/revisions/1/download
           datasource: Prometheus
+        kubevirt:
+          url: https://raw.githubusercontent.com/kubevirt/monitoring/main/dashboards/grafana/kubevirt-control-plane.json
+          datasource: Prometheus
         # blocky:
         #   url: https://grafana.com/api/dashboards/13768/revisions/3/download
         #   datasource: Prometheus
