@@ -19,30 +19,16 @@
   "links": [],
   "panels": [
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
           "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
             "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
             "showPoints": "never",
-            "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
-            "thresholdsStyle": { "mode": "off" }
+            "spanNulls": false
           },
           "unit": "percentunit"
         },
@@ -56,7 +42,7 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
           "expr": "avg(rate(kubevirt_vmi_vcpu_seconds_total{namespace=\"$namespace\", name=\"$vm\"}[5m])) by (id)",
           "legendFormat": "vCPU {{id}}",
           "refId": "A"
@@ -66,30 +52,16 @@
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
           "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
             "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
             "showPoints": "never",
-            "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
-            "thresholdsStyle": { "mode": "off" }
+            "spanNulls": false
           },
           "unit": "bytes"
         },
@@ -103,40 +75,32 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
           "expr": "kubevirt_vmi_memory_resident_bytes{namespace=\"$namespace\", name=\"$vm\"}",
           "legendFormat": "resident",
           "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "kubevirt_vmi_memory_available_bytes{namespace=\"$namespace\", name=\"$vm\"}",
+          "legendFormat": "available",
+          "refId": "B"
         }
       ],
-      "title": "Memory Resident",
+      "title": "Memory",
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
           "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
             "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
             "showPoints": "never",
-            "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
-            "thresholdsStyle": { "mode": "off" }
+            "spanNulls": false
           },
           "unit": "bps"
         },
@@ -150,14 +114,14 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "expr": "irate(kubevirt_vmi_network_traffic_bytes_total{namespace=\"$namespace\", name=\"$vm\", type=\"rx\"}[5m]) * 8",
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "rate(kubevirt_vmi_network_receive_bytes_total{namespace=\"$namespace\", name=\"$vm\"}[5m]) * 8",
           "legendFormat": "{{interface}} rx",
           "refId": "A"
         },
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "expr": "irate(kubevirt_vmi_network_traffic_bytes_total{namespace=\"$namespace\", name=\"$vm\", type=\"tx\"}[5m]) * 8",
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "rate(kubevirt_vmi_network_transmit_bytes_total{namespace=\"$namespace\", name=\"$vm\"}[5m]) * 8",
           "legendFormat": "{{interface}} tx",
           "refId": "B"
         }
@@ -166,30 +130,16 @@
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
           "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
             "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
             "showPoints": "never",
-            "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
-            "thresholdsStyle": { "mode": "off" }
+            "spanNulls": false
           },
           "unit": "iops"
         },
@@ -203,40 +153,32 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "expr": "irate(kubevirt_vmi_storage_iops_total{namespace=\"$namespace\", name=\"$vm\"}[1m])",
-          "legendFormat": "{{drive}} {{type}}",
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "rate(kubevirt_vmi_storage_iops_read_total{namespace=\"$namespace\", name=\"$vm\"}[1m])",
+          "legendFormat": "{{drive}} read",
           "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "rate(kubevirt_vmi_storage_iops_write_total{namespace=\"$namespace\", name=\"$vm\"}[1m])",
+          "legendFormat": "{{drive}} write",
+          "refId": "B"
         }
       ],
       "title": "Storage IOPS",
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
           "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
             "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
             "showPoints": "never",
-            "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
-            "thresholdsStyle": { "mode": "off" }
+            "spanNulls": false
           },
           "unit": "Bps"
         },
@@ -250,42 +192,34 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "expr": "irate(kubevirt_vmi_storage_traffic_bytes_total{namespace=\"$namespace\", name=\"$vm\"}[1m])",
-          "legendFormat": "{{drive}} {{type}}",
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "rate(kubevirt_vmi_storage_read_traffic_bytes_total{namespace=\"$namespace\", name=\"$vm\"}[1m])",
+          "legendFormat": "{{drive}} read",
           "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "rate(kubevirt_vmi_storage_write_traffic_bytes_total{namespace=\"$namespace\", name=\"$vm\"}[1m])",
+          "legendFormat": "{{drive}} write",
+          "refId": "B"
         }
       ],
       "title": "Storage Traffic",
       "type": "timeseries"
     },
     {
-      "datasource": { "type": "prometheus", "uid": "${datasource}" },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
           "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
             "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": { "type": "linear" },
             "showPoints": "never",
-            "spanNulls": false,
-            "stacking": { "group": "A", "mode": "none" },
-            "thresholdsStyle": { "mode": "off" }
+            "spanNulls": false
           },
-          "unit": "ms"
+          "unit": "s"
         },
         "overrides": []
       },
@@ -297,10 +231,16 @@
       },
       "targets": [
         {
-          "datasource": { "type": "prometheus", "uid": "${datasource}" },
-          "expr": "irate(kubevirt_vmi_storage_times_ms_total{namespace=\"$namespace\", name=\"$vm\"}[1m])",
-          "legendFormat": "{{drive}} {{type}}",
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "rate(kubevirt_vmi_storage_read_times_seconds_total{namespace=\"$namespace\", name=\"$vm\"}[1m])",
+          "legendFormat": "{{drive}} read",
           "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "rate(kubevirt_vmi_storage_write_times_seconds_total{namespace=\"$namespace\", name=\"$vm\"}[1m])",
+          "legendFormat": "{{drive}} write",
+          "refId": "B"
         }
       ],
       "title": "Storage Latency",
@@ -313,31 +253,16 @@
   "templating": {
     "list": [
       {
-        "current": { "selected": false, "text": "Prometheus", "value": "Prometheus" },
-        "hide": 0,
-        "includeAll": false,
-        "label": "Datasource",
-        "multi": false,
-        "name": "datasource",
-        "options": [],
-        "query": "prometheus",
-        "queryValue": "",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "type": "datasource"
-      },
-      {
         "current": {},
-        "datasource": { "type": "prometheus", "uid": "${datasource}" },
-        "definition": "label_values(kubevirt_vmi_vcpu_seconds_total, namespace)",
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "definition": "label_values(kubevirt_vmi_info, namespace)",
         "hide": 0,
         "includeAll": false,
         "label": "Namespace",
         "multi": false,
         "name": "namespace",
         "options": [],
-        "query": { "qryType": 1, "query": "label_values(kubevirt_vmi_vcpu_seconds_total, namespace)", "refId": "PrometheusVariableQueryEditor-VariableQuery" },
+        "query": { "qryType": 1, "query": "label_values(kubevirt_vmi_info, namespace)", "refId": "PrometheusVariableQueryEditor-VariableQuery" },
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -346,15 +271,15 @@
       },
       {
         "current": {},
-        "datasource": { "type": "prometheus", "uid": "${datasource}" },
-        "definition": "label_values(kubevirt_vmi_vcpu_seconds_total{namespace=\"$namespace\"}, name)",
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "definition": "label_values(kubevirt_vmi_info{namespace=\"$namespace\"}, name)",
         "hide": 0,
         "includeAll": false,
         "label": "VM",
         "multi": false,
         "name": "vm",
         "options": [],
-        "query": { "qryType": 1, "query": "label_values(kubevirt_vmi_vcpu_seconds_total{namespace=\"$namespace\"}, name)", "refId": "PrometheusVariableQueryEditor-VariableQuery" },
+        "query": { "qryType": 1, "query": "label_values(kubevirt_vmi_info{namespace=\"$namespace\"}, name)", "refId": "PrometheusVariableQueryEditor-VariableQuery" },
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -368,6 +293,6 @@
   "timezone": "browser",
   "title": "KubeVirt VM Info",
   "uid": "kubevirt-vm-info",
-  "version": 1,
-  "description": "VM runtime metrics (CPU, memory, network, storage). Based on Grafana dashboard 11748, adapted for current KubeVirt metric labels."
+  "version": 2,
+  "description": "VM runtime metrics (CPU, memory, network, storage). Adapted from Grafana dashboard 11748 for KubeVirt 1.8 metric names."
 }
