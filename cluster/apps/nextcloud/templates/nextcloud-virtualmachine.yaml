@@ -33,6 +33,9 @@ spec:
           cores: 4
           sockets: 1
           threads: 1
+          model: host-passthrough
+        machine:
+          type: q35
         devices:
           disks:
             - name: rootdisk
