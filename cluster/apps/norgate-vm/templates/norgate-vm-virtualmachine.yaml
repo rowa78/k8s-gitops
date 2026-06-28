@@ -52,7 +52,7 @@ spec:
               bootOrder: 2
               cdrom:
                 bus: sata
-            - name: virtiocontainerdisk
+            - name: virtiodrivers
               cdrom:
                 bus: sata
           interfaces:
@@ -79,6 +79,6 @@ spec:
         - name: winiso
           dataVolume:
             name: norgate-vm-iso
-        - name: virtiocontainerdisk
-          containerDisk:
-            image: quay.io/kubevirt/virtio-container-disk:v1.8.4
+        - name: virtiodrivers
+          dataVolume:
+            name: norgate-vm-virtio

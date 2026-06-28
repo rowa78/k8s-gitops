@@ -1,0 +1,21 @@
+# Virtio Windows drivers ISO — CDI HTTP import (~700 MiB).
+# Replaces containerDisk to avoid virtio-container-disk sidecar socket failures on k3s/containerd 2.1.
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: norgate-vm-virtio
+  namespace: norgate-vm
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+    volume.kubernetes.io/selected-node: mars
+spec:
+  source:
+    http:
+      url: https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: openebs-zfs
