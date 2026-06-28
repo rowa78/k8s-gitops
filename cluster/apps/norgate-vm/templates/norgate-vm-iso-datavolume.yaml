@@ -1,0 +1,22 @@
+# Windows 11 install ISO — upload via virtctl after ArgoCD sync.
+# virtctl image-upload dv norgate-vm-iso -n norgate-vm --size=8Gi \
+#   --image-path=/path/to/Win11.iso --uploadproxy-url=https://localhost:8443 --insecure
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: norgate-vm-iso
+  namespace: norgate-vm
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+    # WFFC (openebs-zfs): bind volume to ZFS node before upload pod exists.
+    volume.kubernetes.io/selected-node: mars
+spec:
+  source:
+    upload: {}
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 8Gi
+    storageClassName: openebs-zfs

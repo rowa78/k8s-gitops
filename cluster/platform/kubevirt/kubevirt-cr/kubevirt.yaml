@@ -10,8 +10,10 @@ spec:
   serviceMonitorNamespace: monitoring
   certificateRotateStrategy: {}
   configuration:
+    vmStateStorageClass: openebs-zfs
     developerConfiguration:
       featureGates:
+        - VMPersistentState
         - HotplugVolumes
         - HostDisk
         - VMExport

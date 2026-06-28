@@ -1,0 +1,74 @@
+# Windows 11 VM on mars (openebs-zfs). Start only after ISO upload succeeded.
+# Console: virtctl vnc norgate-vm -n norgate-vm
+# After install: remove winiso disk/volume, switch rootdisk bus to virtio.
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: norgate-vm
+  namespace: norgate-vm
+  labels:
+    kubevirt-manager.io/managed: "true"
+    kubevirt.io/domain: norgate-vm
+    fw.kubevirt-manager.io/vm-name: norgate-vm
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  runStrategy: Halted
+  template:
+    metadata:
+      labels:
+        kubevirt.io/vm: norgate-vm
+        kubevirt-manager.io/managed: "true"
+        kubevirt.io/domain: norgate-vm
+        fw.kubevirt-manager.io/vm-name: norgate-vm
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: mars
+      evictionStrategy: None
+      domain:
+        machine:
+          type: q35
+        cpu:
+          cores: 4
+          sockets: 1
+          threads: 1
+          model: host-passthrough
+        features:
+          smm:
+            enabled: true
+        firmware:
+          bootloader:
+            efi:
+              persistent: true
+        devices:
+          tpm:
+            persistent: true
+          disks:
+            - name: rootdisk
+              bootOrder: 1
+              disk:
+                bus: sata
+            - name: winiso
+              bootOrder: 2
+              cdrom:
+                bus: sata
+            - name: virtiocontainerdisk
+              cdrom:
+                bus: sata
+        resources:
+          requests:
+            memory: 8Gi
+            cpu: "4"
+      networks:
+        - name: default
+          pod: {}
+      volumes:
+        - name: rootdisk
+          dataVolume:
+            name: norgate-vm-disk
+        - name: winiso
+          dataVolume:
+            name: norgate-vm-iso
+        - name: virtiocontainerdisk
+          containerDisk:
+            image: quay.io/kubevirt/virtio-container-disk
