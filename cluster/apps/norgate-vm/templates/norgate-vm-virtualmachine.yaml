@@ -13,7 +13,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
-  runStrategy: Halted
+  runStrategy: Always
   template:
     metadata:
       labels:
