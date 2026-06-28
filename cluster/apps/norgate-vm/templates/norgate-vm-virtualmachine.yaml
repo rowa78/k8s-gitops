@@ -81,4 +81,4 @@ spec:
             name: norgate-vm-iso
         - name: virtiocontainerdisk
           containerDisk:
-            image: quay.io/kubevirt/virtio-container-disk
+            image: quay.io/kubevirt/virtio-container-disk:v1.8.4
