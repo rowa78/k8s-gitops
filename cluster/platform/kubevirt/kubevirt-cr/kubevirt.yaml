@@ -11,6 +11,7 @@ spec:
   certificateRotateStrategy: {}
   configuration:
     vmStateStorageClass: openebs-zfs
+    vmStateAccessMode: ReadWriteOnce
     developerConfiguration:
       featureGates:
         - VMPersistentState
