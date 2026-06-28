@@ -55,6 +55,13 @@ spec:
             - name: virtiocontainerdisk
               cdrom:
                 bus: sata
+          interfaces:
+            - name: default
+              masquerade: {}
+              macAddress: "52:54:00:12:15:00"
+            - name: lan
+              bridge: {}
+              macAddress: "52:54:00:12:15:01"
         resources:
           requests:
             memory: 8Gi
@@ -62,6 +69,9 @@ spec:
       networks:
         - name: default
           pod: {}
+        - name: lan
+          multus:
+            networkName: lan-bridge
       volumes:
         - name: rootdisk
           dataVolume:
