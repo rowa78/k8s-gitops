@@ -13,7 +13,7 @@ spec:
     kind: ClusterImageCatalog # Or 'ImageCatalog'
     name: postgresql-global
     major: 18
-  instances: 1
+  instances: 2
 
   resources:
     requests:
