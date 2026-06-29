@@ -16,7 +16,7 @@ gha-runner-scale-set:
     kubernetesModeWorkVolumeClaim:
       accessModes: ["ReadWriteOnce"]
       # For local testing, use https://github.com/openebs/dynamic-localpv-provisioner/blob/develop/docs/quickstart.md to provide dynamic provision volume with storageClassName: openebs-hostpath
-      storageClassName: "openebs-zfs" 
+      storageClassName: "longhorn" 
       resources:
         requests:
           storage: 2Gi
@@ -38,7 +38,7 @@ gha-runner-scale-set:
             volumeClaimTemplate:
               spec:
                 accessModes: [ "ReadWriteOnce" ]
-                storageClassName: "openebs-zfs" # for AKS
+                storageClassName: "longhorn" # for AKS
                 resources:
                   requests:
                     storage: 2Gi

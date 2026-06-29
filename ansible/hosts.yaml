@@ -2,7 +2,8 @@ all:
   children:         
     masters:
       hosts: 
-        terra:            
+        k3s01:            
+        k3s02:
     workers:
       hosts:        
     k3s_cluster:

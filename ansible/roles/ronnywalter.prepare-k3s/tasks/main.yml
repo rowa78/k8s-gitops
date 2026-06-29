@@ -211,38 +211,38 @@
 #     name: multipathd
 #     state: restarted
 
-- name: Configure LAN bridge for KubeVirt (br0)
-  ansible.builtin.include_tasks: network-bridge.yml
-  when: k3s_lan_bridge is defined
+# - name: Configure LAN bridge for KubeVirt (br0)
+#   ansible.builtin.include_tasks: network-bridge.yml
+#   when: k3s_lan_bridge is defined
 
-- name: Install KVM and related packages
-  ansible.builtin.package:
-    name: "{{ [k3s_kvm_qemu_package] + k3s_kvm_base_packages }}"
-    state: present
+# - name: Install KVM and related packages
+#   ansible.builtin.package:
+#     name: "{{ [k3s_kvm_qemu_package] + k3s_kvm_base_packages }}"
+#     state: present
 
-- name: Ensure kvm kernel module is loaded (Intel)
-  modprobe:
-    name: kvm_intel
-    state: present
-  when: "'Intel' in ansible_facts['processor'][0]"
+# - name: Ensure kvm kernel module is loaded (Intel)
+#   modprobe:
+#     name: kvm_intel
+#     state: present
+#   when: "'Intel' in ansible_facts['processor'][0]"
 
-- name: Ensure kvm kernel module is loaded (AMD)
-  modprobe:
-    name: kvm_amd
-    state: present
-  when: "'AMD' in ansible_facts['processor'][0]"
+# - name: Ensure kvm kernel module is loaded (AMD)
+#   modprobe:
+#     name: kvm_amd
+#     state: present
+#   when: "'AMD' in ansible_facts['processor'][0]"
 
-- name: Ensure vhost_net kernel module is loaded
-  modprobe:
-    name: vhost_net
-    state: present
+# - name: Ensure vhost_net kernel module is loaded
+#   modprobe:
+#     name: vhost_net
+#     state: present
 
-- name: Stop and disable libvirtd
-  service:
-    name: libvirtd
-    state: stopped
-    enabled: false
-  failed_when: false
+# - name: Stop and disable libvirtd
+#   service:
+#     name: libvirtd
+#     state: stopped
+#     enabled: false
+#   failed_when: false
 
 # - name: configuring ufw
 #   community.general.ufw:

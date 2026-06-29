@@ -5,22 +5,19 @@ k3s_build_cluster: true
 # 2 nodes at the moment.
 k3s_use_unsupported_config: true
 
-k3s_etcd_datastore: true
+#k3s_etcd_datastore: true
 
 # LAN bridge host networking: ifupdown (Debian) | netplan (Ubuntu).
 # Override per host in host_vars; default is Ubuntu → netplan, else ifupdown.
 # network_backend: netplan
 #
-# Ubuntu 26.04+: default sudo-rs breaks Ansible become (prompt timeout).
-# Set ansible_become_exe: /usr/bin/sudo.ws per host until ansible-core fix is released.
 
-k3s_server_config_yaml_d_files:
-  - templates/node-ip.yaml.j2
+postgresql_password: "{{ lookup('env', 'K3S_POSTGRESQL_PASSWORD') }}"
 
 k3s_server:
-  #datastore-endpoint: "postgres://k3s:{{ postgresql_password }}@192.168.1.100:5432/k3s?sslmode=disable"
+  datastore-endpoint: "postgres://k3s:{{ postgresql_password }}@k3sdb.fritz.box:5432/k3sdb?sslmode=disable"
   #datastore-endpoint: "http://192.168.100.1:2379,http://192.168.100.2:2379,http://192.168.100.3:2379"
-  flannel-iface: br0
+  flannel-iface: eth0
   cluster-cidr: 10.42.0.0/16,fd00:10:42::/48
   service-cidr: 10.43.0.0/16,fd00:10:43::/112
   #flannel-backend: none
@@ -29,8 +26,9 @@ k3s_server:
   #   - node-role.kubernetes.io/master=true:NoSchedule
   #   - node-role.kubernetes.io/control-plane=true:NoSchedule
   tls-san: 
-    - terra.fritz.box
-    - 192.168.0.210
+    - k3s01.fritz.box
+    - k3s02.fritz.box
+    - 192.168.0.249
   disable:
     - traefik
     # - metrics-server 

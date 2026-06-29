@@ -1,0 +1,22 @@
+ansible_user: ronny
+ansible_host: 192.168.0.211
+ansible_become_password: "{{ lookup('env', 'TERRA_SUDO_PASS') }}"
+# Ubuntu 26.04+ defaults to sudo-rs; Ansible become needs classic sudo.ws
+# https://github.com/ansible/ansible/issues/86849
+ansible_become_exe: /usr/bin/sudo.ws
+
+k3s_control_node: true
+
+# DHCP-Reservierung an der Fritz!Box für br0 (eno1-MAC).
+k3s_node_ip: "192.168.0.211,fd00:2222::7a55:36ff:fe02:7d38"
+
+# br0 auf eno1 — IPv4/IPv6/DNS per DHCP/SLAAC vom Router (wie vorher eno1).
+# inherit_mac: br0 übernimmt eno1-MAC → bestehende Fritz!Box-DHCP-Reservierung bleibt gültig.
+network_backend: netplan
+
+k3s_lan_bridge:
+  name: br0
+  interface: eno1
+  inherit_mac: true
+  dhcp4: true
+  accept_ra: true

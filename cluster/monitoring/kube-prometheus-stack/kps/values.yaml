@@ -276,7 +276,7 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
-            storageClassName: openebs-zfs
+            storageClassName: longhorn
             resources:
               requests:
                 storage: 50Gi     
