@@ -190,7 +190,7 @@ keycloakx:
     #   for: 5m
     #   labels:
     #     severity: warning
-  extraEnv: |
+  extraEnv: 
   - name: KEYCLOAK_ADMIN
     value: admin
   - name: KEYCLOAK_ADMIN_PASSWORD
