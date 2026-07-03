@@ -3,8 +3,10 @@ keycloakx:
   command:
   - "/opt/keycloak/bin/kc.sh"
   - "start"
-  - "--http-port=80"
+  - "--http-port=8080"
   - "--hostname-strict=false"
+  http:
+    relativePath: "/"
 
   ingress:
     # If `true`, an Ingress is created
