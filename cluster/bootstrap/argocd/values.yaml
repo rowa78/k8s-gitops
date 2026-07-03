@@ -251,7 +251,7 @@ argo-cd:
           - id: argo-workflows
             name: Argo Workflow
             redirectURIs:
-              - https://argoworkflows.rwcloud.com/oauth2/callback
+              - https://argoworkflows.rwcloud.org/oauth2/callback
             secretEnv: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
         connectors:
         - config:
