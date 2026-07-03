@@ -1,13 +1,13 @@
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: oauth2-auth
+  name: oauth2-forward-auth
   namespace: oauth2-proxy
 spec:
   forwardAuth:
-    # /oauth2/auth returns 202/401 for ForwardAuth; /oauth2/ redirects and breaks WebSocket upgrades.
+    # /oauth2/auth returns 202/401 for ForwardAuth without redirecting the browser.
     # External URL: Traefik uses hostNetwork and cannot resolve *.svc.cluster.local via router DNS.
-    address: https://oauth2-proxy.rwcloud.org/oauth2
+    address: https://oauth2-proxy.rwcloud.org/oauth2/auth
     trustForwardHeader: true
     authResponseHeaders:
       - X-Auth-Request-User
@@ -20,3 +20,32 @@ spec:
       - X-Forwarded-Host
       - X-Forwarded-Uri
       - X-Forwarded-Method
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: oauth2-errors
+  namespace: oauth2-proxy
+spec:
+  errors:
+    status:
+      - "401-403"
+    service:
+      name: oauth2-proxy
+      port: 80
+    query: "/oauth2/start?rd={url}"
+    statusRewrites:
+      "401": 302
+---
+# Chain: errors middleware must run before forwardAuth so 401 triggers login redirect
+# with the original app URL preserved in rd={url}.
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: oauth2-auth
+  namespace: oauth2-proxy
+spec:
+  chain:
+    middlewares:
+      - name: oauth2-errors
+      - name: oauth2-forward-auth
