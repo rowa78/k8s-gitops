@@ -1,0 +1,31 @@
+{{- if and .Values.lldap.enabled .Values.lldap.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lldap
+  labels:
+    app.kubernetes.io/name: lldap
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+    cert-manager.io/cluster-issuer: {{ .Values.lldap.ingress.clusterIssuer }}
+    {{- with .Values.lldap.ingress.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  ingressClassName: {{ .Values.lldap.ingress.ingressClassName }}
+  rules:
+    - host: {{ .Values.lldap.ingress.host | quote }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: lldap
+                port:
+                  name: http
+  tls:
+    - hosts:
+        - {{ .Values.lldap.ingress.host | quote }}
+      secretName: {{ .Values.lldap.ingress.tlsSecretName }}
+{{- end }}
