@@ -3,7 +3,7 @@ keycloakx:
   command:
   - "/opt/keycloak/bin/kc.sh"
   - "start"
-  - "--http-port=8080"
+  - "--http-port=80"
   - "--hostname-strict=false"
 
   ingress:
