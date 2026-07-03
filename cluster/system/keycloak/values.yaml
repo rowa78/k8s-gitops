@@ -190,3 +190,11 @@ keycloakx:
     #   for: 5m
     #   labels:
     #     severity: warning
+  extraEnv: |
+  - name: KEYCLOAK_ADMIN
+    value: admin
+  - name: KEYCLOAK_ADMIN_PASSWORD
+    value: admin
+  - name: JAVA_OPTS_APPEND
+    value: >-
+      -Djgroups.dns.query={{ include "keycloak.fullname" . }}-headless
