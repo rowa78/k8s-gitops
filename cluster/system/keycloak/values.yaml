@@ -196,4 +196,4 @@ keycloakx:
   - name: KEYCLOAK_ADMIN_PASSWORD
     value: admin
   - name: JAVA_OPTS_APPEND
-    value: "-Djgroups.dns.query={{ include "keycloak.fullname" . }}-headless"
+    value: -Djgroups.dns.query={{ include "keycloak.fullname" . }}-headless
