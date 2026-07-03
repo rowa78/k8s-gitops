@@ -4,9 +4,14 @@ keycloakx:
   - "/opt/keycloak/bin/kc.sh"
   - "start"
   - "--http-port=8080"
+  - "--hostname=https://auth.rwcloud.org"
   - "--hostname-strict=false"
+  - "--proxy-headers=xforwarded"
   http:
     relativePath: "/"
+  proxy:
+    enabled: true
+    mode: xforwarded
 
   ingress:
     # If `true`, an Ingress is created
