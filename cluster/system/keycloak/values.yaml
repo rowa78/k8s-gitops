@@ -66,11 +66,11 @@ keycloakx:
       # - hosts:
       #     - console.keycloak.example.com
       #   secretName: ""
-  extraEnv: 
-    - name: KEYCLOAK_ADMIN
-      value: admin
-    - name: KEYCLOAK_ADMIN_PASSWORD
-      value: admin
+  extraEnv: |
+  - name: KEYCLOAK_ADMIN
+    value: admin
+  - name: KEYCLOAK_ADMIN_PASSWORD
+    value: admin
 
   dbchecker:
     enabled: false
