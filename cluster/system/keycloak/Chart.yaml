@@ -2,7 +2,7 @@ name: keycloak
 apiVersion: v2
 version: 1.0.0
 dependencies:
-  - name: keycloak
+  - name: keycloakx
     version: "7.2.1"
     repository: oci://ghcr.io/codecentric/helm-charts
 

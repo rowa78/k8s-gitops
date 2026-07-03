@@ -1,4 +1,4 @@
-keycloak:  
+keycloakx:  
   
   ingress:
     # If `true`, an Ingress is created
