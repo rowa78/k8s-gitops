@@ -65,6 +65,14 @@ argo-cd:
 #        issuer: https://dex.auth.devmem.ru
 #        clientID: argocd
 #        clientSecret: $oidc.dex.clientSecret
+      dex.config: |
+        staticClients:
+        # This is the OIDC client ID in plaintext
+        - id: argo-workflows-sso
+          name: Argo Workflow
+          redirectURIs:
+            - https://argo-workflows.mydomain.com/oauth2/callback
+          secretEnv: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
       configManagementPlugins: |
         - name: argocd-lovely-plugin
           generate:
@@ -232,6 +240,12 @@ argo-cd:
         enabled: true
   dex:
     enabled: true
+    env:
+      - name: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: argo-workflows-sso
+            key: client-secret
   
   configs:
     cm:
@@ -287,6 +301,8 @@ argo-cd:
   redis:
   # -- Enable redis
     enabled: true
+
+
 
 externalsecret: true
 sealedsecret: true
