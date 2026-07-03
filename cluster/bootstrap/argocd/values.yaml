@@ -65,14 +65,7 @@ argo-cd:
 #        issuer: https://dex.auth.devmem.ru
 #        clientID: argocd
 #        clientSecret: $oidc.dex.clientSecret
-      dex.config: |
-        staticClients:
-        # This is the OIDC client ID in plaintext
-        - id: argo-workflows-sso
-          name: Argo Workflow
-          redirectURIs:
-            - https://argo-workflows.mydomain.com/oauth2/callback
-          secretEnv: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
+      
       configManagementPlugins: |
         - name: argocd-lovely-plugin
           generate:
@@ -244,7 +237,7 @@ argo-cd:
       - name: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
         valueFrom:
           secretKeyRef:
-            name: argo-workflows-sso
+            name: argo-server-sso
             key: client-secret
   
   configs:
@@ -253,6 +246,13 @@ argo-cd:
       admin.enabled: true
 
       dex.config: |
+        staticClients:
+          # This is the OIDC client ID in plaintext
+          - id: argo-workflows-sso
+            name: Argo Workflow
+            redirectURIs:
+              - https://argo-workflows.rwcloud.com/oauth2/callback
+            secretEnv: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
         connectors:
         - config:
             issuer: https://auth.rwcloud.org/realms/rwcloud
