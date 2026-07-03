@@ -248,7 +248,7 @@ argo-cd:
       dex.config: |
         staticClients:
           # This is the OIDC client ID in plaintext
-          - id: argo-workflows-sso
+          - id: argo-workflows
             name: Argo Workflow
             redirectURIs:
               - https://argo-workflows.rwcloud.com/oauth2/callback
