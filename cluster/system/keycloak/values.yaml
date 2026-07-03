@@ -68,14 +68,10 @@ keycloakx:
       # - hosts:
       #     - console.keycloak.example.com
       #   secretName: ""
-  extraEnv: |
-    - name: KEYCLOAK_ADMIN
-      value: admin
-    - name: KEYCLOAK_ADMIN_PASSWORD
-      value: admin
+  
 
   dbchecker:
-    enabled: false
+    enabled: true
     image:
       # Docker image used to check Database readiness at startup
       repository: docker.io/busybox
