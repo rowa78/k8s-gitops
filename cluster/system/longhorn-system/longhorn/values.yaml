@@ -40,6 +40,6 @@ longhorn:
     dataEngineHugepageEnabled: "false"
 
   defaultBackupStore:
-    backupTarget: nfs://192.168.0.3:/volume1/k8s/longhorn-backups
+    backupTarget: nfs://192.168.0.3:/volume1/backup/longhorn-backups
     backupTargetCredentialSecret: ""
     pollInterval: "300"
