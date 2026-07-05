@@ -4,13 +4,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: openwebui-service
+  name: backrest-service
   namespace: default
 spec:
   ports:
     - name: http
-      port: 3000
-      targetPort: 3000
+      port: 9898
+      targetPort: 9898
 ---
 ###############################################################################
 # Endpoints (statt EndpointSlice!)
@@ -18,30 +18,30 @@ spec:
 apiVersion: v1
 kind: Endpoints
 metadata:
-  name: openwebui-service
+  name: backrest-service
   namespace: default
 subsets:
   - addresses:
-      - ip: 192.168.0.126
+      - ip: 192.168.0.3
     ports:
       - name: http
-        port: 3000
+        port: 9898
 ---
 ###############################################################################
-# Certificate
+# Certificate 
 ###############################################################################
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: ow-cert
+  name: backrest-cert
   namespace: default
 spec:
-  secretName: ow-tls
+  secretName: backrest-tls
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - ai.rwcloud.org
+    - backrest.internal.rwcloud.org
 ---
 ###############################################################################
 # IngressRoute
@@ -49,24 +49,27 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: openwebui
+  name: backrest
   namespace: default
   annotations:
-    gethomepage.dev/href: "https://ai.rwcloud.org"
+    gethomepage.dev/href: "https://backrest.internal.rwcloud.org/stats"
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/description: openwebui
+    gethomepage.dev/description: Backrest
     gethomepage.dev/group: System
-    gethomepage.dev/icon: synology.png
+    gethomepage.dev/icon: backrest.png
     gethomepage.dev/pod-selector: ""
 spec:
   entryPoints:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`ai.rwcloud.org`)
+      match: Host(`backrest.internal.rwcloud.org`)
+      middlewares:
+        - name: oauth2-auth
+          namespace: oauth2-proxy
       services:
-        - name: openwebui-service
-          port: 3000
+        - name: backrest-service
+          port: 9898
           scheme: http
   tls:
-    secretName: ow-tls
+    secretName: backrest-tls

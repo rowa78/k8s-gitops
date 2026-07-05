@@ -41,7 +41,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - haproxy.rwcloud.org
+    - haproxy.internal.rwcloud.org
 ---
 ###############################################################################
 # IngressRoute
@@ -52,7 +52,7 @@ metadata:
   name: haproxy
   namespace: default
   annotations:
-    gethomepage.dev/href: "https://haproxy.rwcloud.org/stats"
+    gethomepage.dev/href: "https://haproxy.internal.rwcloud.org/stats"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/description: HAProxy
     gethomepage.dev/group: System
@@ -63,7 +63,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`haproxy.rwcloud.org`) && PathPrefix(`/stats`)
+      match: Host(`haproxy.internal.rwcloud.org`) && PathPrefix(`/stats`)
       middlewares:
         - name: oauth2-auth
           namespace: oauth2-proxy
