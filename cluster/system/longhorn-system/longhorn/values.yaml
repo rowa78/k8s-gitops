@@ -1,6 +1,4 @@
 longhorn:  
-  global:
-    timezone: "Europe/Berlin"
 
   # image:    
   #   csi:      
