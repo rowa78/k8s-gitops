@@ -6,6 +6,8 @@ metadata:
   labels:
     app.kubernetes.io/name: lldap
     app.kubernetes.io/instance: {{ .Release.Name }}
+    recurring-job-group.longhorn.io/backup-daily: enabled
+    recurring-job-group.longhorn.io/snapshot-hourly: enabled
 spec:
   accessModes:
     - ReadWriteOnce

@@ -189,6 +189,8 @@ open-webui:
     storageClass: "longhorn"
     selector: {}
     annotations: {}
+    labels:
+      recurring-job-group.longhorn.io/backup-daily: enabled
 
   # -- Node labels for pod assignment.
   nodeSelector: {}

@@ -92,3 +92,36 @@ spec:
           labels:
             issue: "Longhorn node {{ `{{ $labels.node }}` }} experiences high CPU pressure."
             severity: warning
+        - alert: LonghornBackupTargetUnavailable
+          annotations:
+            description:
+              "Longhorn backup target has been unavailable for more than 5 minutes.
+              Volume and system backups cannot be created or accessed."
+            summary: Longhorn backup target is unavailable
+          expr: longhorn_backup_target_available == 0
+          for: 5m
+          labels:
+            issue: Longhorn NFS backup target is unavailable.
+            severity: critical
+        - alert: LonghornBackupFailed
+          annotations:
+            description:
+              "Backup {{ `{{ $labels.backup }}` }} for volume {{ `{{ $labels.volume }}` }} is in error state.
+              Check: kubectl describe backup {{ `{{ $labels.backup }}` }} -n longhorn-system"
+            summary: "Longhorn backup failed: {{ `{{ $labels.volume }}` }}"
+          expr: longhorn_backup_state == 4
+          for: 5m
+          labels:
+            issue: "Longhorn backup {{ `{{ $labels.backup }}` }} failed."
+            severity: critical
+        - alert: LonghornVolumeBackupStale
+          annotations:
+            description:
+              "Volume {{ `{{ $labels.volume }}` }} has no successful backup in the last 36 hours
+              despite being configured for recurring backups."
+            summary: "Longhorn volume backup is stale: {{ `{{ $labels.volume }}` }}"
+          expr: (time() - longhorn_volume_last_backup_at) > 129600 and longhorn_volume_last_backup_at > 0
+          for: 1h
+          labels:
+            issue: "Longhorn volume {{ `{{ $labels.volume }}` }} backup is stale."
+            severity: warning

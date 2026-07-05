@@ -1,89 +1,139 @@
-# Longhorn Backups auf NFS (Synology)
+# Longhorn Backup-Strategie
 
-Longhorn sichert Block-Volumes zum NFS-Backup-Target auf der DiskStation. Es ersetzt kein vollständiges Cluster-Backup (Namespaces, Secrets, Deployments) – dafür bleibt GitOps bzw. CNPG/Barman zuständig.
+Mehrschichtige Datensicherung für Stateful Workloads. Longhorn ersetzt kein vollständiges Cluster-Backup (App-Deployments, Secrets) — dafür bleiben GitOps/ArgoCD und CNPG/Barman zuständig.
 
 ## Architektur
 
 ```
-Longhorn Volume  →  RecurringJob (optional, gelabelt)  →  NFS
-                      nfs://192.168.0.3:/volume1/backup/longhorn-backups
+Schicht 1  Snapshot hourly     → lokal, schnelle Wiederherstellung (Tier A)
+Schicht 2  Volume backup daily → NFS Block-Daten (Tier A + B)
+Schicht 2b System backup daily → NFS Longhorn-Metadaten (global)
+Schicht 3  CNPG Barman         → Postgres logisch → RustFS (5d)
+Schicht 4  GitOps               → Deployments, Secrets, Helm/Argo
 ```
 
+NFS-Target: `nfs://192.168.0.3:/volume1/backup/longhorn`  
 Konfiguration: [`longhorn/values.yaml`](longhorn/values.yaml) → `defaultBackupStore`.
 
-## Voraussetzungen Synology
+## RecurringJobs
 
-1. Ordner `/volume1/backup/longhorn-backups` auf der DiskStation anlegen (Share `backup`).
-2. NFS-Export für den Share **`backup`** aktivieren – die k3s-Nodes brauchen Schreibzugriff (Control Panel → Shared Folder → backup → NFS Permissions).
-3. Bei Timeout-Problemen NFS-Optionen an die URL anhängen, z. B.  
-   `nfs://192.168.0.3:/volume1/backup/longhorn-backups?nfsOptions=soft,timeo=330,retrans=3`
+| Job | Cron | Task | Group | Retain |
+|-----|------|------|-------|--------|
+| `snapshot-hourly` | `0 * * * *` | snapshot | `snapshot-hourly` | 24 |
+| `backup-daily` | `0 2 * * *` | backup | `backup-daily` | 14 |
+| `system-backup-daily` | `0 4 * * *` | system-backup | — (global) | 7 |
 
-## Backup Target prüfen
+System Backup verwendet `volume-backup-policy: disabled` — es sichert **keine** Volume-Block-Daten mit (Postgres/Prometheus würden sonst ungewollt mitlaufen).
 
-```bash
-kubectl get backuptarget -n longhorn-system
-# NAME      URL                                              AVAILABLE
-# default   nfs://192.168.0.3:/volume1/backup/longhorn-backups  true
+## Volume-Tiers
 
-kubectl get settings.longhorn.io backup-target -n longhorn-system -o jsonpath='{.value}{"\n"}'
-```
+### Tier A — snapshot hourly + backup daily
 
-Alternativ: Longhorn UI → Setting → General → Backup Target.
+| App | Datei |
+|-----|-------|
+| RustFS (Barman-ObjectStore) | [`rustfs/values.yaml`](../../platform/rustfs/rustfs/values.yaml) |
+| Jenkins | [`jenkins/templates/pvc.yaml`](../../apps/jenkins/templates/pvc.yaml) |
+| Keycloak LLDAP | [`keycloak/templates/lldap-pvc.yaml`](../keycloak/templates/lldap-pvc.yaml) |
+| Databasus | [`databasus/values.yaml`](../../apps/databasus/values.yaml) |
+| OAuth2-Proxy Redis | [`oauth2-proxy/values.yaml`](../oauth2-proxy/values.yaml) |
 
-## Automatische Backups (RecurringJob)
-
-RecurringJob `nfs-backup-daily` (täglich 02:00, retain 30) läuft **nur** für explizit gelabelte Volumes.
-
-Volume-Namen ermitteln:
-
-```bash
-kubectl get volumes.longhorn.io -n longhorn-system
-kubectl get pvc -n keycloak -o wide
-```
-
-Volume aktivieren:
-
-```bash
-kubectl -n longhorn-system label volume <volume-name> \
-  recurring-job.longhorn.io/nfs-backup-daily=enabled
-```
-
-Label entfernen:
-
-```bash
-kubectl -n longhorn-system label volume <volume-name> \
-  recurring-job.longhorn.io/nfs-backup-daily-
-```
-
-## Manuellen Backup-Test
-
-Longhorn UI: Volume → Create Backup.
-
-Oder per CR (Volume-Name anpassen):
+Labels:
 
 ```yaml
-apiVersion: longhorn.io/v1beta2
-kind: Backup
-metadata:
-  name: manual-test
-  namespace: longhorn-system
-spec:
-  snapshotName: <snapshot-name>
-  labels:
-    manual: test
+recurring-job-group.longhorn.io/backup-daily: enabled
+recurring-job-group.longhorn.io/snapshot-hourly: enabled
 ```
 
-Snapshot zuerst am Volume erstellen (UI oder `Snapshot` CR), dann Backup darauf.
+### Tier B — backup daily only
 
-## Restore (Kurzüberblick)
+| App | Datei |
+|-----|-------|
+| Grafana | [`kps/values.yaml`](../../monitoring/kube-prometheus-stack/kps/values.yaml) |
+| Alertmanager | [`kps/values.yaml`](../../monitoring/kube-prometheus-stack/kps/values.yaml) |
+| Open WebUI App-Daten | [`openwebui/app/values.yaml`](../../apps/openwebui/app/values.yaml), [`xopenwebui/app/values.yaml`](../../apps/xopenwebui/app/values.yaml) |
 
-1. Longhorn UI → Backup → Restore Latest Backup (neues Volume).
-2. Neues PVC mit restored Volume verbinden oder CNPG/StatefulSet Recovery-Flow nutzen.
-3. App-spezifische Logik (Postgres PITR etc.) weiter über CNPG/Barman, nicht über Longhorn allein.
+Label:
+
+```yaml
+recurring-job-group.longhorn.io/backup-daily: enabled
+```
+
+### Ausgeschlossen
+
+| Kategorie | Grund |
+|-----------|-------|
+| Postgres (CNPG) | Barman → RustFS, 5d Retention — kein Longhorn-Backup |
+| Prometheus TSDB | Metriken 10d Retention, kein Restore-Bedarf |
+
+## System Backup
+
+Longhorn exportiert ein YAML-Bundle (Settings, StorageClasses, RecurringJobs, PVC/PV/Volume-CRs) ins gleiche NFS-Target.
+
+**Enthalten:** Longhorn-eigene CRs und Ressourcen im `longhorn-system`-Namespace.  
+**Nicht enthalten:** App-Pods, Deployments, Secrets, Postgres-Inhalt.
+
+**Restore (Cluster-Totalausfall):**
+
+1. GitOps/ArgoCD sync (Apps, Secrets)
+2. Longhorn installieren, Backup Target setzen
+3. System Restore aus letztem `SystemBackup`
+4. Volume Restore pro App falls nötig (Longhorn UI → Backup → Restore)
+5. Postgres: CNPG/Barman Recovery (nicht Longhorn allein)
+
+## Synology-Voraussetzungen
+
+1. Share `backup` per NFS exportiert
+2. Unterordner `longhorn` im Share vorhanden
+3. k3s-Nodes (`192.168.0.250`, `192.168.0.251`) mit Read/Write in NFS Permissions
+
+## Validierung
+
+```bash
+kubectl get recurringjobs -n longhorn-system
+kubectl get backuptarget default -n longhorn-system
+kubectl get systembackups -n longhorn-system
+
+kubectl get volumes.longhorn.io -n longhorn-system -o custom-columns=\
+'NAME:.metadata.name,LABELS:.metadata.labels'
+```
+
+Erwartung: Postgres- und Prometheus-Volumes **ohne** Group-Labels; Tier-A/B-Volumes mit `backup-daily`.
+
+Manueller Test: Longhorn UI → Volume → Create Backup → Restore in Test-PVC.
+
+## Restore-Runbooks
+
+### Snapshot (Tier A, schnell)
+
+Longhorn UI → Volume → Snapshots → Restore zu neuem Volume oder Rollback.
+
+### Volume Backup (NFS)
+
+Longhorn UI → Backup → Restore Latest Backup → neues Volume → PVC anbinden.
+
+### Postgres (Barman)
+
+CNPG Recovery-Flow über Barman ObjectStore — siehe App-Doku, nicht Longhorn.
+
+## Monitoring
+
+Prometheus-Alerts in [`prometheus-rule.yaml`](longhorn/templates/prometheus-rule.yaml):
+
+- `LonghornBackupTargetUnavailable`
+- `LonghornBackupFailed`
+- `LonghornVolumeBackupStale` (> 36h)
 
 ## Abgrenzung
 
-| Longhorn Backup | GitOps / CNPG Barman |
-|-----------------|----------------------|
-| PVC / Block-Daten | SQL-Dumps, WAL, App-Logik |
-| Ein Backup-Target (NFS) | Pro App ObjectStore möglich |
+| Longhorn | GitOps / Barman |
+|----------|-----------------|
+| Block-Daten (PVC) | SQL-Dumps, WAL, App-Logik |
+| Longhorn-Metadaten (System Backup) | Deployments, Secrets, CRs |
+| Ein NFS-Target | Pro App ObjectStore |
+
+## Restore-Probe (quartalsweise)
+
+- [ ] Backup Target `AVAILABLE: true`
+- [ ] Tier-A-Volume: Snapshot + Backup manuell testen
+- [ ] System Backup in UI sichtbar (`kubectl get systembackups`)
+- [ ] Optional: Postgres Barman Restore in Test-Namespace

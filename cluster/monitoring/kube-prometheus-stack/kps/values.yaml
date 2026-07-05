@@ -83,6 +83,9 @@ kube-prometheus-stack:
       replicas: 1
       storage:
         volumeClaimTemplate:
+          metadata:
+            labels:
+              recurring-job-group.longhorn.io/backup-daily: enabled
           spec:
             storageClassName: longhorn
             resources:
@@ -121,6 +124,8 @@ kube-prometheus-stack:
       type: sts
       storageClassName: longhorn
       size: 1Gi
+      labels:
+        recurring-job-group.longhorn.io/backup-daily: enabled
     ingress:
       enabled: true
       ingressClassName: traefik
