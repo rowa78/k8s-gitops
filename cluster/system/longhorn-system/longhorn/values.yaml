@@ -1,4 +1,7 @@
 longhorn:  
+  global:
+    timezone: "Europe/Berlin"
+
   # image:    
   #   csi:      
   #     snapshotter:

@@ -4,7 +4,7 @@ metadata:
   name: snapshot-hourly
   namespace: longhorn-system
 spec:
-  cron: "52 * * * *"
+  cron: "0 * * * *"
   task: snapshot
   groups:
     - default

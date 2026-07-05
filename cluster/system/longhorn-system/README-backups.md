@@ -10,12 +10,25 @@ Longhorn sichert Block-Volumes per RecurringJob zum NFS-Backup-Target. App-Konfi
 
 Jobs in der **`default`-Gruppe** laufen automatisch auf allen Volumes **ohne** explizite RecurringJob-Labels.
 
-| Job | Cron | Task | Retain |
-|-----|------|------|--------|
+| Job | Cron (Europe/Berlin) | Task | Retain |
+|-----|----------------------|------|--------|
 | `snapshot-hourly` | `0 * * * *` | snapshot (lokal) | 24 |
 | `backup-daily` | `0 2 * * *` | backup (NFS) | 14 |
 
-Keine PVC-Labels nötig. Volumes mit **eigenen** RecurringJob-Labels am PVC werden der `default`-Gruppe nicht zugeordnet — solche Labels entfernen.
+Zeitzone: `Europe/Berlin` in [`longhorn/values.yaml`](longhorn/values.yaml) → `global.timezone` (Longhorn ≥ 1.12).
+
+Keine PVC-Labels nötig. Volumes mit **eigenen** RecurringJob-Labels am PVC werden der `default`-Gruppe nicht zugeordnet.
+
+**Ausnahme Prometheus** (Metriken 10d Retention): PVC-Labels in [`kps/values.yaml`](../../monitoring/kube-prometheus-stack/kps/values.yaml) → Gruppe `no-backup` (kein RecurringJob zugeordnet). Bestehende Prometheus-PVCs behalten Labels erst nach StatefulSet-Sync — ggf. Volumes manuell labeln:
+
+```bash
+kubectl get volumes.longhorn.io -n longhorn-system \
+  -o jsonpath='{range .items[?(@.status.kubernetesStatus.namespace=="monitoring")]}{.metadata.name}{"\n"}{end}' \
+  | grep prometheus-prometheus-prometheus-db \
+  | xargs -I{} kubectl -n longhorn-system label volume/{} \
+      recurring-job-group.longhorn.io/no-backup=enabled \
+      recurring-job-group.longhorn.io/default-
+```
 
 ## Validierung
 
