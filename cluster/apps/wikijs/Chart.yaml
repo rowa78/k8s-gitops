@@ -1,0 +1,7 @@
+apiVersion: v2
+name: wikijs
+version: 1.0.0
+dependencies:
+  - name: wiki
+    version: 1.0.0
+    repository: https://charts.js.wiki
