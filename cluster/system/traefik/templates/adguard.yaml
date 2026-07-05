@@ -56,8 +56,7 @@ metadata:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/description: AdGuard
     gethomepage.dev/group: Internal
-    gethomepage.dev/icon: adguard.png
-    gethomepage.dev/pod-selector: ""
+    gethomepage.dev/icon: adguard-home.png
 spec:
   entryPoints:
     - websecure
