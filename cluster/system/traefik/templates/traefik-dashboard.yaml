@@ -30,7 +30,7 @@ metadata:
   name: traefik-dashboard
   namespace: traefik
   annotations:
-    gethomepage.dev/href: "https://traefik.rwcloud.org"
+    gethomepage.dev/href: "https://traefik.internal.rwcloud.org"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/description: Traefik Dashboard
     gethomepage.dev/group: System
@@ -41,7 +41,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`traefik.rwcloud.org`)
+      match: Host(`traefik.internal.rwcloud.org`)
       priority: 10
       middlewares:
         - name: oauth2-auth          
