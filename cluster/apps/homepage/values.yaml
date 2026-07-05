@@ -63,17 +63,7 @@ homepage:
               - abbr: DH
                 href: https://hub.docker.com
 
-    services:
-      - Internal:
-        - backrest-diskstation:
-            href: http://diskstation.fritz.box:9898
-            icon: backrest.png
-        - backrest-rustfs:
-            href: http://s3.fritz.box:9898
-            icon: backrest.png        
-        - s3:
-            href: http://s3.fritz.box:9001
-            icon: rustfs.png
+#    services:
 
     widgets:
       - search:
