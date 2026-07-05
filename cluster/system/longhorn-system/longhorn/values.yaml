@@ -35,8 +35,11 @@ longhorn:
     concurrentAutomaticEngineUpgradePerNodeLimit: 1
     storageOverProvisioningPercentage: "200"
     storageMinimalAvailablePercentage: "5"
-#    backupTarget: s3://longhorn@minio/
-#    backupTargetCredentialSecret: longhorn-backup    
     deletingConfirmationFlag: "false"
     v2DataEngine: "false"
     dataEngineHugepageEnabled: "false"
+
+  defaultBackupStore:
+    backupTarget: nfs://192.168.0.3:/volume1/k8s/longhorn-backups
+    backupTargetCredentialSecret: ""
+    pollInterval: "300"

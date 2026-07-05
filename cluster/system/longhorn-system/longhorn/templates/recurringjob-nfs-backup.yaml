@@ -1,0 +1,12 @@
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: nfs-backup-daily
+  namespace: longhorn-system
+spec:
+  cron: "0 2 * * *"
+  task: backup
+  retain: 30
+  concurrency: 2
+  labels:
+    schedule: daily-nfs
