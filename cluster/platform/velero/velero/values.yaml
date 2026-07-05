@@ -1,4 +1,6 @@
 velero:
+  fullnameOverride: velero
+
   initContainers:
     - name: velero-plugin-for-aws
       image: velero/velero-plugin-for-aws:v1.11.0
@@ -14,6 +16,8 @@ velero:
   configuration:
     features: EnableCSI
     defaultSnapshotMoveData: "true"
+    extraArgs:
+      - --node-agent-configmap=velero-node-agent-cfg
     backupStorageLocation:
       - name: default
         provider: aws
@@ -35,6 +39,21 @@ velero:
       runAsUser: 0
     containerSecurityContext:
       privileged: true
+    extraArgs:
+      - --node-agent-configmap=velero-node-agent-cfg
+
+  configMaps:
+    node-agent-cfg:
+      labels: {}
+      data:
+        node-agent-config.json: |
+          {
+            "backupPVC": {
+              "longhorn-strict-local": {
+                "storageClass": "longhorn-velero-backup"
+              }
+            }
+          }
 
   snapshotsEnabled: true
   upgradeCRDs: false
