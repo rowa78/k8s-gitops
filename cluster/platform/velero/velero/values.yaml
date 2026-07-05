@@ -53,6 +53,7 @@ velero:
             }
           }
 
-  snapshotsEnabled: true
+  # CSI snapshots via EnableCSI + VolumeSnapshotClass label; no cloud VSL needed
+  snapshotsEnabled: false
   upgradeCRDs: false
   cleanUpCRDs: false
