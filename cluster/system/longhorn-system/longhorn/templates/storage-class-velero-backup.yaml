@@ -11,4 +11,3 @@ parameters:
   dataLocality: "best-effort"
   staleReplicaTimeout: "2880"
   fsType: "ext4"
-  cloneMode: "linked-clone"
