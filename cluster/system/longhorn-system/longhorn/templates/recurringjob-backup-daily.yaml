@@ -4,7 +4,7 @@ metadata:
   name: backup-daily
   namespace: longhorn-system
 spec:
-  cron: "30 15 * * *"
+  cron: "15 0 * * *"
   task: backup
   groups:
     - default
