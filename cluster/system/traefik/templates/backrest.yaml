@@ -55,7 +55,7 @@ metadata:
     gethomepage.dev/href: "https://backrest.internal.rwcloud.org/stats"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/description: Backrest
-    gethomepage.dev/group: System
+    gethomepage.dev/group: Internal
     gethomepage.dev/icon: backrest.png
     gethomepage.dev/pod-selector: ""
 spec:

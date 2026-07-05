@@ -4,13 +4,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: haproxy-service
+  name: adguard-service
   namespace: default
 spec:
   ports:
     - name: http
-      port: 8404
-      targetPort: 8404
+      port: 80
+      targetPort: 80
 ---
 ###############################################################################
 # Endpoints (statt EndpointSlice!)
@@ -18,14 +18,14 @@ spec:
 apiVersion: v1
 kind: Endpoints
 metadata:
-  name: haproxy-service
+  name: adguard-service
   namespace: default
 subsets:
   - addresses:
-      - ip: 192.168.0.225
+      - ip: 192.168.0.240
     ports:
       - name: http
-        port: 8404
+        port: 80
 ---
 ###############################################################################
 # Certificate
@@ -33,15 +33,15 @@ subsets:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: haproxy-cert
+  name: adguard-cert
   namespace: default
 spec:
-  secretName: haproxy-tls
+  secretName: adguard-tls
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - haproxy.internal.rwcloud.org
+    - adguard.internal.rwcloud.org
 ---
 ###############################################################################
 # IngressRoute
@@ -49,27 +49,27 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: haproxy
+  name: adguard
   namespace: default
   annotations:
-    gethomepage.dev/href: "https://haproxy.internal.rwcloud.org/stats"
+    gethomepage.dev/href: "https://adguard.internal.rwcloud.org"
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/description: HAProxy
+    gethomepage.dev/description: AdGuard
     gethomepage.dev/group: Internal
-    gethomepage.dev/icon: haproxy.png
+    gethomepage.dev/icon: adguard.png
     gethomepage.dev/pod-selector: ""
 spec:
   entryPoints:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`haproxy.internal.rwcloud.org`) && PathPrefix(`/stats`)
+      match: Host(`adguard.internal.rwcloud.org`)
       middlewares:
         - name: oauth2-auth
           namespace: oauth2-proxy
       services:
-        - name: haproxy-service
-          port: 8404
+        - name: adguard-service
+          port: 80
           scheme: http
   tls:
-    secretName: haproxy-tls
+    secretName: adguard-tls
