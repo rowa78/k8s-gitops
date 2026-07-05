@@ -279,7 +279,7 @@ kube-prometheus-stack:
             storageClassName: longhorn
             resources:
               requests:
-                storage: 50Gi     
+                storage: 70Gi     
       ## How long to retain metrics
       ##
       retention: 10d
