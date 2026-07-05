@@ -33,9 +33,8 @@ metadata:
     gethomepage.dev/href: "https://traefik.internal.rwcloud.org"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/description: Traefik Dashboard
-    gethomepage.dev/group: System
+    gethomepage.dev/group: Internal
     gethomepage.dev/icon: traefik.png
-    gethomepage.dev/pod-selector: ""
 spec:
   entryPoints:
     - websecure
