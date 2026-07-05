@@ -36,9 +36,6 @@ databasus:
     size: 10Gi
     # Mount path in container
     mountPath: /databasus-data
-    labels:
-      recurring-job-group.longhorn.io/backup-daily: enabled
-      recurring-job-group.longhorn.io/snapshot-hourly: enabled
     # Annotations applied to the PVC created by volumeClaimTemplates.
     # Useful for backup tooling, e.g. k8up.io/backup: "false" to exclude
     # the databasus-data volume from k8up/restic backups.

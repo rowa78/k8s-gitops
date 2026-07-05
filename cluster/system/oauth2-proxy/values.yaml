@@ -231,10 +231,6 @@ redis:
     
   storageSpec:
     volumeClaimTemplate:
-      metadata:
-        labels:
-          recurring-job-group.longhorn.io/backup-daily: enabled
-          recurring-job-group.longhorn.io/snapshot-hourly: enabled
       spec:
         storageClassName: longhorn
         accessModes: ["ReadWriteOnce"]

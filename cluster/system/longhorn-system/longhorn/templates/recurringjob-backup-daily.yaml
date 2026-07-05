@@ -7,6 +7,6 @@ spec:
   cron: "0 2 * * *"
   task: backup
   groups:
-    - backup-daily
+    - default
   retain: 14
   concurrency: 2

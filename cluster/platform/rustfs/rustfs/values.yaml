@@ -155,9 +155,7 @@ rustfs:
   podLabels: {}
 
   # Labels to add to all deployed objects
-  commonLabels:
-    recurring-job-group.longhorn.io/backup-daily: enabled
-    recurring-job-group.longhorn.io/snapshot-hourly: enabled
+  commonLabels: {}
 
   podSecurityContext:
     fsGroup: 10001
