@@ -23,8 +23,8 @@ spec:
             - -c
           args:
             - >-
-              mkdir -p /data/backupbox/velero-backups &&
-              exec rclone serve s3 /data/backupbox
+              rclone mkdir backupbox:velero-backups 2>/dev/null || true &&
+              exec rclone serve s3 backupbox:
               --addr :8080
               --auth-key velero-proxy,velero-proxy-secret
           env:
@@ -55,12 +55,7 @@ spec:
             - name: rclone-config
               mountPath: /config/rclone
               readOnly: true
-            - name: rclone-data
-              mountPath: /data/backupbox
       volumes:
         - name: rclone-config
           secret:
             secretName: rclone-config
-        - name: rclone-data
-          persistentVolumeClaim:
-            claimName: rclone-data
