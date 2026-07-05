@@ -6,24 +6,24 @@ Longhorn sichert Block-Volumes zum NFS-Backup-Target auf der DiskStation. Es ers
 
 ```
 Longhorn Volume  →  RecurringJob (optional, gelabelt)  →  NFS
-                      nfs://192.168.0.3:/volume1/k8s/longhorn-backups
+                      nfs://192.168.0.3:/volume1/backup/longhorn-backups
 ```
 
 Konfiguration: [`longhorn/values.yaml`](longhorn/values.yaml) → `defaultBackupStore`.
 
 ## Voraussetzungen Synology
 
-1. Ordner `/volume1/k8s/longhorn-backups` auf der DiskStation anlegen.
-2. NFS-Export `/volume1/k8s` muss für die k3s-Nodes Schreibzugriff erlauben (bereits via [`nfs-diskstation`](../nfs-diskstation/values.yaml) genutzt).
+1. Ordner `/volume1/backup/longhorn-backups` auf der DiskStation anlegen (Share `backup`).
+2. NFS-Export für den Share **`backup`** aktivieren – die k3s-Nodes brauchen Schreibzugriff (Control Panel → Shared Folder → backup → NFS Permissions).
 3. Bei Timeout-Problemen NFS-Optionen an die URL anhängen, z. B.  
-   `nfs://192.168.0.3:/volume1/k8s/longhorn-backups?nfsOptions=soft,timeo=330,retrans=3`
+   `nfs://192.168.0.3:/volume1/backup/longhorn-backups?nfsOptions=soft,timeo=330,retrans=3`
 
 ## Backup Target prüfen
 
 ```bash
 kubectl get backuptarget -n longhorn-system
 # NAME      URL                                              AVAILABLE
-# default   nfs://192.168.0.3:/volume1/k8s/longhorn-backups  true
+# default   nfs://192.168.0.3:/volume1/backup/longhorn-backups  true
 
 kubectl get settings.longhorn.io backup-target -n longhorn-system -o jsonpath='{.value}{"\n"}'
 ```
