@@ -63,7 +63,7 @@ homepage:
               - abbr: DH
                 href: https://hub.docker.com
 
-#    services:
+    services:
 
     widgets:
       - search:

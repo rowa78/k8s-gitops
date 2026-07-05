@@ -52,7 +52,7 @@ metadata:
   name: backrest
   namespace: default
   annotations:
-    gethomepage.dev/href: "https://backrest.internal.rwcloud.org/stats"
+    gethomepage.dev/href: "https://backrest.internal.rwcloud.org"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/description: Backrest
     gethomepage.dev/group: Internal
