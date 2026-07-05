@@ -16,8 +16,6 @@ velero:
   configuration:
     features: EnableCSI
     defaultSnapshotMoveData: "true"
-    extraArgs:
-      - --node-agent-configmap=velero-node-agent-cfg
     backupStorageLocation:
       - name: default
         provider: aws
