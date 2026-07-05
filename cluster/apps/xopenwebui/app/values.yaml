@@ -250,6 +250,10 @@ open-webui:
         secretKeyRef:
           name: openid-config
           key: OPENID_PROVIDER_URL
+    - name: OAUTH_MERGE_ACCOUNTS_BY_EMAIL
+      value: "true"
+    - name: OAUTH_SCOPES
+      value: "openid email profile"
     - name: ENABLE_LOGIN_FORM
       value: "false"
     - name: DATABASE_URL
