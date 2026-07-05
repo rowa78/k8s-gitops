@@ -9,4 +9,6 @@ metadata:
 driver: driver.longhorn.io
 deletionPolicy: Delete
 parameters:
-  type: bak
+  # snap = in-cluster CSI snapshot for Velero data mover
+  # bak = Longhorn backup to external backup target (not used here)
+  type: snap
