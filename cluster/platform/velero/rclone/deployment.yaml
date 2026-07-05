@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rclone
+  namespace: velero
+  labels:
+    app: rclone
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rclone
+  template:
+    metadata:
+      labels:
+        app: rclone
+    spec:
+      containers:
+        - name: rclone
+          image: rclone/rclone:1.68.2
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - >-
+              exec rclone serve s3 velero:
+              --addr :8080
+              --auth-key velero-proxy,velero-proxy-secret
+          env:
+            - name: RCLONE_CONFIG
+              value: /config/rclone/rclone.conf
+          ports:
+            - name: s3
+              containerPort: 8080
+              protocol: TCP
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          volumeMounts:
+            - name: rclone-config
+              mountPath: /config/rclone
+              readOnly: true
+      volumes:
+        - name: rclone-config
+          secret:
+            secretName: rclone-config

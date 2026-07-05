@@ -1,0 +1,41 @@
+velero:
+  initContainers:
+    - name: velero-plugin-for-aws
+      image: velero/velero-plugin-for-aws:v1.11.0
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - mountPath: /target
+          name: plugins
+
+  credentials:
+    useSecret: true
+    existingSecret: velero-credentials
+
+  configuration:
+    features: EnableCSI
+    defaultSnapshotMoveData: "true"
+    backupStorageLocation:
+      - name: default
+        provider: aws
+        bucket: velero-backups
+        default: true
+        credential:
+          name: velero-credentials
+          key: cloud
+        config:
+          region: us-east-1
+          s3ForcePathStyle: "true"
+          s3Url: http://rclone.velero.svc.cluster.local:8080
+
+  deployNodeAgent: true
+  nodeAgent:
+    podVolumePath: /var/lib/kubelet/pods
+    pluginVolumePath: /var/lib/kubelet/plugins
+    podSecurityContext:
+      runAsUser: 0
+    containerSecurityContext:
+      privileged: true
+
+  snapshotsEnabled: true
+  upgradeCRDs: false
+  cleanUpCRDs: false
