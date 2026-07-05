@@ -276,7 +276,7 @@ kube-prometheus-stack:
       storageSpec:
         volumeClaimTemplate:
           spec:
-            storageClassName: longhorn
+            storageClassName: longhorn-strict-local
             resources:
               requests:
                 storage: 70Gi     
