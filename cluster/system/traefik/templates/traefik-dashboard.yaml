@@ -9,7 +9,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - traefik.rwcloud.org
+    - traefik.internal.rwcloud.org
 ---
 # apiVersion: traefik.io/v1alpha1
 # kind: Middleware
