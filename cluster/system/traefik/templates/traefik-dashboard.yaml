@@ -43,7 +43,9 @@ spec:
       match: Host(`traefik.internal.rwcloud.org`)
       priority: 10
       middlewares:
-        - name: oauth2-auth          
+        - name: local-network-only
+          namespace: traefik
+        - name: oauth2-auth
           namespace: oauth2-proxy
       services:
         - name: api@internal

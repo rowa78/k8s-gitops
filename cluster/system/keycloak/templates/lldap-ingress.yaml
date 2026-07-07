@@ -7,6 +7,7 @@ metadata:
     app.kubernetes.io/name: lldap
     app.kubernetes.io/instance: {{ .Release.Name }}
   annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-local-network-only@kubernetescrd,oauth2-proxy-oauth2-auth@kubernetescrd
     cert-manager.io/cluster-issuer: {{ .Values.lldap.ingress.clusterIssuer }}
     {{- with .Values.lldap.ingress.annotations }}
     {{- toYaml . | nindent 4 }}

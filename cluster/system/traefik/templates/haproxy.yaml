@@ -65,6 +65,8 @@ spec:
     - kind: Rule
       match: Host(`haproxy.internal.rwcloud.org`) && PathPrefix(`/stats`)
       middlewares:
+        - name: local-network-only
+          namespace: traefik
         - name: oauth2-auth
           namespace: oauth2-proxy
       services:
