@@ -113,5 +113,5 @@ forgejo:
         ENABLED: true
         FROM: git@rwcloud.org
         PROTOCOL: smtps
-        SMTP_ADDR: smtp.mail.me.com
+        SMTP_ADDR: smtp.mailbox.org
         SMTP_PORT: 465        
