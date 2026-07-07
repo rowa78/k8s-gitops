@@ -8,7 +8,7 @@ forgejo:
     accessModes:
       - ReadWriteOnce
     labels: {}
-    storageClass: openebs-hostpath
+    storageClass: longhorn
     subPath:
     volumeName: ''
     annotations:
