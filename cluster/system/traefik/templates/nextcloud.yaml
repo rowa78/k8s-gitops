@@ -41,7 +41,7 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - cloud.rwcloud.org
+    - nextcloud.rwcloud.org
 ---
 ###############################################################################
 # IngressRoute
