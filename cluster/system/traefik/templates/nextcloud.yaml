@@ -22,7 +22,7 @@ metadata:
   namespace: default
 subsets:
   - addresses:
-      - ip: 192.168.0.142
+      - ip: 192.168.0.40
     ports:
       - name: http
         port: 11000
