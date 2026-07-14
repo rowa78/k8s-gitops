@@ -52,7 +52,7 @@ metadata:
   name: nextcloud
   namespace: default
   annotations:
-    gethomepage.dev/href: "https://cloud.rwcloud.org"
+    gethomepage.dev/href: "https://nextcloud.rwcloud.org"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/description: terra
     gethomepage.dev/group: System
@@ -63,7 +63,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`cloud.rwcloud.org`)
+      match: Host(`nextcloud.rwcloud.org`)
       services:
         - name: nextcloud-service
           port: 11000
