@@ -82,7 +82,7 @@ rustfs:
       log_rotation: # Specify log rotation settings
         # size: 100 # Default value: 100 MB
         # time: hour # Default value: hour, eg: day,hour,minute,second
-        # keep_files: 30 # number of rotated log files to keep
+        keep_files: 30 # number of rotated log files to keep
       scanner:
         # Scanner speed preset: fastest|fast|default|slow|slowest
         speed: ""
