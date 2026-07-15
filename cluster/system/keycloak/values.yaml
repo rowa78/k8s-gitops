@@ -81,7 +81,7 @@ keycloakx:
       # Docker image used to check Database readiness at startup
       repository: docker.io/busybox
       # Image tag for the dbchecker image
-      tag: 1.37
+      tag: 1.38
       # Image pull policy for the dbchecker image
       pullPolicy: IfNotPresent
     # SecurityContext for the dbchecker container
