@@ -12,15 +12,16 @@ renovate:
         "requireConfig": "required",
         "printConfig": false,
         "gitAuthor": "Renovate Bot <renovate@ronnywalter.de>",
-        "platformAutomerge": true
+        "platformAutomerge": true,
+        "dependencyDashboard": true
       }
     # -- Options related to persistence
     persistence:
       cache:
         # -- Allow the cache to persist between runs
-        enabled: false
+        enabled: true
         # -- Storage class of the cache PVC
-        storageClass: "openebs-hostpath"
+        storageClass: "longhorn"
         # -- Storage size of the cache PVC
         storageSize: "5Gi"
   env:
