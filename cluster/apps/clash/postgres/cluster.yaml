@@ -19,6 +19,10 @@ spec:
     - name: pgvector
       image:
         reference: ghcr.io/cloudnative-pg/pgvector:0.8.2-18-trixie
+  bootstrap:
+    initdb:
+      database: clashdb
+      owner: clash
 
   storage:
     size: 10Gi
