@@ -20,33 +20,6 @@ spec:
       image:
         reference: ghcr.io/cloudnative-pg/pgvector:0.8.2-18-trixie
 
-  resources:
-    requests:
-      memory: "500Mi"
-      cpu: "100m"
-    limits:
-      memory: "1Gi"
-      cpu: "4"
-  
-  # bootstrap:
-  #   recovery:
-  #     source: clashdb
-
-  postgresql:
-    parameters:        
-      pg_stat_statements.max: "10000"
-      pg_stat_statements.track: all
-      hypopg.use_real_oids: 'true'
-     
-  replicationSlots:
-    highAvailability:
-      enabled: true
-
-  monitoring:
-    enablePodMonitor: true
-
-  enableSuperuserAccess: true
-
   storage:
     size: 10Gi
     storageClass: longhorn-strict-local
