@@ -14,6 +14,11 @@ spec:
     name: postgresql-global
     major: 18
   instances: 2
+  postgresql:
+    extensions:
+    - name: pgvector
+      image:
+        reference: ghcr.io/cloudnative-pg/pgvector:0.8.2-18-trixie
 
   resources:
     requests:
@@ -22,10 +27,7 @@ spec:
     limits:
       memory: "1Gi"
       cpu: "4"
-  bootstrap:
-    initdb:
-      database: clashdb
-      owner: clash 
+  
   # bootstrap:
   #   recovery:
   #     source: clashdb
