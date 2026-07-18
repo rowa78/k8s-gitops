@@ -46,14 +46,14 @@ spec:
   pluginConfiguration:
     name: barman-cloud.cloudnative-pg.io
 ---
-apiVersion: postgresql.cnpg.io/v1
-kind: Database
-metadata:
-  name: clashdb
-spec:
-  name: clashdb
-  owner: clash
-  cluster:
-    name: clashdb
-  extensions:
-  - name: vector
+# apiVersion: postgresql.cnpg.io/v1
+# kind: Database
+# metadata:
+#   name: clashdb
+# spec:
+#   name: clashdb
+#   owner: clash
+#   cluster:
+#     name: clashdb
+#   extensions:
+#   - name: vector
