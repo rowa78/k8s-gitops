@@ -24,6 +24,12 @@ spec:
       database: clashdb
       owner: clash
 
+  managed:
+    roles:
+      - name: clash
+        superuser: true
+        login: true
+
   storage:
     size: 10Gi
     storageClass: longhorn-strict-local
