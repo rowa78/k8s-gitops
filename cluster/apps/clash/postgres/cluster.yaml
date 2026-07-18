@@ -61,10 +61,10 @@ spec:
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: pgvector-app
+  name: clashdb
 spec:
-  name: app
-  owner: app
+  name: clashdb
+  owner: clash
   cluster:
     name: clash-postgres
   extensions:
