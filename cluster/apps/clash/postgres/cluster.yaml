@@ -14,8 +14,6 @@ spec:
     name: postgresql-global
     major: 18
   instances: 2
-  extensions:
-  - name: vector
 
   resources:
     requests:
