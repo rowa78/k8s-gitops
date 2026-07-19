@@ -1,0 +1,88 @@
+---
+# Gotenberg Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gotenberg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gotenberg
+  template:
+    metadata:
+      labels:
+        app: gotenberg
+    spec:
+      containers:
+      - name: gotenberg
+        image: docker.io/gotenberg/gotenberg:8.20
+        args:
+          - "gotenberg"
+          - "--chromium-disable-javascript=true"
+          - "--chromium-allow-list=file:///tmp/.*"
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+---
+# Gotenberg Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: gotenberg  
+spec:
+  selector:
+    app: gotenberg
+  ports:
+  - port: 3000
+    targetPort: 3000
+    protocol: TCP
+  type: ClusterIP
+---
+# Tika Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tika  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tika
+  template:
+    metadata:
+      labels:
+        app: tika
+    spec:
+      containers:
+      - name: tika
+        image: docker.io/apache/tika:3.3.1.0
+        ports:
+        - containerPort: 9998
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "100m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+---
+# Tika Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: tika  
+spec:
+  selector:
+    app: tika
+  ports:
+  - port: 9998
+    targetPort: 9998
+    protocol: TCP
+  type: ClusterIP
