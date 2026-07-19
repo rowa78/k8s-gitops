@@ -28,21 +28,21 @@ paperless-ngx:
         secretKeyRef:
           name: paperlessdb-app
           key: password      
-    PAPERLESS_ADMIN_USER: 
-      valueFrom:
-        secretKeyRef:
-          name: paperless
-          key: admin-user
-    PAPERLESS_ADMIN_PASSWORD:
-      valueFrom:
-          secretKeyRef:
-            name: paperless
-            key: admin-password
-    PAPERLESS_ADMIN_MAIL:
-      valueFrom:
-          secretKeyRef:
-            name: paperless
-            key: admin-mail
+    # PAPERLESS_ADMIN_USER: 
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: paperless
+    #       key: admin-user
+    # PAPERLESS_ADMIN_PASSWORD:
+    #   valueFrom:
+    #       secretKeyRef:
+    #         name: paperless
+    #         key: admin-password
+    # PAPERLESS_ADMIN_MAIL:
+    #   valueFrom:
+    #       secretKeyRef:
+    #         name: paperless
+    #         key: admin-mail
     PAPERLESS_SECRET_KEY:
       valueFrom:
           secretKeyRef:
