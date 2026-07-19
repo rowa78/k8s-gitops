@@ -1,0 +1,28 @@
+valkey:
+  # Persistent storage configuration (standalone deployment only)
+  dataStorage:
+    # Enable persistent volume claim creation
+    enabled: true
+
+    # Use existing PVC by name (skip dynamic provisioning if set)
+    persistentVolumeClaimName: ""
+
+    # Subpath inside PVC to mount
+    subPath: ""
+
+    # Name of the volume (referenced in deployment)
+    volumeName: "valkey-data"
+
+    # Request size (e.g. 5Gi) for dynamically provisioned volume
+    requestedSize: "5Gi"
+
+    # Name of the storage class to use
+    className: "longhorn"
+
+    # Access modes for the PVC (e.g., ReadWriteOnce, ReadWriteMany)
+    accessModes:
+      - ReadWriteOnce
+
+    # If true, keep the PVC on Helm uninstall
+    keepPvc: false
+
