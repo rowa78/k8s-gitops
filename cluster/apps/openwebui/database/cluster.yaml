@@ -15,13 +15,13 @@ spec:
     major: 18
   instances: 2
 
-  resources:
-    requests:
-      memory: "100Mi"
-      cpu: "100m"
-    limits:
-      memory: "2Gi"
-      cpu: "2"
+  # resources:
+  #   requests:
+  #     memory: "100Mi"
+  #     cpu: "100m"
+  #   limits:
+  #     memory: "2Gi"
+  #     cpu: "2"
   bootstrap:
     initdb:
       database: openwebuidb

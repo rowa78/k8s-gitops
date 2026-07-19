@@ -15,13 +15,13 @@ spec:
     major: 18
   instances: 2
 
-  resources:
-    requests:
-      memory: "500Mi"
-      cpu: "500m"
-    limits:
-      memory: "6Gi"
-      cpu: "4"
+  # resources:
+  #   requests:
+  #     memory: "500Mi"
+  #     cpu: "500m"
+  #   limits:
+  #     memory: "6Gi"
+  #     cpu: "4"
   bootstrap:
     initdb:
       database: financetrackerdb

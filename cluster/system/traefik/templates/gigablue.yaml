@@ -54,7 +54,7 @@ metadata:
   annotations:
     gethomepage.dev/href: "https://gigablue.internal.rwcloud.org"
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/description: HAProxy
+    gethomepage.dev/description: Gigablue Receiver
     gethomepage.dev/group: Internal
     gethomepage.dev/icon: https://www.pngkey.com/png/detail/752-7528103_gigablue-logo-icon-pax.png
     gethomepage.dev/pod-selector: ""
