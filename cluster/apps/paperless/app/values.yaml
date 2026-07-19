@@ -25,7 +25,7 @@ paperless-ngx:
     PAPERLESS_DBUSER: paperless
   
   envFrom:
-    - secretKeyRef:
+    - secretRef:
         name: paperlessdb-app
         key: password
       name: PAPERLESS_DBPASS
@@ -100,3 +100,6 @@ paperless-ngx:
       storageClass: "longhorn"
       accessMode: ReadWriteOnce
       size: 4Gi
+
+  redis:
+    enabled: false
