@@ -50,17 +50,18 @@ paperless-ngx:
     # -- Enable and configure ingress settings for the chart under this key.
     # @default -- See [values.yaml](./values.yaml)
     main:
-      enabled: false
+      enabled: true
       annotations:
         nginx.ingress.kubernetes.io/proxy-body-size: 64m
-      # hosts:
-      #   - host: chart-example.local
-      #     paths:
-      #       - path: /
-      # tls:
-      #   - secretName: chart-example.local
-      #     hosts:
-      #       - chart-example.local
+        cert-manager.io/cluster-issuer: letsencrypt-production
+      hosts:
+        - host: dms.internal.rwcloud.org
+          paths:
+            - path: /
+      tls:
+        - secretName: dms-tls
+          hosts:
+            - dms.internal.rwcloud.org
 
   persistence:
     # -- Configure data volume settings for the chart under this key.
