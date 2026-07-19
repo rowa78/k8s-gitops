@@ -23,12 +23,11 @@ paperless-ngx:
     PAPERLESS_DBHOST: paperlessdb-rw
     PAPERLESS_DBNAME: paperlessdb
     PAPERLESS_DBUSER: paperless
-  
-  envFrom:
-    - secretRef:
-        name: paperlessdb-app
-        key: password
-      name: PAPERLESS_DBPASS
+    PAPERLESS_DBPASS:
+      valueFrom:
+        secretKeyRef:
+          name: paperlessdb-app
+          key: password      
       
     #PAPERLESS_TIKA_ENABLED: 1
     #PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
