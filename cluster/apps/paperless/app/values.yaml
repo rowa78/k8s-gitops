@@ -18,7 +18,7 @@ paperless-ngx:
   # @default -- See [values.yaml](./values.yaml)
   env:
     # -- Set the container timezone
-    TZ: UTC
+    TZ: Europe/Berlin
     PAPERLESS_REDIS: redis://paperless-valkey:6379
     PAPERLESS_DBHOST: paperlessdb-rw
     PAPERLESS_DBNAME: paperlessdb
