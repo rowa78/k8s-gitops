@@ -52,7 +52,32 @@ paperless-ngx:
     PAPERLESS_TIKA_ENABLED: "1"
     PAPERLESS_TIKA_ENDPOINT: "http://tika:9998"
     PAPERLESS_TIKA_GOTENBERG_ENDPOINT: "http://gotenberg:3000"
-      
+    PAPERLESS_EMAIL_HOST:
+      valueFrom:
+          secretKeyRef:
+            name: paperless
+            key: mail-host
+    PAPERLESS_EMAIL_PORT:
+      valueFrom:
+          secretKeyRef:
+            name: paperless
+            key: mail-port
+    PAPERLESS_EMAIL_HOST_USER:
+      valueFrom:
+          secretKeyRef:
+            name: paperless
+            key: mail-user
+    PAPERLESS_EMAIL_FROM:
+      valueFrom:
+        secretKeyRef:
+          name: paperless
+          key: mail-from
+    PAPERLESS_EMAIL_HOST_PASSWORD:
+      valueFrom:
+        secretKeyRef:
+          name: paperless
+          key: mail-password
+    PAPERLESS_EMAIL_USE_SSL: true
     #PAPERLESS_TIKA_ENABLED: 1
     #PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
     #PAPERLESS_TIKA_ENDPOINT: http://tika:9998
