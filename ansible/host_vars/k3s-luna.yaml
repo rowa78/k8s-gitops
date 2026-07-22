@@ -1,7 +1,7 @@
 ansible_user: ronny
-ansible_host: k3s01
+ansible_host: k3s-luna
 ansible_sudo_pass: "{{ lookup('env','TERRA_SUDO_PASS') }}"
 
 k3s_control_node: true
 
-k3s_node_ip: "192.168.0.250,fd00:2222::6c:7dff:fe4e:80ee"
+k3s_node_ip: "192.168.0.245,fd00:2222::ec:f6ff:feca:989"

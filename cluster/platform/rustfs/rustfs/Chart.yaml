@@ -1,7 +1,0 @@
-apiVersion: v2
-name: cloudnative-pg
-version: 0.0.0
-dependencies:
-- name: rustfs
-  version: 0.9.0
-  repository: https://charts.rustfs.com/

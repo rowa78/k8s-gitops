@@ -15,7 +15,7 @@ k3s_use_unsupported_config: true
 postgresql_password: "{{ lookup('env', 'K3S_POSTGRESQL_PASSWORD') }}"
 
 k3s_server:
-  datastore-endpoint: "postgres://k3s:{{ postgresql_password }}@k3sdb.fritz.box:5432/k3sdb?sslmode=disable"
+  datastore-endpoint: "postgres://k3s:{{ postgresql_password }}@postgresql.fritz.box:5432/k3sdb?sslmode=disable"
   #datastore-endpoint: "http://192.168.100.1:2379,http://192.168.100.2:2379,http://192.168.100.3:2379"
   flannel-iface: eth0
   cluster-cidr: 10.42.0.0/16,fd00:10:42::/48
@@ -26,9 +26,8 @@ k3s_server:
   #   - node-role.kubernetes.io/master=true:NoSchedule
   #   - node-role.kubernetes.io/control-plane=true:NoSchedule
   tls-san: 
-    - k3s01.fritz.box
-    - k3s02.fritz.box
-    - 192.168.0.249
+    - k3s-luna.fritz.box    
+    - 192.168.0.245
   disable:
     - traefik
     # - metrics-server 
