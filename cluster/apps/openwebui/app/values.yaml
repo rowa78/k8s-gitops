@@ -186,7 +186,7 @@ open-webui:
     # -- If using multiple replicas, you must update accessModes to ReadWriteMany
     accessModes:
       - ReadWriteOnce
-    storageClass: "longhorn"
+    storageClass: "obenebs-hostpath"
     selector: {}
     annotations: {}
 
@@ -259,7 +259,7 @@ open-webui:
     - name: DATABASE_URL
       valueFrom:
         secretKeyRef:
-          name: openwebuidb-app
+          name: db
           key: uri
     - name: ENABLE_WEBSOCKET_SUPPORT
       value: "true"
