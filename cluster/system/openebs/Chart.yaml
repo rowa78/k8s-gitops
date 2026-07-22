@@ -4,4 +4,4 @@ version: 1.0.0
 dependencies:
   - name: localpv-provisioner
     version: "4.5.1"
-    repository: https://github.com/openebs/dynamic-localpv-provisioner
+    repository: https://openebs.github.io/dynamic-localpv-provisioner
