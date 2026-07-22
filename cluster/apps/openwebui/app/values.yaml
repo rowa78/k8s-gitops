@@ -260,7 +260,7 @@ open-webui:
       valueFrom:
         secretKeyRef:
           name: db
-          key: uri
+          key: url
     - name: ENABLE_WEBSOCKET_SUPPORT
       value: "true"
     # - name: OLLAMA_DEBUG
