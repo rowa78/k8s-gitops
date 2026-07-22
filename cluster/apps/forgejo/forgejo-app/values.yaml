@@ -8,7 +8,7 @@ forgejo:
     accessModes:
       - ReadWriteOnce
     labels: {}
-    storageClass: longhorn
+    storageClass: openebs-hostpath
     subPath:
     volumeName: ''
     annotations:
@@ -67,13 +67,10 @@ forgejo:
       - name: FORGEJO__DATABASE__PASSWD
         valueFrom:
           secretKeyRef:
-            name: forgejodb-app
+            name: db-secret
             key: password
       - name: FORGEJO__DATABASE__USER
-        valueFrom:
-          secretKeyRef:
-            name: forgejodb-app
-            key: username
+        value: forgejo
       - name: FORGEJO__MAILER__USER
         valueFrom:
           secretKeyRef:
@@ -90,7 +87,7 @@ forgejo:
       
       database: 
         DB_TYPE: postgres
-        HOST: forgejodb-rw:5432
+        HOST: postgresql.fritz.box
         NAME: forgejodb
 
       oauth2_client: 
