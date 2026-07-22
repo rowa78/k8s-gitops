@@ -31,7 +31,7 @@ databasus:
     enabled: true
     # Storage class name. Leave empty to use cluster default.
     # Examples: "longhorn", "standard", "gp2", etc.
-    storageClassName: "longhorn"
+    storageClassName: "openebs-hostpath"
     accessMode: ReadWriteOnce
     size: 10Gi
     # Mount path in container
