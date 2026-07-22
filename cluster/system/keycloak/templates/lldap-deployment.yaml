@@ -1,0 +1,88 @@
+{{- if .Values.lldap.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lldap
+  labels:
+    app.kubernetes.io/name: lldap
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: lldap
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: lldap
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      securityContext:
+        fsGroup: {{ .Values.lldap.securityContext.fsGroup }}
+      containers:
+        - name: lldap
+          image: "{{ .Values.lldap.image.repository }}:{{ .Values.lldap.image.tag }}"
+          imagePullPolicy: {{ .Values.lldap.image.pullPolicy }}
+          env:
+            - name: LLDAP_LDAP_BASE_DN
+              value: {{ .Values.lldap.baseDn | quote }}
+            - name: UID
+              value: {{ .Values.lldap.securityContext.runAsUser | quote }}
+            - name: GID
+              value: {{ .Values.lldap.securityContext.runAsGroup | quote }}
+            - name: LLDAP_JWT_SECRET_FILE
+              value: /secrets/JWT_SECRET
+            - name: LLDAP_LDAP_USER_PASS_FILE
+              value: /secrets/LDAP_USER_PASS
+            {{- with .Values.lldap.timezone }}
+            - name: TZ
+              value: {{ . | quote }}
+            {{- end }}
+          ports:
+            - name: ldap
+              containerPort: {{ .Values.lldap.service.ldapPort }}
+              protocol: TCP
+            - name: http
+              containerPort: {{ .Values.lldap.service.httpPort }}
+              protocol: TCP
+          securityContext:
+            runAsUser: {{ .Values.lldap.securityContext.runAsUser }}
+            runAsGroup: {{ .Values.lldap.securityContext.runAsGroup }}
+          volumeMounts:
+            - name: lldap-data
+              mountPath: /data
+            - name: lldap-secrets
+              mountPath: /secrets
+              readOnly: true
+          resources:
+            {{- toYaml .Values.lldap.resources | nindent 12 }}
+          readinessProbe:
+            tcpSocket:
+              port: ldap
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: ldap
+            initialDelaySeconds: 30
+            periodSeconds: 30
+      volumes:
+        - name: lldap-data
+          {{- if .Values.lldap.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: lldap-data
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+        - name: lldap-secrets
+          secret:
+            secretName: {{ .Values.lldap.secrets.secretName }}
+            items:
+              - key: JWT_SECRET
+                path: JWT_SECRET
+              - key: LDAP_USER_PASS
+                path: LDAP_USER_PASS
+{{- end }}
