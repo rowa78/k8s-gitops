@@ -1,0 +1,42 @@
+zfs-localpv:
+  hostpathClass:
+    # Name of the default hostpath StorageClass
+    name: openebs-hostpath
+    # If true, enables creation of the openebs-hostpath StorageClass
+    enabled: true
+    # Available reclaim policies: Delete/Retain, defaults: Delete.
+    reclaimPolicy: Delete
+    # If true, sets the openebs-hostpath StorageClass as the default StorageClass
+    isDefaultClass: true
+    # Path on the host where local volumes of this storage class are mounted under.
+    # NOTE: If not specified, this defaults to the value of localpv.basePath.
+    basePath: ""
+    # Custom node affinity label(s) for example "openebs.io/node-affinity-value"
+    # that will be used instead of hostnames
+    # This helps in cases where the hostname changes when the node is removed and
+    # added back with the disks still intact.
+    # Example:
+    #          nodeAffinityLabels:
+    #            - "openebs.io/node-affinity-key-1"
+    #            - "openebs.io/node-affinity-key-2"
+    nodeAffinityLabels: []
+    # Prerequisite: XFS Quota requires an XFS filesystem mounted with
+    # the 'pquota' or 'prjquota' mount option.
+    xfsQuota:
+      # If true, enables XFS project quota
+      enabled: false
+      # Detailed configuration options for XFS project quota.
+      # If XFS Quota is enabled with the default values, the usage limit
+      # is set at the storage capacity specified in the PVC.
+      softLimitGrace: "0%"
+      hardLimitGrace: "0%"
+    # Prerequisite: EXT4 Quota requires an EXT4 filesystem mounted with
+    # the 'prjquota' mount option.
+    ext4Quota:
+      # If true, enables XFS project quota
+      enabled: false
+      # Detailed configuration options for EXT4 project quota.
+      # If EXT4 Quota is enabled with the default values, the usage limit
+      # is set at the storage capacity specified in the PVC.
+      softLimitGrace: "0%"
+      hardLimitGrace: "0%"
