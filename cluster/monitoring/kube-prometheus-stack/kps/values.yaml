@@ -84,7 +84,7 @@ kube-prometheus-stack:
       storage:
         volumeClaimTemplate:
           spec:
-            storageClassName: longhorn
+            storageClassName: openebs-hostpath
             resources:
               requests:
                 storage: 1Gi
@@ -119,7 +119,7 @@ kube-prometheus-stack:
     persistence:
       enabled: true
       type: sts
-      storageClassName: longhorn
+      storageClassName: openebs-hostpath
       size: 1Gi
     ingress:
       enabled: true
@@ -280,7 +280,7 @@ kube-prometheus-stack:
               recurring-job.longhorn.io/source: enabled
               recurring-job-group.longhorn.io/no-backup: enabled
           spec:
-            storageClassName: longhorn-strict-local
+            storageClassName: openebs-hostpath
             resources:
               requests:
                 storage: 70Gi     
@@ -584,7 +584,7 @@ prometheus-pushgateway:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "longhorn"
+    storageClass: "openebs-hostpath"
 
     ## Subdirectory of pushgateway data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
