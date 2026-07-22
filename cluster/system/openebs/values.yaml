@@ -1,4 +1,4 @@
-zfs-localpv:
+localpv-provisioner:
   hostpathClass:
     # Name of the default hostpath StorageClass
     name: openebs-hostpath
