@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: jenkins
 spec:
-  storageClassName: longhorn
+  storageClassName: openebs-hostpath
   accessModes:
     - ReadWriteOnce
   resources:
