@@ -5,6 +5,3 @@ dependencies:
   - name: oauth2-proxy
     version: "10.7.0"
     repository: https://oauth2-proxy.github.io/manifests
-  - name: redis
-    version: "0.16.9"
-    repository: https://ot-container-kit.github.io/helm-charts/
