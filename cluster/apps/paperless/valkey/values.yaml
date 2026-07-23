@@ -17,7 +17,7 @@ valkey:
     requestedSize: "1Gi"
 
     # Name of the storage class to use
-    className: "opebenbs-hostpath"
+    className: "openebs-hostpath"
 
     # Access modes for the PVC (e.g., ReadWriteOnce, ReadWriteMany)
     accessModes:
