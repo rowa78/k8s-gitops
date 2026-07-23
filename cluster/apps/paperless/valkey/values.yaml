@@ -14,10 +14,10 @@ valkey:
     volumeName: "valkey-data"
 
     # Request size (e.g. 5Gi) for dynamically provisioned volume
-    requestedSize: "5Gi"
+    requestedSize: "1Gi"
 
     # Name of the storage class to use
-    className: "longhorn"
+    className: "opebenbs-hostpath"
 
     # Access modes for the PVC (e.g., ReadWriteOnce, ReadWriteMany)
     accessModes:

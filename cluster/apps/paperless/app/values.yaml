@@ -20,13 +20,13 @@ paperless-ngx:
     # -- Set the container timezone
     TZ: Europe/Berlin
     PAPERLESS_REDIS: redis://paperless-valkey:6379
-    PAPERLESS_DBHOST: paperlessdb-rw
+    PAPERLESS_DBHOST: postgresql.fritz.box
     PAPERLESS_DBNAME: paperlessdb
     PAPERLESS_DBUSER: paperless
     PAPERLESS_DBPASS:
       valueFrom:
         secretKeyRef:
-          name: paperlessdb-app
+          name: db-secret
           key: password      
     PAPERLESS_ADMIN_USER: 
       valueFrom:
@@ -119,7 +119,7 @@ paperless-ngx:
       enabled: true
       retain: true
       mountPath: /usr/src/paperless/data
-      storageClass: "longhorn"
+      storageClass: "openebs-hostpath"
       accessMode: ReadWriteOnce
       size: 1Gi
     # -- Configure media volume settings for the chart under this key.
@@ -128,7 +128,7 @@ paperless-ngx:
       enabled: true
       retain: true
       mountPath: /usr/src/paperless/media
-      storageClass: "longhorn"
+      storageClass: "openebs-hostpath"
       accessMode: ReadWriteOnce
       size: 20Gi
     # -- Configure export volume settings for the chart under this key.
@@ -137,7 +137,7 @@ paperless-ngx:
       enabled: true
       retain: true
       mountPath: /usr/src/paperless/export
-      storageClass: "longhorn"
+      storageClass: "openebs-hostpath"
       accessMode: ReadWriteOnce
       size: 10Gi
     # -- Configure consume volume settings for the chart under this key.
@@ -146,7 +146,7 @@ paperless-ngx:
       enabled: true
       retain: true
       mountPath: /usr/src/paperless/consume
-      storageClass: "longhorn"
+      storageClass: "openebs-hostpath"
       accessMode: ReadWriteOnce
       size: 4Gi
 
