@@ -35,7 +35,7 @@ coder:
             # Postgres connection URL like:
             # postgres://coder:password@postgres:5432/coder?sslmode=disable
             name: db-secret
-            key: uri
+            key: url
 
     # coder.envFrom -- Secrets or ConfigMaps to use for Coder's environment
     # variables. If you want one environment variable read from a secret, then use
