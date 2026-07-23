@@ -123,7 +123,7 @@ immich:
         enabled: true
         type: persistentVolumeClaim
         size: 10Gi
-        accessMode: ReadWriteMany
+        accessMode: ReadWriteOnce
         storageClass: openebs-hostpath
         # Optional: to avoid downloading the ML models on every start, replace `type: emptyDir` above with:
         #   type: persistentVolumeClaim
