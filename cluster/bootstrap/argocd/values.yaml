@@ -233,12 +233,12 @@ argo-cd:
         enabled: true
   dex:
     enabled: true
-    env:
-      - name: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: argo-server-sso
-            key: client-secret
+    # env:
+    #   - name: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
+    #     valueFrom:
+    #       secretKeyRef:
+    #         name: argo-server-sso
+    #         key: client-secret
   
   configs:
     cm:
@@ -246,13 +246,13 @@ argo-cd:
       admin.enabled: true
 
       dex.config: |
-        staticClients:
-          # This is the OIDC client ID in plaintext
-          - id: argo-workflows
-            name: Argo Workflow
-            redirectURIs:
-              - https://argoworkflows.rwcloud.org/oauth2/callback
-            secretEnv: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
+        # staticClients:
+        #   # This is the OIDC client ID in plaintext
+        #   - id: argo-workflows
+        #     name: Argo Workflow
+        #     redirectURIs:
+        #       - https://argoworkflows.rwcloud.org/oauth2/callback
+        #     secretEnv: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
         connectors:
         - config:
             issuer: https://auth.rwcloud.org/realms/rwcloud
