@@ -69,7 +69,7 @@ immich:
         type: persistentVolumeClaim
         size: 1Gi
         accessMode: ReadWriteOnce
-        storageClass: longhorn
+        storageClass: openebs-hostpath
         # Optional: to keep job queues persistent, replace `type: emptyDir` above with:
         #   type: persistentVolumeClaim
         #   size: 1Gi
@@ -124,7 +124,7 @@ immich:
         type: persistentVolumeClaim
         size: 10Gi
         accessMode: ReadWriteMany
-        storageClass: longhorn
+        storageClass: openebs-hostpath
         # Optional: to avoid downloading the ML models on every start, replace `type: emptyDir` above with:
         #   type: persistentVolumeClaim
         #   size: 10Gi
