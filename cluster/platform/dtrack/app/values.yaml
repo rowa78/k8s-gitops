@@ -412,7 +412,7 @@ dependency-track:
       gethomepage.dev/enabled: "true"
       gethomepage.dev/description: Dependency-Track
       gethomepage.dev/group: System
-      gethomepage.dev/icon: dtrack.png
+      gethomepage.dev/icon: dependency-track.png
       gethomepage.dev/name: Dependency-Track
       gethomepage.dev/pod-selector: ""
     labels: {}
