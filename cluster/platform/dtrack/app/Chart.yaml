@@ -1,0 +1,10 @@
+apiVersion: v2
+name: dependency-track
+version: 0.0.0
+dependencies:
+  - name: dependency-track
+    version: 2.0.0-rc.3
+    repository: https://dependencytrack.github.io/helm-charts
+  #- name: redis
+  #  version: 17.3.7
+  #  repository: https://charts.bitnami.com/bitnami
