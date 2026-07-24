@@ -406,15 +406,22 @@ dependency-track:
   ingress:
     # -- Routes `/api` to api-server and `/` to frontend (or to api-server if
     # `frontend.enabled: false`).
-    enabled: false
-    annotations: {}
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Dependency-Track
+      gethomepage.dev/group: System
+      gethomepage.dev/icon: dtrack.png
+      gethomepage.dev/name: Dependency-Track
+      gethomepage.dev/pod-selector: ""
     labels: {}
-    hostname: "example.com"
-    ingressClassName: ""
-    tls: []
-    #  - secretName: dt-tls
-    #    hosts:
-    #      - example.com
+    hostname: "dtrack.rwcloud.org"
+    ingressClassName: "traefik"
+    tls: 
+    - secretName: dt-tls
+      hosts:
+        - dtrack.rwcloud.org
 
   httpRoute:
     # -- Whether to create a Gateway API HTTPRoute. Requires `parentRefs`.
