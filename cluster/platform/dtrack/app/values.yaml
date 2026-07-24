@@ -116,11 +116,11 @@ dependency-track:
         value: ""
         existingSecret:
           # -- Name of the existing secret.
-          name: ""
+          name: "kek-secret"
           # -- Key of the KEK in the existing secret.
           # Defaults to `kek` in config mode and `kek-keyset.json` in keyset mode.
           # Override only if your Secret backend uses a different key name.
-          key: ""
+          key: "kek"
 
   apiServer:
     # -- The topology to deploy.
