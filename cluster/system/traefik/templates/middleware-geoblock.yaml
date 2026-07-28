@@ -19,6 +19,7 @@ spec:
       unknownCountryApiResponse: "nil"
       countries:
         - DE
+        - IT
       excludedPathPatterns:
         - "^[^/]+/health$"
         - "^[^/]+/status$"
