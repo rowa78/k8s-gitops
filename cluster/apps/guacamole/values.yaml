@@ -1,0 +1,201 @@
+guacamole:
+  # SPDX-License-Identifier: Apache-2.0
+  # =============================================================================
+  # Apache Guacamole Helm Chart - Default Values
+  # =============================================================================
+  # Focus: guacamole + guacd + postgresql + oidc/saml + backup
+
+  nameOverride: ""
+  fullnameOverride: ""
+  commonLabels: {}
+
+  # =============================================================================
+  # Images
+  # =============================================================================
+
+  image:
+    # -- Guacamole web application image
+    repository: docker.io/guacamole/guacamole
+    # -- Image tag
+    tag: "1.6.0"
+    pullPolicy: IfNotPresent
+
+  guacd:
+    image:
+      # -- guacd daemon image
+      repository: docker.io/guacamole/guacd
+      # -- guacd image tag
+      tag: "1.6.0"
+      pullPolicy: IfNotPresent
+    # -- guacd daemon port
+    port: 4822
+    # -- guacd log level (info, debug, warning, error)
+    logLevel: info
+    # -- Resources for the guacd container
+    resources: {}
+
+  imagePullSecrets: []
+
+  # =============================================================================
+  # Guacamole Configuration
+  # =============================================================================
+
+  guacamole:
+    # -- Web application context path (use "ROOT" to serve at /)
+    contextPath: ROOT
+    # -- Extra environment variables for the Guacamole container
+    # -- @default -- `[]`
+    extraEnv: 
+      - name: OPENID_AUTHORIZATION_ENDPOINT
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: OPENID_AUTHORIZATION_ENDPOINT
+      - name: OPENID_JWKS_ENDPOINT
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: OPENID_JWKS_ENDPOINT
+      - name: OPENID_ISSUER
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: OPENID_ISSUER
+      - name: OPENID_CLIENT_ID
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: OPENID_CLIENT_ID
+      - name: OPENID_REDIRECT_URI
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: OPENID_REDIRECT_URI
+      - name: OPENID_SCOPE
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: OPENID_SCOPE
+      - name: OPENID_USERNAME_CLAIM_TYPE
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: OPENID_USERNAME_CLAIM_TYPE
+      - name: OPENID_GROUPS_CLAIM_TYPE
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: OPENID_GROUPS_CLAIM_TYPE
+      - name: OPENID_ALLOWED_CLOCK_SKEW
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: OPENID_ALLOWED_CLOCK_SKEW
+      - name: OPENID_MAX_TOKEN_VALIDITY
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: OPENID_MAX_TOKEN_VALIDITY
+      - name: OPENID_CLIENT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: oidc
+            key: OPENID_CLIENT_SECRET
+  # =============================================================================
+  # Reverse Proxy
+  # =============================================================================
+
+  proxy:
+    # -- Enable Tomcat RemoteIpValve for reverse proxy
+    enabled: true
+    # -- Trusted proxy IP regex
+    allowedIpsRegex: ""
+    # -- Header for client IP
+    ipHeader: X-Forwarded-For
+    # -- Header for protocol
+    protocolHeader: X-Forwarded-Proto
+
+  # =============================================================================
+  # OIDC (OpenID Connect)
+  # =============================================================================
+
+  oidc:
+    # -- Enable OpenID Connect authentication
+    enabled: false
+    # -- Authorization endpoint URI
+    authorizationEndpoint: "https://keycloak.example.com/realms/master/protocol/openid-connect/auth"
+    # -- JWKS endpoint URI for token validation
+    jwksEndpoint: ""
+    # -- Expected token issuer
+    issuer: ""
+    # -- Client ID
+    clientId: ""
+    # -- Redirect URI (auto-detected from ingress if empty)
+    redirectUri: ""
+    # -- Space-separated scopes
+    scope: "openid email profile"
+    # -- JWT claim for username
+    usernameClaim: "preferred_username"
+    # -- JWT claim for groups
+    groupsClaim: "groups"
+    # -- Allowed clock skew in seconds
+    allowedClockSkew: 30
+    # -- Maximum token validity in minutes
+    maxTokenValidity: 300
+
+  database:
+    # -- Database type: postgresql or mysql
+    type: postgresql
+    waitForConnection:
+      # -- Wait for the configured database socket before starting Guacamole.
+      enabled: true
+      resources: {}
+    # -- External database configuration (used when neither subchart is enabled)
+    external:
+      host: "postgresql.fritz.box"
+      port: "5432"
+      name: guacamoledb
+      username: guacamole
+      password: ""
+      # -- Existing secret containing the database password
+      existingSecret: "db-secret"
+      # -- Key in the existing secret containing the password
+      existingSecretPasswordKey: password
+
+  # =============================================================================
+  # Ingress
+  # =============================================================================
+
+  ingress:
+    # -- Enable ingress for Guacamole
+    enabled: true
+    # -- Ingress class name (for example: traefik, nginx)
+    ingressClassName: traefik
+    annotations:         
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    # -- Ingress hosts
+    hosts:
+      - host: guacamole.rwcloud.org
+        paths:
+          - path: /
+            pathType: Prefix
+    # -- Ingress TLS configuration
+    tls: 
+      - hosts:
+          - guacamole.rwcloud.org
+        secretName: guacamole-tls
+
+
+  # =============================================================================
+  # Subcharts
+  # =============================================================================
+
+  postgresql:
+    # -- Enable the local PostgreSQL chart
+    enabled: false
+
+
+  mysql:
+    # -- Enable the local MySQL chart
+    enabled: false
+    

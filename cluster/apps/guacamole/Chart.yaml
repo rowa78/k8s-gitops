@@ -1,0 +1,7 @@
+apiVersion: v2
+name: guacamole
+version: 1.0.0
+dependencies:
+  - name: guacamole
+    version: 2.1.0
+    repository: https://repo.helmforge.dev
