@@ -3,5 +3,5 @@ name: guacamole
 version: 1.0.0
 dependencies:
   - name: guacamole
-    version: 2.1.0
+    version: 1.5.0
     repository: https://repo.helmforge.dev
