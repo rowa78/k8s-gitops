@@ -48,7 +48,7 @@ databasus:
     annotations: 
       cert-manager.io/cluster-issuer: letsencrypt-production
     hosts:
-      - host: &host databasus.rwcloud.org
+      - host: &host databasus.internal.rwcloud.org
         paths:
           - path: /
             pathType: Prefix
