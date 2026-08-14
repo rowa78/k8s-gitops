@@ -47,6 +47,11 @@ databasus:
     className: traefik
     annotations: 
       cert-manager.io/cluster-issuer: letsencrypt-production
+      gethomepage.dev/href: "https://databasus.internal.rwcloud.org"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: Databasus
+      gethomepage.dev/group: Internal
+      gethomepage.dev/icon: databasus.png
     hosts:
       - host: &host databasus.internal.rwcloud.org
         paths:
