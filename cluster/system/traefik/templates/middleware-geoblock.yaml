@@ -23,4 +23,4 @@ spec:
       excludedPathPatterns:
         - "^[^/]+/health$"
         - "^[^/]+/status$"
-        - "^vocabolario\.rwcloud\.org/api/v1/podcasts/"
+        - "^vocabolario\\.rwcloud\\.org/api/v1/podcasts/"
