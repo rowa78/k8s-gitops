@@ -78,11 +78,11 @@ traefik:
   #     format:  # @schema enum:["common", "genericCLF", "json", null]; type:[string, null]; default: "common"
   #     # filePath: "/var/log/traefik/access.log
 
-  experimental:
-    plugins: 
-      geoblock:
-        moduleName: "github.com/PascalMinder/geoblock"
-        version: "v0.3.7"
+  # experimental:
+  #   plugins: 
+  #     geoblock:
+  #       moduleName: "github.com/PascalMinder/geoblock"
+  #       version: "v0.3.7"
   
   additionalArguments:
   - "--entrypoints.websecure.http.middlewares=traefik-geblock@kubernetescrd"
