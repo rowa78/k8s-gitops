@@ -3,7 +3,7 @@ traefik:
     # -- Enable deployment
     enabled: true
     # -- Deployment or DaemonSet
-    kind: DaemonSet
+    kind: Deployment
 
   hostNetwork: true
 
