@@ -85,5 +85,5 @@ traefik:
   #       version: "v0.3.7"
   
   additionalArguments:
-  - "--entrypoints.websecure.http.middlewares=traefik-geblock@kubernetescrd"
+  #- "--entrypoints.websecure.http.middlewares=traefik-geblock@kubernetescrd"
   - "--providers.kubernetescrd.allowCrossNamespace=true"
