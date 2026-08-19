@@ -21,10 +21,27 @@ backrest:
       hostPath:
         path: /var/openebs/local
         type: Directory
+    - name: rclone-config
+      secret:
+        secretName: rclone-config
+        defaultMode: 0600
+        items:
+          - key: rclone.conf
+            path: rclone.conf
+    - name: ssh
+      secret:
+        secretName: ssh-config
+        defaultMode: 0600
 
   extraContainerVolumeMounts:
     - name: openebs-local
       mountPath: /backup-source
+      readOnly: true
+    - name: rclone-config
+      mountPath: /root/.config/rclone
+      readOnly: true
+    - name: ssh
+      mountPath: /root/.ssh
       readOnly: true
 
   ingress:
