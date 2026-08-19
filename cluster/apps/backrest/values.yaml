@@ -1,0 +1,51 @@
+backrest:
+  nodeSelector:
+    kubernetes.io/hostname: k3s-luna
+
+  podSecurityContext:
+    runAsUser: 0
+
+  service:
+    clusterIP: ""
+
+  persistence:
+    enabled: true
+    storageClass: openebs-hostpath
+    accessModes:
+      - ReadWriteOnce
+    size: 10Gi
+    mountPath: /data
+
+  extraVolumes:
+    - name: openebs-local
+      hostPath:
+        path: /var/openebs/local
+        type: Directory
+
+  extraContainerVolumeMounts:
+    - name: openebs-local
+      mountPath: /backup-source
+      readOnly: true
+
+  ingress:
+    enabled: true
+    className: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      traefik.ingress.kubernetes.io/router.middlewares: >
+        traefik-local-network-only@kubernetescrd,oauth2-proxy-oauth2-auth@kubernetescrd
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/href: "https://backrest-luna.internal.rwcloud.org"
+      gethomepage.dev/name: Backrest Luna
+      gethomepage.dev/description: Backrest (k3s-luna)
+      gethomepage.dev/group: Internal
+      gethomepage.dev/icon: backrest.png
+    hosts:
+      - host: &host backrest-luna.internal.rwcloud.org
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: backrest-luna-tls
+        hosts:
+          - *host
