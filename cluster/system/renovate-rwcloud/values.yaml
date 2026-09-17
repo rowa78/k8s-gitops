@@ -25,7 +25,7 @@ renovate:
         # -- Storage size of the cache PVC
         storageSize: "5Gi"
   env:
-    LOG_LEVEL: 'info'
+    LOG_LEVEL: 'debug'
 
   existingSecret: renovate
   nodeSelector: 
