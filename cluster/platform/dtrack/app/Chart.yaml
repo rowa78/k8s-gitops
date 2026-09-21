@@ -3,7 +3,7 @@ name: dependency-track
 version: 0.0.0
 dependencies:
   - name: dependency-track
-    version: 2.4.0
+    version: 2.5.0
     repository: https://dependencytrack.github.io/helm-charts
   #- name: redis
   #  version: 17.3.7
