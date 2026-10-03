@@ -3,7 +3,7 @@ apiVersion: v2
 version: 1.0.0
 dependencies:
   - name: oauth2-proxy
-    version: "10.7.0"
+    version: "10.7.1"
     repository: https://oauth2-proxy.github.io/manifests
   - name: valkey
     version: 0.12.0
