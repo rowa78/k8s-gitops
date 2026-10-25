@@ -1,0 +1,8 @@
+---
+# Prüfung für Build/Review/CI: `yamllint cluster/` bzw. nur geänderte Dateien.
+# templates/ enthalten Go-Templates (Helm) und sind kein reines YAML.
+extends: relaxed
+ignore: |
+  **/templates/**
+rules:
+  line-length: disable
