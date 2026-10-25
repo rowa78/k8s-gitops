@@ -44,6 +44,20 @@ spec:
     - factory.rwcloud.org
 ---
 ###############################################################################
+# Middleware: /api/workers von außen sperren
+# (nur Worker-Heartbeat und Telegram-Bot – die gehen direkt an 192.168.0.155:3000)
+###############################################################################
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: factory-deny
+  namespace: default
+spec:
+  ipAllowList:            # Traefik v2: ipWhiteList
+    sourceRange:
+      - 127.0.0.1/32      # erfüllt keine Anfrage von außen → 403
+---
+###############################################################################
 # IngressRoute
 ###############################################################################
 apiVersion: traefik.io/v1alpha1
@@ -62,6 +76,15 @@ spec:
   entryPoints:
     - websecure
   routes:
+    - kind: Rule
+      match: Host(`factory.rwcloud.org`) && PathPrefix(`/api/workers`)
+      priority: 1000
+      middlewares:
+        - name: factory-deny
+      services:
+        - name: factory-service
+          port: 3000
+          scheme: http
     - kind: Rule
       match: Host(`factory.rwcloud.org`)
       services:
