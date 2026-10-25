@@ -14,15 +14,19 @@ Es gibt keinen klassischen Build/Test-Lauf und noch keine CI (`Jenkinsfile` ist 
 |---|---|---|
 | Abhängigkeiten installieren | – (keine) | – |
 | YAML-Syntax (alle Nicht-Template-YAMLs) | `find cluster -name '*.y*ml' -not -path '*/templates/*' -exec yq e '.' {} + >/dev/null` | ✅ |
-| YAML-Lint | `yamllint cluster/` | ❌ nicht installiert |
-| Charts rendern + Schema prüfen (je App mit `Chart.yaml`) | `helm dependency build <app> && helm template <app> \| kubeconform -strict -ignore-missing-schemas -summary` | ❌ vom dev-pack-Hook gesperrt |
-| Secret-Scan | `gitleaks detect --no-banner` | ❌ nicht installiert |
-| pre-commit-Hooks (Whitespace, EOF, CRLF, Tabs, Smartquotes, `forbid-secrets`) | `pre-commit run --all-files` | ❌ nicht installiert |
+| YAML-Lint, nur geänderte Dateien (Pflicht) | `git diff --name-only --diff-filter=d origin/main -- '*.yaml' '*.yml' \| xargs -r -d '\n' yamllint` | ✅ |
+| YAML-Lint, ganzes Repo (Überblick) | `yamllint cluster/` | ✅ (Altbestand: ca. 340 Fehler, nur Whitespace/EOF/Einrückung) |
+| Secret-Scan, Commits des Branches (Pflicht) | `gitleaks detect --no-banner --redact --log-opts="origin/main..HEAD"` | ✅ |
+| Secret-Scan, Arbeitsstand | `gitleaks detect --no-banner --redact --no-git` | ✅ (6 Treffer, alle Platzhalter/Kommentare im Altbestand) |
+| pre-commit-Hooks (Whitespace, EOF, CRLF, Tabs, Smartquotes, `forbid-secrets`) | `pre-commit run --files <dateien>` | ❌ Hook-Repos nicht ladbar (kein Netz zu github.com) |
+| Charts rendern + Schema prüfen (je App mit `Chart.yaml`) | `helm dependency build <app> && helm template <app> \| kubeconform -strict -ignore-missing-schemas -summary` | ❌ vom dev-pack-Hook gesperrt → CI |
 | Ansible-Lint (nur bei Issues, die `ansible/` nennen) | `ansible-lint ansible/` | ❌ vom dev-pack-Hook gesperrt |
 | Doku bauen | `mkdocs build` | ❌ nicht installiert |
 | Tests / Build / Lokal starten | – (nicht vorhanden; Deployment durch Argo CD) | – |
 
-Ein Arbeitsstand gilt als fertig, wenn alle auf dem Worker verfügbaren Prüfungen (✅) fehlerfrei durchlaufen und kein Klartext-Secret enthalten ist. Nicht ausführbare Prüfungen im PR als „nicht geprüft“ nennen.
+yamllint liest `.yamllint.yaml` (Basis `relaxed`, ohne Zeilenlänge, `templates/` ausgenommen, weil dort Go-Templates stehen). Gitleaks ist auf dem Worker eine ältere v8: `gitleaks detect` verwenden, nicht `gitleaks git`/`dir`.
+
+Ein Arbeitsstand gilt als fertig, wenn die Pflicht-Prüfungen und die YAML-Syntax fehlerfrei sind (Warnungen sind erlaubt) und kein Klartext-Secret enthalten ist. Altbestand nur in Dateien bereinigen, die der PR ohnehin anfasst. Nicht ausführbare Prüfungen im PR als „nicht geprüft“ nennen.
 
 Hinweis: `cluster/monitoring/kube-prometheus-stack/kps/values.yaml` definiert den Anker `&host` mehrfach. Das erlaubt die YAML-Spezifikation (yq und Helm akzeptieren es), strikte Parser wie PyYAML melden aber einen Fehler.
 
