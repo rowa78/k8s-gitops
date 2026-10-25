@@ -1,13 +1,13 @@
 ---
 # Project information
-site_name: rogerrum | Home GitOps
+site_name: rowa78 | Home GitOps
 site_description: A mono repository for my home infrastructure and Kubernetes cluster which tries to adhere to Infrastructure as Code (IaC) and GitOps practices
 site_author: Roger Rumao
-site_url: https://rogerrum.github.io/k8s-gitops/
+site_url: https://rowa78.github.io/k8s-gitops/
 
 # Repository
-repo_name: rogerrum/k8s-gitops
-repo_url: https://github.com/rogerrum/k8s-gitops
+repo_name: rowa78/k8s-gitops
+repo_url: https://github.com/rowa78/k8s-gitops
 edit_uri: "edit/main/docs/"
 
 theme:
