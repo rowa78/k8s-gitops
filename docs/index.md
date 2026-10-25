@@ -2,12 +2,12 @@
 
 This repository _is_ my home Kubernetes cluster in a declarative state. [ArgoCD](https://github.com/argoproj/argo-cd/) watches my repo and makes the changes to my cluster based on the YAML manifests.
 
-Feel free to open a [Github issue](https://github.com/rogerrum/k8s-gitops/issues/new/choose) if you have any questions.
+Feel free to open a [Github issue](https://github.com/rowa78/k8s-gitops/issues/new/choose) if you have any questions.
 
 
 ## Cluster setup
 
-My cluster is [k3s](https://k3s.io/) provisioned overtop Ubuntu 20.04. 
+My cluster is [k3s](https://k3s.io/) provisioned overtop Ubuntu 20.04.
 This is a semi hyper-converged cluster, workloads and block storage are sharing the same available resources on my nodes while I have a separate server for (NFS) file storage.
 
 ## Cluster components
@@ -20,7 +20,7 @@ This is a semi hyper-converged cluster, workloads and block storage are sharing 
 
 ## Repository structure
 
-The Git repository uses the ArgoCD with App of Apps Pattern. 
+The Git repository uses the ArgoCD with App of Apps Pattern.
 The `apps` folder is the root folder which starts the ArgoCD and the ArgoCD handles all other workloads.
 
 - **apps** directory is the root application for ArgoCD, it bootstraps argoCD, infrastructure, main and system-upgrade
