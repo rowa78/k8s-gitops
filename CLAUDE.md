@@ -10,21 +10,21 @@ GitOps-Repo für einen Heim-Kubernetes-Cluster (k3s): Argo CD synchronisiert den
 
 Es gibt keinen klassischen Build/Test-Lauf. Geprüft wird statisch; dieselben Pflicht-Prüfungen (YAML-Syntax, yamllint auf geänderten Dateien, Chart-Rendering mit kubeconform für geänderte Apps, gitleaks über die PR-Commits) laufen als GitHub-Actions-Workflow `.github/workflows/validate.yaml` auf jedem PR gegen `main`. Der `Jenkinsfile` ist leer und ungenutzt.
 
-| Zweck | Befehl | Auf dem Worker |
-|---|---|---|
-| Abhängigkeiten installieren | – (keine) | – |
-| YAML-Syntax (alle Nicht-Template-YAMLs) | `find cluster -name '*.y*ml' -not -path '*/templates/*' -exec yq e '.' {} + >/dev/null` | ✅ |
-| YAML-Lint, nur geänderte Dateien (Pflicht) | `git diff --name-only --diff-filter=d origin/main...HEAD -- '*.yaml' '*.yml' \| xargs -r -d '\n' yamllint` | ✅ |
-| YAML-Lint, ganzes Repo (Überblick) | `yamllint cluster/` | ✅ (Altbestand: ca. 340 Fehler, nur Whitespace/EOF/Einrückung) |
-| Secret-Scan, Commits des Branches (Pflicht) | `gitleaks detect --no-banner --redact --log-opts="origin/main..HEAD"` | ✅ |
-| Secret-Scan, Arbeitsstand | `gitleaks detect --no-banner --redact --no-git` | ✅ (6 Treffer, alle Platzhalter/Kommentare im Altbestand) |
-| pre-commit-Hooks (Whitespace, EOF, CRLF, Tabs, Smartquotes, `forbid-secrets`) | `pre-commit run --files <dateien>` | ❌ Hook-Repos nicht ladbar (kein Netz zu github.com) |
-| Charts rendern + Schema prüfen (je App mit `Chart.yaml`) | `helm dependency build <app> && helm template <app> \| kubeconform -strict -ignore-missing-schemas -summary` | ❌ vom dev-pack-Hook gesperrt → CI |
-| Ansible-Lint (nur bei Issues, die `ansible/` nennen) | `ansible-lint ansible/` | ❌ vom dev-pack-Hook gesperrt |
-| Doku bauen | `mkdocs build` | ❌ nicht installiert |
-| Tests / Build / Lokal starten | – (nicht vorhanden; Deployment durch Argo CD) | – |
+| Zweck | Befehl |
+|---|---|
+| Abhängigkeiten installieren | – (keine) |
+| YAML-Syntax (alle Nicht-Template-YAMLs) | `find cluster -name '*.y*ml' -not -path '*/templates/*' -exec yq e '.' {} + >/dev/null` |
+| YAML-Lint, nur geänderte Dateien (Pflicht) | `git diff --name-only --diff-filter=d origin/main...HEAD -- '*.yaml' '*.yml' \| xargs -r -d '\n' yamllint` |
+| YAML-Lint, ganzes Repo (Überblick) | `yamllint cluster/` |
+| Secret-Scan, Commits des Branches (Pflicht) | `gitleaks detect --no-banner --redact --log-opts="origin/main..HEAD"` |
+| Secret-Scan, Arbeitsstand | `gitleaks detect --no-banner --redact --no-git` |
+| pre-commit-Hooks (Whitespace, EOF, CRLF, Tabs, Smartquotes, `forbid-secrets`) | `pre-commit run --files <dateien>` |
+| Charts rendern + Schema prüfen (je App mit `Chart.yaml`) | `helm dependency build <app> && helm template <app> \| kubeconform -strict -ignore-missing-schemas -summary` |
+| Ansible-Lint (nur bei Issues, die `ansible/` nennen) | `ansible-lint ansible/` |
+| Doku bauen | `mkdocs build` |
+| Tests / Build / Lokal starten | – (nicht vorhanden; Deployment durch Argo CD) |
 
-yamllint liest `.yamllint.yaml` (Basis `relaxed`, ohne Zeilenlänge, `templates/` ausgenommen, weil dort Go-Templates stehen). Gitleaks ist auf dem Worker eine ältere v8: `gitleaks detect` verwenden, nicht `gitleaks git`/`dir`.
+yamllint liest `.yamllint.yaml` (Basis `relaxed`, ohne Zeilenlänge, `templates/` ausgenommen, weil dort Go-Templates stehen). Gitleaks v8: `gitleaks detect` verwenden, nicht `gitleaks git`/`dir`.
 
 Ein Arbeitsstand gilt als fertig, wenn die Pflicht-Prüfungen und die YAML-Syntax fehlerfrei sind (Warnungen sind erlaubt) und kein Klartext-Secret enthalten ist. Altbestand nur in Dateien bereinigen, die der PR ohnehin anfasst. Nicht ausführbare Prüfungen im PR als „nicht geprüft“ nennen.
 
