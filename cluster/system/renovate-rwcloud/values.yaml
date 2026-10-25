@@ -4,10 +4,8 @@ renovate:
   renovate:
     config: |
       {
-        "platform": "forgejo",
-        "endpoint": "https://git.rwcloud.org/api/v1",
-        "autodiscover": true,
-        "autodiscoverFilter": ["ronny/*"],
+        "platform": "github",
+        "repositories": ["rowa78/k8s-gitops"],
         "onboarding": true,
         "requireConfig": "required",
         "printConfig": false,
@@ -28,7 +26,5 @@ renovate:
     LOG_LEVEL: 'debug'
 
   existingSecret: renovate
-  nodeSelector: 
+  nodeSelector:
     kubernetes.io/arch: amd64
-
-
