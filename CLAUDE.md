@@ -8,7 +8,7 @@ GitOps-Repo für einen Heim-Kubernetes-Cluster (k3s): Argo CD synchronisiert den
 
 ## Befehle
 
-Es gibt keinen klassischen Build/Test-Lauf und noch keine CI (`Jenkinsfile` ist leer, kein `.github/workflows/`). Geprüft wird statisch:
+Es gibt keinen klassischen Build/Test-Lauf. Geprüft wird statisch; dieselben Pflicht-Prüfungen (YAML-Syntax, yamllint auf geänderten Dateien, Chart-Rendering mit kubeconform für geänderte Apps, gitleaks über die PR-Commits) laufen als GitHub-Actions-Workflow `.github/workflows/validate.yaml` auf jedem PR gegen `main`. Der `Jenkinsfile` ist leer und ungenutzt.
 
 | Zweck | Befehl | Auf dem Worker |
 |---|---|---|
