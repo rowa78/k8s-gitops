@@ -6,7 +6,7 @@ worker: homelab-ct
 # Workflows: Folge von Stationen und Toren (gate:<name>, siehe config/factory.yml → gates)
 workflows:
   feature: [spec, gate:approved, build, review, gate:merge]
-  bugfix:  [build, review, gate:merge]          # ohne Spec-Station
+  bugfix:  [build, review, gate:merge]          # wie change, eigener Name für type:bug
   design:  [spec, gate:merge]                   # nur Gesamt-Spec, Spec-PR wird gemergt
   setup:   [scaffold, review, gate:merge]       # neues Projekt: Gerüst, CI, CLAUDE.md
   import:  [onboard, review, gate:merge]        # bestehendes Projekt einrichten

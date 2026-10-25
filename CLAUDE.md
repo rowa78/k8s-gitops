@@ -14,7 +14,7 @@ Es gibt keinen klassischen Build/Test-Lauf und noch keine CI (`Jenkinsfile` ist 
 |---|---|---|
 | Abhängigkeiten installieren | – (keine) | – |
 | YAML-Syntax (alle Nicht-Template-YAMLs) | `find cluster -name '*.y*ml' -not -path '*/templates/*' -exec yq e '.' {} + >/dev/null` | ✅ |
-| YAML-Lint, nur geänderte Dateien (Pflicht) | `git diff --name-only --diff-filter=d origin/main -- '*.yaml' '*.yml' \| xargs -r -d '\n' yamllint` | ✅ |
+| YAML-Lint, nur geänderte Dateien (Pflicht) | `git diff --name-only --diff-filter=d origin/main...HEAD -- '*.yaml' '*.yml' \| xargs -r -d '\n' yamllint` | ✅ |
 | YAML-Lint, ganzes Repo (Überblick) | `yamllint cluster/` | ✅ (Altbestand: ca. 340 Fehler, nur Whitespace/EOF/Einrückung) |
 | Secret-Scan, Commits des Branches (Pflicht) | `gitleaks detect --no-banner --redact --log-opts="origin/main..HEAD"` | ✅ |
 | Secret-Scan, Arbeitsstand | `gitleaks detect --no-banner --redact --no-git` | ✅ (6 Treffer, alle Platzhalter/Kommentare im Altbestand) |
