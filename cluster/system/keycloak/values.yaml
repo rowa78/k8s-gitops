@@ -1,5 +1,5 @@
-keycloakx:  
-  
+keycloakx:
+
   command:
   - "/opt/keycloak/bin/kc.sh"
   - "start"
@@ -21,7 +21,7 @@ keycloakx:
     # The Service port targeted by the Ingress
     servicePort: http
     # Ingress annotations
-    annotations: 
+    annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
       ## Resolve HTTP 502 error using ingress-nginx:
       ## See https://www.ibm.com/support/pages/502-error-ingress-keycloak-response
@@ -41,7 +41,7 @@ keycloakx:
             # serviceName: ""  # Optional: Override backend service name (e.g., for AWS ALB action annotations)
             # servicePort: ""  # Optional: Override backend service port name
     # TLS configuration
-    tls: 
+    tls:
      - hosts:
          - auth.rwcloud.org
        secretName: "auth-tls"
@@ -73,7 +73,7 @@ keycloakx:
       # - hosts:
       #     - console.keycloak.example.com
       #   secretName: ""
-  
+
 
   dbchecker:
     enabled: true
@@ -113,7 +113,7 @@ keycloakx:
     username: keycloak
     #password:
 
-  
+
 
   serviceMonitor:
     # If `true`, a ServiceMonitor resource for the prometheus-operator is created
