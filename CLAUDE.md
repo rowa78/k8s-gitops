@@ -26,7 +26,7 @@ Es gibt keinen klassischen Build/Test-Lauf. Geprüft wird statisch; dieselben Pf
 
 yamllint liest `.yamllint.yaml` (Basis `relaxed`, ohne Zeilenlänge, `templates/` ausgenommen, weil dort Go-Templates stehen). Gitleaks v8: `gitleaks detect` verwenden, nicht `gitleaks git`/`dir`.
 
-Ein Arbeitsstand gilt als fertig, wenn die Pflicht-Prüfungen und die YAML-Syntax fehlerfrei sind (Warnungen sind erlaubt) und kein Klartext-Secret enthalten ist. Altbestand nur in Dateien bereinigen, die der PR ohnehin anfasst. Nicht ausführbare Prüfungen im PR als „nicht geprüft" nennen.
+Ein Arbeitsstand gilt als fertig, wenn die Pflicht-Prüfungen und die YAML-Syntax fehlerfrei sind (Warnungen sind erlaubt) und kein Klartext-Secret enthalten ist. Altbestand nur in Dateien bereinigen, die der PR ohnehin anfasst. Nicht ausführbare Prüfungen im PR als „nicht geprüft“ nennen.
 
 Hinweis: `cluster/monitoring/kube-prometheus-stack/kps/values.yaml` definiert den Anker `&host` mehrfach. Das erlaubt die YAML-Spezifikation (yq und Helm akzeptieren es), strikte Parser wie PyYAML melden aber einen Fehler.
 
@@ -87,7 +87,7 @@ Hinweis: `cluster/monitoring/kube-prometheus-stack/kps/values.yaml` definiert de
      Hat die Application `prune: false`, nach dem Merge SealedSecret und PushSecret in Argo CD manuell prunen, sonst kann ESO das Secret nicht übernehmen.
 - **SealedSecrets nur noch für die Tokens der Secret-Stores** (Henne-Ei-Problem); alles andere ist ein ExternalSecret.
 - **`ansible/` nur ändern, wenn ein Issue es ausdrücklich nennt.**
-- Versionen werden von Renovate per PR angehoben (Commit-Titel wie „Update Helm release X to vY"); nicht von Hand mit Renovate-Updates kollidieren.
+- Versionen werden von Renovate per PR angehoben (Commit-Titel wie „Update Helm release X to vY“); nicht von Hand mit Renovate-Updates kollidieren.
 - Neue App = neues Verzeichnis unter der passenden Gruppe in `cluster/`; die Zuordnung zu Projekt/Welle ergibt sich aus der Gruppe.
 - Kein Tab, keine CRLF, keine typografischen Anführungszeichen (pre-commit).
 - Die `README.md` verweist teils noch auf den Fork `rogerrum/k8s-gitops`; maßgeblich ist `rowa78/k8s-gitops`.
@@ -99,6 +99,6 @@ Dieses Repo wird von der Agent Factory betreut (Konfiguration: `.factory.yml`). 
 
 - Specs liegen unter `docs/specs/<issue>-<slug>.md` und beschreiben, *warum* etwas so gebaut ist. Sie enthalten keinen Status.
 - Branches der Factory heißen `factory/<issue>-<slug>`.
-- **Neue Issues ohne `factory:*`-Label anlegen** – sie stehen dann unter „Neu", eingeplant wird von Hand. `factory:inbox` (oder eine Station) nur, wenn ausdrücklich „einplanen" gesagt wird.
+- **Neue Issues ohne `factory:*`-Label anlegen** – sie stehen dann unter „Neu“, eingeplant wird von Hand. `factory:inbox` (oder eine Station) nur, wenn ausdrücklich „einplanen“ gesagt wird.
 - **Vor Änderungen an Dateien: auf einem Issue-Branch `factory/<n>-…` arbeiten.** Wenn nicht: `/factory:work "<Titel>"` vorschlagen (legt Issue und Branch an, nimmt uncommittete Änderungen mit) bzw. `/factory:work <n>` für ein bestehendes Issue. Abschluss mit `/factory:handoff`. Lesen, Ausprobieren und Tests laufen lassen brauchen das nicht. Auf dem Standard-Branch sperrt ein Hook des Factory-Plugins Änderungen und Commits.
-- Wiederkehrende Review-Befunde werden hier unter „Konventionen" ergänzt.
+- Wiederkehrende Review-Befunde werden hier unter „Konventionen“ ergänzt.
