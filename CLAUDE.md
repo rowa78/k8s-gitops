@@ -80,6 +80,11 @@ Hinweis: `cluster/monitoring/kube-prometheus-stack/kps/values.yaml` definiert de
   - **Namensschema** der Einträge im Tresor `k8s`: `<namespace>#<app>`. Die Felder heißen wie die gewünschten Secret-Schlüssel bzw. Umgebungsvariablen.
   - **Faustregel:** `dataFrom.extract`, wenn alles aus einem Eintrag gebraucht wird; `data` für einzelne Felder oder umbenannte Schlüssel.
   - **Hinweis:** Standardfelder des Eintrags (z. B. `username`, `notesPlain`) können mit ins Secret wandern. Feldnamen dürfen nur Buchstaben, Ziffern, `-`, `_`, `.` enthalten.
+- **Migration SealedSecret → ExternalSecret** (Muster aus `renovate-rwcloud`, Spec `docs/specs/616-sealedsecret-migration.md`), in zwei getrennten Merges, weil Merge = Deploy:
+  1. Ein `PushSecret` (Store `onepassword-push`, `deletionPolicy: None`) schreibt das vorhandene Secret je Schlüssel in den Eintrag `<namespace>#<secret-name>` im Tresor `k8s`.
+  2. Prüfen (Mensch): PushSecret synced, Eintrag enthält alle Felder.
+  3. Umstellen: SealedSecret und PushSecret entfernen, `ExternalSecret` mit `dataFrom.extract` anlegen. Das Secret gehört dem SealedSecret; beim Prunen fehlt es kurz, bis ESO es neu anlegt. Danach prüfen, dass es dem ExternalSecret gehört und genau die erwarteten Schlüssel enthält (sonst `data` statt `dataFrom.extract`).
+- **SealedSecrets nur noch für die Tokens der Secret-Stores** (Henne-Ei-Problem); alles andere ist ein ExternalSecret.
 - **`ansible/` nur ändern, wenn ein Issue es ausdrücklich nennt.**
 - Versionen werden von Renovate per PR angehoben (Commit-Titel wie „Update Helm release X to vY“); nicht von Hand mit Renovate-Updates kollidieren.
 - Neue App = neues Verzeichnis unter der passenden Gruppe in `cluster/`; die Zuordnung zu Projekt/Welle ergibt sich aus der Gruppe.
