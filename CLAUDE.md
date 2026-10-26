@@ -84,6 +84,7 @@ Hinweis: `cluster/monitoring/kube-prometheus-stack/kps/values.yaml` definiert de
   1. Ein `PushSecret` (Store `onepassword-push`, `deletionPolicy: None`) schreibt das vorhandene Secret je Schlüssel in den Eintrag `<namespace>#<secret-name>` im Tresor `k8s`.
   2. Prüfen (Mensch): PushSecret synced, Eintrag enthält alle Felder.
   3. Umstellen: SealedSecret und PushSecret entfernen, `ExternalSecret` mit `dataFrom.extract` anlegen. Das Secret gehört dem SealedSecret; beim Prunen fehlt es kurz, bis ESO es neu anlegt. Danach prüfen, dass es dem ExternalSecret gehört und genau die erwarteten Schlüssel enthält (sonst `data` statt `dataFrom.extract`).
+     Hat die Application `prune: false`, nach dem Merge SealedSecret und PushSecret in Argo CD manuell prunen, sonst kann ESO das Secret nicht übernehmen.
 - **SealedSecrets nur noch für die Tokens der Secret-Stores** (Henne-Ei-Problem); alles andere ist ein ExternalSecret.
 - **`ansible/` nur ändern, wenn ein Issue es ausdrücklich nennt.**
 - Versionen werden von Renovate per PR angehoben (Commit-Titel wie „Update Helm release X to vY“); nicht von Hand mit Renovate-Updates kollidieren.

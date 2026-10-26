@@ -50,6 +50,7 @@ Je App, wie bei #617:
 3. Typ `kubernetes.io/dockerconfigjson`: `target.template.type: kubernetes.io/dockerconfigjson` setzen.
 4. Gehören zum SealedSecret Helm-Bedingungen oder values (argocd, keycloak), diese mit entfernen.
 5. Nach dem Deploy prüft der Mensch: Jedes Secret gehört dem ExternalSecret und enthält genau die bisherigen Schlüssel, die App läuft. Kommen Zusatzfelder des Eintrags mit ins Secret, wird auf `data` mit den einzelnen Schlüsseln umgestellt.
+6. Hat die Application `prune: false` (z. B. `vocabolario-dev-app`, ebenso vocabolario, club20(-dev), clash), prunt Argo CD die SealedSecrets und PushSecrets nicht. Die Secrets behalten dann die ownerReference des SealedSecrets, und ESO kann sie nicht übernehmen. Nach dem Merge deshalb in Argo CD manuell mit Prune synchronisieren (nur die entfernten SealedSecrets und PushSecrets). `prune` der Application nicht dauerhaft umstellen, das ist eine eigene Änderung.
 
 ### Wellen und Reihenfolge
 
