@@ -66,6 +66,7 @@ Hinweis: `cluster/monitoring/kube-prometheus-stack/kps/values.yaml` definiert de
 - Neue App = neues Verzeichnis unter der passenden Gruppe in `cluster/`; die Zuordnung zu Projekt/Welle ergibt sich aus der Gruppe.
 - Kein Tab, keine CRLF, keine typografischen Anführungszeichen (pre-commit).
 - Die `README.md` verweist teils noch auf den Fork `rogerrum/k8s-gitops`; maßgeblich ist `rowa78/k8s-gitops`.
+- Apps, die große CRDs über das Chart installieren, setzen `argocd.argoproj.io/sync-options: ServerSideApply=true` an den CRDs (Grenze: 256 KB für `last-applied-configuration`). Prüfen mit `helm template … | yq -o=json -I=0 'select(.kind=="CustomResourceDefinition")' | awk '{print length}'`.
 
 ## Factory
 

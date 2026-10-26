@@ -1,2 +1,6 @@
 external-secrets:
   installCRDs: true
+  # Die CRDs sind zu gross fuer Client-Side-Apply (last-applied-configuration > 256 KB).
+  crds:
+    annotations:
+      argocd.argoproj.io/sync-options: ServerSideApply=true
