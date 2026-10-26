@@ -56,7 +56,7 @@ argo-cd:
         enabled: true
   server:
     extraArgs:
-      - --insecure 
+      - --insecure
     config:
       url: https://argocd.rwcloud.org
 #      admin.enabled: "false"
@@ -65,7 +65,7 @@ argo-cd:
 #        issuer: https://dex.auth.devmem.ru
 #        clientID: argocd
 #        clientSecret: $oidc.dex.clientSecret
-      
+
       configManagementPlugins: |
         - name: argocd-lovely-plugin
           generate:
@@ -104,19 +104,19 @@ argo-cd:
             args: ["kustomize build ."]
       statusbadge.enabled: "true"
       server.rbac.log.enforce.enable: "true"
-      exec.enabled: "true"                 
+      exec.enabled: "true"
     rbacConfig:
       policy.csv: |
         g, plattform-admins, role:admin
     ingress:
       enabled: false
       annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-production        
+        cert-manager.io/cluster-issuer: letsencrypt-production
         gethomepage.dev/enabled: "true"
         gethomepage.dev/description: ArgoCD
         gethomepage.dev/group: System
         gethomepage.dev/icon: https://argo-cd.readthedocs.io/en/stable/assets/logo.png
-        gethomepage.dev/name: ArgoCD        
+        gethomepage.dev/name: ArgoCD
         gethomepage.dev/pod-selector: ""
       ingressClassName: traefik
       hostname: "argocd.rwcloud.org"
@@ -239,7 +239,7 @@ argo-cd:
     #       secretKeyRef:
     #         name: argo-server-sso
     #         key: client-secret
-  
+
   configs:
     cm:
 
@@ -267,7 +267,7 @@ argo-cd:
           name: keycloak
           type: oidc
           id: keycloak
-          
+
       resource.exclusions: |
         - apiGroups:
           - velero.io
@@ -305,6 +305,5 @@ argo-cd:
 
 
 externalsecret: true
-sealedsecret: true
 createCertificate: true
 createIngressRoute: true
