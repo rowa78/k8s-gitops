@@ -247,5 +247,4 @@ lldap:
     host: lldap.internal.rwcloud.org
     tlsSecretName: lldap-tls
     clusterIssuer: letsencrypt-production
-    annotations: 
-      cert-manager.io/cluster-issuer: letsencrypt-production
+    annotations: {}
