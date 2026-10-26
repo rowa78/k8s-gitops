@@ -41,12 +41,32 @@ Hinweis: `cluster/monitoring/kube-prometheus-stack/kps/values.yaml` definiert de
 
 ## Konventionen
 
-- **Secrets nur über Vault/ExternalSecret**, nie als Klartext-`Secret` im Repo. Die vorhandenen `SealedSecret`s sind Altbestand und werden nicht neu eingeführt. Der pre-commit-Hook `forbid-secrets` ist nur ein zusätzliches Netz: Er fängt nur unverschlüsselte `kind: Secret`.
+- **Secrets nur über ExternalSecret (1Password)**, nie als Klartext-`Secret` im Repo. Die vorhandenen `SealedSecret`s sind Altbestand und werden nicht neu eingeführt (Migration je App später). Beispiel siehe unten. Der pre-commit-Hook `forbid-secrets` ist nur ein zusätzliches Netz: Er fängt nur unverschlüsselte `kind: Secret`.
+  Der External Secrets Operator (`cluster/system/external-secrets`) bietet den `ClusterSecretStore` `onepassword` auf den 1Password-Tresor `k8s`. Ein `ExternalSecret` verweist nur auf `<Eintrag>/<Feld>`, nie auf Werte; den Eintrag legt der Mensch in 1Password an:
+
+  ```yaml
+  apiVersion: external-secrets.io/v1
+  kind: ExternalSecret
+  metadata:
+    name: meine-app
+  spec:
+    refreshInterval: 1h
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: onepassword
+    target:
+      name: meine-app          # Name des erzeugten Kubernetes-Secrets
+    data:
+      - secretKey: password    # Schlüssel im Kubernetes-Secret
+        remoteRef:
+          key: meine-app/password   # <Eintrag>/<Feld> im Tresor k8s
+  ```
 - **`ansible/` nur ändern, wenn ein Issue es ausdrücklich nennt.**
 - Versionen werden von Renovate per PR angehoben (Commit-Titel wie „Update Helm release X to vY“); nicht von Hand mit Renovate-Updates kollidieren.
 - Neue App = neues Verzeichnis unter der passenden Gruppe in `cluster/`; die Zuordnung zu Projekt/Welle ergibt sich aus der Gruppe.
 - Kein Tab, keine CRLF, keine typografischen Anführungszeichen (pre-commit).
 - Die `README.md` verweist teils noch auf den Fork `rogerrum/k8s-gitops`; maßgeblich ist `rowa78/k8s-gitops`.
+- Apps, die große CRDs über das Chart installieren, setzen `argocd.argoproj.io/sync-options: ServerSideApply=true` an den CRDs (Grenze: 256 KB für `last-applied-configuration`). Prüfen mit `helm template … | yq -o=json -I=0 'select(.kind=="CustomResourceDefinition")' | awk '{print length}'`.
 
 ## Factory
 
