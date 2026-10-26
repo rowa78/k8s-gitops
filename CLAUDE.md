@@ -61,6 +61,25 @@ Hinweis: `cluster/monitoring/kube-prometheus-stack/kps/values.yaml` definiert de
         remoteRef:
           key: meine-app/password   # <Eintrag>/<Feld> im Tresor k8s
   ```
+
+  **Ganzer Eintrag per `dataFrom.extract`:** Jedes Feld des Eintrags wird zu einem Schlüssel im Secret. `deletionPolicy` bleibt beim Standard (nicht `Retain`).
+
+  ```yaml
+  spec:
+    refreshInterval: 1h
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: onepassword
+    target:
+      name: meine-app
+    dataFrom:
+      - extract:
+          key: meine-ns#meine-app   # Titel des Eintrags im Tresor k8s
+  ```
+
+  - **Namensschema** der Einträge im Tresor `k8s`: `<namespace>#<app>`. Die Felder heißen wie die gewünschten Secret-Schlüssel bzw. Umgebungsvariablen.
+  - **Faustregel:** `dataFrom.extract`, wenn alles aus einem Eintrag gebraucht wird; `data` für einzelne Felder oder umbenannte Schlüssel.
+  - **Hinweis:** Standardfelder des Eintrags (z. B. `username`, `notesPlain`) können mit ins Secret wandern. Feldnamen dürfen nur Buchstaben, Ziffern, `-`, `_`, `.` enthalten.
 - **`ansible/` nur ändern, wenn ein Issue es ausdrücklich nennt.**
 - Versionen werden von Renovate per PR angehoben (Commit-Titel wie „Update Helm release X to vY“); nicht von Hand mit Renovate-Updates kollidieren.
 - Neue App = neues Verzeichnis unter der passenden Gruppe in `cluster/`; die Zuordnung zu Projekt/Welle ergibt sich aus der Gruppe.
