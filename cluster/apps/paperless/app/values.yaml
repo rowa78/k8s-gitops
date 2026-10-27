@@ -100,6 +100,7 @@ paperless-ngx:
     # @default -- See [values.yaml](./values.yaml)
     main:
       enabled: true
+      ingressClassname: traefik
       annotations:
         nginx.ingress.kubernetes.io/proxy-body-size: 64m
         cert-manager.io/cluster-issuer: letsencrypt-production
