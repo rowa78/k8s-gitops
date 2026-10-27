@@ -26,7 +26,7 @@ Es gibt keinen klassischen Build/Test-Lauf. Geprüft wird statisch; dieselben Pf
 
 yamllint liest `.yamllint.yaml` (Basis `relaxed`, ohne Zeilenlänge, `templates/` ausgenommen, weil dort Go-Templates stehen). Gitleaks v8: `gitleaks detect` verwenden, nicht `gitleaks git`/`dir`.
 
-Ein Arbeitsstand gilt als fertig, wenn die Pflicht-Prüfungen und die YAML-Syntax fehlerfrei sind (Warnungen sind erlaubt) und kein Klartext-Secret enthalten ist. Altbestand nur in Dateien bereinigen, die der PR ohnehin anfasst. Nicht ausführbare Prüfungen im PR als „nicht geprüft“ nennen.
+Ein Arbeitsstand gilt als fertig, wenn die Pflicht-Prüfungen und die YAML-Syntax fehlerfrei sind (Warnungen sind erlaubt) und kein Klartext-Secret enthalten ist. Altbestand nur in Dateien bereinigen, die der PR ohnehin anfasst. Nicht ausführbare Prüfungen im PR als „nicht geprüft" nennen.
 
 Hinweis: `cluster/monitoring/kube-prometheus-stack/kps/values.yaml` definiert den Anker `&host` mehrfach. Das erlaubt die YAML-Spezifikation (yq und Helm akzeptieren es), strikte Parser wie PyYAML melden aber einen Fehler.
 
@@ -41,7 +41,7 @@ Hinweis: `cluster/monitoring/kube-prometheus-stack/kps/values.yaml` definiert de
 
 ## Konventionen
 
-- **Secrets nur über ExternalSecret (1Password)**, nie als Klartext-`Secret` im Repo. Die vorhandenen `SealedSecret`s sind Altbestand und werden nicht neu eingeführt (Migration je App später). Beispiel siehe unten. Der pre-commit-Hook `forbid-secrets` ist nur ein zusätzliches Netz: Er fängt nur unverschlüsselte `kind: Secret`.
+- **Secrets nur über ExternalSecret (1Password)**, nie als Klartext-`Secret` im Repo. Beispiel siehe unten. Der pre-commit-Hook `forbid-secrets` ist nur ein zusätzliches Netz: Er fängt nur unverschlüsselte `kind: Secret`.
   Der External Secrets Operator (`cluster/system/external-secrets`) bietet den `ClusterSecretStore` `onepassword` auf den 1Password-Tresor `k8s`. Ein `ExternalSecret` verweist nur auf `<Eintrag>/<Feld>`, nie auf Werte; den Eintrag legt der Mensch in 1Password an:
 
   ```yaml
@@ -80,14 +80,9 @@ Hinweis: `cluster/monitoring/kube-prometheus-stack/kps/values.yaml` definiert de
   - **Namensschema** der Einträge im Tresor `k8s`: `<namespace>#<app>`. Die Felder heißen wie die gewünschten Secret-Schlüssel bzw. Umgebungsvariablen.
   - **Faustregel:** `dataFrom.extract`, wenn alles aus einem Eintrag gebraucht wird; `data` für einzelne Felder oder umbenannte Schlüssel.
   - **Hinweis:** Standardfelder des Eintrags (z. B. `username`, `notesPlain`) können mit ins Secret wandern. Feldnamen dürfen nur Buchstaben, Ziffern, `-`, `_`, `.` enthalten.
-- **Migration SealedSecret → ExternalSecret** (Muster aus `renovate-rwcloud`, Spec `docs/specs/616-sealedsecret-migration.md`), in zwei getrennten Merges, weil Merge = Deploy:
-  1. Ein `PushSecret` (Store `onepassword-push`, `deletionPolicy: None`) schreibt das vorhandene Secret je Schlüssel in den Eintrag `<namespace>#<secret-name>` im Tresor `k8s`.
-  2. Prüfen (Mensch): PushSecret synced, Eintrag enthält alle Felder.
-  3. Umstellen: SealedSecret und PushSecret entfernen, `ExternalSecret` mit `dataFrom.extract` anlegen. Das Secret gehört dem SealedSecret; beim Prunen fehlt es kurz, bis ESO es neu anlegt. Danach prüfen, dass es dem ExternalSecret gehört und genau die erwarteten Schlüssel enthält (sonst `data` statt `dataFrom.extract`).
-     Hat die Application `prune: false`, nach dem Merge SealedSecret und PushSecret in Argo CD manuell prunen, sonst kann ESO das Secret nicht übernehmen.
-- **SealedSecrets nur noch für die Tokens der Secret-Stores** (Henne-Ei-Problem); alles andere ist ein ExternalSecret.
+- **SealedSecrets nur für die Tokens der Secret-Stores** (Henne-Ei-Problem; heute `onepassword-service-account`); alles andere ist ein ExternalSecret. Die Migration ist abgeschlossen (Spec `docs/specs/620-sealedsecret-migration-rollout.md`); der Schreib-Store `onepassword-push` existiert nicht mehr. Inaktive Alt-SealedSecrets (z. B. `s3-creds` in nicht deployten `postgres/`-/`database/`-Verzeichnissen) werden bei Reaktivierung gleich als ExternalSecret angelegt.
 - **`ansible/` nur ändern, wenn ein Issue es ausdrücklich nennt.**
-- Versionen werden von Renovate per PR angehoben (Commit-Titel wie „Update Helm release X to vY“); nicht von Hand mit Renovate-Updates kollidieren.
+- Versionen werden von Renovate per PR angehoben (Commit-Titel wie „Update Helm release X to vY"); nicht von Hand mit Renovate-Updates kollidieren.
 - Neue App = neues Verzeichnis unter der passenden Gruppe in `cluster/`; die Zuordnung zu Projekt/Welle ergibt sich aus der Gruppe.
 - Kein Tab, keine CRLF, keine typografischen Anführungszeichen (pre-commit).
 - Die `README.md` verweist teils noch auf den Fork `rogerrum/k8s-gitops`; maßgeblich ist `rowa78/k8s-gitops`.
@@ -99,6 +94,6 @@ Dieses Repo wird von der Agent Factory betreut (Konfiguration: `.factory.yml`). 
 
 - Specs liegen unter `docs/specs/<issue>-<slug>.md` und beschreiben, *warum* etwas so gebaut ist. Sie enthalten keinen Status.
 - Branches der Factory heißen `factory/<issue>-<slug>`.
-- **Neue Issues ohne `factory:*`-Label anlegen** – sie stehen dann unter „Neu“, eingeplant wird von Hand. `factory:inbox` (oder eine Station) nur, wenn ausdrücklich „einplanen“ gesagt wird.
+- **Neue Issues ohne `factory:*`-Label anlegen** – sie stehen dann unter „Neu", eingeplant wird von Hand. `factory:inbox` (oder eine Station) nur, wenn ausdrücklich „einplanen" gesagt wird.
 - **Vor Änderungen an Dateien: auf einem Issue-Branch `factory/<n>-…` arbeiten.** Wenn nicht: `/factory:work "<Titel>"` vorschlagen (legt Issue und Branch an, nimmt uncommittete Änderungen mit) bzw. `/factory:work <n>` für ein bestehendes Issue. Abschluss mit `/factory:handoff`. Lesen, Ausprobieren und Tests laufen lassen brauchen das nicht. Auf dem Standard-Branch sperrt ein Hook des Factory-Plugins Änderungen und Commits.
-- Wiederkehrende Review-Befunde werden hier unter „Konventionen“ ergänzt.
+- Wiederkehrende Review-Befunde werden hier unter „Konventionen" ergänzt.
