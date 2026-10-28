@@ -1,4 +1,4 @@
-traefik:  
+traefik:
   deployment:
     # -- Enable deployment
     enabled: true
@@ -12,7 +12,6 @@ traefik:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 1  # @schema type:[integer, string, null]
-      maxSurge:         # @schema type:[integer, string, null]
 
   service:
     enabled: false
@@ -23,13 +22,13 @@ traefik:
       - IPv6
     ipFamilyPolicy: PreferDualStack
 
-  
+
   ports:
     traefik:
       port: 8080
       nodePort: 30080
       # -- Use hostPort if set.
-      # hostPort:  
+      # hostPort:
     web:
       port: 8000
       nodePort: 30000
@@ -70,7 +69,7 @@ traefik:
   #     # By default, the level is set to INFO.
   #     # -- Alternative logging levels are TRACE, DEBUG, INFO, WARN, ERROR, FATAL, and PANIC.
   #     level: "INFO"  # @schema enum:[TRACE,DEBUG,INFO,WARN,ERROR,FATAL,PANIC]; default: "INFO"
-      
+
   #   access:
   #     # -- To enable access logs
   #     enabled: true
@@ -79,11 +78,11 @@ traefik:
   #     # filePath: "/var/log/traefik/access.log
 
   # experimental:
-  #   plugins: 
+  #   plugins:
   #     geoblock:
   #       moduleName: "github.com/PascalMinder/geoblock"
   #       version: "v0.3.7"
-  
+
   additionalArguments:
   #- "--entrypoints.websecure.http.middlewares=traefik-geblock@kubernetescrd"
   - "--providers.kubernetescrd.allowCrossNamespace=true"

@@ -1,5 +1,5 @@
 databasus:
-  
+
   extraEnv: []
   # - name: IS_DISABLE_ANONYMOUS_TELEMETRY
   #   value: "true"
@@ -45,7 +45,7 @@ databasus:
   ingress:
     enabled: true
     className: traefik
-    annotations: 
+    annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
       gethomepage.dev/href: "https://databasus.internal.rwcloud.org"
       gethomepage.dev/enabled: "true"

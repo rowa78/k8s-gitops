@@ -84,14 +84,14 @@ forgejo:
 
     config:
       APP_NAME: git.rwcloud.org
-      
-      database: 
+
+      database:
         DB_TYPE: postgres
         HOST: postgresql.fritz.box
         NAME: forgejodb
 
-      oauth2_client: 
-        OPENID_CONNECT_SCOPES: profile email roles        
+      oauth2_client:
+        OPENID_CONNECT_SCOPES: profile email roles
         ENABLE_AUTO_REGISTRATION: true
 
       server:
@@ -99,7 +99,7 @@ forgejo:
         SSH_LISTEN_PORT: 2222 # rootless image
         ROOT_URL: https://git.rwcloud.org/
 
-      service: 
+      service:
         DISABLE_REGISTRATION: false
         ALLOW_ONLY_EXTERNAL_REGISTRATION: true
         SHOW_REGISTRATION_BUTTON: false
@@ -111,4 +111,4 @@ forgejo:
         FROM: git@rwcloud.org
         PROTOCOL: smtps
         SMTP_ADDR: smtp.mailbox.org
-        SMTP_PORT: 465        
+        SMTP_PORT: 465

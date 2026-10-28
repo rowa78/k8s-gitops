@@ -24,7 +24,7 @@ sealed-secrets:
 
   ## @param commonLabels [object] Labels to add to all deployed resources
   ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
-  ## 
+  ##
   commonLabels: {}
 
   ## @section Sealed Secrets Parameters
@@ -87,10 +87,10 @@ sealed-secrets:
   ##
   additionalNamespaces: []
   ## @param privateKeyAnnotations Map of annotations to be set on the sealing keypairs
-  ## 
+  ##
   privateKeyAnnotations: {}
   ## @param privateKeyLabels Map of labels to be set on the sealing keypairs
-  ## 
+  ##
   privateKeyLabels: {}
   ## @param logInfoStdout Specifies whether the Sealed Secrets controller will log info to stdout
   ##
@@ -468,7 +468,7 @@ sealed-secrets:
       create: false
       ## @param metrics.dashboards.labels Extra labels to be added to the Grafana dashboard ConfigMap
       ##
-      labels: 
+      labels:
         grafana_dashboard: "1"
       ## @param metrics.dashboards.annotations Annotations to be added to the Grafana dashboard ConfigMap
       ##
@@ -615,7 +615,7 @@ sealed-secrets-web:
     className: "traefik"
 
     # -- Ingress annotations
-    annotations: 
+    annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
       gethomepage.dev/enabled: "true"
       gethomepage.dev/description: Sealed Secrets Web
@@ -641,7 +641,7 @@ sealed-secrets-web:
     defaultTls: false
 
     # -- Ingress tls
-    tls: 
+    tls:
     - hosts:
       - sealed-secrets.rwcloud.org
     #   - another-example.internal

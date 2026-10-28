@@ -25,17 +25,17 @@ spec:
   bootstrap:
     initdb:
       database: financetrackerdb
-      owner: financetracker 
+      owner: financetracker
   # bootstrap:
   #   recovery:
   #     source: financetrackerdb
 
   postgresql:
-    parameters:        
+    parameters:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
       hypopg.use_real_oids: 'true'
-     
+
   replicationSlots:
     highAvailability:
       enabled: true
@@ -51,7 +51,7 @@ spec:
   walStorage:
     size: 5Gi
     storageClass: longhorn-strict-local
-    
+
   plugins:
   - name: barman-cloud.cloudnative-pg.io
     isWALArchiver: true

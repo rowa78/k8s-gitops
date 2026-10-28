@@ -14,11 +14,11 @@
 #     path: cluster/apps/club20/postgres
 #   destination:
 #     name: in-cluster
-#     namespace: club20     
+#     namespace: club20
 #   syncPolicy:
 #     automated:
 #       prune: true
-#       selfHeal: true 
+#       selfHeal: true
 # # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application

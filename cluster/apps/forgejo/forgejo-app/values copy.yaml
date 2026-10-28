@@ -133,7 +133,7 @@ gitea:
       #clusterIP: None
       loadBalancerIP:
       nodePort: 30022
-      externalTrafficPolicy: 
+      externalTrafficPolicy:
       externalIPs:
       ipFamilyPolicy:
       ipFamilies:
@@ -155,7 +155,7 @@ gitea:
     # className: nginx
     className: nginx
     annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-production            
+      cert-manager.io/cluster-issuer: letsencrypt-production
       gethomepage.dev/enabled: "true"
       gethomepage.dev/description: Gitea
       gethomepage.dev/group: Apps
@@ -170,7 +170,7 @@ gitea:
         paths:
           - path: /
             pathType: Prefix
-    tls: 
+    tls:
       - secretName: git-certificate-tls
         hosts:
         - git.rwcloud.org
@@ -374,7 +374,7 @@ gitea:
 
     # Either specify inline `key` and `secret` or refer to them via `existingSecret`
     ## @param gitea.oauth OAuth configuration
-    oauth:      
+    oauth:
       - name: 'authelia'
         provider: openidConnect
       #  key:
@@ -394,7 +394,7 @@ gitea:
       #  RUN_MODE: dev
       server:
         SSH_PORT: 2222 # rootful image
-        SSH_LISTEN_PORT: 2222 # rootless image     
+        SSH_LISTEN_PORT: 2222 # rootless image
         ROOT_URL: https://git.rwcloud.org/
       service:
         DISABLE_REGISTRATION: false
@@ -428,7 +428,7 @@ gitea:
     #       name: gitea-app-ini-plaintext
 
     ## @param gitea.additionalConfigFromEnvs Additional configuration sources from environment variables
-    additionalConfigFromEnvs: 
+    additionalConfigFromEnvs:
       - name: GITEA__DATABASE__PASSWD
         valueFrom:
           secretKeyRef:
@@ -532,7 +532,7 @@ gitea:
         database: gitea
         password: gitea
         username: gitea
-      
+
     enabled: false
 
   ## @section PostgreSQL

@@ -25,17 +25,17 @@ spec:
   bootstrap:
     initdb:
       database: forgejodb
-      owner: forgejo 
+      owner: forgejo
   # bootstrap:
   #   recovery:
   #     source: forgejodb
 
   postgresql:
-    parameters:        
+    parameters:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
       hypopg.use_real_oids: 'true'
-     
+
   replicationSlots:
     highAvailability:
       enabled: true
@@ -47,10 +47,10 @@ spec:
 
   storage:
     size: 5Gi
-    storageClass: longhorn-strict-local 
+    storageClass: longhorn-strict-local
   walStorage:
     size: 4Gi
-    storageClass: longhorn-strict-local 
+    storageClass: longhorn-strict-local
 
   plugins:
   - name: barman-cloud.cloudnative-pg.io

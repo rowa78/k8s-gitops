@@ -13,8 +13,6 @@ spec:
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "open-notebook.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
         {{- include "open-notebook.labels" . | nindent 8 }}
     spec:
       containers:

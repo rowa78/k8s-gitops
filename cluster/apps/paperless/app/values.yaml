@@ -27,8 +27,8 @@ paperless-ngx:
       valueFrom:
         secretKeyRef:
           name: db-secret
-          key: password      
-    PAPERLESS_ADMIN_USER: 
+          key: password
+    PAPERLESS_ADMIN_USER:
       valueFrom:
         secretKeyRef:
           name: paperless
@@ -82,7 +82,7 @@ paperless-ngx:
     #PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
     #PAPERLESS_TIKA_ENDPOINT: http://tika:9998
     #PAPERLESS_URL: ${PAPERLESS_URL}
-    #PAPERLESS_SECRET_KEY: ${PAPERLESS_SECRET_KEY}    
+    #PAPERLESS_SECRET_KEY: ${PAPERLESS_SECRET_KEY}
     #PAPERLESS_OCR_LANGUAGE: ${PAPERLESS_OCR_LANGUAGE}
     #PAPERLESS_ADMIN_USER: ${PAPERLESS_ADMIN_USER}
     #PAPERLESS_ADMIN_PASSWORD: ${PAPERLESS_ADMIN_PASSWORD}

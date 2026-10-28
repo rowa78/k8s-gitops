@@ -14,11 +14,11 @@
 #     path: cluster/apps/open-notebook/misc
 #   destination:
 #     name: in-cluster
-#     namespace: open-notebook     
+#     namespace: open-notebook
 #   syncPolicy:
 #     automated:
 #       prune: true
-#       selfHeal: true 
+#       selfHeal: true
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
@@ -35,11 +35,11 @@
 #     path: cluster/apps/open-notebook/surrealdb
 #   destination:
 #     name: in-cluster
-#     namespace: open-notebook     
+#     namespace: open-notebook
 #   syncPolicy:
 #     automated:
 #       prune: true
-#       selfHeal: true 
+#       selfHeal: true
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application

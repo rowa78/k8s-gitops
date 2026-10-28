@@ -45,7 +45,7 @@ guacamole:
     contextPath: ROOT
     # -- Extra environment variables for the Guacamole container
     # -- @default -- `[]`
-    extraEnv: 
+    extraEnv:
       - name: OPENID_AUTHORIZATION_ENDPOINT
         valueFrom:
           secretKeyRef:
@@ -171,7 +171,7 @@ guacamole:
     enabled: true
     # -- Ingress class name (for example: traefik, nginx)
     ingressClassName: traefik
-    annotations:         
+    annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
     # -- Ingress hosts
     hosts:
@@ -180,7 +180,7 @@ guacamole:
           - path: /
             pathType: Prefix
     # -- Ingress TLS configuration
-    tls: 
+    tls:
       - hosts:
           - guacamole.rwcloud.org
         secretName: guacamole-tls
@@ -198,4 +198,3 @@ guacamole:
   mysql:
     # -- Enable the local MySQL chart
     enabled: false
-    

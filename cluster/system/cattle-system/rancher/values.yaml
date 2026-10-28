@@ -59,7 +59,7 @@ rancher:
     # options: true, false
     enabled: true
     includeDefaultExtraAnnotations: true
-    extraAnnotations: 
+    extraAnnotations:
       kubernetes.io/ingress.class: "traefik"
       gethomepage.dev/enabled: "true"
       gethomepage.dev/description: Rancher

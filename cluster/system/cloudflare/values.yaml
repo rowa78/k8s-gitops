@@ -43,9 +43,9 @@ cloudflared:
         originServerName: rwcloud.org
     - service: http_status:404
 
-external-dns:  
+external-dns:
   # -- [Environment variables](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/) for the `external-dns` container.
-  env: 
+  env:
   - name: CF_API_TOKEN
     valueFrom:
       secretKeyRef:
@@ -56,7 +56,7 @@ external-dns:
       secretKeyRef:
         name: external-dns-secrets
         key: endpoint
-  
+
   serviceMonitor:
     # -- If `true`, create a `ServiceMonitor` resource to support the _Prometheus Operator_.
     enabled: true
@@ -100,7 +100,7 @@ external-dns:
       - $(TARGET_URL)
     force-default-targets:
     #cloudflare-proxied:
-  
+
 
 # external-dns:
 #   # Copyright Broadcom, Inc. All Rights Reserved.
@@ -136,7 +136,7 @@ external-dns:
 #   #   # the loadbalancer-ip
 #   #   - --default-targets=10.18.41.8
 #   #   - --txt-new-format-only
-#   extraArgs: 
+#   extraArgs:
 #     default-targets:
 #     - $(TARGET_URL)
 #     txt-new-format-only:
@@ -340,4 +340,3 @@ external-dns:
 #       ## @param metrics.serviceMonitor.jobLabel The name of the label on the target service to use as the job name in prometheus.
 #       ##
 #       jobLabel: ""
-    

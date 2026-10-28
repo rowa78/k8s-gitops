@@ -141,4 +141,3 @@ gha-runner-scale-set-controller:
     # k8sClientRateLimiterQPS: 20
     # k8sClientRateLimiterBurst: 30
 
-    

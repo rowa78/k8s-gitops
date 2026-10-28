@@ -25,17 +25,17 @@ spec:
   bootstrap:
     initdb:
       database: paperlessdb
-      owner: paperless 
+      owner: paperless
   # bootstrap:
   #   recovery:
   #     source: paperlessdb
 
   postgresql:
-    parameters:        
+    parameters:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
       hypopg.use_real_oids: 'true'
-     
+
   replicationSlots:
     highAvailability:
       enabled: true

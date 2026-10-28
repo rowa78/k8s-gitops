@@ -34,7 +34,7 @@ spec:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
     path: cluster/apps/github-arc/runner-set-vocabolario
-    helm: 
+    helm:
       releaseName: arc-runner-set-vocabolario
   destination:
     name: in-cluster
@@ -59,7 +59,7 @@ spec:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
     path: cluster/apps/github-arc/runner-set-eve
-    helm: 
+    helm:
       releaseName: arc-runner-set-eve
   destination:
     name: in-cluster
@@ -84,7 +84,7 @@ spec:
     repoURL: https://github.com/rowa78/k8s-gitops.git
     targetRevision: main
     path: cluster/apps/github-arc/runner-set-finance-tracker
-    helm: 
+    helm:
       releaseName: arc-runner-set-finance-tracker
   destination:
     name: in-cluster
