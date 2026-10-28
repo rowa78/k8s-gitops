@@ -55,10 +55,10 @@ metadata:
     gethomepage.dev/href: "https://adguard.internal.rwcloud.org"
     gethomepage.dev/siteMonitor: "https://adguard.internal.rwcloud.org"
     gethomepage.dev/enabled: "true"
+    gethomepage.dev/external: "true"
     gethomepage.dev/description: AdGuard
     gethomepage.dev/group: Internal
     gethomepage.dev/icon: adguard-home.png
-    gethomepage.dev/pod-selector: ""
 spec:
   entryPoints:
     - websecure

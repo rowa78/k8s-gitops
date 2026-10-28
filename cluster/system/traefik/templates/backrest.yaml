@@ -28,7 +28,7 @@ subsets:
         port: 9898
 ---
 ###############################################################################
-# Certificate 
+# Certificate
 ###############################################################################
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -55,10 +55,10 @@ metadata:
     gethomepage.dev/href: "https://backrest.internal.rwcloud.org"
     gethomepage.dev/siteMonitor: "https://backrest.internal.rwcloud.org"
     gethomepage.dev/enabled: "true"
+    gethomepage.dev/external: "true"
     gethomepage.dev/description: Backrest
     gethomepage.dev/group: Internal
     gethomepage.dev/icon: backrest.png
-    gethomepage.dev/pod-selector: ""
 spec:
   entryPoints:
     - websecure

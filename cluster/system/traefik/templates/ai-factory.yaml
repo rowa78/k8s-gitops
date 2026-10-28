@@ -69,10 +69,10 @@ metadata:
     gethomepage.dev/href: "https://factory.rwcloud.org"
     gethomepage.dev/siteMonitor: "https://factory.rwcloud.org"
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/description: terra
+    gethomepage.dev/external: "true"
+    gethomepage.dev/description: AI Factory
     gethomepage.dev/group: System
     gethomepage.dev/icon: factory.png
-    gethomepage.dev/pod-selector: ""
 spec:
   entryPoints:
     - websecure
