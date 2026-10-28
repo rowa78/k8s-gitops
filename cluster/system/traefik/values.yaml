@@ -12,7 +12,6 @@ traefik:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 1  # @schema type:[integer, string, null]
-      maxSurge:         # @schema type:[integer, string, null]
 
   service:
     enabled: false
