@@ -13,7 +13,7 @@ openNotebook:
 
   # External SurrealDB connection (SurrealDB deployed separately via surrealdb/helm-charts)
   surrealdb:
-    url: ws://open-notebook-surrealdb:8000/rpc    
+    url: ws://open-notebook-surrealdb:8000/rpc
     namespace: open_notebook
     database: open_notebook
 
@@ -81,4 +81,3 @@ ingress:
     - secretName: open-notebook-api-tls
       hosts:
         - api.notebook.rwcloud.org
-  

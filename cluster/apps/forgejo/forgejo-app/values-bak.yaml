@@ -520,7 +520,7 @@ forgejo:
         ROOT_URL: https://git.rwcloud.org/
 
       ## @param gitea.config.database Database configuration (only necessary with an [externally managed DB](https://code.forgejo.org/forgejo-helm/forgejo-helm#external-database)).
-      database: 
+      database:
         DB_TYPE: postgres
         HOST: forgejodb-rw:5432
         NAME: forgejodb
@@ -547,12 +547,12 @@ forgejo:
         WHITELISTED_URIS: auth.rwcloud.org
 
       ## @param gitea.config.oauth2_client OAuth2 client settings
-      oauth2_client: 
-        OPENID_CONNECT_SCOPES: profile email roles        
+      oauth2_client:
+        OPENID_CONNECT_SCOPES: profile email roles
         ENABLE_AUTO_REGISTRATION: true
 
       ## @param gitea.config.service Configuration for miscellaneous Forgejo services
-      service: 
+      service:
         DISABLE_REGISTRATION: false
         ALLOW_ONLY_EXTERNAL_REGISTRATION: true
         SHOW_REGISTRATION_BUTTON: false

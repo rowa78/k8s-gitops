@@ -8,8 +8,8 @@ cert-manager:
   podDnsPolicy: "None"
   podDnsConfig:
     nameservers:
-    - "1.1.1.1"      
+    - "1.1.1.1"
   prometheus:
     enabled: true
     servicemonitor:
-      enabled: true    
+      enabled: true

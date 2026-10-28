@@ -100,7 +100,7 @@ immich:
               - path: "/"
                 service:
                   identifier: main
-        tls: 
+        tls:
           - secretName: start-tls
             hosts:
               - clash.rwcloud.org

@@ -1,4 +1,4 @@
-kube-prometheus-stack:  
+kube-prometheus-stack:
   crds:
     enabled: false
   fullnameOverride: prometheus
@@ -88,7 +88,7 @@ kube-prometheus-stack:
             resources:
               requests:
                 storage: 1Gi
-      
+
       podAntiAffinity: hard
     ingress:
       enabled: true
@@ -125,7 +125,7 @@ kube-prometheus-stack:
       enabled: true
       ingressClassName: traefik
       annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-production        
+        cert-manager.io/cluster-issuer: letsencrypt-production
         traefik.ingress.kubernetes.io/router.middlewares: >
           oauth2-proxy-oauth2-auth@kubernetescrd
         gethomepage.dev/enabled: "true"
@@ -163,7 +163,7 @@ kube-prometheus-stack:
           connMaxLifetime: 14400 # Grafana v5.4+
           postgresVersion: 1500 # 903=9.3, 904=9.4, 905=9.5, 906=9.6, 1000=10
           timescaledb: false
-        
+
     sidecar:
       datasources:
         enabled: true
@@ -246,8 +246,8 @@ kube-prometheus-stack:
         auto_login: true
         name: keycloak
 #        comes from secret; see envFromSecret
-#        client_id: 
-#        client_secret: 
+#        client_id:
+#        client_secret:
         scopes: openid profile email groups
         auth_url: https://auth.rwcloud.org/realms/rwcloud/protocol/openid-connect/auth
         token_url: https://auth.rwcloud.org/realms/rwcloud/protocol/openid-connect/token
@@ -260,7 +260,7 @@ kube-prometheus-stack:
         groups_attribute_path: groups
         name_attribute_path: name
     ldap:
-      enabled: false      
+      enabled: false
     envFromSecret: sealed-secrets-rwcloud
   prometheus:
     fullnameOverride: prometheus
@@ -283,17 +283,17 @@ kube-prometheus-stack:
             storageClassName: openebs-hostpath
             resources:
               requests:
-                storage: 70Gi     
+                storage: 70Gi
       ## How long to retain metrics
       ##
       retention: 10d
 
       ## Maximum size of metrics
       ##
-      retentionSize: "40GiB" 
+      retentionSize: "40GiB"
       podAntiAffinity: hard
-      thanos: {}        
-      additionalScrapeConfigs:      
+      thanos: {}
+      additionalScrapeConfigs:
         - job_name: 'haproxy'
           scrape_interval: 30s
           static_configs:
@@ -303,7 +303,7 @@ kube-prometheus-stack:
                 job: 'haproxy'
       #   - job_name: diskstation
       #     static_configs:
-      #       - targets: ['diskstation.tailscale.svc.cluster.local:9100']  
+      #       - targets: ['diskstation.tailscale.svc.cluster.local:9100']
         # - job_name: node
         #   static_configs:
         #   - targets: ['diskstation.tailscale.svc.cluster.local:9100']
@@ -391,7 +391,7 @@ kube-prometheus-stack:
     serviceMonitor:
       enabled: true
       https: true
-alertmanager-discord:  
+alertmanager-discord:
   image:
     # -- image repository
     repository: rogerrum/alertmanager-discord

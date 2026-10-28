@@ -59,7 +59,7 @@ cloudnative-pg:
     # -- The content of the configmap/secret, see
     # https://cloudnative-pg.io/documentation/current/operator_conf/#available-options
     # for all the available options.
-    data: 
+    data:
       INHERITED_ANNOTATIONS: k8up.io/backup, k8up.io/backupcommand, k8up.io/file-extension, tailscale.com/expose
     # INHERITED_ANNOTATIONS: categories
       #INHERITED_LABELS: tailscale.com/expose
@@ -143,7 +143,7 @@ cloudnative-pg:
       create: true
       # -- Label value that ConfigMaps should have to be loaded as dashboards.
       sidecarLabelValue: "1"
-      annotations: 
+      annotations:
         argocd.argoproj.io/sync-options: ServerSideApply=true
 
 

@@ -18,7 +18,7 @@
 #   syncPolicy:
 #     automated:
 #       prune: true
-#       selfHeal: true 
+#       selfHeal: true
 # ---
 # ---
 apiVersion: argoproj.io/v1alpha1
@@ -40,7 +40,7 @@ spec:
   syncPolicy:
     automated:
       prune: true
-      selfHeal: true 
+      selfHeal: true
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -57,7 +57,7 @@ spec:
     path: cluster/apps/openwebui/app
   destination:
     name: in-cluster
-    namespace: openwebui     
+    namespace: openwebui
   syncPolicy:
     automated:
       prune: true
@@ -78,7 +78,7 @@ spec:
 #     path: cluster/apps/openwebui/backup
 #   destination:
 #     name: in-cluster
-#     namespace: openwebui     
+#     namespace: openwebui
 #   syncPolicy:
 #     automated:
 #       prune: true
@@ -99,7 +99,7 @@ spec:
 #     path: cluster/apps/nextcloud/backup
 #   destination:
 #     name: in-cluster
-#     namespace: nextcloud     
+#     namespace: nextcloud
 #   syncPolicy:
 #     automated:
 #       prune: true

@@ -25,17 +25,17 @@ spec:
   bootstrap:
     initdb:
       database: club20db
-      owner: club20 
+      owner: club20
   # bootstrap:
   #   recovery:
   #     source: club20db
 
   postgresql:
-    parameters:        
+    parameters:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
       hypopg.use_real_oids: 'true'
-     
+
   replicationSlots:
     highAvailability:
       enabled: true

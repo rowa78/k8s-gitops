@@ -418,7 +418,7 @@ dependency-track:
     labels: {}
     hostname: "dtrack.rwcloud.org"
     ingressClassName: "traefik"
-    tls: 
+    tls:
     - secretName: dt-tls
       hosts:
         - dtrack.rwcloud.org

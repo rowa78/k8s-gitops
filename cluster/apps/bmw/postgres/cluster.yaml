@@ -25,17 +25,17 @@ spec:
   bootstrap:
     initdb:
       database: bmwdb
-      owner: bmw 
+      owner: bmw
   # bootstrap:
   #   recovery:
   #     source: bmwdb
 
   postgresql:
-    parameters:        
+    parameters:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
       hypopg.use_real_oids: 'true'
-     
+
   replicationSlots:
     highAvailability:
       enabled: true

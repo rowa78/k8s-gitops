@@ -20,7 +20,7 @@ appsets:
   - name: system
     project: system
     wave: -5
-  - name: monitoring    
+  - name: monitoring
     project: monitoring
     namespace: monitoring
     wave: 0
@@ -36,6 +36,6 @@ appsets:
     wave: 10
   # - name: pi
   #   prefix: pi
-  #   project: pi    
+  #   project: pi
   #   cluster: pi
   #   wave: 10

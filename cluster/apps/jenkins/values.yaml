@@ -417,7 +417,7 @@ jenkins:
     installLatestSpecifiedPlugins: false
 
     # -- List of plugins to install in addition to those listed in controller.installPlugins
-    additionalPlugins: 
+    additionalPlugins:
       - oic-auth
       - github
       - gradle
@@ -538,11 +538,11 @@ jenkins:
       # Ignored if securityRealm is defined in controller.JCasC.configScripts
       # -- Jenkins Config as Code Security Realm-section
       securityRealm: |-
-        oic:          
+        oic:
           clientId: "jenkins"
           clientSecret: "${openid-client-secret}"
           disableSslVerification: false
-          emailFieldName: "email"          
+          emailFieldName: "email"
           groupIdStrategy: "caseSensitive"
           logoutFromOpenidProvider: false
           serverConfiguration:
@@ -724,7 +724,7 @@ jenkins:
       # -- Ingress labels
       labels: {}
       # -- Ingress annotations
-      annotations: 
+      annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
         gethomepage.dev/enabled: "true"
         gethomepage.dev/description: Jenkins
@@ -750,7 +750,7 @@ jenkins:
       # -- Hostname to serve assets from
       resourceRootUrl:
       # -- Ingress TLS configuration
-      tls: 
+      tls:
       - secretName: jenkins-tls
         hosts:
           - jenkins.rwcloud.org

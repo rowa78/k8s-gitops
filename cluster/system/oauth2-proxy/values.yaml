@@ -40,8 +40,8 @@ oauth2-proxy:
       cookie_secure=true
       cookie_refresh = "2m"
       cookie_expire = "24h"
-      scope="openid"      
-      whitelist_domains=[".rwcloud.org"]      
+      scope="openid"
+      whitelist_domains=[".rwcloud.org"]
       pass_access_token = true
       pass_authorization_header = true
       pass_user_headers = true
@@ -59,7 +59,7 @@ oauth2-proxy:
     # existingConfig: config
   extraArgs:
     - --skip-provider-button
-    - --reverse-proxy 
+    - --reverse-proxy
   ingress:
     enabled: true
     className: traefik
@@ -215,7 +215,7 @@ oauth2-proxy:
       #   action: replace
 
 
-redis:  
+redis:
   redisStandalone:
     name: "redis"
     redisSecret:
@@ -224,11 +224,11 @@ redis:
 
   redisExporter:
     enabled: true
-    
+
   serviceMonitor:
     enabled: true
     interval: 30s
-    
+
   storageSpec:
     volumeClaimTemplate:
       spec:

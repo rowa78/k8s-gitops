@@ -4,8 +4,8 @@ metadata:
   name: minio
 spec:
   configuration:
-    endpointURL: "http://rustfs-app-svc.rustfs.svc.cluster.local:9000"      
-    destinationPath: "s3://rwcloud-postgres/"       
+    endpointURL: "http://rustfs-app-svc.rustfs.svc.cluster.local:9000"
+    destinationPath: "s3://rwcloud-postgres/"
     s3Credentials:
       accessKeyId:
         name: s3-creds
@@ -14,6 +14,6 @@ spec:
         name: s3-creds
         key: aws_secret_access_key
     wal:
-      compression: bzip2        
+      compression: bzip2
       maxParallel: 8
   retentionPolicy: "5d"

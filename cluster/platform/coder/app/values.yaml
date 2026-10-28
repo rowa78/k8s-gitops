@@ -25,7 +25,7 @@ coder:
     #
     # We will additionally set CODER_ACCESS_URL if unset to the cluster service
     # URL, unless coder.envUseClusterAccessURL is set to false.
-    env: 
+    env:
       - name: "CODER_ACCESS_URL"
         value: "https://coder.rwcloud.org"
       - name: CODER_PG_CONNECTION_URL
@@ -434,7 +434,7 @@ coder:
       # Be sure to also set CODER_WILDCARD_ACCESS_URL within coder.env[]
       wildcardHost: ""
       # coder.ingress.annotations -- The ingress annotations.
-      annotations: 
+      annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
       # coder.ingress.tls -- The TLS configuration to use for the Ingress.
       tls:
