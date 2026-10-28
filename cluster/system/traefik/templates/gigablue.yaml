@@ -53,6 +53,7 @@ metadata:
   namespace: default
   annotations:
     gethomepage.dev/href: "https://gigablue.internal.rwcloud.org"
+    gethomepage.dev/siteMonitor: "https://gigablue.internal.rwcloud.org"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/description: Gigablue Receiver
     gethomepage.dev/group: Internal

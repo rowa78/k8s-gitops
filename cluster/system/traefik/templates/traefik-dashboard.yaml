@@ -35,6 +35,7 @@ metadata:
     gethomepage.dev/description: Traefik Dashboard
     gethomepage.dev/group: Internal
     gethomepage.dev/icon: traefik.png
+    gethomepage.dev/pod-selector: ""
 spec:
   entryPoints:
     - websecure

@@ -53,6 +53,7 @@ metadata:
   namespace: default
   annotations:
     gethomepage.dev/href: "https://ds.ronnywalter.de"
+    gethomepage.dev/siteMonitor: "https://ds.ronnywalter.de"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/description: Diskstation
     gethomepage.dev/group: System
