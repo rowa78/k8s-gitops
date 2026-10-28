@@ -53,7 +53,7 @@ databasus:
       gethomepage.dev/description: Databasus
       gethomepage.dev/group: Internal
       gethomepage.dev/icon: databasus.png
-      gethomepage.dev/pod-selector: "app.kubernetes.io/instance: databasus"
+      gethomepage.dev/pod-selector: "app.kubernetes.io/instance=databasus"
     hosts:
       - host: &host databasus.internal.rwcloud.org
         paths:
