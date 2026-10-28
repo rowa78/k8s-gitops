@@ -4,3 +4,22 @@ external-secrets:
   crds:
     annotations:
       argocd.argoproj.io/sync-options: ServerSideApply=true
+  # Prometheus-Metriken (kube-prometheus-stack waehlt alle ServiceMonitor ohne Label-Filter aus).
+  serviceMonitor:
+    enabled: true
+    # Argo CD rendert ohne Cluster-Capabilities; daher nicht auf die CRD-Erkennung verlassen.
+    renderMode: alwaysRender
+  # Grafana-Dashboard als ConfigMap, vom Grafana-Sidecar (label grafana_dashboard) geladen.
+  grafanaDashboard:
+    enabled: true
+  metrics:
+    service:
+      enabled: true
+  webhook:
+    metrics:
+      service:
+        enabled: true
+  certController:
+    metrics:
+      service:
+        enabled: true
