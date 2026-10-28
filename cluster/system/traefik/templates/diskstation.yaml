@@ -53,11 +53,12 @@ metadata:
   namespace: default
   annotations:
     gethomepage.dev/href: "https://ds.ronnywalter.de"
+    gethomepage.dev/siteMonitor: "https://ds.ronnywalter.de"
     gethomepage.dev/enabled: "true"
+    gethomepage.dev/external: "true"
     gethomepage.dev/description: Diskstation
     gethomepage.dev/group: System
     gethomepage.dev/icon: synology.png
-    gethomepage.dev/pod-selector: ""
 spec:
   entryPoints:
     - websecure

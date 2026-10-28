@@ -57,6 +57,7 @@ backrest:
       gethomepage.dev/description: Backrest (k3s-luna)
       gethomepage.dev/group: Internal
       gethomepage.dev/icon: backrest.png
+      gethomepage.dev/pod-selector: ""
     hosts:
       - host: &host backrest-luna.internal.rwcloud.org
         paths:

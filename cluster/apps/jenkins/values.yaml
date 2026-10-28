@@ -731,6 +731,7 @@ jenkins:
         gethomepage.dev/group: Apps
         gethomepage.dev/icon: jenkins.png
         gethomepage.dev/name: Jenkins
+        gethomepage.dev/pod-selector: ""
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
         traefik.ingress.kubernetes.io/router.middlewares: jenkins-jenkins-forwarded-headers@kubernetescrd
         traefik.ingress.kubernetes.io/router.tls: "true"

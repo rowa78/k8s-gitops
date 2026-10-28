@@ -53,11 +53,12 @@ metadata:
   namespace: default
   annotations:
     gethomepage.dev/href: "https://haproxy.internal.rwcloud.org/stats"
+    gethomepage.dev/siteMonitor: "https://haproxy.internal.rwcloud.org/stats"
     gethomepage.dev/enabled: "true"
+    gethomepage.dev/external: "true"
     gethomepage.dev/description: HAProxy
     gethomepage.dev/group: Internal
     gethomepage.dev/icon: haproxy.png
-    gethomepage.dev/pod-selector: ""
 spec:
   entryPoints:
     - websecure

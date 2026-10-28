@@ -53,6 +53,7 @@ databasus:
       gethomepage.dev/description: Databasus
       gethomepage.dev/group: Internal
       gethomepage.dev/icon: databasus.png
+      gethomepage.dev/pod-selector: ""
     hosts:
       - host: &host databasus.internal.rwcloud.org
         paths:

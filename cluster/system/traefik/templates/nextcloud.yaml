@@ -53,11 +53,12 @@ metadata:
   namespace: default
   annotations:
     gethomepage.dev/href: "https://nextcloud.rwcloud.org"
+    gethomepage.dev/siteMonitor: "https://nextcloud.rwcloud.org"
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/description: terra
+    gethomepage.dev/external: "true"
+    gethomepage.dev/description: Nextcloud
     gethomepage.dev/group: System
     gethomepage.dev/icon: nextcloud.png
-    gethomepage.dev/pod-selector: ""
 spec:
   entryPoints:
     - websecure
