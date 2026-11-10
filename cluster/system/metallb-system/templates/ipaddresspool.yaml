@@ -7,6 +7,8 @@ metadata:
     argocd.argoproj.io/sync-wave: "5"
 spec:
   addresses:
-    - 192.168.0.240-192.168.0.250
+    # .240 ist die AdGuard-VM, .245 der Node k3s-luna – beide nicht im Pool
+    - 192.168.0.241-192.168.0.244
+    - 192.168.0.246-192.168.0.250
     - fd00:2222::240-fd00:2222::250
   autoAssign: true

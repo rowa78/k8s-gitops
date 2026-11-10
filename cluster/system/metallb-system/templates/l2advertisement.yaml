@@ -8,5 +8,6 @@ metadata:
 spec:
   ipAddressPools:
     - lan
+  # Interface des Nodes k3s-luna (br0 gibt es dort nicht – dann kündigt MetalLB nichts an)
   interfaces:
-    - br0
+    - eth0
